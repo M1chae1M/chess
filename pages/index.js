@@ -31,11 +31,16 @@ export default class App extends Component{
     const changeState=(newState)=>this.setState(newState)
 
     const move=()=>{
-      const copyOf={...figureState};
+      let copyOf={...figureState};
 
       const attackedField=(copyOf, fieldToAttack)=>{
         const dest=copyOf?.[fieldToAttack.field]?.[fieldToAttack.rowName]
         if(dest){
+          
+          
+          dest.attackedField=false;
+
+
           if(whiteOnMove){
             if(dest.figure==='King' && dest.color==='black'){
               copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
@@ -229,7 +234,6 @@ export default class App extends Component{
 
         const attackingStaticTest=()=>{
           const test=()=>{
-
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
               copyOf[x].map((y, i)=>{
                 const figureAttack=()=>allAtacks[copyOf[x][i].figure]({field:x, rowName:i});
@@ -256,8 +260,7 @@ export default class App extends Component{
             const fromChar=from.field.charCodeAt();
             const toChar=to.field.charCodeAt();
 
-
-            console.log('try to move')
+            console.log('try to move');
 
             const moveFigure=()=>{
               // copyOf[from.field][from.rowName-1].attackedField=false;
@@ -476,9 +479,17 @@ export default class App extends Component{
               Queen:queenMove,
               King:kingMove,
             }
-            allMoves[previousField?.figure]?.()
+            allMoves[previousField?.figure]?.();
+
+            // ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>{
+            //   if(copyOf[x][i].figure==='King') console.log(copyOf[x][i])
+            // }));
           }
         }
+
+
+
+
 
         if(fromColor==='white' && whiteOnMove) tryToMove(fromColor, toColor)
         else if(fromColor==='black' && !whiteOnMove) tryToMove(fromColor, toColor)

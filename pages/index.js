@@ -49,17 +49,14 @@ export default class App extends Component{
           else if(!whiteOnMove){
             if(dest.figure==='King' && dest.color==='white'){
             copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
-
             }
             else if(dest.figure!=='King'){
             copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
-
             }
           }
         }
         return copyOf
       }
-
 
       const allAtacks={
         Knight:(data)=>{
@@ -233,282 +230,25 @@ export default class App extends Component{
         const fromColor=previousField.color;
         const toColor=destinationField.color;
 
-        // const attackedField=(copyOf, fieldToAttack)=>{
-        //   const dest=copyOf?.[fieldToAttack.field]?.[fieldToAttack.rowName]
-        //   if(dest) copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
-        //   return copyOf
-        // }
         const attackingStaticTest=()=>{
           const test=()=>{
-            // console.log('start testing');
-            let didcheque=false;
-
-            const kopiaKopii=JSON.parse(JSON.stringify(copyOf));
-
-            // ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
-              // copyOf[x].map((y, i)=>{
-
-
-                // copyOf[x][i].attackedField=false;
-
-
-                // if(copyOf?.[x]?.[i] && copyOf?.[x]?.[i].attackedField===true && copyOf?.[x]?.[i].figure==='King'){
-
-                  // if(!whiteOnMove){
-                    // copyOf[x][i].attackedField=false;
-                    // console.log(from)
-                    // console.log(to)
-                    // copyOf[to.field][to.rowName-1]={figure:'Queen',color:'black'}
-                  // }
-                  // if(!whiteOnMove){
-                    // copyOf[x][i].attackedField=false
-                    // console.log(copyOf[x][i])
-                    // console.log(from)
-                    // console.log(to)
-                    // copyOf[to.field][to.rowName]=copyOf[from.field][from.rowName]
-                    // copyOf[String.fromCharCode(to.field.charCodeAt()+1)][to.rowName]={figure:'Queen', color:'black'}
-                    // test(copyOf)
-                    // copyOf['D'][6]={figure:'Queen', color:'black'}
-                    // this.setState({figureState:copyOf})
-                  // }
-                // }
-              // }));
-
-
 
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
               copyOf[x].map((y, i)=>{
-                // const figureAttack=()=>allAtacks[copyOf?.[x]?.[i]?.figure]({field:x, rowName:i});
                 const figureAttack=()=>allAtacks[copyOf[x][i].figure]({field:x, rowName:i});
-                // const figureAttack=()=>allAtacks[copyOf[x][i].figure!=='' && copyOf[x][i].figure]({field:x, rowName:i});
-
-                // if(whiteOnMove){
-                //   copyOf['C'][6]={figure:'Queen', color:'black'}
-                // }
-                // console.log(to);
-                // console.log(from);
-                // if(whiteOnMove){
-                // copyOf[to.field][to.rowName-1]={figure:'Queen', color:'black'}
-                // copyOf[to.field][to.rowName-1]=copyOf[from.field][from.rowName-1];
-                // copyOf[to.field][to.rowName-1]={figure:'Queen', color:'white'};
-                // }
 
                 ((!whiteOnMove && copyOf[x][i].color==='black') || (whiteOnMove && copyOf[x][i].color==='white'))
                 && figureAttack();
-                // if(
-                //   ((!whiteOnMove && copyOf[x][i]?.color==='black') || (whiteOnMove && copyOf[x][i]?.color==='white'))
-                //   &&
-                //   copyOf[x][i].figure==='King'
-                // ){
-                //   // console.log('Krółl')
-                //   console.log(copyOf[x][i])
-                // }
               })
             );
           }
-          // const allAtacks={
-          //   Knight:(data)=>{
-          //     const {field, rowName}=data;
-          //     const shortedAttackedField=(chField, chRow)=>attackedField(copyOf, {field:String.fromCharCode(field.charCodeAt()+chField), rowName:rowName+chRow})
-          //     const upper=()=>{
-          //       shortedAttackedField(-1,2)
-          //       shortedAttackedField(1,2)
-          //     }
-          //     const lower=()=>{
-          //       shortedAttackedField(-1,-2)
-          //       shortedAttackedField(1,-2)
-          //     }
-          //     const right=()=>{
-          //       shortedAttackedField(2,-1)
-          //       shortedAttackedField(2,1)
-          //     }
-          //     const left=()=>{
-          //       shortedAttackedField(-2,-1)
-          //       shortedAttackedField(-2,1)
-          //     }
-          //     upper()
-          //     lower()
-          //     right()
-          //     left()
-          //   },
-          //   Pawn:(data)=>{
-          //     const {field, rowName}=data;
-          //     const shortedAttackedField=(chField, chRow)=>attackedField(copyOf, {field:String.fromCharCode(field.charCodeAt()+chField), rowName:rowName+chRow})
-          //     if(whiteOnMove){
-          //       shortedAttackedField(1, 1)
-          //       shortedAttackedField(-1, 1)
-          //     }
-          //     else if (!whiteOnMove){
-          //       shortedAttackedField(1, -1)
-          //       shortedAttackedField(-1, -1)
-          //     }
-          //   },
-          //   King:(data)=>{
-          //     const {field, rowName}=data;
-          //     const shortedAttackedField=(chField, chRow)=>attackedField(copyOf, {field:String.fromCharCode(field.charCodeAt()+chField), rowName:rowName+chRow})
-
-          //     const vertical=()=>{
-          //       shortedAttackedField(0,-1)
-          //       shortedAttackedField(0,1)
-          //     }
-          //     const horisontal=()=>{
-          //       const left=()=>{
-          //         shortedAttackedField(-1,0)
-          //         shortedAttackedField(-1,-1)
-          //         shortedAttackedField(-1,1)
-          //       }
-          //       const right=()=>{
-          //         shortedAttackedField(1,0)
-          //         shortedAttackedField(1,-1)
-          //         shortedAttackedField(1,1)
-          //       }
-          //       left()
-          //       right()
-          //     }
-
-          //     vertical()
-          //     horisontal()
-          //   },
-          //   Bishop:(data)=>{
-          //     const {field, rowName}=data;
-          //     const shortedAttackedField=(chField, chRow)=>attackedField(copyOf, {field:String.fromCharCode(field.charCodeAt()+chField), rowName:rowName+chRow})
-
-          //     const bottom=()=>{
-          //       const left=()=>{
-          //         let canAttack=true;
-          //         for(let i=1;i<8;i++){
-          //           canAttack && shortedAttackedField(-i, -i)
-          //           if(copyOf?.[String.fromCharCode(field.charCodeAt()-i)]?.[rowName-i]?.figure!=='') canAttack=false
-          //         }
-          //       }
-          //       const right=()=>{
-          //         let canAttack=true;
-          //         for(let i=1;i<8;i++){
-          //           canAttack && shortedAttackedField(i, -i)
-          //           if(copyOf?.[String.fromCharCode(field.charCodeAt()+i)]?.[rowName-i]?.figure!=='') canAttack=false
-          //         }
-          //       }
-          //       left()
-          //       right()
-          //     }
-          //     const top=()=>{
-          //       const right=()=>{
-          //         let canAttack=true;
-          //         for(let i=1;i<8;i++){
-          //           canAttack && shortedAttackedField(i, i)
-          //           if(copyOf?.[String.fromCharCode(field.charCodeAt()+i)]?.[rowName+i]?.figure!=='') canAttack=false
-          //         }
-          //       }
-          //       const left=()=>{
-          //         let canAttack=true;
-          //         for(let i=1;i<8;i++){
-          //           canAttack && shortedAttackedField(-i, i)
-          //           if(copyOf?.[String.fromCharCode(field.charCodeAt()-i)]?.[rowName+i]?.figure!=='') canAttack=false
-          //         }
-          //       }
-          //       right()
-          //       left()
-          //     }
-    
-          //     bottom()
-          //     top()
-          //   },
-          //   Rook:(data)=>{
-          //     const {field, rowName}=data;
-          //     const shortedAttackedField=(chField, chRow)=>attackedField(copyOf, {field:String.fromCharCode(field.charCodeAt()+chField), rowName:rowName+chRow})
-
-          //     const horisontal=()=>{
-          //       const left=()=>{
-          //         let canAttack=true;
-          //         for(let i=1;i<8;i++){
-          //           canAttack && shortedAttackedField(-i, 0)
-          //           if(copyOf?.[String.fromCharCode(field.charCodeAt()-i)]?.[rowName]?.figure!=='') canAttack=false
-          //         }
-          //       }
-          //       const right=()=>{
-          //         let canAttack=true;
-          //         for(let i=1;i<8;i++){
-          //           canAttack && shortedAttackedField(i, 0)
-          //           if(copyOf?.[String.fromCharCode(field.charCodeAt()+i)]?.[rowName]?.figure!=='') canAttack=false
-          //         }
-          //       }
-          //       left()
-          //       right()
-          //     }
-          //     const vertical=()=>{
-          //       const top=()=>{
-          //         let canAttack=true;
-          //         for(let i=1;i<8;i++){
-          //           canAttack && shortedAttackedField(0, +i)
-          //           if(copyOf?.[field]?.[rowName+i]?.figure!=='') canAttack=false
-          //         }
-          //       }
-          //       const bottom=()=>{
-          //         let canAttack=true;
-          //         for(let i=1;i<8;i++){
-          //           canAttack && shortedAttackedField(0, -i)
-          //           if(copyOf?.[field]?.[rowName-i]?.figure!=='') canAttack=false
-          //         }
-          //       }
-          //       top()
-          //       bottom()
-          //     }
-          //     horisontal()
-          //     vertical()
-          //   },
-          //   Queen:(data)=>{
-          //     allAtacks.Rook(data)
-          //     allAtacks.Bishop(data)
-          //     this.setState({figureState:copyOf})
-          //   },
-          // }
           const removeAttackingAttribute=()=>{
             let canRemove=true;
-            // console.log('start removing');
-            // ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>copyOf[x][i].attackedField=false));
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>{
               if(copyOf[x][i].figure!=='King') copyOf[x][i].attackedField=false
-              // copyOf[x][i].attackedField=false
-
-
-              // if(copyOf[x][i]?.figure==='King' && canRemove) copyOf[x][i].attackedField=false
-
-              // copyOf[x][i].attackedField=false
-              // if(copyOf[x][i]?.figure==='King' && whiteOnMove && copyOf[x][i]?.color==='black') console.log(copyOf[x][i])
-              // if(copyOf[x][i]?.figure==='King' && !whiteOnMove && copyOf[x][i]?.color==='white') console.log(copyOf[x][i])
-              // test(copyOf);
             }));
-            // console.log(copyOf['E'][7])
-            // this.setState({figureState:copyOf}, test(copyOf))
             test(copyOf);
-            
-
-
-    
-            // console.log(copyOf['E'][7])
-
-
-
-
-            // ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
-            //   copyOf[x].map((y, i)=>{
-
-            //     if(copyOf[x][i]){
-            //       if(copyOf[x][i].figure==='King' && !whiteOnMove && copyOf[x][i].color==='black'){
-            //         if(copyOf[x][i].attackedField===false){
-            //           this.setState({figureState:copyOf});
-            //         }else{
-            //           this.setState({figureState:kopiaKopii});
-            //         }
-            //       }
-            //     }
-            // }));
-
-            
           }
-            // test(copyOf)
-            // removeAttackingAttribute()
-
             removeAttackingAttribute()
             test(copyOf)
           return test
@@ -826,8 +566,6 @@ stillChequered=false;
             allMoves[previousField?.figure]?.()
           }
         }
-
-
 
         if(fromColor==='white' && whiteOnMove) tryToMove(fromColor, toColor)
         else if(fromColor==='black' && !whiteOnMove) tryToMove(fromColor, toColor)

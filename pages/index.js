@@ -244,12 +244,24 @@ export default class App extends Component{
             let didcheque=false;
 
             const kopiaKopii=JSON.parse(JSON.stringify(copyOf));
-            ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
-              copyOf[x].map((y, i)=>{
-                if(copyOf?.[x]?.[i] && copyOf?.[x]?.[i].attackedField===true && copyOf?.[x]?.[i].figure==='King'){
+
+            // ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
+              // copyOf[x].map((y, i)=>{
+
+
+                // copyOf[x][i].attackedField=false;
+
+
+                // if(copyOf?.[x]?.[i] && copyOf?.[x]?.[i].attackedField===true && copyOf?.[x]?.[i].figure==='King'){
 
                   // if(!whiteOnMove){
-                    copyOf[x][i].attackedField=false
+                    // copyOf[x][i].attackedField=false;
+                    // console.log(from)
+                    // console.log(to)
+                    // copyOf[to.field][to.rowName-1]={figure:'Queen',color:'black'}
+                  // }
+                  // if(!whiteOnMove){
+                    // copyOf[x][i].attackedField=false
                     // console.log(copyOf[x][i])
                     // console.log(from)
                     // console.log(to)
@@ -259,8 +271,8 @@ export default class App extends Component{
                     // copyOf['D'][6]={figure:'Queen', color:'black'}
                     // this.setState({figureState:copyOf})
                   // }
-                }
-              }));
+                // }
+              // }));
 
 
 
@@ -268,12 +280,21 @@ export default class App extends Component{
               copyOf[x].map((y, i)=>{
                 // const figureAttack=()=>allAtacks[copyOf?.[x]?.[i]?.figure]({field:x, rowName:i});
                 const figureAttack=()=>allAtacks[copyOf[x][i].figure]({field:x, rowName:i});
-
-              
                 // const figureAttack=()=>allAtacks[copyOf[x][i].figure!=='' && copyOf[x][i].figure]({field:x, rowName:i});
+
+                // if(whiteOnMove){
+                //   copyOf['C'][6]={figure:'Queen', color:'black'}
+                // }
+                // console.log(to);
+                // console.log(from);
+                // if(whiteOnMove){
+                // copyOf[to.field][to.rowName-1]={figure:'Queen', color:'black'}
+                // copyOf[to.field][to.rowName-1]=copyOf[from.field][from.rowName-1];
+                // copyOf[to.field][to.rowName-1]={figure:'Queen', color:'white'};
+                // }
+
                 ((!whiteOnMove && copyOf[x][i].color==='black') || (whiteOnMove && copyOf[x][i].color==='white'))
                 && figureAttack();
-
                 // if(
                 //   ((!whiteOnMove && copyOf[x][i]?.color==='black') || (whiteOnMove && copyOf[x][i]?.color==='white'))
                 //   &&
@@ -447,6 +468,9 @@ export default class App extends Component{
             // ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>copyOf[x][i].attackedField=false));
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>{
               if(copyOf[x][i].figure!=='King') copyOf[x][i].attackedField=false
+              // copyOf[x][i].attackedField=false
+
+
               // if(copyOf[x][i]?.figure==='King' && canRemove) copyOf[x][i].attackedField=false
 
               // copyOf[x][i].attackedField=false
@@ -454,13 +478,14 @@ export default class App extends Component{
               // if(copyOf[x][i]?.figure==='King' && !whiteOnMove && copyOf[x][i]?.color==='white') console.log(copyOf[x][i])
               // test(copyOf);
             }));
+            // console.log(copyOf['E'][7])
             // this.setState({figureState:copyOf}, test(copyOf))
             test(copyOf);
             
 
 
     
-            console.log(copyOf['E'][7])
+            // console.log(copyOf['E'][7])
 
 
 

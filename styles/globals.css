@@ -1,0 +1,19 @@
+*{box-sizing:border-box;padding:0;margin:0;}
+html,body,#root,#App{width:100vw;height:100vh;position:relative;}
+
+.Fields>*{
+width:33px;
+height:33px;
+}
+
+.Figure{
+border:solid yellow 3px;
+}
+
+.attackedField{
+border:solid orangered 3px;
+}
+
+.chequered{
+border:solid red 3px !important;
+}

@@ -37,9 +37,7 @@ export default class App extends Component{
         const dest=copyOf?.[fieldToAttack.field]?.[fieldToAttack.rowName]
         if(dest){
           
-          
           dest.attackedField=false;
-
 
           if(whiteOnMove){
             if(dest.figure==='King' && dest.color==='black'){
@@ -263,13 +261,15 @@ export default class App extends Component{
             console.log('try to move');
 
             const moveFigure=()=>{
-              // copyOf[from.field][from.rowName-1].attackedField=false;
 
               copyOf[to.field][to.rowName-1]=copyOf[from.field][from.rowName-1]
               copyOf[to.field][to.rowName-1].moved=true;
               copyOf[from.field][from.rowName-1]={figure:''};
 
-    this.setState({figureState:copyOf, whiteOnMove:!whiteOnMove}, attackingStaticTest());
+              this.setState({figureState:copyOf}, attackingStaticTest());
+              // this.setState({figureState:copyOf, whiteOnMove:!whiteOnMove}, attackingStaticTest());
+
+
 
             }
             const rookMove=()=>{
@@ -498,6 +498,11 @@ export default class App extends Component{
     return(
       <div id='App'>
         <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove}}>
+          <input type='button'
+          value='change ture'
+          onClick={()=>{
+            this.setState({whiteOnMove:!whiteOnMove})
+          }}/>
           <div style={styles.container}>
             <Board>
               {xAxis.map((x,i)=><Row key={x} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}

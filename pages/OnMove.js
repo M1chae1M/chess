@@ -6,7 +6,6 @@ export default class OnMove extends Component{
     const {whiteOnMove}=this.props;
     const styles={
       onMove:{
-        // display:'inline-block',
         display:'grid',
         gridTemplateColumns:'auto auto',
         width:'fit-content',

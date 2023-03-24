@@ -1,5 +1,4 @@
-// FiFlag
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {FiFlag} from 'react-icons/fi';
 
 export default class Surrender extends Component{
@@ -17,14 +16,13 @@ export default class Surrender extends Component{
       // let areYouSure=
       if(confirm('czy na pewno?')){
         console.log('podał się')
-      }else{
-        console.log('gram dalej')
+        alert(`${whiteOnMove?'Black':'White'} win this game!`);
+        localStorage.removeItem('data');
+        
       }
 
       // console.log(areYouSure)
     }
-    return(
-      <FiFlag style={styles.Flag} id="Surrender" onClick={surrender}/>
-    )
+    return <FiFlag style={styles.Flag} id="Surrender" onClick={surrender}/>
   }
 }

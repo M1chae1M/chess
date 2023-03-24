@@ -267,6 +267,10 @@ export default class App extends Component{
               copyOf[from.field][from.rowName-1]={figure:''};
 
               this.setState({figureState:copyOf}, attackingStaticTest());
+
+              if(copyOf['E'][7].attackedField===false){
+                this.setState({whiteOnMove:!whiteOnMove})
+              }
               // this.setState({figureState:copyOf, whiteOnMove:!whiteOnMove}, attackingStaticTest());
 
 
@@ -498,11 +502,10 @@ export default class App extends Component{
     return(
       <div id='App'>
         <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove}}>
-          <input type='button'
-          value='change ture'
-          onClick={()=>{
+          <input type='button' value='change ture' onClick={()=>{
             this.setState({whiteOnMove:!whiteOnMove})
-          }}/>
+            // console.log(this.state.figureState['E'][7])
+            }}/>
           <div style={styles.container}>
             <Board>
               {xAxis.map((x,i)=><Row key={x} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}

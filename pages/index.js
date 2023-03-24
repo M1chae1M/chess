@@ -268,8 +268,9 @@ export default class App extends Component{
               copyOf[to.field][to.rowName-1].moved=true;
               copyOf[from.field][from.rowName-1]={figure:''};
 
-              this.setState({figureState:copyOf}, attackingStaticTest());
-              
+              // this.setState({figureState:copyOf}, attackingStaticTest());
+              // this.setState({figureState:copyOf}, attackingStaticTest());
+              attackingStaticTest();
 
               ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
                 copyOf[x].map((y, i)=>{
@@ -284,7 +285,7 @@ export default class App extends Component{
                         console.log(from)
                         copyOf[from.field][from.rowName-1]=copyOf[to.field][to.rowName-1];
                         copyOf[to.field][to.rowName-1]={figure:''};
-                        
+
                       }
                     }
                   }
@@ -299,14 +300,12 @@ export default class App extends Component{
                         console.log(from)
                         copyOf[from.field][from.rowName-1]=copyOf[to.field][to.rowName-1];
                         copyOf[to.field][to.rowName-1]={figure:''};
-                        
                       }
                     }
                   }
                 }
                 })
               );
-
               // this.setState({figureState:copyOf, whiteOnMove:!whiteOnMove}, attackingStaticTest());
 
             }

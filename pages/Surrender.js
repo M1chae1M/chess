@@ -4,6 +4,7 @@ import {FiFlag} from 'react-icons/fi';
 
 export default class Surrender extends Component{
   render(){
+    const {whiteOnMove}=this.props;
     const styles={
       Flag:{
         display:'inline-block',
@@ -11,8 +12,19 @@ export default class Surrender extends Component{
         width:'30px',
       }
     }
+    const surrender=()=>{
+      console.log(whiteOnMove)
+      // let areYouSure=
+      if(confirm('czy na pewno?')){
+        console.log('podał się')
+      }else{
+        console.log('gram dalej')
+      }
+
+      // console.log(areYouSure)
+    }
     return(
-      <FiFlag style={styles.Flag} id="Surrender"/>
+      <FiFlag style={styles.Flag} id="Surrender" onClick={surrender}/>
     )
   }
 }

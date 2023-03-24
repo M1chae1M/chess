@@ -21,7 +21,7 @@ export default class OnMove extends Component{
           <input type="checkbox" checked={!whiteOnMove} readOnly/>
           <span className="slider"></span>
         </label>
-        <Surrender/>
+        <Surrender whiteOnMove={whiteOnMove}/>
       </div>
     )
   }

@@ -283,7 +283,6 @@ export default class App extends Component{
             const toChar=to.field.charCodeAt();
 
             const moveFigure=()=>{
-
               const kopy=JSON.parse(JSON.stringify(copyOf));
               let whoAttacks=this.state.checkAttacksState;
 

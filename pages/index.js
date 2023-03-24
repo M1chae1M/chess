@@ -550,8 +550,6 @@ export default class App extends Component{
     return(
       <div id='App'>
         <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove}}>
-          <input type='button' value='save In Local Storage' onClick={()=>{this.saveInLocalStorage(this)}}/>
-          <input type='button' value='download from Local Storage' onClick={()=>{this.downloadFromLocalStorage(this)}}/>
           <div style={styles.container}>
             <Board>
               {xAxis.map((x,i)=><Row key={x} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}

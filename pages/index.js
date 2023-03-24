@@ -281,6 +281,10 @@ export default class App extends Component{
                       }
                       else if(copyOf[x][i].attackedField===true){
                         console.log('musisz się najpierw obronić przed matem')
+                        console.log(from)
+                        copyOf[from.field][from.rowName-1]=copyOf[to.field][to.rowName-1];
+                        copyOf[to.field][to.rowName-1]={figure:''};
+                        
                       }
                     }
                   }
@@ -292,6 +296,10 @@ export default class App extends Component{
                         this.setState({whiteOnMove:true})
                       }else if(copyOf[x][i].attackedField===true){
                         console.log('musisz się najpierw obronić przed matem')
+                        console.log(from)
+                        copyOf[from.field][from.rowName-1]=copyOf[to.field][to.rowName-1];
+                        copyOf[to.field][to.rowName-1]={figure:''};
+                        
                       }
                     }
                   }

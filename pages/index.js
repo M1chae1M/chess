@@ -270,7 +270,7 @@ export default class App extends Component{
 
               // this.setState({figureState:copyOf}, attackingStaticTest());
               // this.setState({figureState:copyOf}, attackingStaticTest());
-              attackingStaticTest();
+              // attackingStaticTest();
 
               ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
                 copyOf[x].map((y, i)=>{

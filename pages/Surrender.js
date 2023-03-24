@@ -12,7 +12,7 @@ export default class Surrender extends Component{
       }
     }
     return(
-      <FiFlag style={styles.Flag}/>
+      <FiFlag style={styles.Flag} id="Surrender"/>
     )
   }
 }

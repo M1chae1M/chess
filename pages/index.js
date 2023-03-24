@@ -242,7 +242,7 @@ export default class App extends Component{
             );
           }
           const removeAttackingAttribute=()=>{
-            let canRemove=true;
+            // let canRemove=true;
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>{
               if(copyOf[x][i].figure!=='King') copyOf[x][i].attackedField=false
             }));
@@ -285,7 +285,7 @@ export default class App extends Component{
                         console.log(from)
                         copyOf[from.field][from.rowName-1]=copyOf[to.field][to.rowName-1];
                         copyOf[to.field][to.rowName-1]={figure:''};
-
+                        // attackingStaticTest();
                       }
                     }
                   }
@@ -298,15 +298,31 @@ export default class App extends Component{
                       }else if(copyOf[x][i].attackedField===true){
                         console.log('musisz się najpierw obronić przed matem')
                         console.log(from)
+                        // attackingStaticTest();
                         copyOf[from.field][from.rowName-1]=copyOf[to.field][to.rowName-1];
                         copyOf[to.field][to.rowName-1]={figure:''};
+
+                        // ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>{
+                        //   if(copyOf[x][i].figure!=='King') copyOf[x][i].attackedField=false
+                        // }));
+                        // attackingStaticTest();
+                        // attackingStaticTest();
+
+                        // test(copyOf);
+
                       }
                     }
                   }
                 }
                 })
               );
+
+
+
+              // attackingStaticTest();
               // this.setState({figureState:copyOf, whiteOnMove:!whiteOnMove}, attackingStaticTest());
+              // this.setState({figureState:copyOf});
+              // this.setState({figureState:copyOf}, attackingStaticTest());
 
             }
             const rookMove=()=>{

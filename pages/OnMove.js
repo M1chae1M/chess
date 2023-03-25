@@ -3,7 +3,7 @@ import Surrender from "./Surrender";
 
 export default class OnMove extends Component{
   render(){
-    const {whiteOnMove}=this.props;
+    const {whiteOnMove, changeState}=this.props;
     const styles={
       onMove:{
         display:'grid',
@@ -20,7 +20,7 @@ export default class OnMove extends Component{
           <input type="checkbox" checked={!whiteOnMove} readOnly/>
           <span className="slider"></span>
         </label>
-        <Surrender whiteOnMove={whiteOnMove}/>
+        <Surrender whiteOnMove={whiteOnMove}  changeState={changeState}/>
       </div>
     )
   }

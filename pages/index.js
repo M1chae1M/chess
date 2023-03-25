@@ -12,7 +12,7 @@ export default class App extends Component{
   state={
     from:{},
     to:{},
-    figureState:positions,
+    figureState:{...positions},
     whiteOnMove:true,
     showPromotionModal:false,
     lastPawn:'',
@@ -23,11 +23,12 @@ export default class App extends Component{
     this.downloadFromLocalStorage(this)
   }
   saveInLocalStorage=(component)=>{
-    localStorage.setItem('data', JSON.stringify({board:component.state.figureState, move:component.state.whiteOnMove}))
+    localStorage.setItem('data', JSON.stringify({board:component.state.figureState, move:!component.state.whiteOnMove}))
   }
   downloadFromLocalStorage=(component)=>{
     const downloadedData=localStorage.getItem('data');
     const parsed=downloadedData && JSON.parse(downloadedData);
+    console.log(parsed)
     parsed && component.setState({figureState:parsed.board, whiteOnMove:parsed.move})
   }
   render(){
@@ -553,7 +554,7 @@ export default class App extends Component{
             <Board>
               {xAxis.map((x,i)=><Row key={x} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}
             </Board>
-            <OnMove whiteOnMove={whiteOnMove}/>
+            <OnMove whiteOnMove={whiteOnMove} changeState={changeState}/>
             {/* <Timers whiteOnMove={whiteOnMove}/> */}
           </div>
           {showPromotionModal && <PromotionModal color={whiteOnMove?'white':'black'}/>}

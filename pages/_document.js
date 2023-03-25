@@ -77,12 +77,8 @@ export const positions={
     {figure:'Pawn',color:'white', moved:false},
     {figure:''},
     {figure:''},
-
     {figure:''},
     {figure:''}, 
-
-
-
     // {figure:'Pawn',color:'white', moved:true},
     // {figure:''},
     // {figure:''}, 

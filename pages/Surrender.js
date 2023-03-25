@@ -16,8 +16,18 @@ export default class Surrender extends Component{
       if(confirm('czy na pewno?')){
         alert(`${whiteOnMove?'Black':'White'} win this game!`);
         localStorage.removeItem('data');
-        changeState({figureState:{}, notification:{}})
-        changeState({figureState:positions, whiteOnMove:true, notification:[]})
+        const newPosition=Object.assign({}, {...positions});
+        changeState({
+          // figureState:{},
+          // figureState:positions,
+          //, notification:null,
+        })
+        changeState({
+          // figureState:positions,
+          figureState:newPosition,
+          whiteOnMove:true,
+          notification:[],
+        })
       }
     }
     return <FiFlag style={styles.Flag} id="Surrender" onClick={surrender}/>

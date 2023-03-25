@@ -26,13 +26,24 @@ export default class App extends Component{
     this.downloadFromLocalStorage(this)
   }
   saveInLocalStorage=(component)=>{
-    localStorage.setItem('data', JSON.stringify({board:component.state.figureState, move:!component.state.whiteOnMove, notation:component.state.notation}))
+    localStorage.setItem('data', JSON.stringify({
+      checkAttacksState:!component.state.checkAttacksState,
+      board:component.state.figureState,
+      move:!component.state.whiteOnMove,
+      notation:component.state.notation,
+      moveID:component.state.moveID+1,
+    }))
   }
   downloadFromLocalStorage=(component)=>{
     const downloadedData=localStorage.getItem('data');
     const parsed=downloadedData && JSON.parse(downloadedData);
-    console.log(parsed)
-    parsed && component.setState({figureState:parsed.board, whiteOnMove:parsed.move, notation:parsed.notation})
+    parsed && component.setState({
+      figureState:parsed.board,
+      whiteOnMove:parsed.move,
+      notation:parsed.notation,
+      checkAttacksState:parsed.checkAttacksState,
+      moveID:parsed.moveID,
+    })
   }
   render(){
     const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notation}=this.state;
@@ -383,6 +394,8 @@ export default class App extends Component{
                       const checkNewAttackingFields=attackingStaticTest(allAtacks, figureState, whiteOnMove)
                       checkNewAttackingFields()
                     })
+                    // .then(this.setState({figureState:copyOf}))
+                    // .then(this.saveInLocalStorage(this))
                   });
                 }
 
@@ -394,6 +407,8 @@ export default class App extends Component{
                   (Math.abs(to.field.charCodeAt()-from.field.charCodeAt())>0) &&
                   copyOf?.[to.field]?.[to.rowName-1]?.figure!=='' &&
                   checkNewAttackingFieldsBeforePromotion();
+
+                  // this.setState({figureState:copyOf}, this.saveInLocalStorage(this))
                 }
               }
               pawnPromotion()
@@ -442,6 +457,7 @@ export default class App extends Component{
                 if(previousField.moved===false && Math.abs(steps)<=2) canMovePawn()
                 else if(previousField.moved===true && Math.abs(steps)===1) canMovePawn()
               }
+              this.saveInLocalStorage(this);
             }
             const knightMove=()=>{
               const condition1=(change)=>Math.abs(toChar-fromChar)===change
@@ -485,8 +501,8 @@ export default class App extends Component{
                   }
                 }
                 if(didntJump){
-                  moveFigure()
-                  this.setState({lastPawn:''})
+                  moveFigure();
+                  this.setState({lastPawn:''});
                 }
               }
             }
@@ -509,7 +525,8 @@ export default class App extends Component{
                       if(didntJump){
                         copyOf[String.fromCharCode(fromChar+1)][from.rowName-1]=returnRookPosition(+3);
                         copyOf[String.fromCharCode(fromChar+3)][from.rowName-1]={figure:''};
-                        moveFigure()
+                        moveFigure();
+                        this.saveInLocalStorage(this);
                       }
                     }
                   }
@@ -524,7 +541,8 @@ export default class App extends Component{
                       if(didntJump){
                         copyOf[String.fromCharCode(fromChar-1)][from.rowName-1]=returnRookPosition(-4);
                         copyOf[String.fromCharCode(fromChar-4)][from.rowName-1]={figure:''};
-                        moveFigure()
+                        moveFigure();
+                        this.saveInLocalStorage(this);
                       }
                     }
                   }
@@ -535,7 +553,7 @@ export default class App extends Component{
 
               condition1 && condition2 &&
               copyOf[String.fromCharCode(toChar)][to.rowName-1].attackedField!==true &&
-              moveFigure()
+              moveFigure();
             }
             const queenMove=()=>{
               rookMove()

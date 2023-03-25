@@ -19,8 +19,8 @@ export default class Surrender extends Component{
         localStorage.removeItem('data');
         console.log(positions);
         let newState=positions;
-        changeState({figureState:{}})
-        changeState({figureState:positions, whiteOnMove:true})
+        changeState({figureState:{}, notification:{}})
+        changeState({figureState:positions, whiteOnMove:true, notification:[]})
       }
     }
     return <FiFlag style={styles.Flag} id="Surrender" onClick={surrender}/>

@@ -26,13 +26,13 @@ export default class App extends Component{
     this.downloadFromLocalStorage(this)
   }
   saveInLocalStorage=(component)=>{
-    localStorage.setItem('data', JSON.stringify({board:component.state.figureState, move:!component.state.whiteOnMove}))
+    localStorage.setItem('data', JSON.stringify({board:component.state.figureState, move:!component.state.whiteOnMove, notation:component.state.notation}))
   }
   downloadFromLocalStorage=(component)=>{
     const downloadedData=localStorage.getItem('data');
     const parsed=downloadedData && JSON.parse(downloadedData);
     console.log(parsed)
-    parsed && component.setState({figureState:parsed.board, whiteOnMove:parsed.move})
+    parsed && component.setState({figureState:parsed.board, whiteOnMove:parsed.move, notation:parsed.notation})
   }
   render(){
     const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notation}=this.state;
@@ -564,24 +564,9 @@ export default class App extends Component{
       const toField=`${to.field}${to.rowName}`;
 
       const movedFigure=this.state.figureState[to.field][to.rowName-1].figure;
-      // console.log(whiteOnMove)
-      // console.log(fromField)
-  
       const addNewMoveToNotation=notation;
-      // console.log(toField)
-      // console.log(movedFigure);
-
-      // console.log(`${moveID}. ${movedFigure} ${fromField}=>${toField}`);
-      addNewMoveToNotation.push({figureToDraw:movedFigure, moveID:moveID, color:`${whiteOnMove?'white':'black'}`, text:`${fromField}=>${toField}`})
-      this.setState({moveID:moveID+1,
-        notation:addNewMoveToNotation
-      });
-
-      // let movedFigure=figureState[from.field][from.rowName-1].figure;
-      // let movedFigure2=figureState[to.field][to.rowName-1].figure;
-
-      // console.log(movedFigure);
-      // console.log(movedFigure2);
+      addNewMoveToNotation.push({figureToDraw:movedFigure, moveID:moveID, color:`${whiteOnMove?'white':'black'}`, text:`${fromField}=>${toField}`});
+      this.setState({moveID:moveID+1, notation:addNewMoveToNotation});
     }
     return(
       <div id='App'>

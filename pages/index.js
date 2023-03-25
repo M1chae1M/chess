@@ -19,6 +19,8 @@ export default class App extends Component{
     lastPawn:'',
     lastMoveColor:'black',
     checkAttacksState:false,
+    moveID:1,
+    notation:[],
   }
   componentDidMount(){
     this.downloadFromLocalStorage(this)
@@ -33,7 +35,7 @@ export default class App extends Component{
     parsed && component.setState({figureState:parsed.board, whiteOnMove:parsed.move})
   }
   render(){
-    const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState}=this.state;
+    const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notation}=this.state;
     const xAxis=[1, 2, 3, 4, 5, 6, 7, 8].reverse();
     const styles={
       container:{
@@ -558,21 +560,24 @@ export default class App extends Component{
     }
 
     const addToNotation=()=>{
-      // console.log(from.field);
-      // console.log(from.rowName-1);
-
-      // console.log(to.field);
-      // console.log(to.rowName-1);
-
       const fromField=`${from.field}${from.rowName}`;
       const toField=`${to.field}${to.rowName}`;
 
       const movedFigure=this.state.figureState[to.field][to.rowName-1].figure;
       console.log(whiteOnMove)
       console.log(fromField)
+  
+      const addNewMoveToNotation=notation;
       console.log(toField)
       console.log(movedFigure);
 
+      console.log(
+        `${moveID}. ${movedFigure} ${fromField}=>${toField}`
+      );
+      addNewMoveToNotation.push(`${moveID}. ${movedFigure} ${fromField}=>${toField}`)
+      this.setState({moveID:moveID+1,
+        notation:addNewMoveToNotation
+      });
 
       // let movedFigure=figureState[from.field][from.rowName-1].figure;
       // let movedFigure2=figureState[to.field][to.rowName-1].figure;
@@ -589,7 +594,7 @@ export default class App extends Component{
             </Board>
             <OnMove whiteOnMove={whiteOnMove} changeState={changeState}/>
             {/* <Timers whiteOnMove={whiteOnMove}/> */}
-            <ChessNotation/>
+            <ChessNotation notation={notation}/>
           </div>
           {showPromotionModal && <PromotionModal color={whiteOnMove?'white':'black'}/>}
         </PositionsContext.Provider>

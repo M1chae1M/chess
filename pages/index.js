@@ -5,6 +5,7 @@ import React,{Component} from 'react';
 import PromotionModal from './PromotionModal';
 import {figure, positions} from './_document';
 import Timers from './Timers';
+import ChessNotation from './ChessNotation';
 
 export const PositionsContext=React.createContext();
 
@@ -297,31 +298,39 @@ export default class App extends Component{
                 const short=copyOf[x][i];
 
                 if(short.figure==='King' && short.attackedField===true && short.color==='black' && checkAttacksState){
-                  attackingStaticTest(allAtacks, copyOf, true)
+                  attackingStaticTest(allAtacks, copyOf, true);
                   this.setState({figureState:kopy, whiteOnMove:false, checkAttacksState:true});
                 }
                 else if(short.field==='King' && short.attackedField===false && short.color==='black' && checkAttacksState){
                   this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:true});
-                  attackingStaticTest(allAtacks, copyOf, true)
-                  this.saveInLocalStorage(this)
+                  attackingStaticTest(allAtacks, copyOf, true);
+                  this.saveInLocalStorage(this);
+
+                  addToNotation();
                 }
                 else if(short.figure==='King' && short.attackedField===true && short.color==='white' && !checkAttacksState){
-                  attackingStaticTest(allAtacks, copyOf, false)
+                  attackingStaticTest(allAtacks, copyOf, false);
                   this.setState({figureState:kopy, whiteOnMove:true, checkAttacksState:false});
                 }
                 else if(short.field==='King' && short.attackedField===false && short.color==='white' && !checkAttacksState){
                   this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:true});
-                  attackingStaticTest(allAtacks, copyOf, true)
-                  this.saveInLocalStorage(this)
+                  attackingStaticTest(allAtacks, copyOf, true);
+                  this.saveInLocalStorage(this);
+
+                  addToNotation();
                 }
                 else if(whiteOnMove && short.figure==='King' && short.color==='white' && short.attackedField===false){
                   this.setState({figureState:copyOf, whiteOnMove:false, checkAttacksState:true});
-                  attackingStaticTest(allAtacks, copyOf, true)
-                  this.saveInLocalStorage(this)
+                  attackingStaticTest(allAtacks, copyOf, true);
+                  this.saveInLocalStorage(this);
+
+                  addToNotation()
                 }else if(!whiteOnMove && short.figure==='King' && short.color==='black' && short.attackedField===false){
                   this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:false});
-                  attackingStaticTest(allAtacks, copyOf, false)
-                  this.saveInLocalStorage(this)
+                  attackingStaticTest(allAtacks, copyOf, false);
+                  this.saveInLocalStorage(this);
+
+                  addToNotation();
                 }
               }));
             }
@@ -547,6 +556,30 @@ export default class App extends Component{
         else if(fromColor==='black' && !whiteOnMove) tryToMove(fromColor, toColor)
       }
     }
+
+    const addToNotation=()=>{
+      // console.log(from.field);
+      // console.log(from.rowName-1);
+
+      // console.log(to.field);
+      // console.log(to.rowName-1);
+
+      const fromField=`${from.field}${from.rowName}`;
+      const toField=`${to.field}${to.rowName}`;
+
+      const movedFigure=this.state.figureState[to.field][to.rowName-1].figure;
+      console.log(whiteOnMove)
+      console.log(fromField)
+      console.log(toField)
+      console.log(movedFigure);
+
+
+      // let movedFigure=figureState[from.field][from.rowName-1].figure;
+      // let movedFigure2=figureState[to.field][to.rowName-1].figure;
+
+      // console.log(movedFigure);
+      // console.log(movedFigure2);
+    }
     return(
       <div id='App'>
         <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove}}>
@@ -556,6 +589,7 @@ export default class App extends Component{
             </Board>
             <OnMove whiteOnMove={whiteOnMove} changeState={changeState}/>
             {/* <Timers whiteOnMove={whiteOnMove}/> */}
+            <ChessNotation/>
           </div>
           {showPromotionModal && <PromotionModal color={whiteOnMove?'white':'black'}/>}
         </PositionsContext.Provider>

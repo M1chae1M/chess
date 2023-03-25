@@ -564,17 +564,15 @@ export default class App extends Component{
       const toField=`${to.field}${to.rowName}`;
 
       const movedFigure=this.state.figureState[to.field][to.rowName-1].figure;
-      console.log(whiteOnMove)
-      console.log(fromField)
+      // console.log(whiteOnMove)
+      // console.log(fromField)
   
       const addNewMoveToNotation=notation;
-      console.log(toField)
-      console.log(movedFigure);
+      // console.log(toField)
+      // console.log(movedFigure);
 
-      console.log(
-        `${moveID}. ${movedFigure} ${fromField}=>${toField}`
-      );
-      addNewMoveToNotation.push(`${moveID}. ${movedFigure} ${fromField}=>${toField}`)
+      // console.log(`${moveID}. ${movedFigure} ${fromField}=>${toField}`);
+      addNewMoveToNotation.push({figureToDraw:movedFigure, moveID:moveID, color:`${whiteOnMove?'white':'black'}`, text:`${fromField}=>${toField}`})
       this.setState({moveID:moveID+1,
         notation:addNewMoveToNotation
       });

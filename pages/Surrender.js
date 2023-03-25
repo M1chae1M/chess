@@ -17,16 +17,18 @@ export default class Surrender extends Component{
         alert(`${whiteOnMove?'Black':'White'} win this game!`);
         localStorage.removeItem('data');
         const newPosition=Object.assign({}, {...positions});
+        // const newNotification=Object.assign({}, []);
+        const newTable=[];
         changeState({
-          // figureState:{},
-          // figureState:positions,
-          //, notification:null,
+        //   // figureState:{},
+        //   // figureState:positions,
+          // notification:'',
         })
         changeState({
           // figureState:positions,
           figureState:newPosition,
           whiteOnMove:true,
-          notification:[],
+          notification:newTable,
         })
       }
     }

@@ -5,7 +5,7 @@ import React,{Component} from 'react';
 import PromotionModal from './PromotionModal';
 import {figure, positions} from './_document';
 import Timers from './Timers';
-import ChessNotation from './ChessNotation';
+import ChessNotification from './ChessNotification';
 
 export const PositionsContext=React.createContext();
 
@@ -20,7 +20,7 @@ export default class App extends Component{
     lastMoveColor:'black',
     checkAttacksState:false,
     moveID:1,
-    notation:[],
+    notification:[],
   }
   componentDidMount(){
     this.downloadFromLocalStorage(this)
@@ -30,7 +30,7 @@ export default class App extends Component{
       checkAttacksState:!component.state.checkAttacksState,
       board:component.state.figureState,
       move:!component.state.whiteOnMove,
-      notation:component.state.notation,
+      notification:component.state.notification,
       moveID:component.state.moveID+1,
     }))
   }
@@ -40,13 +40,13 @@ export default class App extends Component{
     parsed && component.setState({
       figureState:parsed.board,
       whiteOnMove:parsed.move,
-      notation:parsed.notation,
+      notification:parsed.notification,
       checkAttacksState:parsed.checkAttacksState,
       moveID:parsed.moveID,
     })
   }
   render(){
-    const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notation}=this.state;
+    const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notification}=this.state;
     const xAxis=[1, 2, 3, 4, 5, 6, 7, 8].reverse();
     const styles={
       container:{
@@ -319,7 +319,7 @@ export default class App extends Component{
                   attackingStaticTest(allAtacks, copyOf, true);
                   this.saveInLocalStorage(this);
 
-                  addToNotation();
+                  addTonotification();
                 }
                 else if(short.figure==='King' && short.attackedField===true && short.color==='white' && !checkAttacksState){
                   attackingStaticTest(allAtacks, copyOf, false);
@@ -330,20 +330,20 @@ export default class App extends Component{
                   attackingStaticTest(allAtacks, copyOf, true);
                   this.saveInLocalStorage(this);
 
-                  addToNotation();
+                  addTonotification();
                 }
                 else if(whiteOnMove && short.figure==='King' && short.color==='white' && short.attackedField===false){
                   this.setState({figureState:copyOf, whiteOnMove:false, checkAttacksState:true});
                   attackingStaticTest(allAtacks, copyOf, true);
                   this.saveInLocalStorage(this);
 
-                  addToNotation()
+                  addTonotification()
                 }else if(!whiteOnMove && short.figure==='King' && short.color==='black' && short.attackedField===false){
                   this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:false});
                   attackingStaticTest(allAtacks, copyOf, false);
                   this.saveInLocalStorage(this);
 
-                  addToNotation();
+                  addTonotification();
                 }
               }));
             }
@@ -577,14 +577,14 @@ export default class App extends Component{
       }
     }
 
-    const addToNotation=()=>{
+    const addTonotification=()=>{
       const fromField=`${from.field}${from.rowName}`;
       const toField=`${to.field}${to.rowName}`;
 
       const movedFigure=this.state.figureState[to.field][to.rowName-1].figure;
-      const addNewMoveToNotation=notation;
-      addNewMoveToNotation.push({figureToDraw:movedFigure, moveID:moveID, color:`${whiteOnMove?'white':'black'}`, text:`${fromField}=>${toField}`});
-      this.setState({moveID:moveID+1, notation:addNewMoveToNotation});
+      const addNewMoveTonotification=notification;
+      addNewMoveTonotification.push({figureToDraw:movedFigure, moveID:moveID, color:`${whiteOnMove?'white':'black'}`, text:`${fromField}=>${toField}`});
+      this.setState({moveID:moveID+1, notification:addNewMoveTonotification});
     }
     return(
       <div id='App'>
@@ -595,7 +595,7 @@ export default class App extends Component{
             </Board>
             <OnMove whiteOnMove={whiteOnMove} changeState={changeState}/>
             {/* <Timers whiteOnMove={whiteOnMove}/> */}
-            <ChessNotation notation={notation}/>
+            <ChessNotification notification={notification}/>
           </div>
           {showPromotionModal && <PromotionModal color={whiteOnMove?'white':'black'}/>}
         </PositionsContext.Provider>

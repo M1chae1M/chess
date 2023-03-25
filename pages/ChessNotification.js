@@ -1,32 +1,32 @@
 import React, {Component} from "react";
 import {figure, positions} from "./_document";
 
-class MoveNotation extends Component{
+class MoveNotification extends Component{
   render(){
     const styles={
-      MoveNotation:{
+      MoveNotification:{
         display:'grid',
         gridAutoFlow:'column',
         alignItems:'center',
       },
     }
     return(
-      <div style={styles.MoveNotation}>
+      <div style={styles.MoveNotification}>
         {this.props.children}
       </div>
     )
   }
 }
 
-export default class ChessNotation extends Component{
+export default class ChessNotification extends Component{
   render(){
-    const {notation}=this.props;
+    const {notification}=this.props;
     return(
       <div>
         {
-          notation&&
-          // notation.map(x=><MoveNotation>{figure} {text}</MoveNotation>)
-          notation.map(({color, figureToDraw, text, moveID})=><MoveNotation key={moveID}>
+          notification&&
+          // notification.map(x=><Movenotification>{figure} {text}</Movenotification>)
+          notification.map(({color, figureToDraw, text, moveID})=><MoveNotification key={moveID}>
             {/* {figure?.[color]?.[figure]()} */}
             {/* {figure[color][figureToDraw]()} */}
             {/* {figure[color]['Pawn']?.()} */}
@@ -35,7 +35,7 @@ export default class ChessNotation extends Component{
       
             {/* {figure?.[color]?.[figure]()} */}
             {/* {figureToDraw} */}
-            {text}</MoveNotation>)
+            {text}</MoveNotification>)
         }
       </div>
     )

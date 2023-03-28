@@ -30,17 +30,17 @@ export default class Timers extends Component{
       }
     }
     const showTime=(actualTimer)=>{
-      const timerSecounds=(actualTimer-Math.floor(actualTimer/60)*60)
-      return `${Math.floor(actualTimer/60)}:${timerSecounds<10?"0"+timerSecounds:timerSecounds}`
+      const timerSecounds=((actualTimer-Math.floor(actualTimer/60/100)*100*60)/100).toFixed(0);
+      return `${Math.floor(actualTimer/60/100)}:${timerSecounds<10?"0"+timerSecounds:timerSecounds}`
     }
     return(
       <div id='Timers'>
         {this.state.started===true && countDownTime()}
         <input type="button" value={!started?"Start":"Stop"} onClick={StartStop}/>
-        {/* <div id="blackTimer">{showTime(blackTimer)}</div> */}
-        {/* <div id="whiteTimer">{showTime(whiteTimer)}</div> */}
-        <div id="blackTimer">{blackTimer}</div>
-        <div id="whiteTimer">{whiteTimer}</div>
+        <div id="blackTimer">{showTime(blackTimer)}</div>
+        <div id="whiteTimer">{showTime(whiteTimer)}</div>
+        {/* <div id="blackTimer">{blackTimer}</div> */}
+        {/* <div id="whiteTimer">{whiteTimer}</div> */}
         </div>
     )
   }

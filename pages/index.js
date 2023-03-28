@@ -635,6 +635,48 @@ export default class App extends Component{
       this.setState({to:to});
       move(this.state.from, to);
     }
+
+    const isCheckMate=()=>{
+
+      if(whiteOnMove){
+        let chequered=false;
+
+        ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
+          copyOf?.[x].map((y, i)=>{
+
+            if(copyOf[x][i].color==='white' &&
+            copyOf[x][i].figure==='King' &&
+            copyOf[x][i].attackedField===true){
+
+              // console.log(copyOf[x][i])
+              chequered=true;
+
+
+            }
+
+        }));
+
+        if(chequered){
+          ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
+            copyOf?.[x].map((y, i)=>{
+  
+              copyOf[x][i].color==='white' && console.log(copyOf[x][i])
+  
+  
+          }));
+        }
+
+
+
+      }
+      else if(!whiteOnMove){
+
+      }
+    }
+
+    isCheckMate();
+
+
     const oneTwoTree=[1, 2, 3, 4, 5, 6, 7, 8];
     const yAxis=whiteOnBottom?oneTwoTree.reverse():oneTwoTree;
     return(

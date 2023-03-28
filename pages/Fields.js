@@ -42,14 +42,6 @@ export default class Fields extends Component{
           <div
             className={`Fields ${actualField?.attackedField && 'attackedField'} ${chequered}`}
             style={styles.Fields}
-            // draggable='true'
-            // onDragStart={()=>{
-            //   changeState({from:{field, rowName}})
-            // }}
-            // onDragOver={()=>{
-            //   changeState({to:{field, rowName}})
-            // }}
-            // onDragEnd={()=>{onSecoundClick({field, rowName})}}
             onClick={()=>{
               if((actualColor==='white' && whiteOnMove)||(actualColor==='black' && !whiteOnMove)){
                 changeState({from:{field, rowName}});

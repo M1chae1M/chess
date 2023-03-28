@@ -55,11 +55,7 @@ export default class App extends Component{
     })
   }
   render(){
-    const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notation, whiteOnBottom
-    
-    , movesWithoutBeat
-    // , firstClick
-    }=this.state;
+    const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notation, whiteOnBottom, movesWithoutBeat}=this.state;
     const styles={
       container:{
         display:'grid',
@@ -75,46 +71,9 @@ export default class App extends Component{
     const attackedField=(copyOf, fieldToAttack)=>{
       const dest=copyOf?.[fieldToAttack.field]?.[fieldToAttack.rowName]
       if(dest){
-        
-        // dest.attackedField=false;
-
-        // if(whiteOnMove){
-        //   if(dest.figure==='King' && dest.color==='black'){
-        //     copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
-        //   }else if(dest.figure!=='King'){
-        //     copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
-        //   }
-        // // }
-        // // else if(!whiteOnMove){
-        //   if(dest.figure==='King' && dest.color==='white'){
-        //     copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
-        //   }
-        //   else if(dest.figure!=='King'){
-        //     copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
-        //   }
-        // }
-
-
-        if(dest.figure==='King' && dest.color==='black'
-        // && copyOf[fieldToAttack.field][fieldToAttack.rowName].color==='black'
-        // && checkAttacksState
-        ){
-          copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
-
-        }
-      // }
-      // else if(!whiteOnMove){
-        else if(dest.figure==='King' && dest.color==='white'
-        // && copyOf[fieldToAttack.field][fieldToAttack.rowName].color==='white'
-        // && !checkAttacksState
-        ){
-          copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
-        }
-        else if(dest.figure!=='King'){
-          copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
-        }
-
-
+        if(dest.figure==='King' && dest.color==='black') copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
+        else if(dest.figure==='King' && dest.color==='white') copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
+        else if(dest.figure!=='King') copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
       }
       return copyOf
     }
@@ -369,7 +328,6 @@ export default class App extends Component{
                     this.saveInLocalStorage(this);
                     addToNotation(from, to);
                     addToHistry(copyOf);
-                    console.log(this.state.historyState)
                   }
                   else if(short.figure==='King' && short.attackedField===true && short.color==='white' && !checkAttacksState){
                     attackingStaticTest(allAtacks, copyOf, false);
@@ -382,7 +340,6 @@ export default class App extends Component{
   
                     addToNotation(from, to);
                     addToHistry(copyOf);
-                    console.log(this.state.historyState)
                   }
                   else if(whiteOnMove && short.figure==='King' && short.color==='white' && short.attackedField===false){
                     this.setState({figureState:copyOf, whiteOnMove:false, checkAttacksState:true});
@@ -390,14 +347,12 @@ export default class App extends Component{
                     this.saveInLocalStorage(this);
                     addToNotation(from, to);
                     addToHistry(copyOf);
-                    console.log(this.state.historyState)
                   }else if(!whiteOnMove && short.figure==='King' && short.color==='black' && short.attackedField===false){
                     this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:false});
                     attackingStaticTest(allAtacks, copyOf, false);
                     this.saveInLocalStorage(this);
                     addToNotation(from, to);
                     addToHistry(copyOf);
-                    console.log(this.state.historyState)
                   }
                 }));
               }
@@ -418,12 +373,6 @@ export default class App extends Component{
               else{
                 this.setState({movesWithoutBeat:0}, shouldImove());
               }
-
-
-             
-
-              // shouldImove();
-
             }
             const rookMove=()=>{
               let didntJump=true;
@@ -458,10 +407,7 @@ export default class App extends Component{
                 return new Promise(resolve=>{
                   const checkState=()=>{
                     if(this.state.showPromotionModal === false) resolve()
-                    else
-                    // setTimeout(
-                      checkState
-                      // , 10);
+                    else checkState
                   };
                   checkState();
                 });
@@ -475,8 +421,6 @@ export default class App extends Component{
                       const checkNewAttackingFields=attackingStaticTest(allAtacks, figureState, whiteOnMove)
                       checkNewAttackingFields()
                     })
-                    // .then(this.setState({figureState:copyOf}))
-                    // .then(this.saveInLocalStorage(this))
                   });
                 }
 
@@ -492,10 +436,6 @@ export default class App extends Component{
                     checkNewAttackingFieldsBeforePromotion();
                     this.setState({movesWithoutBeat:0});
                   }
-
-
-
-                  // this.setState({figureState:copyOf}, this.saveInLocalStorage(this))
                 }
               }
               pawnPromotion()
@@ -668,11 +608,8 @@ export default class App extends Component{
       }
     }
     const addToNotation=(from, to)=>{
-      // console.log(to)
       const fromField=`${from.field}${from.rowName}`;
       const toField=`${to.field}${to.rowName}`;
-      console.log(fromField);
-      console.log(toField)
 
       const movedFigure=this.state.figureState?.[to.field]?.[to.rowName-1]?.figure;
       const addNewMoveToNotation=notation;
@@ -687,25 +624,12 @@ export default class App extends Component{
       this.setState({to:to});
       move(this.state.from, to);
     }
-    // const treeMovesRule=()=>{
-
-    // }
 
     const oneTwoTree=[1, 2, 3, 4, 5, 6, 7, 8];
     const yAxis=whiteOnBottom?oneTwoTree.reverse():oneTwoTree;
     return(
       <div id='App'>
-        <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove, saveInContext, whiteOnBottom
-        
-        
-        // , firstClick
-
-
-
-
-        , onFirstClick
-        , onSecoundClick
-        }}>
+        <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove, saveInContext, whiteOnBottom, onFirstClick, onSecoundClick}}>
           <div style={styles.container}>
             <Board whiteOnBottom={whiteOnBottom}>
               {

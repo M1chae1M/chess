@@ -1,88 +1,88 @@
 import {Html,Head,Main,NextScript} from 'next/document'
 import {TbChessBishopFilled, TbChessRookFilled, TbChessRook, TbChess, TbChessBishop, TbChessFilled, TbChessKingFilled, TbChessKing, TbChessKnightFilled, TbChessKnight, TbChessQueenFilled, TbChessQueen} from 'react-icons/tb';
 
-export const positions={
-  A:[
-    {figure:'Rook',color:'white', moved:false}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Rook',color:'black', moved:false}
-  ],
-  B:[
-    {figure:'Knight',color:'white'}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Knight',color:'black'}
-  ],
-  C:[
-    {figure:'Bishop',color:'white'}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Bishop',color:'black'}
-  ],
-  D:[
-    {figure:'Queen',color:'white'}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Queen',color:'black'}
-  ],
-  E:[
-    {figure:'King', attackedField:false, chequered:false, color:'white', moved:false}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'King', attackedField:false, chequered:false, color:'black', moved:false}
-  ],
-  F:[
-    {figure:'Bishop',color:'white'}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Bishop',color:'black'}
-  ],
-  G:[
-    {figure:'Knight',color:'white'}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Knight',color:'black'}
-  ],
-  H:[
-    {figure:'Rook',color:'white', moved:false}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Rook',color:'black', moved:false},
-  ],
-}
+// export const positions={
+//   A:[
+//     {figure:'Rook',color:'white', moved:false}, 
+//     {figure:'Pawn',color:'white', moved:false},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''}, 
+//     {figure:'Pawn',color:'black', moved:false}, 
+//     {figure:'Rook',color:'black', moved:false}
+//   ],
+//   B:[
+//     {figure:'Knight',color:'white'}, 
+//     {figure:'Pawn',color:'white', moved:false},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''}, 
+//     {figure:'Pawn',color:'black', moved:false}, 
+//     {figure:'Knight',color:'black'}
+//   ],
+//   C:[
+//     {figure:'Bishop',color:'white'}, 
+//     {figure:'Pawn',color:'white', moved:false},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''}, 
+//     {figure:'Pawn',color:'black', moved:false}, 
+//     {figure:'Bishop',color:'black'}
+//   ],
+//   D:[
+//     {figure:'Queen',color:'white'}, 
+//     {figure:'Pawn',color:'white', moved:false},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''}, 
+//     {figure:'Pawn',color:'black', moved:false}, 
+//     {figure:'Queen',color:'black'}
+//   ],
+//   E:[
+//     {figure:'King', attackedField:false, chequered:false, color:'white', moved:false}, 
+//     {figure:'Pawn',color:'white', moved:false},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''}, 
+//     {figure:'Pawn',color:'black', moved:false}, 
+//     {figure:'King', attackedField:false, chequered:false, color:'black', moved:false}
+//   ],
+//   F:[
+//     {figure:'Bishop',color:'white'}, 
+//     {figure:'Pawn',color:'white', moved:false},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''}, 
+//     {figure:'Pawn',color:'black', moved:false}, 
+//     {figure:'Bishop',color:'black'}
+//   ],
+//   G:[
+//     {figure:'Knight',color:'white'}, 
+//     {figure:'Pawn',color:'white', moved:false},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''}, 
+//     {figure:'Pawn',color:'black', moved:false}, 
+//     {figure:'Knight',color:'black'}
+//   ],
+//   H:[
+//     {figure:'Rook',color:'white', moved:false}, 
+//     {figure:'Pawn',color:'white', moved:false},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''},
+//     {figure:''}, 
+//     {figure:'Pawn',color:'black', moved:false}, 
+//     {figure:'Rook',color:'black', moved:false},
+//   ],
+// }
 
 export const figure={
   white:{

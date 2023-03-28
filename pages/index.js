@@ -17,7 +17,7 @@ export default class App extends Component{
   state={
     from:{},
     to:{},
-    figureState:{...positions},
+    figureState:{...JSON.parse(JSON.stringify(homePositions))},
     whiteOnMove:true,
     showPromotionModal:false,
     lastPawn:'',

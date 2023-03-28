@@ -281,7 +281,6 @@ export default class App extends Component{
       this.setState({figureState:copycopy})
       return test
     }
-
     const fiftyMovesRule=()=>{
       if(movesWithoutBeat>=50){
         alert('50 moves without beat figure or move pawn');
@@ -301,7 +300,6 @@ export default class App extends Component{
       }
  
     }
-
     const move=(from=this.state.from, to=this.state.to)=>{
       let copyOf={...figureState};
       if(to?.field && to?.rowName && from?.field && from?.rowName){
@@ -562,7 +560,7 @@ export default class App extends Component{
                   const shortCastling=()=>{
                     if(
                       fromChar-toChar===-2 &&
-                      returnVertField(+3).moved===false &&
+                      returnVertField(3).moved===false &&
                       returnVertField(1).attackedField===false &&
                       returnVertField(2).attackedField===false &&
                       returnVertField(1).figure==='' &&
@@ -585,12 +583,10 @@ export default class App extends Component{
                       returnVertField(-3).figure===''
                     ){
                       copyOf[String.fromCharCode(from.field.charCodeAt()-4)][from.rowName-1].moved=true;
-                      copyOf[String.fromCharCode(from.field.charCodeAt()-1)][from.rowName-1]=
-                      returnVertField(-4);
+                      copyOf[String.fromCharCode(from.field.charCodeAt()-1)][from.rowName-1]=returnVertField(-4);
 
                       copyOf[String.fromCharCode(from.field.charCodeAt()-4)][from.rowName-1]={figure:''};
                       moveFigure();
-
                     }
                   }
                   longCastling();
@@ -640,7 +636,6 @@ export default class App extends Component{
       this.setState({to:to});
       move(this.state.from, to);
     }
-
     const oneTwoTree=[1, 2, 3, 4, 5, 6, 7, 8];
     const yAxis=whiteOnBottom?oneTwoTree.reverse():oneTwoTree;
     return(
@@ -648,13 +643,9 @@ export default class App extends Component{
         <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove, saveInContext, whiteOnBottom, onFirstClick, onSecoundClick}}>
           <div style={styles.container}>
             <Board whiteOnBottom={whiteOnBottom}>
-              {
-                yAxis.map((x,i)=><Row key={x} whiteOnBottom={whiteOnBottom} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}
+              {yAxis.map((x,i)=><Row key={x} whiteOnBottom={whiteOnBottom} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}
             </Board>
-            <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState}
-            
-            pat={pat}
-            />
+            <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState} pat={pat}/>
             {/* <Timers whiteOnMove={whiteOnMove}/> */}
             <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/>
             <TbRotate onClick={turn}/>

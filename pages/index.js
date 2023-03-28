@@ -65,10 +65,12 @@ export default class App extends Component{
         gridTemplateColumns:'1fr 1fr 1fr',
         gridTemplateColumns:'1fr auto auto',
         width:'fit-content',
+        // height:'fit-content',
+        // height:'auto',
       },
       rightControlPanel:{
         display:'grid',
-        gridTemplateColumns:'auto auto auto',
+        gridTemplateColumns:'auto auto auto auto',
         height:'100%',
         alignItems:'center',
       },
@@ -671,9 +673,7 @@ export default class App extends Component{
             <Board whiteOnBottom={whiteOnBottom}>
               {yAxis.map((x,i)=><Row key={x} whiteOnBottom={whiteOnBottom} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}
               <TbRotate onClick={turn} style={styles.rotateButton}/>
-
             </Board>
-
             <div style={styles.rightControlPanel}>
               <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState} pat={pat}/>
               <Timers whiteOnMove={whiteOnMove} changeState={changeState} whiteOnBottom={whiteOnBottom}/>
@@ -681,9 +681,9 @@ export default class App extends Component{
                 <Surrender whiteOnMove={whiteOnMove} changeState={changeState}/>
                 <Remis changeState={changeState} pat={pat}/>
               </div>
+              <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/>
             </div>
-
-            <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/>
+            {/* <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/> */}
           </div>
           {showPromotionModal && <PromotionModal color={whiteOnMove?'white':'black'}/>}
         </PositionsContext.Provider>

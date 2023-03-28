@@ -64,6 +64,9 @@ export default class Timers extends PureComponent{
     const styles={
       Timers:{
         // padding:'5px',
+        // border:'solid black 1px',
+        display:'grid',
+        padding:'0 5px',
         width:'fit-content',
         height:'fit-content',
       },

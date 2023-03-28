@@ -14,14 +14,22 @@ export default class Timers extends Component{
     }
 
     const countDownTime=()=>{
-    
-      
+      const cutTime=(actTime)=>{
+        let actualTime=actTime;
 
-    
+        setTimeout(()=>{
+          actualTime-=1;
+          this.setState(whiteOnMove?{whiteTimer:actualTime}:{blackTimer:actualTime});
 
-      
 
-
+        },1000);
+      }
+      if(whiteOnMove){
+        cutTime(this.state.whiteTimer)
+      }
+      else if(!whiteOnMove){
+        cutTime(this.state.blackTimer)
+      }
     }
     const showTime=(actualTimer)=>{
       const timerSecounds=(actualTimer-Math.floor(actualTimer/60)*60)

@@ -315,13 +315,8 @@ export default class App extends Component{
             const toChar=to.field.charCodeAt();
 
             const moveFigure=()=>{
-
               let actualMovesWithoutBeat=movesWithoutBeat;
-
               const shouldImove=()=>{
-
-
-
 
                 const kopy=JSON.parse(JSON.stringify(copyOf));
                 let whoAttacks=this.state.checkAttacksState;
@@ -644,30 +639,6 @@ export default class App extends Component{
       this.setState({to:to});
       move(this.state.from, to);
     }
-
-    // const isCheckMate=()=>{
-    //   if(whiteOnMove){
-    //     let chequered=false;
-    //     ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
-    //       copyOf?.[x].map((y, i)=>{
-    //         if(copyOf[x][i].color==='white' &&
-    //         copyOf[x][i].figure==='King' &&
-    //         copyOf[x][i].attackedField===true){
-    //           chequered=true;
-    //         }
-    //     }));
-    //     if(chequered){
-    //       ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
-    //         copyOf?.[x].map((y, i)=>{
-    //         copyOf[x][i].color==='white' &&
-    //         console.log(allAtacks[copyOf[x][i].figure])
-    //       }));
-    //     }
-    //   }
-    //   else if(!whiteOnMove){
-
-    //   }
-    // }
 
     const oneTwoTree=[1, 2, 3, 4, 5, 6, 7, 8];
     const yAxis=whiteOnBottom?oneTwoTree.reverse():oneTwoTree;

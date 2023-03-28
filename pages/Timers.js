@@ -3,8 +3,8 @@ import React, {Component} from "react";
 export default class Timers extends Component{
   state={
     started:false,
-    blackTimer:600,
-    whiteTimer:600,
+    blackTimer:60000,
+    whiteTimer:60000,
   }
   render(){
     const {started, whiteTimer, blackTimer}=this.state;
@@ -12,17 +12,15 @@ export default class Timers extends Component{
     const StartStop=()=>{
       this.setState({started:!this.state.started})
     }
-
     const countDownTime=()=>{
       const cutTime=(actTime)=>{
         let actualTime=actTime;
-
         setTimeout(()=>{
-          actualTime-=1;
-          this.setState(whiteOnMove?{whiteTimer:actualTime}:{blackTimer:actualTime});
-
-
-        },1000);
+          if(actualTime-1>=0){
+            actualTime-=1;
+            this.setState(whiteOnMove?{whiteTimer:actualTime}:{blackTimer:actualTime});
+          }
+        },10);
       }
       if(whiteOnMove){
         cutTime(this.state.whiteTimer)

@@ -558,33 +558,32 @@ export default class App extends Component{
                   const returnVertField=(change)=>{return copyOf[String.fromCharCode(from.field.charCodeAt()+change)][from.rowName-1]}
 
                   const shortCastling=()=>{
-                    if(
-                      fromChar-toChar===-2 &&
-                      returnVertField(3).moved===false &&
-                      returnVertField(1).attackedField===false &&
-                      returnVertField(2).attackedField===false &&
-                      returnVertField(1).figure==='' &&
-                      returnVertField(2).figure===''
-                    ){
-                      copyOf[String.fromCharCode(from.field.charCodeAt()+3)][from.rowName-1].moved=true;
-                      copyOf[String.fromCharCode(from.field.charCodeAt()+1)][from.rowName-1]=returnVertField(3);
-                      copyOf[String.fromCharCode(from.field.charCodeAt()+3)][from.rowName-1]={figure:''};
-                      moveFigure();
+                    let didntJump=true;
+
+                    if(fromChar-toChar===-2 && returnVertField(3).moved===false){
+                      for(let i=1;i<3;i++){
+                        if(returnVertField(i).attackedField===true || returnVertField(i).figure!=='') didntJump=false
+                      }
+                      if(didntJump){
+                        copyOf[String.fromCharCode(from.field.charCodeAt()+3)][from.rowName-1].moved=true;
+                        copyOf[String.fromCharCode(from.field.charCodeAt()+1)][from.rowName-1]=returnVertField(3);
+                        copyOf[String.fromCharCode(from.field.charCodeAt()+3)][from.rowName-1]={figure:''};
+                        moveFigure();
+                      }
                     }
                   }
                   const longCastling=()=>{
-                    if(
-                      fromChar-toChar===2 &&
-                      returnVertField(-4).moved===false &&
-                      returnVertField(-1).attackedField===false &&
-                      returnVertField(-2).attackedField===false &&
-                      returnVertField(-1).figure===''&&
-                      returnVertField(-2).figure===''&&
-                      returnVertField(-3).figure===''
-                    ){
+                    let didntJump=true;
+
+                    if(fromChar-toChar===2 && returnVertField(-4).moved===false && returnVertField(-3).figure===''){
+                      for(let i=1;i<3;i++){
+                        if(returnVertField(-i).attackedField===true || returnVertField(-i).figure!=='') didntJump=false
+                      }
+                    }
+
+                    if(didntJump){
                       copyOf[String.fromCharCode(from.field.charCodeAt()-4)][from.rowName-1].moved=true;
                       copyOf[String.fromCharCode(from.field.charCodeAt()-1)][from.rowName-1]=returnVertField(-4);
-
                       copyOf[String.fromCharCode(from.field.charCodeAt()-4)][from.rowName-1]={figure:''};
                       moveFigure();
                     }

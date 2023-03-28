@@ -288,44 +288,19 @@ export default class App extends Component{
     }
     const addToHistry=(newMoveInHistory)=>{
       let stringed=JSON.stringify(newMoveInHistory);
-      let hhhistroy=this.state.historyState;
-      hhhistroy.push(stringed);
-      this.setState({historyState:hhhistroy});
-      // console.log(newMoveInHistory);
-      // history.push(moveID);
-      // this.setState({historyState:history}, console.log(this.state.history));
-      
+      let historyStateCopy=this.state.historyState;
 
-
+      historyStateCopy.push(stringed);
+      this.setState({historyState:historyStateCopy});
     }
     const showHistoricalMove=(IDofMoveFromHistory)=>{
-      // console.log(hist)
       let stateHistory=this.state.historyState;
-      console.log(IDofMoveFromHistory)
       const travelInTime=JSON.parse(stateHistory[IDofMoveFromHistory]);
-      console.log(travelInTime);
 
-      // console.log('history');
-      // let actualHistory=this.state.historyState;
-      if((IDofMoveFromHistory+1)%2===0){
-        this.setState({whiteOnMove:true});
-      }
-      else{
-        this.setState({whiteOnMove:false});
-      }
-
-      // const travelInTime=history[IDofMoveFromHistory];
-      // console.log(IDofMoveFromHistory);
-
-      // console.log(travelInTime);
-
-
-      // this.setState({figureState:homePositions});
-      // setTimeout(()=>{
-        this.setState({figureState:travelInTime});
-
-      // },1000)
-
+      if((IDofMoveFromHistory+1)%2===0) this.setState({whiteOnMove:true});
+      else this.setState({whiteOnMove:false});
+      
+      this.setState({figureState:travelInTime});
     }
     const attackingStaticTest=(allAtacks, copyOf, actualMove)=>{
       let copycopy=copyOf;

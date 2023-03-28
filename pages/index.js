@@ -316,66 +316,6 @@ export default class App extends Component{
 
             const moveFigure=()=>{
 
-              const isCheckMate=()=>{
-                console.log(actualColor)
-                if(whiteOnMove){
-                  let chequered=false;
-                  ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
-                    copyOf?.[x].map((y, i)=>{
-                      if(copyOf[x][i].color==='white' &&
-                      copyOf[x][i].figure==='King' &&
-                      copyOf[x][i].attackedField===true){
-                        chequered=true;
-                      }
-                  }));
-                  if(chequered){
-                    let isntCheckMate=true;
-                    ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
-                      copyOf?.[x].map((y, i)=>{
-                        let kopia=JSON.parse(JSON.stringify(copyOf));
-                        // copyOf[x][i].color==='black' &&
-                        // allMoves?.[copyOf?.[x]?.[i]?.figure]()
-                        // allAtacks.Knight({field:'A', rowName:8-1})
-                        // attackingStaticTest(allAtacks, copyOf, whoAttacks);
-                        // console.log(allMoves?.[copyOf?.[x]?.[i]?.figure])
-
-
-                        if(kopia[x][i].figure==='Knight' && kopia[x][i].color==='white'){
-
-                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()-2)]?.[i+1]);
-                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()-2)]?.[i-1]);
-
-                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()+2)]?.[i+1]);
-                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()+2)]?.[i-1]);
-
-                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()-1)]?.[i+2]);
-                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()-1)]?.[i-2]);
-
-                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()+1)]?.[i+2]);
-                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()+1)]?.[i-2]);
-
-                        }
-                    }));
-                    if(isntCheckMate){
-                      console.log('nie ma mata')
-                    }else if(!isntCheckMate){
-                      console.log('checkmate')
-                    }
-                  }
-                }
-                else if(!whiteOnMove){
-          
-                }
-              }
-
-
-
-
-
-
-
-
-
               let actualMovesWithoutBeat=movesWithoutBeat;
 
               const shouldImove=()=>{

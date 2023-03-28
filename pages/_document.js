@@ -77,7 +77,8 @@ export const homePositions={
   H:[
     {figure:'Rook',color:'white', moved:false}, 
     {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
+    // {figure:''},
+    {figure:'Knight', color:'white'},
     {figure:''},
     {figure:''},
     {figure:''}, 

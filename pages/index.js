@@ -304,7 +304,6 @@ export default class App extends Component{
 
             const moveFigure=()=>{
               let actualMovesWithoutBeat=movesWithoutBeat;
-     
 
               const shouldImove=()=>{
                 const kopy=JSON.parse(JSON.stringify(copyOf));

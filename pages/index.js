@@ -320,9 +320,6 @@ export default class App extends Component{
               let actualMovesWithoutBeat=movesWithoutBeat;
 
               const shouldImove=()=>{
-
-
-                
                 const kopy=JSON.parse(JSON.stringify(copyOf));
                 let whoAttacks=this.state.checkAttacksState;
   
@@ -344,7 +341,6 @@ export default class App extends Component{
                     this.saveInLocalStorage(this);
                     addToNotation(from, to);
                     addToHistry(copyOf);
-                    // treeMovesRule();
                   }
                   else if(short.figure==='King' && short.attackedField===true && short.color==='white' && !checkAttacksState){
                     attackingStaticTest(allAtacks, copyOf, false);
@@ -357,7 +353,6 @@ export default class App extends Component{
   
                     addToNotation(from, to);
                     addToHistry(copyOf);
-                    // treeMovesRule();
                   }
                   else if(whiteOnMove && short.figure==='King' && short.color==='white' && short.attackedField===false){
                     this.setState({figureState:copyOf, whiteOnMove:false, checkAttacksState:true});
@@ -365,28 +360,24 @@ export default class App extends Component{
                     this.saveInLocalStorage(this);
                     addToNotation(from, to);
                     addToHistry(copyOf);
-                    // treeMovesRule();
                   }else if(!whiteOnMove && short.figure==='King' && short.color==='black' && short.attackedField===false){
                     this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:false});
                     attackingStaticTest(allAtacks, copyOf, false);
                     this.saveInLocalStorage(this);
                     addToNotation(from, to);
                     addToHistry(copyOf);
-                    // treeMovesRule();
                   }
                 }));
 
-              if(treeMovesRule()){
-                this.setState({figureState:homePositions});
+              if(treeMovesRule()) this.setState({figureState:homePositions});
               }
 
-              }
+              let actualColor=copyOf[to.field][to.rowName-1].color;
+              let fromFigure=copyOf[from.field][from.rowName-1].figure;
+              let toFigure=copyOf[to.field][to.rowName-1].figure;
 
-              if(copyOf[from.field][from.rowName-1].figure!=='Pawn'){
-                if(
-                  copyOf[to.field][to.rowName-1].figure!=='' && 
-                  ((whiteOnMove && copyOf[to.field][to.rowName-1].color==='black')||(!whiteOnMove && copyOf[to.field][to.rowName-1].color==='white'))
-                ){
+              if(fromFigure!=='Pawn'){
+                if(toFigure!=='' && ((whiteOnMove && actualColor==='black')||(!whiteOnMove && actualColor==='white'))){
                   this.setState({movesWithoutBeat:0}, shouldImove());
                 }
                 else{

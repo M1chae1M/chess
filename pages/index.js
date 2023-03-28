@@ -69,7 +69,7 @@ export default class App extends Component{
     }
     const saveInContext=()=>this.saveInLocalStorage(this)
     const attackedField=(copyOf, fieldToAttack)=>{
-      const dest=copyOf?.[fieldToAttack.field]?.[fieldToAttack.rowName]
+      const dest=copyOf?.[fieldToAttack.field]?.[fieldToAttack.rowName];
       if(dest){
         if(dest.figure==='King' && dest.color==='black') copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
         else if(dest.figure==='King' && dest.color==='white') copyOf[fieldToAttack.field][fieldToAttack.rowName].attackedField = true;
@@ -332,8 +332,29 @@ export default class App extends Component{
                     let isntCheckMate=true;
                     ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
                       copyOf?.[x].map((y, i)=>{
-                      copyOf[x][i].color==='white' &&
-                      allMoves?.[copyOf?.[x]?.[i]?.figure]()
+                        let kopia=JSON.parse(JSON.stringify(copyOf));
+                        // copyOf[x][i].color==='black' &&
+                        // allMoves?.[copyOf?.[x]?.[i]?.figure]()
+                        // allAtacks.Knight({field:'A', rowName:8-1})
+                        // attackingStaticTest(allAtacks, copyOf, whoAttacks);
+                        // console.log(allMoves?.[copyOf?.[x]?.[i]?.figure])
+
+
+                        if(kopia[x][i].figure==='Knight' && kopia[x][i].color==='white'){
+
+                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()-2)]?.[i+1]);
+                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()-2)]?.[i-1]);
+
+                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()+2)]?.[i+1]);
+                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()+2)]?.[i-1]);
+
+                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()-1)]?.[i+2]);
+                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()-1)]?.[i-2]);
+
+                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()+1)]?.[i+2]);
+                          console.log(kopia?.[String.fromCharCode(x.charCodeAt()+1)]?.[i-2]);
+
+                        }
                     }));
                     if(isntCheckMate){
                       console.log('nie ma mata')
@@ -358,6 +379,10 @@ export default class App extends Component{
               let actualMovesWithoutBeat=movesWithoutBeat;
 
               const shouldImove=()=>{
+
+
+
+
                 const kopy=JSON.parse(JSON.stringify(copyOf));
                 let whoAttacks=this.state.checkAttacksState;
   
@@ -365,6 +390,8 @@ export default class App extends Component{
                 copyOf[to.field][to.rowName-1].moved=true;
                 copyOf[from.field][from.rowName-1]={figure:''};
   
+
+
                 attackingStaticTest(allAtacks, copyOf, whoAttacks);
                 ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>{
                   const short=copyOf[x][i];
@@ -406,8 +433,8 @@ export default class App extends Component{
                     addToHistry(copyOf);
                   }
                 }));
-
                 isCheckMate();
+
 
               if(treeMovesRule()) this.setState({figureState:homePositions});
               }

@@ -315,6 +315,46 @@ export default class App extends Component{
             const toChar=to.field.charCodeAt();
 
             const moveFigure=()=>{
+
+              const isCheckMate=()=>{
+                console.log(actualColor)
+                if(whiteOnMove){
+                  let chequered=false;
+                  ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
+                    copyOf?.[x].map((y, i)=>{
+                      if(copyOf[x][i].color==='white' &&
+                      copyOf[x][i].figure==='King' &&
+                      copyOf[x][i].attackedField===true){
+                        chequered=true;
+                      }
+                  }));
+                  if(chequered){
+                    let isntCheckMate=true;
+                    ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
+                      copyOf?.[x].map((y, i)=>{
+                      copyOf[x][i].color==='white' &&
+                      allMoves?.[copyOf?.[x]?.[i]?.figure]()
+                    }));
+                    if(isntCheckMate){
+                      console.log('nie ma mata')
+                    }else if(!isntCheckMate){
+                      console.log('checkmate')
+                    }
+                  }
+                }
+                else if(!whiteOnMove){
+          
+                }
+              }
+
+
+
+
+
+
+
+
+
               let actualMovesWithoutBeat=movesWithoutBeat;
 
               const shouldImove=()=>{
@@ -326,7 +366,6 @@ export default class App extends Component{
                 copyOf[from.field][from.rowName-1]={figure:''};
   
                 attackingStaticTest(allAtacks, copyOf, whoAttacks);
-  
                 ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>{
                   const short=copyOf[x][i];
                   if(short.figure==='King' && short.attackedField===true && short.color==='black' && checkAttacksState){
@@ -358,7 +397,8 @@ export default class App extends Component{
                     this.saveInLocalStorage(this);
                     addToNotation(from, to);
                     addToHistry(copyOf);
-                  }else if(!whiteOnMove && short.figure==='King' && short.color==='black' && short.attackedField===false){
+                  }
+                  else if(!whiteOnMove && short.figure==='King' && short.color==='black' && short.attackedField===false){
                     this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:false});
                     attackingStaticTest(allAtacks, copyOf, false);
                     this.saveInLocalStorage(this);
@@ -366,6 +406,8 @@ export default class App extends Component{
                     addToHistry(copyOf);
                   }
                 }));
+
+                isCheckMate();
 
               if(treeMovesRule()) this.setState({figureState:homePositions});
               }
@@ -636,46 +678,29 @@ export default class App extends Component{
       move(this.state.from, to);
     }
 
-    const isCheckMate=()=>{
+    // const isCheckMate=()=>{
+    //   if(whiteOnMove){
+    //     let chequered=false;
+    //     ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
+    //       copyOf?.[x].map((y, i)=>{
+    //         if(copyOf[x][i].color==='white' &&
+    //         copyOf[x][i].figure==='King' &&
+    //         copyOf[x][i].attackedField===true){
+    //           chequered=true;
+    //         }
+    //     }));
+    //     if(chequered){
+    //       ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
+    //         copyOf?.[x].map((y, i)=>{
+    //         copyOf[x][i].color==='white' &&
+    //         console.log(allAtacks[copyOf[x][i].figure])
+    //       }));
+    //     }
+    //   }
+    //   else if(!whiteOnMove){
 
-      if(whiteOnMove){
-        let chequered=false;
-
-        ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
-          copyOf?.[x].map((y, i)=>{
-
-            if(copyOf[x][i].color==='white' &&
-            copyOf[x][i].figure==='King' &&
-            copyOf[x][i].attackedField===true){
-
-              // console.log(copyOf[x][i])
-              chequered=true;
-
-
-            }
-
-        }));
-
-        if(chequered){
-          ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>
-            copyOf?.[x].map((y, i)=>{
-  
-              copyOf[x][i].color==='white' && console.log(copyOf[x][i])
-  
-  
-          }));
-        }
-
-
-
-      }
-      else if(!whiteOnMove){
-
-      }
-    }
-
-    isCheckMate();
-
+    //   }
+    // }
 
     const oneTwoTree=[1, 2, 3, 4, 5, 6, 7, 8];
     const yAxis=whiteOnBottom?oneTwoTree.reverse():oneTwoTree;

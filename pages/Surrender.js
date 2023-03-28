@@ -16,19 +16,9 @@ export default class Surrender extends Component{
       if(confirm('czy na pewno?')){
         alert(`${whiteOnMove?'Black':'White'} win this game!`);
         localStorage.removeItem('data');
-        // const newPosition=Object.assign({}, {...homePositions});
-        // const newPosition=Object.assign({}, {...positions});
-        // changeState({
-          // figureState:{},
-          // figureState:positions,
-          // notation:null,
-        // })
         changeState({
-          // figureState:{...positions},
-          // figureState:newPosition,
           notation:[],
           figureState:homePositions,
-          // figureState:[],
           whiteOnMove:true,
           checkAttacksState:false,
         });

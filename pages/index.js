@@ -645,7 +645,7 @@ export default class App extends Component{
               {yAxis.map((x,i)=><Row key={x} whiteOnBottom={whiteOnBottom} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}
             </Board>
             <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState} pat={pat}/>
-            <Timers whiteOnMove={whiteOnMove}/>
+            <Timers whiteOnMove={whiteOnMove} changeState={changeState}/>
             <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/>
             <TbRotate onClick={turn}/>
           </div>

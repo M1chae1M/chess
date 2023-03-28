@@ -8,10 +8,11 @@ export default class MoveNotation extends Component{
         display:'grid',
         gridAutoFlow:'column',
         alignItems:'center',
+        border:'transparent solid 3px',
       },
     }
     return(
-      <div className="singleMoveInHistory" style={styles.MoveNotation} onClick={()=>{showHistoricalMove(moveID-1)}}>
+      <div className="MoveInHistory" style={styles.MoveNotation} onClick={()=>{showHistoricalMove(moveID-1)}}>
         {this.props.children}
       </div>
     )

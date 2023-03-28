@@ -2,7 +2,7 @@
   transition: all ease-in-out 0.1s;
 }
 
-#Surrender:hover, #Remis:hover, #TimeStartButton:hover{
+#Surrender:hover, #Remis:hover, #TimeStartButton:hover, .singleMoveInHistory:hover{
   border:solid black 3px;
   border-radius:7px;
 }

@@ -7,8 +7,9 @@ export default class ChessNotation extends Component{
     const {notation, showHistoricalMove}=this.props;
     const styles={
       ChessNotation:{
+        padding:'0 5px',
         // maxHeight:'300px',
-        maxHeight:'200px',
+        maxHeight:'250px',
         // maxHeight:'100%',
         width:'150px',
         // overflow:'overlay',

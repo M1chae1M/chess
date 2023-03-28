@@ -11,7 +11,7 @@ export default class MoveNotation extends Component{
       },
     }
     return(
-      <div style={styles.MoveNotation} onClick={()=>{showHistoricalMove(moveID-1)}}>
+      <div className="singleMoveInHistory" style={styles.MoveNotation} onClick={()=>{showHistoricalMove(moveID-1)}}>
         {this.props.children}
       </div>
     )

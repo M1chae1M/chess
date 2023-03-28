@@ -4,10 +4,10 @@ import {homePositions} from "./_document";
 export default class Timers extends PureComponent{
   state={
     started:false,
-    // blackTimer:60000,
-    // whiteTimer:60000,
-    blackTimer:200,
-    whiteTimer:200,
+    blackTimer:60000,
+    whiteTimer:60000,
+    // blackTimer:200,
+    // whiteTimer:200,
   }
   // componentDidUpdate(prevProps, prevState) {
   //   if (this.state.started !== prevState.started) {
@@ -61,6 +61,13 @@ export default class Timers extends PureComponent{
   render(){
     const {started, whiteTimer, blackTimer}=this.state;
     const {whiteOnMove, changeState}=this.props;
+    const styles={
+      Timers:{
+        // padding:'5px',
+        width:'fit-content',
+        height:'fit-content',
+      },
+    }
     const StartStop=()=>{
       this.setState({started:!this.state.started})
     }
@@ -100,10 +107,10 @@ export default class Timers extends PureComponent{
     countDownTime();
 
     return(
-      <div id='Timers'>
+      <div id='Timers' style={styles.Timers}>
         {/* {this.state.started===true && countDownTime()} */}
-        <input type="button" value={!started?"Start":"Stop"} onClick={StartStop}/>
         <div id="blackTimer">{showTime(blackTimer)}</div>
+        <input type="button" value={!started?"Start":"Stop"} onClick={StartStop}/>
         <div id="whiteTimer">{showTime(whiteTimer)}</div>
       </div>
     )

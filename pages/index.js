@@ -8,6 +8,8 @@ import Timers from './Timers';
 import ChessNotation from './ChessNotation';
 import {TbRotate} from 'react-icons/tb';
 import {homePositions} from './_document';
+import Surrender from "./Surrender";
+import Remis from "./Remis";
 
 export const PositionsContext=React.createContext();
 
@@ -62,6 +64,12 @@ export default class App extends Component{
         gridTemplateColumns:'1fr 1fr 1fr',
         gridTemplateColumns:'1fr auto auto',
         width:'fit-content',
+      },
+      rightControlPanel:{
+        display:'grid',
+        gridTemplateColumns:'auto auto auto',
+        height:'100%',
+        alignItems:'center',
       },
     }
     const changeState=(newState, callback)=>{
@@ -317,6 +325,13 @@ export default class App extends Component{
             const moveFigure=()=>{
               let actualMovesWithoutBeat=movesWithoutBeat;
               const shouldImove=()=>{
+
+
+                const isCheckMate=()=>{
+
+                }
+
+
 
                 const kopy=JSON.parse(JSON.stringify(copyOf));
                 let whoAttacks=this.state.checkAttacksState;
@@ -649,8 +664,14 @@ export default class App extends Component{
             <Board whiteOnBottom={whiteOnBottom}>
               {yAxis.map((x,i)=><Row key={x} whiteOnBottom={whiteOnBottom} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}
             </Board>
-            <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState} pat={pat}/>
-            <Timers whiteOnMove={whiteOnMove} changeState={changeState}/>
+            <div style={styles.rightControlPanel}>
+              <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState} pat={pat}/>
+              <Timers whiteOnMove={whiteOnMove} changeState={changeState}/>
+              <div>
+                <Surrender whiteOnMove={whiteOnMove} changeState={changeState}/>
+                <Remis changeState={changeState} pat={pat}/>
+              </div>
+            </div>
             <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/>
             <TbRotate onClick={turn}/>
           </div>

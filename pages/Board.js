@@ -9,6 +9,7 @@ export default class Board extends Component{
         width:'fit-content',
         height:'fit-content',
         border:'solid black 1px',
+        position:'relative',
       },
     }
     return(

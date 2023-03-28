@@ -60,7 +60,7 @@ export default class Timers extends PureComponent{
   // }
   render(){
     const {started, whiteTimer, blackTimer}=this.state;
-    const {whiteOnMove, changeState}=this.props;
+    const {whiteOnMove, changeState, whiteOnBottom}=this.props;
     const styles={
       Timers:{
         // padding:'5px',
@@ -100,18 +100,23 @@ export default class Timers extends PureComponent{
       const timerSecounds=((actualTimer-Math.floor(actualTimer/60/100)*100*60)/100).toFixed(0);
       return `${Math.floor(actualTimer/60/100)}:${timerSecounds<10?"0"+timerSecounds:timerSecounds}`
     }
-
-
-    this.state.started===true &&
-    (this.state.whiteTimer>0 || this.state.blackTimer>0) &&
-    countDownTime();
-
+    this.state.started===true && countDownTime();
     return(
       <div id='Timers' style={styles.Timers}>
-        {/* {this.state.started===true && countDownTime()} */}
-        <div id="blackTimer">{showTime(blackTimer)}</div>
-        <input type="button" value={!started?"Start":"Stop"} onClick={StartStop}/>
-        <div id="whiteTimer">{showTime(whiteTimer)}</div>
+        {
+          whiteOnBottom?
+            <>
+              <div id="blackTimer">{showTime(blackTimer)}</div>
+              <input id="TimeStartButton" type="button" value={!started?"Start":"Stop"} onClick={StartStop}/>
+              <div id="whiteTimer">{showTime(whiteTimer)}</div>
+            </>
+            :
+            <>
+              <div id="whiteTimer">{showTime(whiteTimer)}</div>
+              <input id="TimeStartButton" type="button" value={!started?"Start":"Stop"} onClick={StartStop}/>
+              <div id="blackTimer">{showTime(blackTimer)}</div>
+            </>
+        }
       </div>
     )
   }

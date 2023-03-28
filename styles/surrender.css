@@ -1,8 +1,8 @@
-#Surrender, #Remis{
+#Surrender, #Remis, #TimeStartButton{
   transition: all ease-in-out 0.1s;
 }
 
-#Surrender:hover, #Remis:hover{
+#Surrender:hover, #Remis:hover, #TimeStartButton:hover{
   border:solid black 3px;
   border-radius:7px;
 }

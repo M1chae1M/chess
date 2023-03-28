@@ -60,6 +60,7 @@ export default class App extends Component{
     const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notation, whiteOnBottom, movesWithoutBeat}=this.state;
     const styles={
       container:{
+        // position:'relative',
         display:'grid',
         gridTemplateColumns:'1fr 1fr 1fr',
         gridTemplateColumns:'1fr auto auto',
@@ -70,6 +71,12 @@ export default class App extends Component{
         gridTemplateColumns:'auto auto auto',
         height:'100%',
         alignItems:'center',
+      },
+      rotateButton:{
+        position:'absolute',
+        right:'-15px',
+        top:'px',
+        height:'15px',
       },
     }
     const changeState=(newState, callback)=>{
@@ -663,17 +670,20 @@ export default class App extends Component{
           <div style={styles.container}>
             <Board whiteOnBottom={whiteOnBottom}>
               {yAxis.map((x,i)=><Row key={x} whiteOnBottom={whiteOnBottom} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}
+              <TbRotate onClick={turn} style={styles.rotateButton}/>
+
             </Board>
+
             <div style={styles.rightControlPanel}>
               <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState} pat={pat}/>
-              <Timers whiteOnMove={whiteOnMove} changeState={changeState}/>
+              <Timers whiteOnMove={whiteOnMove} changeState={changeState} whiteOnBottom={whiteOnBottom}/>
               <div>
                 <Surrender whiteOnMove={whiteOnMove} changeState={changeState}/>
                 <Remis changeState={changeState} pat={pat}/>
               </div>
             </div>
+
             <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/>
-            <TbRotate onClick={turn}/>
           </div>
           {showPromotionModal && <PromotionModal color={whiteOnMove?'white':'black'}/>}
         </PositionsContext.Provider>

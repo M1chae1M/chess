@@ -10,12 +10,25 @@ export default class Fields extends Component{
         display:'grid',
         justifyItems:'center',
         alignItems:'center',
-      }
+      },
     }
     return(
       <PositionsContext.Consumer>
       {(value)=>{
-        const {figureState, figure, changeState, move, whiteOnMove}=value?? {};
+        const {figureState, figure, changeState, move, whiteOnMove
+        
+        , firstClick
+        
+
+        , onFirstClick
+        , onSecoundClick
+
+
+
+
+
+
+        }=value?? {};
         const actualField=figureState?.[field]?.[rowName-1];
         const actualFigure=actualField?.figure;
         const actualColor=actualField?.color;
@@ -28,14 +41,24 @@ export default class Fields extends Component{
         return(
           <div
             className={`Fields ${actualField?.attackedField && 'attackedField'} ${chequered}`}
-            style={styles.Fields} draggable='true'
-            onDragOver={()=>{
-              changeState({to:{field, rowName}})
+            style={styles.Fields}
+            // draggable='true'
+            // onDragStart={()=>{
+            //   changeState({from:{field, rowName}})
+            // }}
+            // onDragOver={()=>{
+            //   changeState({to:{field, rowName}})
+            // }}
+            // onDragEnd={()=>{onSecoundClick({field, rowName})}}
+            onClick={()=>{
+              if((actualColor==='white' && whiteOnMove)||(actualColor==='black' && !whiteOnMove)){
+                changeState({from:{field, rowName}});
+              }
+              else if(((actualColor==='black' && whiteOnMove) || (actualFigure===''))||((actualColor==='white' && !whiteOnMove) || (actualFigure===''))){
+                changeState({to:{field, rowName}});
+                onSecoundClick({field, rowName})
+              }
             }}
-            onDragStart={()=>{
-              changeState({from:{field, rowName}})
-            }}
-            onDragEnd={move}
           >
             {figure?.[actualColor]?.[actualFigure]?.({className:`Figure`})}
           </div>

@@ -14,16 +14,16 @@ export default class PickPromotionFigure extends Component{
     const pickFigure=(figureState, to, changeState)=>{
       const copyOf=figureState;
       copyOf[to.field][to.rowName-1].figure=displayFigure;
-      changeState({showPromotionModal:false,figureState:copyOf});
+      changeState({showPromotionModal:false, figureState:copyOf});
     }
     return(
       <PositionsContext.Consumer>
       {(value)=>{
-        const {figure, changeState, figureState, from, to, move}=value ?? {};
+        const {figure, changeState, figureState, from, to, move, saveInContext}=value ?? {};
         return(
           <div style={styles.PickPromotionFigure} onClick={()=>{
-            // let test=move()
-            pickFigure(figureState, to, changeState)
+            pickFigure(figureState, to, changeState);
+            saveInContext();
           }}>
             {figure?.[color]?.[displayFigure]()}
           </div>

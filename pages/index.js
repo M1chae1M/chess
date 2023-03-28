@@ -5,9 +5,13 @@ import React,{Component} from 'react';
 import PromotionModal from './PromotionModal';
 import {figure, positions} from './_document';
 import Timers from './Timers';
-import ChessNotification from './ChessNotification';
+import ChessNotation from './ChessNotation';
+import {TbRotate} from 'react-icons/tb';
+import {homePositions} from './_document';
 
 export const PositionsContext=React.createContext();
+
+const history=[];
 
 export default class App extends Component{
   state={
@@ -20,7 +24,10 @@ export default class App extends Component{
     lastMoveColor:'black',
     checkAttacksState:false,
     moveID:1,
-    notification:[],
+    notation:[],
+    whiteOnBottom:true,
+    movesWithoutBeat:0,
+    historyState:history,
   }
   componentDidMount(){
     this.downloadFromLocalStorage(this)
@@ -30,9 +37,10 @@ export default class App extends Component{
       checkAttacksState:!component.state.checkAttacksState,
       board:component.state.figureState,
       move:!component.state.whiteOnMove,
-      notification:component.state.notification,
+      notation:component.state.notation,
       moveID:component.state.moveID+1,
-    }))
+      history:component.state.historyState,
+    }));
   }
   downloadFromLocalStorage=(component)=>{
     const downloadedData=localStorage.getItem('data');
@@ -40,14 +48,18 @@ export default class App extends Component{
     parsed && component.setState({
       figureState:parsed.board,
       whiteOnMove:parsed.move,
-      notification:parsed.notification,
+      notation:parsed.notation,
       checkAttacksState:parsed.checkAttacksState,
       moveID:parsed.moveID,
+      historyState:parsed.history,
     })
   }
   render(){
-    const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notification}=this.state;
-    const xAxis=[1, 2, 3, 4, 5, 6, 7, 8].reverse();
+    const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notation, whiteOnBottom
+    
+    , movesWithoutBeat
+    // , firstClick
+    }=this.state;
     const styles={
       container:{
         display:'grid',
@@ -56,7 +68,10 @@ export default class App extends Component{
         width:'fit-content',
       },
     }
-    const changeState=(newState)=>this.setState(newState)
+    const changeState=(newState, callback)=>{
+      this.setState(newState, callback)
+    }
+    const saveInContext=()=>this.saveInLocalStorage(this)
     const attackedField=(copyOf, fieldToAttack)=>{
       const dest=copyOf?.[fieldToAttack.field]?.[fieldToAttack.rowName]
       if(dest){
@@ -103,7 +118,6 @@ export default class App extends Component{
       }
       return copyOf
     }
-
     const copyOf=this.state.figureState;
     const allAtacks={
       Knight:(data)=>{
@@ -261,6 +275,58 @@ export default class App extends Component{
       },
     }
 
+    const pat=()=>{
+      alert('Remis');
+      localStorage.removeItem('data');
+        this.setState({
+          notation:[],
+          figureState:homePositions,
+          whiteOnMove:true,
+          checkAttacksState:false,
+        });
+        this.setState({moveID:1, movesWithoutBeat:0});
+    }
+    const addToHistry=(newMoveInHistory)=>{
+      let stringed=JSON.stringify(newMoveInHistory);
+      let hhhistroy=this.state.historyState;
+      hhhistroy.push(stringed);
+      this.setState({historyState:hhhistroy});
+      // console.log(newMoveInHistory);
+      // history.push(moveID);
+      // this.setState({historyState:history}, console.log(this.state.history));
+      
+
+
+    }
+    const showHistoricalMove=(IDofMoveFromHistory)=>{
+      // console.log(hist)
+      let stateHistory=this.state.historyState;
+      console.log(IDofMoveFromHistory)
+      const travelInTime=JSON.parse(stateHistory[IDofMoveFromHistory]);
+      console.log(travelInTime);
+
+      // console.log('history');
+      // let actualHistory=this.state.historyState;
+      if((IDofMoveFromHistory+1)%2===0){
+        this.setState({whiteOnMove:true});
+      }
+      else{
+        this.setState({whiteOnMove:false});
+      }
+
+      // const travelInTime=history[IDofMoveFromHistory];
+      // console.log(IDofMoveFromHistory);
+
+      // console.log(travelInTime);
+
+
+      // this.setState({figureState:homePositions});
+      // setTimeout(()=>{
+        this.setState({figureState:travelInTime});
+
+      // },1000)
+
+    }
     const attackingStaticTest=(allAtacks, copyOf, actualMove)=>{
       let copycopy=copyOf;
 
@@ -282,8 +348,13 @@ export default class App extends Component{
       this.setState({figureState:copycopy})
       return test
     }
-
-    const move=()=>{
+    const fiftyMovesRule=()=>{
+      if(movesWithoutBeat>=50){
+        alert('50 moves without beat figure or move pawn');
+        pat();
+      }
+    }
+    const move=(from=this.state.from, to=this.state.to)=>{
       let copyOf={...figureState};
       if(to?.field && to?.rowName && from?.field && from?.rowName){
         const destinationField=copyOf[to.field][to.rowName-1];
@@ -298,54 +369,86 @@ export default class App extends Component{
             const toChar=to.field.charCodeAt();
 
             const moveFigure=()=>{
-              const kopy=JSON.parse(JSON.stringify(copyOf));
-              let whoAttacks=this.state.checkAttacksState;
+              let actualMovesWithoutBeat=movesWithoutBeat;
+     
 
-              copyOf[to.field][to.rowName-1]=copyOf[from.field][from.rowName-1];
-              copyOf[to.field][to.rowName-1].moved=true;
-              copyOf[from.field][from.rowName-1]={figure:''};
+              const shouldImove=()=>{
+                const kopy=JSON.parse(JSON.stringify(copyOf));
+                let whoAttacks=this.state.checkAttacksState;
+  
+                copyOf[to.field][to.rowName-1]=copyOf[from.field][from.rowName-1];
+                copyOf[to.field][to.rowName-1].moved=true;
+                copyOf[from.field][from.rowName-1]={figure:''};
+  
+                attackingStaticTest(allAtacks, copyOf, whoAttacks);
+  
+                ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>{
+                  const short=copyOf[x][i];
+                  if(short.figure==='King' && short.attackedField===true && short.color==='black' && checkAttacksState){
+                    attackingStaticTest(allAtacks, copyOf, true);
+                    this.setState({figureState:kopy, whiteOnMove:false, checkAttacksState:true});
+                  }
+                  else if(short.field==='King' && short.attackedField===false && short.color==='black' && checkAttacksState){
+                    this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:true});
+                    attackingStaticTest(allAtacks, copyOf, true);
+                    this.saveInLocalStorage(this);
+                    addToNotation(from, to);
+                    addToHistry(copyOf);
+                    console.log(this.state.historyState)
+                  }
+                  else if(short.figure==='King' && short.attackedField===true && short.color==='white' && !checkAttacksState){
+                    attackingStaticTest(allAtacks, copyOf, false);
+                    this.setState({figureState:kopy, whiteOnMove:true, checkAttacksState:false});
+                  }
+                  else if(short.field==='King' && short.attackedField===false && short.color==='white' && !checkAttacksState){
+                    this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:true});
+                    attackingStaticTest(allAtacks, copyOf, true);
+                    this.saveInLocalStorage(this);
+  
+                    addToNotation(from, to);
+                    addToHistry(copyOf);
+                    console.log(this.state.historyState)
+                  }
+                  else if(whiteOnMove && short.figure==='King' && short.color==='white' && short.attackedField===false){
+                    this.setState({figureState:copyOf, whiteOnMove:false, checkAttacksState:true});
+                    attackingStaticTest(allAtacks, copyOf, true);
+                    this.saveInLocalStorage(this);
+                    addToNotation(from, to);
+                    addToHistry(copyOf);
+                    console.log(this.state.historyState)
+                  }else if(!whiteOnMove && short.figure==='King' && short.color==='black' && short.attackedField===false){
+                    this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:false});
+                    attackingStaticTest(allAtacks, copyOf, false);
+                    this.saveInLocalStorage(this);
+                    addToNotation(from, to);
+                    addToHistry(copyOf);
+                    console.log(this.state.historyState)
+                  }
+                }));
+              }
 
-              attackingStaticTest(allAtacks, copyOf, whoAttacks);
-
-              ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>{
-                const short=copyOf[x][i];
-
-                if(short.figure==='King' && short.attackedField===true && short.color==='black' && checkAttacksState){
-                  attackingStaticTest(allAtacks, copyOf, true);
-                  this.setState({figureState:kopy, whiteOnMove:false, checkAttacksState:true});
+              if(copyOf[from.field][from.rowName-1].figure!=='Pawn'){
+                if(
+                  copyOf[to.field][to.rowName-1].figure!=='' && 
+                  ((whiteOnMove && copyOf[to.field][to.rowName-1].color==='black')||(!whiteOnMove && copyOf[to.field][to.rowName-1].color==='white'))
+                ){
+                  this.setState({movesWithoutBeat:0}, shouldImove());
                 }
-                else if(short.field==='King' && short.attackedField===false && short.color==='black' && checkAttacksState){
-                  this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:true});
-                  attackingStaticTest(allAtacks, copyOf, true);
-                  this.saveInLocalStorage(this);
-
-                  addTonotification();
+                else{
+                  actualMovesWithoutBeat++;
+                  shouldImove();
+                  this.setState({movesWithoutBeat:actualMovesWithoutBeat}, fiftyMovesRule());
                 }
-                else if(short.figure==='King' && short.attackedField===true && short.color==='white' && !checkAttacksState){
-                  attackingStaticTest(allAtacks, copyOf, false);
-                  this.setState({figureState:kopy, whiteOnMove:true, checkAttacksState:false});
-                }
-                else if(short.field==='King' && short.attackedField===false && short.color==='white' && !checkAttacksState){
-                  this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:true});
-                  attackingStaticTest(allAtacks, copyOf, true);
-                  this.saveInLocalStorage(this);
+              }
+              else{
+                this.setState({movesWithoutBeat:0}, shouldImove());
+              }
 
-                  addTonotification();
-                }
-                else if(whiteOnMove && short.figure==='King' && short.color==='white' && short.attackedField===false){
-                  this.setState({figureState:copyOf, whiteOnMove:false, checkAttacksState:true});
-                  attackingStaticTest(allAtacks, copyOf, true);
-                  this.saveInLocalStorage(this);
 
-                  addTonotification()
-                }else if(!whiteOnMove && short.figure==='King' && short.color==='black' && short.attackedField===false){
-                  this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:false});
-                  attackingStaticTest(allAtacks, copyOf, false);
-                  this.saveInLocalStorage(this);
+             
 
-                  addTonotification();
-                }
-              }));
+              // shouldImove();
+
             }
             const rookMove=()=>{
               let didntJump=true;
@@ -380,7 +483,10 @@ export default class App extends Component{
                 return new Promise(resolve=>{
                   const checkState=()=>{
                     if(this.state.showPromotionModal === false) resolve()
-                    else setTimeout(checkState, 10);
+                    else
+                    // setTimeout(
+                      checkState
+                      // , 10);
                   };
                   checkState();
                 });
@@ -400,13 +506,19 @@ export default class App extends Component{
                 }
 
                 if((whiteOnMove && to.rowName===8) || (!whiteOnMove && to.rowName===1)){
-                  (Math.abs(to.field.charCodeAt()-from.field.charCodeAt())<1) &&
-                  copyOf?.[to.field]?.[to.rowName-1]?.figure==='' &&
-                  checkNewAttackingFieldsBeforePromotion();
+                  if((Math.abs(to.field.charCodeAt()-from.field.charCodeAt())<1) &&
+                  copyOf?.[to.field]?.[to.rowName-1]?.figure===''){
+                    checkNewAttackingFieldsBeforePromotion();
+                    this.setState({movesWithoutBeat:0});
+                  }
   
-                  (Math.abs(to.field.charCodeAt()-from.field.charCodeAt())>0) &&
-                  copyOf?.[to.field]?.[to.rowName-1]?.figure!=='' &&
-                  checkNewAttackingFieldsBeforePromotion();
+                  if((Math.abs(to.field.charCodeAt()-from.field.charCodeAt())>0) &&
+                  copyOf?.[to.field]?.[to.rowName-1]?.figure!==''){
+                    checkNewAttackingFieldsBeforePromotion();
+                    this.setState({movesWithoutBeat:0});
+                  }
+
+
 
                   // this.setState({figureState:copyOf}, this.saveInLocalStorage(this))
                 }
@@ -422,6 +534,7 @@ export default class App extends Component{
                   const beat=()=>{
                     copyOf[lastPawn.field][lastPawn.rowName]={figure:''};
                     moveFigure();
+                    this.setState({movesWithoutBeat:0});
                   }
 
                   if(Math.abs(fromChar-toChar)===1 && toChar===lastPawn?.field?.charCodeAt()){
@@ -450,7 +563,7 @@ export default class App extends Component{
 
                   if(didntJump){
                     moveFigure()
-                    this.setState({lastPawn:{field:to.field, rowName:to.rowName-1}})
+                    this.setState({lastPawn:{field:to.field, rowName:to.rowName-1}, movesWithoutBeat:0});
                   }
                 }
 
@@ -511,43 +624,46 @@ export default class App extends Component{
               const condition2=Math.abs((from.rowName-1)-(to.rowName-1))<2
 
               if(previousField.moved===false){
-                if(Math.abs(fromChar-toChar)===2 && ((from.rowName-1)-(to.rowName-1))===0 && copyOf[from.field][from.rowName-1].moved===false){
-                  const returnRookPosition=(change)=>{return copyOf?.[String.fromCharCode(fromChar+change)]?.[from.rowName-1]}
+                if(Math.abs(fromChar-toChar)===2 && ((from.rowName-1)-(to.rowName-1))===0 && copyOf[from.field][from.rowName-1].moved===false && copyOf[from.field][from.rowName-1].attackedField===false){
 
-                  const longCastling=()=>{
-                    let didntJump=true;
-                    if((fromChar-toChar)<0 && returnRookPosition(+3).moved===false && destinationField.attackedField!==true){
-                      for(let i=1;i<3;i++){
-                        if(copyOf[String.fromCharCode(fromChar+i)][from.rowName-1].figure!==''
-                        && copyOf[String.fromCharCode(toChar+i)][to.rowName-1].attackedField!==true) didntJump=false
-                      }
+                  const returnVertField=(change)=>{return copyOf[String.fromCharCode(from.field.charCodeAt()+change)][from.rowName-1]}
 
-                      if(didntJump){
-                        copyOf[String.fromCharCode(fromChar+1)][from.rowName-1]=returnRookPosition(+3);
-                        copyOf[String.fromCharCode(fromChar+3)][from.rowName-1]={figure:''};
-                        moveFigure();
-                        this.saveInLocalStorage(this);
-                      }
-                    }
-                  }
                   const shortCastling=()=>{
-                    let didntJump=true;
-                    if((fromChar-toChar)>0 && returnRookPosition(-4)?.moved===false && destinationField.attackedField!==true){
-                      for(let i=1;i<4;i++){
-                        if(copyOf[String.fromCharCode(fromChar-i)][from.rowName-1].figure!==''&&
-                        copyOf[String.fromCharCode(toChar+i)][to.rowName-1].attackedField!==true) didntJump=false
-                      }
-
-                      if(didntJump){
-                        copyOf[String.fromCharCode(fromChar-1)][from.rowName-1]=returnRookPosition(-4);
-                        copyOf[String.fromCharCode(fromChar-4)][from.rowName-1]={figure:''};
-                        moveFigure();
-                        this.saveInLocalStorage(this);
-                      }
+                    if(
+                      fromChar-toChar===-2 &&
+                      returnVertField(+3).moved===false &&
+                      returnVertField(1).attackedField===false &&
+                      returnVertField(2).attackedField===false &&
+                      returnVertField(1).figure==='' &&
+                      returnVertField(2).figure===''
+                    ){
+                      copyOf[String.fromCharCode(from.field.charCodeAt()+3)][from.rowName-1].moved=true;
+                      copyOf[String.fromCharCode(from.field.charCodeAt()+1)][from.rowName-1]=returnVertField(3);
+                      copyOf[String.fromCharCode(from.field.charCodeAt()+3)][from.rowName-1]={figure:''};
+                      moveFigure();
                     }
                   }
-                  shortCastling()
-                  longCastling()
+                  const longCastling=()=>{
+                    if(
+                      fromChar-toChar===2 &&
+                      returnVertField(-4).moved===false &&
+                      returnVertField(-1).attackedField===false &&
+                      returnVertField(-2).attackedField===false &&
+                      returnVertField(-1).figure===''&&
+                      returnVertField(-2).figure===''&&
+                      returnVertField(-3).figure===''
+                    ){
+                      copyOf[String.fromCharCode(from.field.charCodeAt()-4)][from.rowName-1].moved=true;
+                      copyOf[String.fromCharCode(from.field.charCodeAt()-1)][from.rowName-1]=
+                      returnVertField(-4);
+
+                      copyOf[String.fromCharCode(from.field.charCodeAt()-4)][from.rowName-1]={figure:''};
+                      moveFigure();
+
+                    }
+                  }
+                  longCastling();
+                  shortCastling();
                 }
               }
 
@@ -576,26 +692,57 @@ export default class App extends Component{
         else if(fromColor==='black' && !whiteOnMove) tryToMove(fromColor, toColor)
       }
     }
-
-    const addTonotification=()=>{
+    const addToNotation=(from, to)=>{
+      // console.log(to)
       const fromField=`${from.field}${from.rowName}`;
       const toField=`${to.field}${to.rowName}`;
+      console.log(fromField);
+      console.log(toField)
 
-      const movedFigure=this.state.figureState[to.field][to.rowName-1].figure;
-      const addNewMoveTonotification=notification;
-      addNewMoveTonotification.push({figureToDraw:movedFigure, moveID:moveID, color:`${whiteOnMove?'white':'black'}`, text:`${fromField}=>${toField}`});
-      this.setState({moveID:moveID+1, notification:addNewMoveTonotification});
+      const movedFigure=this.state.figureState?.[to.field]?.[to.rowName-1]?.figure;
+      const addNewMoveToNotation=notation;
+      addNewMoveToNotation.push({figureToDraw:movedFigure, moveID:moveID, color:`${whiteOnMove?'white':'black'}`, text:`${fromField}=>${toField}`});
+      this.setState({moveID:moveID+1, notation:addNewMoveToNotation});
     }
+    const turn=()=>this.setState({whiteOnBottom:!whiteOnBottom});
+    const onFirstClick=(field, rowName)=>{
+      this.setState({from:{field, rowName}});
+    }
+    const onSecoundClick=(to)=>{
+      this.setState({to:to});
+      move(this.state.from, to);
+    }
+    // const treeMovesRule=()=>{
+
+    // }
+
+    const oneTwoTree=[1, 2, 3, 4, 5, 6, 7, 8];
+    const yAxis=whiteOnBottom?oneTwoTree.reverse():oneTwoTree;
     return(
       <div id='App'>
-        <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove}}>
+        <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove, saveInContext, whiteOnBottom
+        
+        
+        // , firstClick
+
+
+
+
+        , onFirstClick
+        , onSecoundClick
+        }}>
           <div style={styles.container}>
-            <Board>
-              {xAxis.map((x,i)=><Row key={x} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}
+            <Board whiteOnBottom={whiteOnBottom}>
+              {
+                yAxis.map((x,i)=><Row key={x} whiteOnBottom={whiteOnBottom} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}
             </Board>
-            <OnMove whiteOnMove={whiteOnMove} changeState={changeState}/>
+            <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState}
+            
+            pat={pat}
+            />
             {/* <Timers whiteOnMove={whiteOnMove}/> */}
-            <ChessNotification notification={notification}/>
+            <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/>
+            <TbRotate onClick={turn}/>
           </div>
           {showPromotionModal && <PromotionModal color={whiteOnMove?'white':'black'}/>}
         </PositionsContext.Provider>

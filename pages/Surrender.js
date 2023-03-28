@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {FiFlag} from 'react-icons/fi';
-import {positions} from "./_document";
+import {positions, homePositions} from "./_document";
 
 export default class Surrender extends Component{
   render(){
@@ -16,20 +16,23 @@ export default class Surrender extends Component{
       if(confirm('czy na pewno?')){
         alert(`${whiteOnMove?'Black':'White'} win this game!`);
         localStorage.removeItem('data');
-        const newPosition=Object.assign({}, {...positions});
-        // const newNotification=Object.assign({}, []);
-        const newTable=[];
-        changeState({
-        //   // figureState:{},
-        //   // figureState:positions,
-          // notification:'',
-        })
-        changeState({
+        // const newPosition=Object.assign({}, {...homePositions});
+        // const newPosition=Object.assign({}, {...positions});
+        // changeState({
+          // figureState:{},
           // figureState:positions,
-          figureState:newPosition,
+          // notation:null,
+        // })
+        changeState({
+          // figureState:{...positions},
+          // figureState:newPosition,
+          notation:[],
+          figureState:homePositions,
+          // figureState:[],
           whiteOnMove:true,
-          notification:newTable,
-        })
+          checkAttacksState:false,
+        });
+        changeState({moveID:1, movesWithoutBeat:0})
       }
     }
     return <FiFlag style={styles.Flag} id="Surrender" onClick={surrender}/>

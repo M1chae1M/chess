@@ -233,7 +233,6 @@ export default class App extends Component{
         this.setState({figureState:copyOf})
       },
     }
-
     const pat=()=>{
       alert('Remis');
       localStorage.removeItem('data');
@@ -243,7 +242,7 @@ export default class App extends Component{
           whiteOnMove:true,
           checkAttacksState:false,
         });
-        this.setState({moveID:1, movesWithoutBeat:0});
+        this.setState({moveID:1, movesWithoutBeat:0, historyState:[]});
     }
     const addToHistry=(newMoveInHistory)=>{
       let stringed=JSON.stringify(newMoveInHistory);
@@ -282,12 +281,27 @@ export default class App extends Component{
       this.setState({figureState:copycopy})
       return test
     }
+
     const fiftyMovesRule=()=>{
       if(movesWithoutBeat>=50){
         alert('50 moves without beat figure or move pawn');
         pat();
       }
     }
+    const treeMovesRule=()=>{
+      let actualMoveID=moveID-1;
+
+      let stateHistory=this.state.historyState;
+      if(actualMoveID>=9){
+        if(((stateHistory?.[moveID-1])===(stateHistory?.[moveID-5])) &&
+        ((stateHistory?.[moveID-5])===(stateHistory?.[moveID-9]))){
+          pat()
+          return true
+        }
+      }
+ 
+    }
+
     const move=(from=this.state.from, to=this.state.to)=>{
       let copyOf={...figureState};
       if(to?.field && to?.rowName && from?.field && from?.rowName){
@@ -306,6 +320,9 @@ export default class App extends Component{
               let actualMovesWithoutBeat=movesWithoutBeat;
 
               const shouldImove=()=>{
+
+
+                
                 const kopy=JSON.parse(JSON.stringify(copyOf));
                 let whoAttacks=this.state.checkAttacksState;
   
@@ -327,6 +344,7 @@ export default class App extends Component{
                     this.saveInLocalStorage(this);
                     addToNotation(from, to);
                     addToHistry(copyOf);
+                    // treeMovesRule();
                   }
                   else if(short.figure==='King' && short.attackedField===true && short.color==='white' && !checkAttacksState){
                     attackingStaticTest(allAtacks, copyOf, false);
@@ -339,6 +357,7 @@ export default class App extends Component{
   
                     addToNotation(from, to);
                     addToHistry(copyOf);
+                    // treeMovesRule();
                   }
                   else if(whiteOnMove && short.figure==='King' && short.color==='white' && short.attackedField===false){
                     this.setState({figureState:copyOf, whiteOnMove:false, checkAttacksState:true});
@@ -346,14 +365,21 @@ export default class App extends Component{
                     this.saveInLocalStorage(this);
                     addToNotation(from, to);
                     addToHistry(copyOf);
+                    // treeMovesRule();
                   }else if(!whiteOnMove && short.figure==='King' && short.color==='black' && short.attackedField===false){
                     this.setState({figureState:copyOf, whiteOnMove:true, checkAttacksState:false});
                     attackingStaticTest(allAtacks, copyOf, false);
                     this.saveInLocalStorage(this);
                     addToNotation(from, to);
                     addToHistry(copyOf);
+                    // treeMovesRule();
                   }
                 }));
+
+              if(treeMovesRule()){
+                this.setState({figureState:homePositions});
+              }
+
               }
 
               if(copyOf[from.field][from.rowName-1].figure!=='Pawn'){

@@ -1,8 +1,8 @@
-#Surrender, #Remis, #TimeStartButton{
+#Surrender, #Remis, #TimeStartButton, #rotateButton{
   transition: all ease-in-out 0.1s;
 }
 
-#Surrender:hover, #Remis:hover, #TimeStartButton:hover, .singleMoveInHistory:hover{
+#Surrender:hover, #Remis:hover, #TimeStartButton:hover, .singleMoveInHistory:hover, #rotateButton:hover{
   border:solid black 3px;
   border-radius:7px;
 }

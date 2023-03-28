@@ -10,25 +10,14 @@ export default class Fields extends Component{
         display:'grid',
         justifyItems:'center',
         alignItems:'center',
+
+        border:'solid black 1px',
       },
     }
     return(
       <PositionsContext.Consumer>
       {(value)=>{
-        const {figureState, figure, changeState, move, whiteOnMove
-        
-        , firstClick
-        
-
-        , onFirstClick
-        , onSecoundClick
-
-
-
-
-
-
-        }=value?? {};
+        const {figureState, figure, changeState, move, whiteOnMove, onSecoundClick}=value?? {};
         const actualField=figureState?.[field]?.[rowName-1];
         const actualFigure=actualField?.figure;
         const actualColor=actualField?.color;

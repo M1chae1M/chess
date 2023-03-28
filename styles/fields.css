@@ -1,0 +1,9 @@
+.Fields>*, .Fields{
+  transition:all ease-in-out 0.2s;
+}
+.Fields >*:hover{
+  scale:80%;
+}
+.Fields:hover{
+  border:orangered solid 3px !important;
+}

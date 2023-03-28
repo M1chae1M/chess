@@ -656,9 +656,6 @@ export default class App extends Component{
       this.setState({moveID:moveID+1, notation:addNewMoveToNotation});
     }
     const turn=()=>this.setState({whiteOnBottom:!whiteOnBottom});
-    const onFirstClick=(field, rowName)=>{
-      this.setState({from:{field, rowName}});
-    }
     const onSecoundClick=(to)=>{
       this.setState({to:to});
       move(this.state.from, to);
@@ -668,11 +665,11 @@ export default class App extends Component{
     const yAxis=whiteOnBottom?oneTwoTree.reverse():oneTwoTree;
     return(
       <div id='App'>
-        <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove, saveInContext, whiteOnBottom, onFirstClick, onSecoundClick}}>
+        <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove, saveInContext, whiteOnBottom, onSecoundClick}}>
           <div style={styles.container}>
             <Board whiteOnBottom={whiteOnBottom}>
               {yAxis.map((x,i)=><Row key={x} whiteOnBottom={whiteOnBottom} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}
-              <TbRotate onClick={turn} style={styles.rotateButton}/>
+              <TbRotate onClick={turn} style={styles.rotateButton} id='rotateButton'/>
             </Board>
             <div style={styles.rightControlPanel}>
               <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState} pat={pat}/>
@@ -683,7 +680,6 @@ export default class App extends Component{
               </div>
               <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/>
             </div>
-            {/* <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/> */}
           </div>
           {showPromotionModal && <PromotionModal color={whiteOnMove?'white':'black'}/>}
         </PositionsContext.Provider>

@@ -509,8 +509,8 @@ export default class App extends Component{
                   }
 
                   if(Math.abs(fromChar-toChar)===1 && toChar===lastPawn?.field?.charCodeAt()){
-                    if(fromColor==='white' && to.rowName-2===lastPawn.rowName) beat()
-                    else if(fromColor==='black' && to.rowName===lastPawn.rowName) beat()
+                    if(fromColor==='white' && to.rowName-2===lastPawn.rowName && from.rowName===5) beat()
+                    else if(fromColor==='black' && to.rowName===lastPawn.rowName && from.rowName===4) beat()
                   }
                 }
 

@@ -15,14 +15,19 @@ export default class Surrender extends Component{
       if(confirm('czy na pewno?')){
         alert(`${whiteOnMove?'Black':'White'} win this game!`);
         localStorage.removeItem('data');
+        // changeState({resetTimers:!resetTimers})
+
         changeState({
+          // resetTimers:!resetTimers,
           notation:[],
           figureState:homePositions,
           whiteOnMove:true,
           checkAttacksState:false,
+
         });
-        changeState({moveID:1, movesWithoutBeat:0})
-        changeState({resetTimers:!resetTimers})
+        changeState({moveID:1, movesWithoutBeat:0,
+        resetTimers:!resetTimers,
+        })
       }
     }
     return <FiFlag style={styles.Flag} id="Surrender" onClick={surrender}/>

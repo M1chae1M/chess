@@ -9,7 +9,10 @@ export default class Timers extends PureComponent{
   }
   componentDidUpdate(prev, next){
     if(this.props.resetTimers !== prev.resetTimers){
-      this.setState({started:false, blackTimer:60000, whiteTimer:60000,});
+      // setTimeout(()=>{
+        this.setState({whiteTimer:60000, started:false, blackTimer:60000, });
+
+      // },1000)
     }
   }
 

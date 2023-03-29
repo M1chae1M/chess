@@ -263,8 +263,10 @@ export default class App extends Component{
         whiteOnMove:true,
         checkAttacksState:false,
       });
-      this.setState({moveID:1, movesWithoutBeat:0, historyState:[]});
-      this.setState({resetTimers:!resetTimers});
+      // this.setState({moveID:1, movesWithoutBeat:0, historyState:[]});
+      // this.setState({resetTimers:!resetTimers});
+
+      this.setState({moveID:1, movesWithoutBeat:0, historyState:[], resetTimers:!this.state.resetTimers});
     }
     const addToHistry=(newMoveInHistory)=>{
       let stringed=JSON.stringify(newMoveInHistory);

@@ -60,13 +60,10 @@ export default class App extends Component{
     const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notation, whiteOnBottom, movesWithoutBeat}=this.state;
     const styles={
       container:{
-        // position:'relative',
         display:'grid',
         gridTemplateColumns:'1fr 1fr 1fr',
         gridTemplateColumns:'1fr auto auto',
         width:'fit-content',
-        // height:'fit-content',
-        // height:'auto',
       },
       rightControlPanel:{
         display:'grid',

@@ -64,6 +64,7 @@ export default class App extends Component{
         gridTemplateColumns:'1fr 1fr 1fr',
         gridTemplateColumns:'1fr auto auto',
         gridTemplateColumns:'1fr auto auto',
+        // gridTemplateColumns:'1fr auto fit-content',
         width:'fit-content',
       },
       rightControlPanel:{
@@ -74,9 +75,11 @@ export default class App extends Component{
       },
       rotateButton:{
         position:'absolute',
-        right:'-15px',
-        top:'px',
-        height:'15px',
+        // right:'-15px',
+        // height:'15px',
+        right:'-25px',
+        height:'25px',
+        width:'25px',
       },
       buttons:{
         display:'grid',

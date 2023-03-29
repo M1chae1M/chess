@@ -7,7 +7,7 @@ export default class Surrender extends Component{
     const {whiteOnMove, changeState}=this.props;
     const styles={
       Flag:{
-        display:'inline-block',
+        // display:'inline-block',
         height:'30px',
         width:'30px',
       }

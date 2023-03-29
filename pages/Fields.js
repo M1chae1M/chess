@@ -10,8 +10,13 @@ export default class Fields extends Component{
         display:'grid',
         justifyItems:'center',
         alignItems:'center',
-
         border:'solid black 1px',
+      },
+      Figure:{
+        // width:'33px',
+        // height:'33px',
+        width:'4.5vw',
+        height:'4.5vw',
       },
     }
     return(
@@ -41,7 +46,7 @@ export default class Fields extends Component{
               }
             }}
           >
-            {figure?.[actualColor]?.[actualFigure]?.({className:`Figure`})}
+            {figure?.[actualColor]?.[actualFigure]?.({className:`Figure`, style:{...styles.Figure}})}
           </div>
         )
       }}

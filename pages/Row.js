@@ -7,9 +7,10 @@ export default class Row extends Component{
     const styles={
       Row:{
         display:'grid',
-        height:'40px',
-        gridTemplateColumns:'1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
-        gridTemplateColumns:'40px 40px 40px 40px 40px 40px 40px 40px',
+        // gridTemplateColumns:'repeat(8, 40px)',
+        // height:'40px',
+        gridTemplateColumns:'repeat(8, 5vw)',
+        height:'5vw',
       }
     }
     const abc=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];

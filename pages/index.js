@@ -80,6 +80,11 @@ export default class App extends Component{
         top:'px',
         height:'15px',
       },
+      buttons:{
+        display:'grid',
+        gridTemplateRows:'1fr 1fr',
+        gridTemplateColumns:'1fr',
+      },
     }
     const changeState=(newState, callback)=>{
       this.setState(newState, callback)
@@ -674,7 +679,7 @@ export default class App extends Component{
             <div style={styles.rightControlPanel}>
               <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState} pat={pat}/>
               <Timers whiteOnMove={whiteOnMove} changeState={changeState} whiteOnBottom={whiteOnBottom}/>
-              <div>
+              <div style={styles.buttons}>
                 <Surrender whiteOnMove={whiteOnMove} changeState={changeState}/>
                 <Remis changeState={changeState} pat={pat}/>
               </div>

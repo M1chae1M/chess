@@ -19,7 +19,8 @@ export default class Timers extends PureComponent{
   downloadLastTimeFromStorage=(component)=>{
     const downloadedData=localStorage.getItem('data');
     const parsed=downloadedData && JSON.parse(downloadedData);
-    parsed && component.setState({
+
+    parsed?.time && component.setState({
       blackTimer:parseInt(parsed?.time?.black),
       whiteTimer:parseInt(parsed?.time?.white),
     })

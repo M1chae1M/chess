@@ -4,7 +4,6 @@ padding:0;margin:0;}
 html,body,#root,#App{width:100vw;height:100vh;position:relative;display:grid;justify-content:center;align-items:center;}
 
 .Figure{
-/* border:solid yellow 3px; */
 z-index:5;
 }
 

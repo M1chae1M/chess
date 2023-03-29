@@ -7,8 +7,6 @@ export default class OnMove extends Component{
     const {whiteOnMove, changeState, whiteOnBottom, pat}=this.props;
     const styles={
       onMove:{
-        // display:'grid',
-        // gridTemplateColumns:'auto auto auto',
         width:'fit-content',
         margin:'auto 0',
         alignItems:'center',
@@ -24,8 +22,6 @@ export default class OnMove extends Component{
           <input type="checkbox" checked={!whiteOnMove} readOnly/>
           <span className="slider"></span>
         </label>
-        {/* <Surrender whiteOnMove={whiteOnMove} changeState={changeState}/>
-        <Remis changeState={changeState} pat={pat}/> */}
       </div>
     )
   }

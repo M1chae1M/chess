@@ -7,8 +7,6 @@ export default class Row extends Component{
     const styles={
       Row:{
         display:'grid',
-        // gridTemplateColumns:'repeat(8, 40px)',
-        // height:'40px',
         gridTemplateColumns:'repeat(8, 5vw)',
         height:'5vw',
       }

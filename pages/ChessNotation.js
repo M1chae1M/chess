@@ -8,11 +8,8 @@ export default class ChessNotation extends Component{
     const styles={
       ChessNotation:{
         padding:'0 5px',
-        // maxHeight:'300px',
         maxHeight:'250px',
-        // maxHeight:'100%',
         width:'150px',
-        // overflow:'overlay',
         overflowY:'scroll',
       }
     }

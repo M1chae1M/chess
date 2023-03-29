@@ -13,8 +13,6 @@ export default class Fields extends Component{
         border:'solid black 1px',
       },
       Figure:{
-        // width:'33px',
-        // height:'33px',
         width:'4.5vw',
         height:'4.5vw',
       },

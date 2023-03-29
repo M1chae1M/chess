@@ -30,6 +30,7 @@ export default class App extends Component{
     whiteOnBottom:true,
     movesWithoutBeat:0,
     historyState:history,
+    resetTimers:false,
   }
   componentDidMount(){
     this.downloadFromLocalStorage(this)
@@ -57,14 +58,13 @@ export default class App extends Component{
     })
   }
   render(){
-    const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notation, whiteOnBottom, movesWithoutBeat}=this.state;
+    const {figureState, to, from, whiteOnMove, showPromotionModal, lastPawn, checkAttacksState, moveID, notation, whiteOnBottom, movesWithoutBeat, resetTimers}=this.state;
     const styles={
       container:{
         display:'grid',
         gridTemplateColumns:'1fr 1fr 1fr',
         gridTemplateColumns:'1fr auto auto',
         gridTemplateColumns:'1fr auto auto',
-        // gridTemplateColumns:'1fr auto fit-content',
         width:'fit-content',
       },
       rightControlPanel:{
@@ -75,8 +75,6 @@ export default class App extends Component{
       },
       rotateButton:{
         position:'absolute',
-        // right:'-15px',
-        // height:'15px',
         right:'-25px',
         height:'25px',
         width:'25px',
@@ -259,13 +257,14 @@ export default class App extends Component{
     const pat=()=>{
       alert('Remis');
       localStorage.removeItem('data');
-        this.setState({
-          notation:[],
-          figureState:homePositions,
-          whiteOnMove:true,
-          checkAttacksState:false,
-        });
-        this.setState({moveID:1, movesWithoutBeat:0, historyState:[]});
+      this.setState({
+        notation:[],
+        figureState:homePositions,
+        whiteOnMove:true,
+        checkAttacksState:false,
+      });
+      this.setState({moveID:1, movesWithoutBeat:0, historyState:[]});
+      this.setState({resetTimers:!resetTimers});
     }
     const addToHistry=(newMoveInHistory)=>{
       let stringed=JSON.stringify(newMoveInHistory);
@@ -677,12 +676,11 @@ export default class App extends Component{
             </Board>
             <div style={styles.rightControlPanel}>
               <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState} pat={pat}/>
-              <Timers whiteOnMove={whiteOnMove} changeState={changeState} whiteOnBottom={whiteOnBottom}/>
+              <Timers whiteOnMove={whiteOnMove} changeState={changeState} whiteOnBottom={whiteOnBottom} resetTimers={resetTimers}/>
               <div style={styles.buttons}>
-                <Surrender whiteOnMove={whiteOnMove} changeState={changeState}/>
+                <Surrender whiteOnMove={whiteOnMove} changeState={changeState} resetTimers={resetTimers}/>
                 <Remis changeState={changeState} pat={pat}/>
               </div>
-              {/* <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/> */}
             </div>
             <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/>
           </div>

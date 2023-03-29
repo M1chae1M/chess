@@ -7,6 +7,12 @@ export default class Timers extends PureComponent{
     blackTimer:60000,
     whiteTimer:60000,
   }
+  componentDidUpdate(prev, next){
+    if(this.props.resetTimers !== prev.resetTimers){
+      this.setState({started:false, blackTimer:60000, whiteTimer:60000,});
+    }
+  }
+
   render(){
     const {started, whiteTimer, blackTimer}=this.state;
     const {whiteOnMove, changeState, whiteOnBottom}=this.props;

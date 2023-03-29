@@ -4,7 +4,7 @@ import {positions, homePositions} from "./_document";
 
 export default class Surrender extends Component{
   render(){
-    const {whiteOnMove, changeState}=this.props;
+    const {whiteOnMove, changeState, resetTimers}=this.props;
     const styles={
       Flag:{
         height:'30px',
@@ -22,6 +22,7 @@ export default class Surrender extends Component{
           checkAttacksState:false,
         });
         changeState({moveID:1, movesWithoutBeat:0})
+        changeState({resetTimers:!resetTimers})
       }
     }
     return <FiFlag style={styles.Flag} id="Surrender" onClick={surrender}/>

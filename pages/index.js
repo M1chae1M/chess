@@ -303,6 +303,7 @@ export default class App extends Component{
       removeAttackingAttribute()
       test(copycopy)
       this.setState({figureState:copycopy})
+      // console.log(copycopy)
       return test
     }
     const fiftyMovesRule=()=>{
@@ -448,7 +449,11 @@ export default class App extends Component{
                 return new Promise(resolve=>{
                   const checkState=()=>{
                     if(this.state.showPromotionModal === false) resolve()
-                    else checkState
+                    else
+                    setTimeout(()=>{
+                      checkState()
+
+                    }, 10)
                   };
                   checkState();
                 });
@@ -456,10 +461,13 @@ export default class App extends Component{
 
               const pawnPromotion=()=>{
                 const checkNewAttackingFieldsBeforePromotion=()=>{
+                  console.log('check new attacking')
                   return this.setState({showPromotionModal:true},()=>{
                     waitForTrueState()
                     .then(()=>{
-                      const checkNewAttackingFields=attackingStaticTest(allAtacks, figureState, whiteOnMove)
+                      // const checkNewAttackingFields=attackingStaticTest(allAtacks, figureState, whiteOnMove);
+                      const checkNewAttackingFields=attackingStaticTest(allAtacks, copyOf, true);
+                      // console.log(copyOf)
                       checkNewAttackingFields()
                     })
                   });
@@ -586,7 +594,7 @@ export default class App extends Component{
 
                   const shortCastling=()=>{
                     let didntJump=true;
-                    console.log(fromChar-toChar)
+                    // console.log(fromChar-toChar)
                     if(fromChar-toChar===-2 && returnVertField(3).moved===false){
                       for(let i=1;i<3;i++){
                         if(returnVertField(i).attackedField===true || returnVertField(i).figure!=='') didntJump=false
@@ -603,7 +611,7 @@ export default class App extends Component{
                   }
                   const longCastling=()=>{
                     let didntJump=true;
-                    console.log(fromChar-toChar)
+                    // console.log(fromChar-toChar)
 
                     if(fromChar-toChar===2 && returnVertField(-4).moved===false && returnVertField(-3).figure===''){
                       for(let i=1;i<3;i++){

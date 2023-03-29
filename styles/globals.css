@@ -7,7 +7,9 @@ html,body,#root,#App{width:100vw;height:100vh;position:relative;display:grid;jus
 z-index:5;
 }
 
-.chequered{
+.chequered
+/* , .attackedField */
+{
 border:solid red 3px !important;
 }
 

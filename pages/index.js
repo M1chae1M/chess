@@ -589,34 +589,40 @@ export default class App extends Component{
 
                   const shortCastling=()=>{
                     let didntJump=true;
-
+                    console.log(fromChar-toChar)
                     if(fromChar-toChar===-2 && returnVertField(3).moved===false){
                       for(let i=1;i<3;i++){
                         if(returnVertField(i).attackedField===true || returnVertField(i).figure!=='') didntJump=false
+                      
+                        if(didntJump){
+                          copyOf[String.fromCharCode(from.field.charCodeAt()+3)][from.rowName-1].moved=true;
+                          copyOf[String.fromCharCode(from.field.charCodeAt()+1)][from.rowName-1]=returnVertField(3);
+                          copyOf[String.fromCharCode(from.field.charCodeAt()+3)][from.rowName-1]={figure:''};
+                          moveFigure();
+                        }
                       }
-                      if(didntJump){
-                        copyOf[String.fromCharCode(from.field.charCodeAt()+3)][from.rowName-1].moved=true;
-                        copyOf[String.fromCharCode(from.field.charCodeAt()+1)][from.rowName-1]=returnVertField(3);
-                        copyOf[String.fromCharCode(from.field.charCodeAt()+3)][from.rowName-1]={figure:''};
-                        moveFigure();
-                      }
+                    
                     }
                   }
                   const longCastling=()=>{
                     let didntJump=true;
+                    console.log(fromChar-toChar)
 
                     if(fromChar-toChar===2 && returnVertField(-4).moved===false && returnVertField(-3).figure===''){
                       for(let i=1;i<3;i++){
                         if(returnVertField(-i).attackedField===true || returnVertField(-i).figure!=='') didntJump=false
                       }
+
+                      if(didntJump){
+                        copyOf[String.fromCharCode(from.field.charCodeAt()-4)][from.rowName-1].moved=true;
+                        copyOf[String.fromCharCode(from.field.charCodeAt()-1)][from.rowName-1]=returnVertField(-4);
+                        copyOf[String.fromCharCode(from.field.charCodeAt()-4)][from.rowName-1]={figure:''};
+                        moveFigure();
+                      }
+
                     }
 
-                    if(didntJump){
-                      copyOf[String.fromCharCode(from.field.charCodeAt()-4)][from.rowName-1].moved=true;
-                      copyOf[String.fromCharCode(from.field.charCodeAt()-1)][from.rowName-1]=returnVertField(-4);
-                      copyOf[String.fromCharCode(from.field.charCodeAt()-4)][from.rowName-1]={figure:''};
-                      moveFigure();
-                    }
+                  
                   }
                   longCastling();
                   shortCastling();

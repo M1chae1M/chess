@@ -15,6 +15,9 @@ export const PositionsContext=React.createContext();
 
 const history=[];
 
+const whiteActualTimerRef=React.createRef();
+const blackActualTimerRef=React.createRef();
+
 export default class App extends Component{
   state={
     from:{},
@@ -36,6 +39,10 @@ export default class App extends Component{
     this.downloadFromLocalStorage(this)
   }
   saveInLocalStorage=(component)=>{
+    let actTm={
+      white:whiteActualTimerRef.current.getAttribute('time'),
+      black:blackActualTimerRef.current.getAttribute('time'),
+    };
     localStorage.setItem('data', JSON.stringify({
       checkAttacksState:!component.state.checkAttacksState,
       board:component.state.figureState,
@@ -43,6 +50,7 @@ export default class App extends Component{
       notation:component.state.notation,
       moveID:component.state.moveID+1,
       history:component.state.historyState,
+      time:actTm,
     }));
   }
   downloadFromLocalStorage=(component)=>{
@@ -452,7 +460,6 @@ export default class App extends Component{
                     else
                     setTimeout(()=>{
                       checkState()
-
                     }, 10)
                   };
                   checkState();
@@ -686,7 +693,10 @@ export default class App extends Component{
             </Board>
             <div style={styles.rightControlPanel}>
               <OnMove whiteOnMove={whiteOnMove} whiteOnBottom={whiteOnBottom} changeState={changeState} pat={pat}/>
-              <Timers whiteOnMove={whiteOnMove} changeState={changeState} whiteOnBottom={whiteOnBottom} resetTimers={resetTimers}/>
+              <Timers
+              whiteActualTimerRef={whiteActualTimerRef}
+              blackActualTimerRef={blackActualTimerRef}
+              whiteOnMove={whiteOnMove} changeState={changeState} whiteOnBottom={whiteOnBottom} resetTimers={resetTimers}/>
               <div style={styles.buttons}>
                 <Surrender whiteOnMove={whiteOnMove} changeState={changeState} resetTimers={resetTimers}/>
                 <Remis changeState={changeState} pat={pat}/>

@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from "react";
 import {homePositions} from "./_document";
+import StartStopButton from "./StartStopButton";
 
 export default class Timers extends PureComponent{
   state={
@@ -9,10 +10,7 @@ export default class Timers extends PureComponent{
   }
   componentDidUpdate(prev, next){
     if(this.props.resetTimers !== prev.resetTimers){
-      // setTimeout(()=>{
-        this.setState({whiteTimer:60000, started:false, blackTimer:60000, });
-
-      // },1000)
+      this.setState({whiteTimer:60000, started:false, blackTimer:60000, });
     }
   }
 
@@ -29,10 +27,6 @@ export default class Timers extends PureComponent{
         overflow:'hidden',
         width:'fit-content',
         height:'fit-content',
-      },
-      button:{
-        margin:'2.5px 0',
-        border:'transparent 3px solid',
       },
       time:{
         margin:'2.5px 0',
@@ -79,13 +73,13 @@ export default class Timers extends PureComponent{
           whiteOnBottom?
             <>
               <div style={styles.time} id="blackTimer">{showTime(blackTimer)}</div>
-              <input style={styles.button} id="TimeStartButton" type="button" value={!started?"Start":"Stop"} onClick={StartStop}/>
+              <StartStopButton started={started} StartStop={StartStop}/>
               <div style={styles.time} id="whiteTimer">{showTime(whiteTimer)}</div>
             </>
             :
             <>
               <div style={styles.time} id="whiteTimer">{showTime(whiteTimer)}</div>
-              <input style={styles.button} id="TimeStartButton" type="button" value={!started?"Start":"Stop"} onClick={StartStop}/>
+              <StartStopButton started={started} StartStop={StartStop}/>
               <div style={styles.time} id="blackTimer">{showTime(blackTimer)}</div>
             </>
         }

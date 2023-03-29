@@ -10,3 +10,9 @@ z-index:5;
 .chequered{
 border:solid red 3px !important;
 }
+
+@media only screen and (max-width: 480px) {
+  #container{
+    grid-template-columns:1fr auto !important;
+  }
+}

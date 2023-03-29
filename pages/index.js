@@ -63,6 +63,7 @@ export default class App extends Component{
         display:'grid',
         gridTemplateColumns:'1fr 1fr 1fr',
         gridTemplateColumns:'1fr auto auto',
+        gridTemplateColumns:'1fr auto auto',
         width:'fit-content',
       },
       rightControlPanel:{
@@ -336,13 +337,7 @@ export default class App extends Component{
             const moveFigure=()=>{
               let actualMovesWithoutBeat=movesWithoutBeat;
               const shouldImove=()=>{
-
-
-                const isCheckMate=()=>{
-
-                }
-
-
+                // const isCheckMate=()=>{}
 
                 const kopy=JSON.parse(JSON.stringify(copyOf));
                 let whoAttacks=this.state.checkAttacksState;
@@ -350,8 +345,6 @@ export default class App extends Component{
                 copyOf[to.field][to.rowName-1]=copyOf[from.field][from.rowName-1];
                 copyOf[to.field][to.rowName-1].moved=true;
                 copyOf[from.field][from.rowName-1]={figure:''};
-  
-
 
                 attackingStaticTest(allAtacks, copyOf, whoAttacks);
                 ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(x=>copyOf[x].map((y, i)=>{
@@ -394,7 +387,7 @@ export default class App extends Component{
                     addToHistry(copyOf);
                   }
                 }));
-                isCheckMate();
+                // isCheckMate();
 
 
               if(treeMovesRule()) this.setState({figureState:homePositions});
@@ -674,7 +667,7 @@ export default class App extends Component{
     return(
       <div id='App'>
         <PositionsContext.Provider value={{figureState, figure, from, to, changeState, move, whiteOnMove, saveInContext, whiteOnBottom, onSecoundClick}}>
-          <div style={styles.container}>
+          <div style={styles.container} id='container'>
             <Board whiteOnBottom={whiteOnBottom}>
               {yAxis.map((x,i)=><Row key={x} whiteOnBottom={whiteOnBottom} rowName={x} evenRow={(i+1)%2!==0?false:true}/>)}
               <TbRotate onClick={turn} style={styles.rotateButton} id='rotateButton'/>
@@ -686,8 +679,9 @@ export default class App extends Component{
                 <Surrender whiteOnMove={whiteOnMove} changeState={changeState}/>
                 <Remis changeState={changeState} pat={pat}/>
               </div>
-              <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/>
+              {/* <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/> */}
             </div>
+            <ChessNotation notation={notation} showHistoricalMove={showHistoricalMove}/>
           </div>
           {showPromotionModal && <PromotionModal color={whiteOnMove?'white':'black'}/>}
         </PositionsContext.Provider>

@@ -8,9 +8,13 @@ export default class ChessNotation extends Component{
     const styles={
       ChessNotation:{
         padding:'0 5px',
-        maxHeight:'250px',
+        maxHeight:'calc(8 * 5vw)',
+        maxHeight:'calc(8 * 7vw)',
         width:'150px',
+        // overflow:'overlay',
+        // heigth:'fit-content',
         overflowY:'scroll',
+        display:"grid",
       }
     }
     return(

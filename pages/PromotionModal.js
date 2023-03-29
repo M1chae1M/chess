@@ -12,6 +12,7 @@ export default class PromotionModal extends Component{
         top:'0%',
         left:'0%',
         height:'100vh',
+        zIndex:'25',
       },
       PromotionModal:{
         position:'absolute',
@@ -29,6 +30,7 @@ export default class PromotionModal extends Component{
         height:'150px',
         alignContent:'center',
         justifyContent:'center',
+        zIndex:'27',
       },
       container:{
         display:'grid',

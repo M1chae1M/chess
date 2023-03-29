@@ -15,15 +15,12 @@ export default class Surrender extends Component{
       if(confirm('czy na pewno?')){
         alert(`${whiteOnMove?'Black':'White'} win this game!`);
         localStorage.removeItem('data');
-        // changeState({resetTimers:!resetTimers})
 
         changeState({
-          // resetTimers:!resetTimers,
           notation:[],
-          figureState:homePositions,
+          figureState:JSON.parse(JSON.stringify(homePositions)),
           whiteOnMove:true,
           checkAttacksState:false,
-
         });
         changeState({moveID:1, movesWithoutBeat:0,
         resetTimers:!resetTimers,

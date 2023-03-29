@@ -267,7 +267,8 @@ export default class App extends Component{
       localStorage.removeItem('data');
       this.setState({
         notation:[],
-        figureState:homePositions,
+        // figureState:homePositions,
+        figureState:JSON.parse(JSON.stringify(homePositions)),
         whiteOnMove:true,
         checkAttacksState:false,
       });

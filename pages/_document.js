@@ -6,7 +6,7 @@ import {King} from './classes/figures/King';
 import {Bishop} from './classes/figures/Bishop';
 import {Knight} from './classes/figures/Knight';
 import {Rook} from './classes/figures/Rook';
-import _, {conforms} from 'lodash';
+import _ from 'lodash';
 
 export default function Document(){
   return (

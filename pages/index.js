@@ -1,4 +1,4 @@
-import React,{Component, PureComponent} from 'react';
+import React,{Component, PureComponent, useMemo} from 'react';
 import {fieldSize,boardStartState,boardStartStateCopy, Xo, Yo} from './_document';
 import ControlPanel from './components/panel/ControlPanel';
 import PromotionModal from './components/Modal/PromotionModal';
@@ -12,11 +12,20 @@ const DynamicField=dynamic(()=>import('./components/Field'), {ssr:false});
 export const ModalContext=React.createContext()
 export const GameProvider=React.createContext()
 
-export default class GameBoard extends PureComponent{
 
+const AllFields = ({ touch }) => {
+  console.log('teraz wypisuje pola');
+  const fields = useMemo(() => {
+    return Yo?.reverse()?.map(y => Xo?.map(x => {
+      return <DynamicField key={`${x}${y}`} x={x} y={y} touch={touch} />;
+    }));
+  }, [Yo, Xo, touch]); // Dodajemy 'touch' do zależności useMemo, aby uniknąć ponownego renderowania przy zmianach touch.
+  return fields;
+}
+
+export default class GameBoard extends Component{
   state={
     whiteTure:true,
-    // whiteTure:false,
     boardGameState:{...boardStartState},
     firstTouch:true,
     fromField:'',
@@ -108,6 +117,7 @@ export default class GameBoard extends PureComponent{
         display:'grid',
         gridGap:'1px',
         gridTemplateColumns:`repeat(8,${fieldSize})`,
+        // transform:'rotate(45deg)',
       },
     }
     const closeModalF=(name)=>{
@@ -126,17 +136,20 @@ export default class GameBoard extends PureComponent{
 
       this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
     }
-    const AllFields=()=>{
-      return Yo?.reverse()?.map(y=>Xo?.map(x=>{
-        return <DynamicField key={`${x}${y}`} x={x} y={y} touch={touch}/>
-      }))
-    }
+    // const AllFields=()=>{
+    //   console.log('teraz wypisuje pola')
+    //   return Yo?.reverse()?.map(y=>Xo?.map(x=>{
+    //       return <DynamicField key={`${x}${y}`} x={x} y={y} touch={touch}/>
+    //   }))
+    // }
+    // const AF=()=>AllFields(touch)
     return(
       <div style={styles.App}>
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame}}>
           <div style={styles.GameBoard} id='gameboard'>
             <ControlPanel whiteTure={whiteTure}/>
-            <AllFields/>
+            <AllFields touch={touch}/>
+            {/* <AF/> */}
           </div>
           <Modal/>
           <History gameHistory={gameHistory}/>

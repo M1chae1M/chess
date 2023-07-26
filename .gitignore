@@ -5,6 +5,12 @@
 /.pnp
 .pnp.js
 
+
+/.github
+/.github/workflows
+/.github/workflows/main.yml
+
+
 # testing
 /coverage
 dozrobienia.txt

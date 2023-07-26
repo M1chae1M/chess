@@ -1,5 +1,6 @@
 import React,{Component} from "react";
-import {figureIcons,boardStartState,Xo,Yo} from "../_document";
+import {boardStartState,Xo,Yo} from "../_document";
+import { figureIcons } from "../_document";
 // import {figureIcons,Xo,Yo} from "../_document";
 import _, {conforms} from 'lodash';
 import {Game} from "./Game";
@@ -79,8 +80,7 @@ export class Figure{
     return _.cloneDeep(this);
   }
   returnFigure(){
-    // return figureIcons?.[this.color]?.[this.constructor.name]
-    return <TbChessBishopFilled/>
+    return figureIcons?.[this.color]?.[this.constructor.name]||<TbChessBishopFilled/>
   }
   getName(){
     return this.constructor.name

@@ -97,8 +97,9 @@ export class Figure{
     return _.cloneDeep(this);
   }
   returnFigure(){
-    // return figureIcons?.[this.color]?.[this.constructor.name]
-    return figureIcons?.['white']?.['Bishop']
+    console.log(this.color, this.constructor.name)
+    return figureIcons?.[this.color]?.[this.constructor.name]
+    // return figureIcons?.['white']?.['Bishop']
   }
   getName(){
     return this.constructor.name

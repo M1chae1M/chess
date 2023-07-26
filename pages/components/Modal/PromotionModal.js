@@ -39,7 +39,7 @@ export default class PromotionModal extends Component{
         <div style={styles.PromotionModal}>
           <div style={styles.label}>Change pawn in:</div>
           <div style={styles.menu}>
-            {figuresNames.map(x=><Chose key={x} figure={figureCLR[x]} name={x}/>)}
+            {/* {figuresNames.map(x=><Chose key={x} figure={figureCLR[x]} name={x}/>)} */}
           </div>
         </div>
       </Background>

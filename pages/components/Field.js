@@ -1,10 +1,11 @@
 import React,{Component} from 'react';
 import {fieldSize,boardStartState} from '../_document';
 import {GameProvider} from '..';
+import {ifBlackFunction} from '../classes/Functions';
 
 export default class Field extends Component{
   render(){
-    const {x,y,color,touch}=this.props;
+    const {x,y,touch}=this.props??{};
     const click=()=>{
       touch(`${x}${y}`)
     }
@@ -16,6 +17,8 @@ export default class Field extends Component{
         const figure=base?.returnFigure?.()
         const isKing=base?.getName?.()==='King'
         const isColor=base?.goodTure?.(whiteTure)
+        const color=ifBlackFunction(x,y)
+        
         const styles={
           Field:{
             width:fieldSize,
@@ -31,7 +34,7 @@ export default class Field extends Component{
         }
         return(
           <div style={styles.Field} onClick={click} className='Field'>
-            {figure}
+            {/* {figure} */}
           </div>
         )
       }}

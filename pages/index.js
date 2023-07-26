@@ -2,13 +2,16 @@ import React,{Component} from 'react';
 import {fieldSize,boardStartState,boardStartStateCopy, Xo, Yo} from './_document';
 // import {fieldSize} from './_document';
 import ControlPanel from './components/panel/ControlPanel';
-import {RenderAllFields,RenderField} from './classes/Functions';
+// import {RenderAllFields,RenderField} from './classes/Functions';
 import PromotionModal from './components/Modal/PromotionModal';
 import {Figure} from './classes/Figure';
 import _ from 'lodash';
 import History from './components/History/History';
 import {Game} from './classes/Game';
-
+// import Field from './components/Field';
+// import {ifBlackFunction} from './classes/Functions';
+import dynamic from 'next/dynamic';
+const DynamicField = dynamic(() => import('./components/Field'), { ssr: false });
 // const boardStartState=Game.returnGameBoard()
 
 export const ModalContext=React.createContext()
@@ -111,7 +114,6 @@ export default class GameBoard extends Component{
         gridTemplateColumns:`repeat(8,${fieldSize})`,
       },
     }
-    const ALLREADY=RenderAllFields(RenderField,touch);
     const closeModalF=(name)=>{
       this.setState({isModalOpened:false,promoteTo:name})
     }
@@ -131,7 +133,12 @@ export default class GameBoard extends Component{
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame}}>
           <div style={styles.GameBoard} id='gameboard'>
             <ControlPanel whiteTure={whiteTure}/>
-            {ALLREADY}
+            {
+              Yo?.reverse()?.map(y=>Xo?.map(x=>{
+                return <DynamicField key={`${x}${y}`} x={x} y={y}
+                touch={touch}/>
+              }))
+            }
           </div>
           {modal}
           <History gameHistory={gameHistory}/>

@@ -13,17 +13,6 @@ export const ModalContext=React.createContext()
 export const GameProvider=React.createContext()
 
 export default class GameBoard extends Component{
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const cond4=(this.state.firstTouch !== nextState.firstTouch)
-  //   const cond5=(this.state.fromField !== nextState.fromField)
-
-  //   console.log(cond4, cond5)
-
-  //   if(cond4 && cond5){
-  //     return true;
-  //   }
-  //   return false;
-  // }
   state={
     whiteTure:true,
     boardGameState:{...boardStartState},
@@ -136,15 +125,19 @@ export default class GameBoard extends Component{
       this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
     }
     const AllFields=()=>{
-      return Yo?.reverse()?.map(y=>Xo?.map(x=>{
+      // return Yo?.reverse()?.map(y=>Xo?.map(x=>{
+      // return Yo?.map(y=>Xo?.map(x=>{
+      return Yo?.map(y=>Xo?.map(x=>{
         return <DynamicField key={`${x}${y}`} x={x} y={y} touch={touch}/>
       }))
     }
     return(
       <div style={styles.App}>
-        {Yo?.reverse()?.map(y=>Xo?.map(x=>console.log(`${x}${y}`)))}
+        {/* {Yo?.map(y=>Xo?.map(x=>console.log(`${x}${y}`)))} */}
+        {Yo.reverse().map(y=>console.log(y))}
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame}}>
           <div style={styles.GameBoard} id='gameboard'>
+            <ControlPanel whiteTure={whiteTure}/>
             <AllFields/>
           </div>
           <Modal/>

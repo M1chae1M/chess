@@ -16,7 +16,6 @@ export default class History extends Component{
     return(
       <div style={styles.History}>
         History
-        {/* {console.log(gameHistory)} */}
         {gameHistory?.map(({lastMove,board},i)=><PointInHistory key={i} lastMove={lastMove} id={i} board={board}/>)}
       </div>
     )

@@ -1,5 +1,5 @@
-import React,{Component, PureComponent, useMemo} from 'react';
-import {fieldSize,boardStartState,boardStartStateCopy, Xo, Yo} from './_document';
+import React,{Component} from 'react';
+import {fieldSize,boardStartState,boardStartStateCopy,Xo,Yo} from './_document';
 import ControlPanel from './components/panel/ControlPanel';
 import PromotionModal from './components/Modal/PromotionModal';
 import {Figure} from './classes/Figure';
@@ -13,17 +13,6 @@ export const ModalContext=React.createContext()
 export const GameProvider=React.createContext()
 
 export default class GameBoard extends Component{
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const cond4=(this.state.firstTouch !== nextState.firstTouch)
-  //   const cond5=(this.state.fromField !== nextState.fromField)
-
-  //   console.log(cond4, cond5)
-
-  //   if(cond4 && cond5){
-  //     return true;
-  //   }
-  //   return false;
-  // }
   state={
     whiteTure:true,
     boardGameState:{...boardStartState},

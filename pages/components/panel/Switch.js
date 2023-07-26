@@ -19,7 +19,7 @@ export default class Switch extends Component{
         boxShadow:`2px 2px ${color}`,
         height:`${size*7/16}px`,
         width:`${size*3/8}px`,
-        transform:`translateY(${whiteTure?size*7/16:0}px)`,
+        transform:`translateY(${!whiteTure?size*7/16:0}px)`,
         transition:'all 0.4s ease-in-out',
       },
     }

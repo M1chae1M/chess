@@ -12,18 +12,20 @@ const DynamicField=dynamic(()=>import('./components/Field'), {ssr:false});
 export const ModalContext=React.createContext()
 export const GameProvider=React.createContext()
 
-
-const AllFields = ({ touch }) => {
-  console.log('teraz wypisuje pola');
-  const fields = useMemo(() => {
-    return Yo?.reverse()?.map(y => Xo?.map(x => {
-      return <DynamicField key={`${x}${y}`} x={x} y={y} touch={touch} />;
-    }));
-  }, [Yo, Xo, touch]); // Dodajemy 'touch' do zależności useMemo, aby uniknąć ponownego renderowania przy zmianach touch.
-  return fields;
-}
-
 export default class GameBoard extends Component{
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      
+      (this.state.whiteTure !== nextState.whiteTure)
+      ||
+      (this.state.firstTouch !== nextState.firstTouch)
+      ||
+      (this.state.gameHistory !== nextState.gameHistory)
+      ) {
+      return true;
+    }
+    return false;
+  }
   state={
     whiteTure:true,
     boardGameState:{...boardStartState},
@@ -117,7 +119,6 @@ export default class GameBoard extends Component{
         display:'grid',
         gridGap:'1px',
         gridTemplateColumns:`repeat(8,${fieldSize})`,
-        // transform:'rotate(45deg)',
       },
     }
     const closeModalF=(name)=>{
@@ -136,20 +137,16 @@ export default class GameBoard extends Component{
 
       this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
     }
-    // const AllFields=()=>{
-    //   console.log('teraz wypisuje pola')
-    //   return Yo?.reverse()?.map(y=>Xo?.map(x=>{
-    //       return <DynamicField key={`${x}${y}`} x={x} y={y} touch={touch}/>
-    //   }))
-    // }
-    // const AF=()=>AllFields(touch)
+    const AllFields=()=>{
+      return Yo?.reverse()?.map(y=>Xo?.map(x=>{
+        return <DynamicField key={`${x}${y}`} x={x} y={y} touch={touch}/>
+      }))
+    }
     return(
       <div style={styles.App}>
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame}}>
           <div style={styles.GameBoard} id='gameboard'>
-            <ControlPanel whiteTure={whiteTure}/>
-            <AllFields touch={touch}/>
-            {/* <AF/> */}
+            <AllFields/>
           </div>
           <Modal/>
           <History gameHistory={gameHistory}/>

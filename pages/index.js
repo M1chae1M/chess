@@ -13,24 +13,17 @@ export const ModalContext=React.createContext()
 export const GameProvider=React.createContext()
 
 export default class GameBoard extends Component{
-  shouldComponentUpdate(nextProps, nextState) {
-    // const cond1=(this.state.whiteTure !== nextState.whiteTure)
-    // const cond2=(this.state.gameHistory !== nextState.gameHistory)
-    // const cond3=(this.state.boardGameState !== nextState.boardGameState)
-    const cond4=(this.state.firstTouch !== nextState.firstTouch)
-    const cond5=(this.state.fromField !== nextState.fromField)
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const cond4=(this.state.firstTouch !== nextState.firstTouch)
+  //   const cond5=(this.state.fromField !== nextState.fromField)
 
-    console.log(
-      // cond1, cond2, cond3,
-      cond4, cond5)
+  //   console.log(cond4, cond5)
 
-    if(
-      // cond1 && cond2 && cond3&&
-      cond4 && cond5){
-      return true;
-    }
-    return false;
-  }
+  //   if(cond4 && cond5){
+  //     return true;
+  //   }
+  //   return false;
+  // }
   state={
     whiteTure:true,
     boardGameState:{...boardStartState},
@@ -149,6 +142,7 @@ export default class GameBoard extends Component{
     }
     return(
       <div style={styles.App}>
+        {Yo?.reverse()?.map(y=>Xo?.map(x=>console.log(`${x}${y}`)))}
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame}}>
           <div style={styles.GameBoard} id='gameboard'>
             <AllFields/>

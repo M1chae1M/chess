@@ -14,22 +14,14 @@ export const GameProvider=React.createContext()
 
 export default class GameBoard extends Component{
   shouldComponentUpdate(nextProps, nextState) {
-    if (
-      
-      (this.state.whiteTure !== nextState.whiteTure)
-      // ||
-      // (this.state.firstTouch !== nextState.firstTouch)
-      ||
-      (this.state.gameHistory !== nextState.gameHistory)
-      ||
-      (this.state.boardGameState !== nextState.boardGameState)
-      ||
-      (this.state.isModalOpened !== nextState.isModalOpened)
-      ||(
-        (this.state.firstTouch !== nextState.firstTouch) &&
-        (this.state.fromField !== nextState.fromField)
-      )
-      ) {
+    if(
+      (this.state.whiteTure !== nextState.whiteTure) &&
+      (this.state.isModalOpened !== nextState.isModalOpened) &&
+      (this.state.gameHistory !== nextState.gameHistory) &&
+      (this.state.boardGameState !== nextState.boardGameState) &&
+      (this.state.firstTouch !== nextState.firstTouch) &&
+      (this.state.fromField !== nextState.fromField)
+    ){
       return true;
     }
     return false;

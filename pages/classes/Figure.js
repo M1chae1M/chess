@@ -80,7 +80,8 @@ export class Figure{
     return _.cloneDeep(this);
   }
   returnFigure(){
-    return figureIcons?.[this.color]?.[this.constructor.name]//||<TbChessBishopFilled/>
+    // return figureIcons?.[this.color]?.[this.constructor.name]
+    return figureIcons?.['white']?.['Bishop']
   }
   getName(){
     return this.constructor.name

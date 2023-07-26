@@ -1,6 +1,5 @@
 import React,{Component} from "react";
 import {boardStartState,Xo,Yo} from "../_document";
-import { figureIcons } from "../_document";
 import {figureIcons,Xo,Yo} from "../_document";
 import _, {conforms} from 'lodash';
 import {Game} from "./Game";

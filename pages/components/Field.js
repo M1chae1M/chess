@@ -18,7 +18,7 @@ export default class Field extends Component{
         const isKing=base?.getName?.()==='King'
         const isColor=base?.goodTure?.(whiteTure)
         const color=ifBlackFunction(x,y)
-        
+
         const styles={
           Field:{
             width:fieldSize,
@@ -34,7 +34,7 @@ export default class Field extends Component{
         }
         return(
           <div style={styles.Field} onClick={click} className='Field'>
-            {/* {figure} */}
+            {figure}
           </div>
         )
       }}

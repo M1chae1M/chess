@@ -8,6 +8,7 @@ import {Game} from "../Game";
 
 const horisontalMove=(acX,chng)=>String.fromCharCode(acX.charCodeAt()+chng);
 
+/* Knight */
 export class Knight extends Figure{
   canMove(destX,destY,whiteTure){
     const movesWorking=[]

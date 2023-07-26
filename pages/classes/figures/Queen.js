@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import {Figure} from "../Figure";
 import {Xo,Yo,boardStartState} from "@/pages/_document";
 
+/* Queen */
 export class Queen extends Figure{
   crossMoves(movesWorking,acX,acY){
     const crossMove=(leftOrRight,topOrBot)=>{

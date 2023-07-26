@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import {Queen} from "./Queen";
 
+/* Bishop */
 export class Bishop extends Queen{
   canMove(destX,destY,whiteTure){
     const [acX,acY]=this.actualField

@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import {Queen} from "./Queen";
 
+/* Rook */
 export class Rook extends Queen{
   canMove(destX,destY,whiteTure){
     const {canMove,moves}=this.linearMoves(destX,destY,whiteTure)

@@ -6,6 +6,7 @@ import {Game} from "../Game";
 
 // const boardStartState=Game.returnGameBoard()
 
+/* King */
 export class King extends Figure{
   castling(destX,destY,whiteTure){
     const [acX,acY]=this.actualField

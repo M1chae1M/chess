@@ -7,6 +7,7 @@ import {Bishop} from "./Bishop";
 import {Rook} from "./Rook";
 import {Game} from "../Game";
 
+/* Pawn */
 export class Pawn extends Figure{
   attacking(whiteTure,destX,destY){
     const movesWorking=[];

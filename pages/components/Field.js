@@ -36,8 +36,9 @@ export default class Field extends Component{
         }
         return(
           <div style={styles.Field} onClick={click} className='Field'>
-            {base?.getName?.()}
+            {/* {base?.getName?.()} */}
             {/* <Figure/> */}
+            x
           </div>
         )
       }}

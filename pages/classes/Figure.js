@@ -3,6 +3,7 @@ import {figureIcons,boardStartState,Xo,Yo} from "../_document";
 // import {figureIcons,Xo,Yo} from "../_document";
 import _, {conforms} from 'lodash';
 import {Game} from "./Game";
+import { TbChessBishopFilled } from "react-icons/tb";
 
 // const boardStartState=Game.returnGameBoard()
 
@@ -78,7 +79,8 @@ export class Figure{
     return _.cloneDeep(this);
   }
   returnFigure(){
-    return figureIcons?.[this.color]?.[this.constructor.name]
+    // return figureIcons?.[this.color]?.[this.constructor.name]
+    return <TbChessBishopFilled/>
   }
   getName(){
     return this.constructor.name

@@ -25,20 +25,21 @@ export const fieldSize='60px';
 
 export const figureIcons={
   black:{
-    Pawn:<TbChessFilled/>,
-    Queen:<TbChessQueenFilled/>,
-    Bishop:<TbChessBishopFilled/>,
-    Knight:<TbChessKnightFilled/>,
-    King:<TbChessKingFilled/>,
-    Rook:<TbChessRookFilled/>,
+    Pawn:()=><TbChessFilled/>,
+    // Pawn:TbChessFilled,
+    Queen:()=><TbChessQueenFilled/>,
+    Bishop:()=><TbChessBishopFilled/>,
+    Knight:()=><TbChessKnightFilled/>,
+    King:()=><TbChessKingFilled/>,
+    Rook:()=><TbChessRookFilled/>,
   },
   white:{
-    Pawn:<TbChess/>,
-    Queen:<TbChessQueen/>,
-    Bishop:<TbChessBishop/>,
-    Knight:<TbChessKnight/>,
-    King:<TbChessKing/>,
-    Rook:<TbChessRook/>,
+    Pawn:()=><TbChess/>,
+    Queen:()=><TbChessQueen/>,
+    Bishop:()=><TbChessBishop/>,
+    Knight:()=><TbChessKnight/>,
+    King:()=><TbChessKing/>,
+    Rook:()=><TbChessRook/>,
   }
 }
 

@@ -9,12 +9,14 @@ export default class Field extends Component{
     const click=()=>{
       touch(`${x}${y}`)
     }
+    const base=boardStartState?.[x]?.[y]
+    const Figure=()=>{
+      return base?.returnFigure?.()
+    }
     return(
       <GameProvider.Consumer>
       {value=>{
         const {kingAttacked,whiteTure}=value??{}
-        const base=boardStartState?.[x]?.[y]
-        const figure=base?.returnFigure?.()
         const isKing=base?.getName?.()==='King'
         const isColor=base?.goodTure?.(whiteTure)
         const color=ifBlackFunction(x,y)
@@ -34,7 +36,8 @@ export default class Field extends Component{
         }
         return(
           <div style={styles.Field} onClick={click} className='Field'>
-            {figure}
+            {base?.getName?.()}
+            {/* <Figure/> */}
           </div>
         )
       }}

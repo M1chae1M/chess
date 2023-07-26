@@ -7,7 +7,7 @@ import _ from 'lodash';
 import History from './components/History/History';
 import {Game} from './classes/Game';
 import dynamic from 'next/dynamic';
-const DynamicField = dynamic(() => import('./components/Field'), { ssr: false });
+const DynamicField=dynamic(()=>import('./components/Field'), {ssr:false});
 
 export const ModalContext=React.createContext()
 export const GameProvider=React.createContext()

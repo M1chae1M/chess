@@ -12,10 +12,12 @@
     "@next/font": "13.4.4",
     "lodash": "^4.17.21",
     "next": "13.4.4",
+    "next-transpile-modules": "^10.0.1",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.9.0",
     "styled-component": "^2.8.0",
-    "styled-components": "^6.0.0-rc.6"
+    "styled-components": "^6.0.0-rc.6",
+    "terser-webpack-plugin": "^5.3.9"
   }
 }

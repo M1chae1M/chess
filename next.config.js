@@ -1,22 +1,20 @@
-const TerserPlugin = require('terser-webpack-plugin');
-const withTM = require('next-transpile-modules')([
-  // Dodaj tutaj nazwy modułów, które chcesz traktować jako bezpieczne dla minifikacji
-]);
-
-module.exports = withTM({
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
-
-  webpack: (config, { isServer, dev }) => {
-    if (!dev) {
-      config.optimization.minimizer.push(
-        new TerserPlugin({
-          terserOptions: {
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      config.optimization.minimizer.forEach((minimizer) => {
+        if (minimizer.constructor.name === 'TerserPlugin') {
+          minimizer.options.terserOptions = {
+            ...minimizer.options.terserOptions,
             keep_classnames: true,
-          },
-        })
-      );
+            keep_fnames: true,
+          };
+        }
+      });
     }
-
     return config;
   },
-});
+}
+
+module.exports = nextConfig

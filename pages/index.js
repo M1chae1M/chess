@@ -17,8 +17,8 @@ export default class GameBoard extends Component{
     if (
       
       (this.state.whiteTure !== nextState.whiteTure)
-      ||
-      (this.state.firstTouch !== nextState.firstTouch)
+      // ||
+      // (this.state.firstTouch !== nextState.firstTouch)
       ||
       (this.state.gameHistory !== nextState.gameHistory)
       ) {

@@ -1,18 +1,13 @@
 import React,{Component} from 'react';
 import {fieldSize,boardStartState,boardStartStateCopy, Xo, Yo} from './_document';
-// import {fieldSize} from './_document';
 import ControlPanel from './components/panel/ControlPanel';
-// import {RenderAllFields,RenderField} from './classes/Functions';
 import PromotionModal from './components/Modal/PromotionModal';
 import {Figure} from './classes/Figure';
 import _ from 'lodash';
 import History from './components/History/History';
 import {Game} from './classes/Game';
-// import Field from './components/Field';
-// import {ifBlackFunction} from './classes/Functions';
 import dynamic from 'next/dynamic';
 const DynamicField = dynamic(() => import('./components/Field'), { ssr: false });
-// const boardStartState=Game.returnGameBoard()
 
 export const ModalContext=React.createContext()
 export const GameProvider=React.createContext()
@@ -117,9 +112,11 @@ export default class GameBoard extends Component{
     const closeModalF=(name)=>{
       this.setState({isModalOpened:false,promoteTo:name})
     }
-    const modal=<ModalContext.Provider value={{closeModalF}}>
-      {this.state.isModalOpened?<PromotionModal whiteTure={whiteTure}/>:null}
-    </ModalContext.Provider>
+    const Modal=()=>{
+      return <ModalContext.Provider value={{closeModalF}}>
+        {this.state.isModalOpened?<PromotionModal whiteTure={whiteTure}/>:null}
+      </ModalContext.Provider>
+    }
     const backToHistory=(board)=>{
       this.setState({boardGameState:_.cloneDeep({...board})})
     }
@@ -128,19 +125,20 @@ export default class GameBoard extends Component{
 
       this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
     }
+    const AllFields=()=>{
+      return Yo?.reverse()?.map(y=>Xo?.map(x=>{
+        return <DynamicField key={`${x}${y}`} x={x} y={y}
+        touch={touch}/>
+      }))
+    }
     return(
       <div style={styles.App}>
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame}}>
           <div style={styles.GameBoard} id='gameboard'>
             <ControlPanel whiteTure={whiteTure}/>
-            {
-              Yo?.reverse()?.map(y=>Xo?.map(x=>{
-                return <DynamicField key={`${x}${y}`} x={x} y={y}
-                touch={touch}/>
-              }))
-            }
+            <AllFields/>
           </div>
-          {modal}
+          <Modal/>
           <History gameHistory={gameHistory}/>
         </GameProvider.Provider>
       </div>

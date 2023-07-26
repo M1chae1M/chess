@@ -16,7 +16,7 @@ export default class GameBoard extends Component{
   shouldComponentUpdate(nextProps, nextState) {
     if(
       (this.state.whiteTure !== nextState.whiteTure) &&
-      (this.state.isModalOpened !== nextState.isModalOpened) &&
+      // (this.state.isModalOpened !== nextState.isModalOpened) &&
       (this.state.gameHistory !== nextState.gameHistory) &&
       (this.state.boardGameState !== nextState.boardGameState) &&
       (this.state.firstTouch !== nextState.firstTouch) &&

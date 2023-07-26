@@ -26,10 +26,11 @@ const figureIcons={
 // const boardStartState=Game.returnGameBoard()
 
 export class Figure{
-  constructor(color,actualField,moved){
+  constructor(color,actualField,moved, name){
     this.color=color
     this.actualField=actualField
     this.moved=moved||false
+    this.name=name
 
     Array.from(['move','canMove','returnFigure','attacking','returnDefMovesOnly']).map(x=>{
       if(typeof this[x] !== 'function'){
@@ -97,8 +98,8 @@ export class Figure{
     return _.cloneDeep(this);
   }
   returnFigure(){
-    console.log(this?.color, this?.constructor?.name, this?.constructor)
-    return figureIcons?.[this?.color]?.[this?.constructor?.name]
+    console.log(this?.color, this?.name, this?.constructor?.name, this?.constructor)
+    return figureIcons?.[this?.color]?.[this?.name]
     // return figureIcons?.['white']?.['Bishop']
   }
   getName(){

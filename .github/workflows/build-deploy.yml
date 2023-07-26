@@ -24,13 +24,8 @@ jobs:
       - name: Build the application
         run: npm run build
 
-      - name: Deploy to server
-        uses: easingthemes/ssh-deploy@v2
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          username: ${{ secrets.SSH_USERNAME }}
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          source: '.next'
-          target: '/path/to/destination'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: './.next' # Wprowadź odpowiedni katalog docelowy tutaj

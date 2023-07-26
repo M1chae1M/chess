@@ -20,9 +20,13 @@ export default class GameBoard extends Component{
     const cond4=(this.state.firstTouch !== nextState.firstTouch)
     const cond5=(this.state.fromField !== nextState.fromField)
 
-    console.log(cond1, cond2, cond3, cond4, cond5)
+    console.log(
+      // cond1, cond2, cond3,
+      cond4, cond5)
 
-    if(cond1 && cond2 && cond3 && cond4 && cond5){
+    if(
+      // cond1 && cond2 && cond3&&
+      cond4 && cond5){
       return true;
     }
     return false;

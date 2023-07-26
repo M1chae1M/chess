@@ -14,9 +14,9 @@ export const GameProvider=React.createContext()
 
 export default class GameBoard extends Component{
   shouldComponentUpdate(nextProps, nextState) {
-    const cond1=(this.state.whiteTure !== nextState.whiteTure)
-    const cond2=(this.state.gameHistory !== nextState.gameHistory)
-    const cond3=(this.state.boardGameState !== nextState.boardGameState)
+    // const cond1=(this.state.whiteTure !== nextState.whiteTure)
+    // const cond2=(this.state.gameHistory !== nextState.gameHistory)
+    // const cond3=(this.state.boardGameState !== nextState.boardGameState)
     const cond4=(this.state.firstTouch !== nextState.firstTouch)
     const cond5=(this.state.fromField !== nextState.fromField)
 

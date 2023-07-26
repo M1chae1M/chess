@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component, PureComponent} from 'react';
 import {fieldSize,boardStartState,boardStartStateCopy, Xo, Yo} from './_document';
 import ControlPanel from './components/panel/ControlPanel';
 import PromotionModal from './components/Modal/PromotionModal';
@@ -12,7 +12,8 @@ const DynamicField=dynamic(()=>import('./components/Field'), {ssr:false});
 export const ModalContext=React.createContext()
 export const GameProvider=React.createContext()
 
-export default class GameBoard extends Component{
+export default class GameBoard extends PureComponent{
+
   state={
     whiteTure:true,
     // whiteTure:false,
@@ -127,8 +128,7 @@ export default class GameBoard extends Component{
     }
     const AllFields=()=>{
       return Yo?.reverse()?.map(y=>Xo?.map(x=>{
-        return <DynamicField key={`${x}${y}`} x={x} y={y}
-        touch={touch}/>
+        return <DynamicField key={`${x}${y}`} x={x} y={y} touch={touch}/>
       }))
     }
     return(

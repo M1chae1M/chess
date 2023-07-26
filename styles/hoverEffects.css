@@ -1,0 +1,6 @@
+.Field:hover,.chose:hover{
+  border:solid orangered 5px !important;
+  transform:scale(95%);
+  font-size:45px !important;
+  opacity:0.75;
+}

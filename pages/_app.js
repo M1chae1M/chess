@@ -1,8 +1,6 @@
 import '@/styles/globals.css'
-import '@/styles/toggleSwitch.css'
-import '@/styles/surrender.css'
-import '@/styles/fields.css'
+import '@/styles/hoverEffects.css'
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
+export default function App({Component,pageProps}){
+  return <Component {...pageProps}/>
 }

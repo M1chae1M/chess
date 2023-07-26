@@ -1,201 +1,16 @@
 import {Html,Head,Main,NextScript} from 'next/document'
-import {TbChessBishopFilled, TbChessRookFilled, TbChessRook, TbChess, TbChessBishop, TbChessFilled, TbChessKingFilled, TbChessKing, TbChessKnightFilled, TbChessKnight, TbChessQueenFilled, TbChessQueen} from 'react-icons/tb';
-
-// export const homePositions={
-//   A:[
-//     {figure:'Rook',color:'white', moved:false}, 
-//     {figure:'Pawn',color:'white', moved:false},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''}, 
-//     {figure:'Pawn',color:'black', moved:false}, 
-//     {figure:'Rook',color:'black', moved:false}
-//   ],
-//   B:[
-//     {figure:'Knight',color:'white'}, 
-//     {figure:'Pawn',color:'white', moved:false},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''}, 
-//     {figure:'Pawn',color:'black', moved:false}, 
-//     {figure:'Knight',color:'black'}
-//   ],
-//   C:[
-//     {figure:'Bishop',color:'white'}, 
-//     {figure:'Pawn',color:'white', moved:false},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''}, 
-//     {figure:'Pawn',color:'black', moved:false}, 
-//     {figure:'Bishop',color:'black'}
-//   ],
-//   D:[
-//     {figure:'Queen',color:'white'}, 
-//     {figure:'Pawn',color:'white', moved:false},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''}, 
-//     {figure:'Pawn',color:'black', moved:false}, 
-//     {figure:'Queen',color:'black'}
-//   ],
-//   E:[
-//     {figure:'King', attackedField:false, chequered:false, color:'white', moved:false}, 
-//     {figure:'Pawn',color:'white', moved:false},
-//     // {figure:''},
-//     {figure:'Bishop',color:'black'},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''}, 
-//     {figure:'Pawn',color:'black', moved:false}, 
-//     {figure:'King', attackedField:false, chequered:false, color:'black', moved:false}
-//   ],
-//   F:[
-//     {figure:''}, 
-
-//     // {figure:'Bishop',color:'white'}, 
-//     {figure:'Pawn',color:'white', moved:false},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''}, 
-//     {figure:'Pawn',color:'black', moved:false}, 
-//     {figure:'Bishop',color:'black'}
-//   ],
-//   G:[
-//     // {figure:'Knight',color:'white'}, 
-//     {figure:''}, 
-
-//     {figure:'Pawn',color:'white', moved:false},
-//     // {figure:''},
-//     {figure:'Queen',color:'black'},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''}, 
-//     {figure:'Pawn',color:'black', moved:false}, 
-//     {figure:'Knight',color:'black'}
-//   ],
-//   H:[
-//     {figure:'Rook',color:'white', moved:false}, 
-//     {figure:'Pawn',color:'white', moved:false},
-//     // {figure:''},
-//     {figure:'Knight', color:'white'},
-//     {figure:''},
-//     {figure:''},
-//     {figure:''}, 
-//     {figure:'Pawn',color:'black', moved:false}, 
-//     {figure:'Rook',color:'black', moved:false},
-//   ],
-// }
-
-export const figure={
-  white:{
-    Bishop:TbChessBishop,
-    Rook:TbChessRook,
-    Pawn:TbChess,
-    King:TbChessKing,
-    Knight:TbChessKnight,
-    Queen:TbChessQueen,
-  },
-  black:{
-    Bishop:TbChessBishopFilled,
-    Rook:TbChessRookFilled,
-    Pawn:TbChessFilled,
-    King:TbChessKingFilled,
-    Knight:TbChessKnightFilled,
-    Queen:TbChessQueenFilled,
-  }
-}
-
-export const homePositions={
-  A:[
-    {figure:'Rook',color:'white', moved:false}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Rook',color:'black', moved:false}
-  ],
-  B:[
-    {figure:'Knight',color:'white'}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Knight',color:'black'}
-  ],
-  C:[
-    {figure:'Bishop',color:'white'}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Bishop',color:'black'}
-  ],
-  D:[
-    {figure:'Queen',color:'white'}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Queen',color:'black'}
-  ],
-  E:[
-    {figure:'King', attackedField:false, chequered:false, color:'white', moved:false}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'King', attackedField:false, chequered:false, color:'black', moved:false}
-  ],
-  F:[
-    {figure:'Bishop',color:'white'}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Bishop',color:'black'}
-  ],
-  G:[
-    {figure:'Knight',color:'white'}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Knight',color:'black'}
-  ],
-  H:[
-    {figure:'Rook',color:'white', moved:false}, 
-    {figure:'Pawn',color:'white', moved:false},
-    {figure:''},
-    {figure:''},
-    {figure:''},
-    {figure:''}, 
-    {figure:'Pawn',color:'black', moved:false}, 
-    {figure:'Rook',color:'black', moved:false},
-  ],
-}
+import {TbChessBishopFilled,TbChessFilled,TbChessKingFilled,TbChessKnightFilled,TbChessQueenFilled,TbChessRookFilled,TbChessBishop,TbChessKing,TbChessKnight,TbChessQueen,TbChessRook,TbChess} from 'react-icons/tb';
+import {Pawn} from './classes/figures/Pawn';
+import {Queen} from './classes/figures/Queen';
+import {King} from './classes/figures/King';
+import {Bishop} from './classes/figures/Bishop';
+import {Knight} from './classes/figures/Knight';
+import {Rook} from './classes/figures/Rook';
+import _, {conforms} from 'lodash';
 
 export default function Document(){
-  return(
-    <Html lang="pl">
+  return (
+    <Html lang='pl'>
       <Head/>
       <body>
         <Main/>
@@ -204,3 +19,342 @@ export default function Document(){
     </Html>
   )
 }
+export const Xo=['A','B','C','D','E','F','G','H'];
+export const Yo=[1,2,3,4,5,6,7,8];
+export const fieldSize='60px';
+
+export const figureIcons={
+  black:{
+    Pawn:<TbChessFilled/>,
+    Queen:<TbChessQueenFilled/>,
+    Bishop:<TbChessBishopFilled/>,
+    Knight:<TbChessKnightFilled/>,
+    King:<TbChessKingFilled/>,
+    Rook:<TbChessRookFilled/>,
+  },
+  white:{
+    Pawn:<TbChess/>,
+    Queen:<TbChessQueen/>,
+    Bishop:<TbChessBishop/>,
+    Knight:<TbChessKnight/>,
+    King:<TbChessKing/>,
+    Rook:<TbChessRook/>,
+  }
+}
+
+export const allFieldsOnBoard=['A1','B1','C1','D1','E1','F1','G1','H1','A2','B2','C2','D2','E2','F2','G2','H2','A3','B3','C3','D3','E3','F3','G3','H3','A4','B4','C4','D4','E4','F4','G4','H4','A5','B5','C5','D5','E5','F5','G5','H5','A6','B6','C6','D6','E6','F6','G6','H6','A7','B7','C7','D7','E7','F7','G7','H7','A8','B8','C8','D8','E8','F8','G8','H8']
+
+// export const boardStartState={
+//   A:{
+//     1:new Rook('white','A1',false,),
+//     2:new Pawn('white','A2',false,),
+//     3:'',
+//     4:'',
+//     5:'',
+//     6:'',
+//     7:new Pawn('black','A7',false,),
+//     8:new Rook('black','A8',false,),
+//   },
+//   B:{
+//     1:new Knight('white','B1',),
+//     2:new Pawn('white','B2',false,),
+//     3:'',
+//     4:'',
+//     5:'',
+//     6:'',
+//     7:new Pawn('black','B7',false,),
+//     8:new Knight('black','B8',false,),
+//   },
+//   C:{
+//     1:new Bishop('white','C1',),
+//     2:new Pawn('white','C2',false,),
+//     3:'',
+//     // 4:'',
+//     4:new Bishop('white','C4',true),
+//     5:'',
+//     6:'',
+//     7:new Pawn('black','C7',false,),
+//     8:new Bishop('black','C8',),
+//   },
+//   D:{
+//     // 1:new Queen('white','D1',),
+//     1:'',
+//     2:new Pawn('white','D2',false,),
+//     3:'',
+//     4:'',
+//     5:'',
+//     6:'',
+//     7:new Pawn('black','D7',false,),
+//     8:new Queen('black','D8',false,),
+//   },
+//   E:{
+//     1:new King('white','E1',false,),
+//     // 2:new Pawn('white','E2',false,),
+//     2:'',
+//     3:'',
+//     4:'',
+//     5:'',
+//     6:'',
+//     // 7:new Pawn('black','E7',false,),
+//     7:'',
+//     8:new King('black','E8',false,),
+//   },
+//   F:{
+//     // 1:new Bishop('white','F1',),
+//     1:'',
+//     2:new Pawn('white','F2',false,),
+//     3:'',
+//     4:'',
+//     5:'',
+//     6:'',
+//     7:new Pawn('black','F7',false,),
+//     8:new Bishop('black','F8',false,),
+//   },
+//   G:{
+//     1:new Knight('white','G1',false,),
+//     2:new Pawn('white','G2',false,),
+//     3:'',
+//     4:'',
+//     5:'',
+//     6:'',
+//     7:new Pawn('black','G7',false,),
+//     8:new Knight('black','G8',false,),
+//   },
+//   H:{
+//     1:new Rook('white','H1',false,),
+//     2:new Pawn('white','H2',false,),
+//     3:'',
+//     4:'',
+//     // 5:'',
+//     5:new Queen('white','H5',true,),
+//     6:'',
+//     7:new Pawn('black','H7',false,),
+//     8:new Rook('black','H8',false,),
+// },
+// }
+
+// export const boardStartState={
+//   A:{
+//     1:new Rook('white','A1',false,),
+//     // 1:'',
+//     // 1:'',
+//     2:new Bishop('black','A2',false,),
+//     // 2:'',
+//     // 3:'',
+//     3:new Knight('white','A3',true),
+//     // 4:'',
+//     // 4:new Rook('white','A4',false,),
+//     4:'',
+//     5:'',
+//     6:'',
+//     // 7:'',
+//     7:new Pawn('black','A7',false,),
+//     8:new King('black','A8',true,),
+//     // 8:'',
+//   },
+//   B:{
+//     // 1:new Knight('white','B1',),
+//     1:'',
+//     // 2:new Queen('black','B2',true,),
+//     2:'',
+//     // 3:'',
+//     3:new Bishop('black','B3',true),
+//     4:'',
+//     // 5:'',
+//     5:new Pawn('white','B5',true),
+//     6:'',
+//     7:'',
+//     // 7:new Rook('white','B7',true),
+//     // 7:new Pawn('black','B7',false,),
+//     8:new Queen('black','B8',),
+//     // 8:'',
+//   },
+//   C:{
+//     // 1:new Bishop('white','C1',),
+//     1:'',
+//     // 2:new Pawn('white','C2',false,),
+//     2:'',
+//     3:'',
+//     4:new Pawn('black','C3',true,),
+//     // 4:'',
+//     // 5:'',
+//     5:new Queen('white','C5',true),
+//     6:'',
+//     // 6:new Pawn('white','C6',false),
+//     // 7:new Rook('black','C7',true,),
+//     7:'',
+//     8:'',
+//     // 8:new Bishop('black','C8',),
+//   },
+//   D:{
+//     // 1:new Queen('white','D1',),
+//     1:'',
+//     // 2:'',
+//     2:new Pawn('white','D2',false),
+//     3:'',
+//     // 3:new Rook('black','D3',false),
+//     4:'',
+//     5:'',
+//     6:'',
+//     // 6:new Rook('black','D6',false,),
+//     7:new Pawn('black','D7',false,),
+//     // 7:'',
+//     // 8:new Queen('black','D8',),
+//     8:'',
+//   },
+//   E:{
+//     1:new King('white','E1',false,),
+//     // 1:'',
+//     // 2:new Pawn('white','E2',false,),
+//     2:'',
+//     3:'',
+//     4:'',
+//     // 4:new Bishop('white','E4',true),
+//     5:'',
+//     6:'',
+//     // 7:new Pawn('black','E7',false,),
+//     7:'',
+//     // 8:new King('black','E8',false,),
+//     8:'',
+//   },
+//   F:{
+//     // 1:new Bishop('white','F1',),
+//     1:'',
+//     // 2:new Pawn('white','F2',false,),
+//     2:'',
+//     3:'',
+//     4:'',
+//     5:'',
+//     6:'',
+//     // 6:new Pawn('white','F6',true),
+//     // 7:new Pawn('black','F7',false,),
+//     // 7:new Queen('black','F7',false,),
+//     7:'',
+//     8:new Rook('white','F8',true),
+//     // 8:'',
+//   },
+//   G:{
+//     // 1:new Rook('white','G1',true),
+//     1:'',
+//     // 2:new Pawn('white','G2',false,),
+//     2:'',
+//     3:'',
+//     4:'',
+//     5:'',
+//     6:'',
+//     6:new Pawn('white','G6',true),
+//     // 7:new Pawn('black','G7',false,),
+//     // 7:new Pawn('white','G7',true,),
+//     // 7:new Rook('white','G7',true,),
+//     // 7:new Rook('black','G7',true,),
+//     7:'',
+//     8:new Knight('black','G8',),
+//     // 8:'',
+//   },
+//   H:{
+//     1:new Rook('white','H1',false,),
+//     // 1:'',
+//     // 2:new Pawn('white','H2',false,),
+//     2:'',
+//     3:'',
+//     // 3:new Pawn('white','H3',false,),
+//     4:'',
+//     // 4:new Rook('white','H4',false,),
+
+//     5:'',
+//     // 5:new Knight('white','H5',true,),
+//     // 6:new Pawn('white','H7',true,),
+//     6:'',
+//     // 7:new Pawn('black','H7',false,),
+//     7:new Pawn('white','H7',true,),
+//     // 7:'',
+//     // 8:new Rook('black','H8',false,),
+//     8:'',
+//     // 8:new King('black','H8',true),
+// },
+// }
+
+export const boardStartState={
+  A:{
+    1:new Rook('white','A1',false,),
+    2:new Pawn('white','A2',false,),
+    3:'',
+    4:'',
+    5:'',
+    6:'',
+    7:new Pawn('black','A7',false,),
+    8:new Rook('black','A8',false,),
+  },
+  B:{
+    1:new Knight('white','B1',),
+    2:new Pawn('white','B2',false,),
+    3:'',
+    4:'',
+    5:'',
+    6:'',
+    7:new Pawn('black','B7',false,),
+    8:new Knight('black','B8',),
+  },
+  C:{
+    1:new Bishop('white','C1',),
+    2:new Pawn('white','C2',false,),
+    3:'',
+    4:'',
+    5:'',
+    6:'',
+    7:new Pawn('black','C7',false,),
+    8:new Bishop('black','C8',),
+  },
+  D:{
+    1:new Queen('white','D1',),
+    2:new Pawn('white','D2',false,),
+    3:'',
+    4:'',
+    5:'',
+    6:'',
+    7:new Pawn('black','D7',false,),
+    8:new Queen('black','D8',),
+  },
+  E:{
+    1:new King('white','E1',false,),
+    2:new Pawn('white','E2',false,),
+    3:'',
+    4:'',
+    5:'',
+    6:'',
+    7:new Pawn('black','E7',false,),
+    8:new King('black','E8',false,),
+  },
+  F:{
+    1:new Bishop('white','F1',),
+    2:new Pawn('white','F2',false,),
+    3:'',
+    4:'',
+    5:'',
+    6:'',
+    7:new Pawn('black','F7',false,),
+    8:new Bishop('black','F8',),
+  },
+  G:{
+    1:new Knight('white','G1',),
+    2:new Pawn('white','G2',false,),
+    3:'',
+    4:'',
+    5:'',
+    6:'',
+    7:new Pawn('black','G7',false,),
+    8:new Knight('black','G8',),
+  },
+  H:{
+    1:new Rook('white','H1',false,),
+    2:new Pawn('white','H2',false,),
+    3:'',
+    4:'',
+    5:'',
+    6:'',
+    7:new Pawn('black','H7',false,),
+    8:new Rook('black','H8',false,),
+  },
+}
+
+export const boardStartStateCopy=_.cloneDeep(boardStartState);

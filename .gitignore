@@ -5,13 +5,10 @@
 /.pnp
 .pnp.js
 
-error
-
 # testing
 /coverage
 dozrobienia.txt
 # next.js
-
 /.next/
 /out/
 

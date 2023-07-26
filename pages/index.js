@@ -25,6 +25,10 @@ export default class GameBoard extends Component{
       (this.state.boardGameState !== nextState.boardGameState)
       ||
       (this.state.isModalOpened !== nextState.isModalOpened)
+      ||(
+        (this.state.firstTouch !== nextState.firstTouch) &&
+        (this.state.fromField !== nextState.fromField)
+      )
       ) {
       return true;
     }

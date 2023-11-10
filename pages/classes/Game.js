@@ -1,7 +1,6 @@
 import React,{Component} from "react";
 import {boardStartState,Xo,Yo,boardStartStateCopy} from "../_document";
 // import {Xo,Yo} from "../_document";
-
 // import {Pawn} from "./figures/Pawn";
 // import {Queen} from './figures/Queen';
 // import {King} from './figures/King';

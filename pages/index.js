@@ -131,7 +131,6 @@ export default class GameBoard extends Component{
     }
     return(
       <div style={styles.App}>
-        {Yo?.reverse()?.map(y=>Xo?.map(x=>console.log(`${x}${y}`)))}
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame}}>
           <div style={styles.GameBoard} id='gameboard'>
             <ControlPanel whiteTure={whiteTure}/>

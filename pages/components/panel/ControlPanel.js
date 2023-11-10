@@ -10,12 +10,13 @@ import {TbRotate} from 'react-icons/tb';
 
 const size=80;
 const buttonStyles=css`
-font-size:${size/2}px;
-display:grid;
-transition:all 0.15s ease-in-out;
-&:hover {
-scale:120%;
-}`;
+  font-size:${size/2}px;
+  display:grid;
+  transition:all 0.15s ease-in-out;
+  &:hover {
+    scale:120%;
+  }
+`
 
 const Button1=styled(FaRegHandshake)`${buttonStyles}`
 const Button2=styled(FiFlag)`${buttonStyles}`

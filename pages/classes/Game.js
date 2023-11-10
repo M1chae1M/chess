@@ -39,7 +39,7 @@ export class Game{
     return {fiftyMovesRule,samePositions,gameHistory,gameBoard}
   }
   static pat(txt){
-    alert('pat',txt)
+    // alert('pat',txt)
     return this.reset()
   }
   static surrender(whiteTure){

@@ -85,6 +85,21 @@ export class Pawn extends Figure{
       }
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
+
+        // console.log({
+        //   color:copyOfOldFileds?.from?.getColor?.(),
+        //   figure:copyOfOldFileds?.from?.getName?.(),
+        //   fromField:`${acX}${acY}`
+        // });
+        // {color:baseFigure?.getColor?.(),figure:baseFigure?.getName?.(),fromField,clicked}
+        Game?.addToHistory?.({
+          color:copyOfOldFileds?.from?.getColor?.(),
+          figure:copyOfOldFileds?.from?.getName?.(),
+          lastMove:{fromField:`${acX}${acY}`}
+        });
+
+        // console.log(Game?.getHistory?.())
+
         return{
           shortMove: boardStartState,
           newWhiteTure: !whiteTure

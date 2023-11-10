@@ -116,12 +116,22 @@ export class Figure{
       const didIncrement=boardStartState?.[destX]?.[destY]===''
       this.swap(destX,destY)
 
+      // console.log(
+      //   copyOfOldFileds.from[acX][acY]
+      // )
+
       if(Figure.isKingChequered(whiteTure).value){
         boardStartState[destX][destY]=copyOfOldFileds.to
         boardStartState[acX][acY]=copyOfOldFileds.from
       }
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
+
+
+        // console.log(
+        //   copyOfOldFileds.from[acX][acY]
+        // )
+        // Game.addToHistory({})
         return{
           shortMove:boardStartState,
           newWhiteTure:!whiteTure,

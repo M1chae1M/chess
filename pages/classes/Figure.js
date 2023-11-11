@@ -5,7 +5,7 @@ import _ from 'lodash';
 import {Game} from "./Game";
 
 export class Figure{
-  constructor(color,actualField,moved, name){
+  constructor(color,actualField,moved,name){
     this.color=color
     this.actualField=actualField
     this.moved=moved||false

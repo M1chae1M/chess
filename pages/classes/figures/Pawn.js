@@ -38,7 +38,7 @@ export class Pawn extends Figure{
       Rook: Rook,
       Queen: Queen,
     }[newFigure];
-    return new FigureClass(this?.getColor?.(),`${destX}${destY}`,true)
+    return new FigureClass(this?.getColor?.(),`${destX}${destY}`,true,newFigure)
   }
   canYouBeatInPassing(destination,whiteTure){
     Game.clearBoardFromUndefined();

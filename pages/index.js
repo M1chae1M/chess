@@ -40,7 +40,9 @@ export default class GameBoard extends Component{
     
       if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
         const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
-        shortMove[destX][destY]=baseFigure?.closeModal?.(destX,destY,promoteTo);
+        shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
+
+        console.log(baseFigure?.closeModal?.(destX,destY,promoteTo))
         this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
         resol();
       }else{
@@ -58,6 +60,7 @@ export default class GameBoard extends Component{
       if(isPromotionField && canMoveThere && isPawn && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
         this.setState({isModalOpened:true},()=>{
           return new Promise((resolve)=>{
+            console.log(baseFigure, clicked,this.state.boardGameState?.['G'])
             checkIsClosed(resolve,baseFigure,clicked);
           })
         })

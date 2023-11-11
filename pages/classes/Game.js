@@ -23,8 +23,18 @@ export class Game{
   static getHistory(){
     return this.gameHistory
   }
-  static addToHistory(newItem){
-    this.gameHistory.push(newItem)
+  // static addToHistory(newItem){
+  //   this.gameHistory.push(newItem)
+  // }
+  static addToHistory(acX,acY,copyOfOldFileds){
+    this.gameHistory.push({
+      lastMove:{
+        fromField:`${acX}${acY}`,
+        figure:copyOfOldFileds?.from?.getName?.(),
+        color:copyOfOldFileds?.from?.getColor?.(),
+        clicked:[acX,acY],
+      }
+    })
   }
   static lastMove(){
     return this.getHistory?.()[this.getHistory?.()?.length-1]?.lastMove

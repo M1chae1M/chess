@@ -8,14 +8,12 @@ export default class PointInHistory extends Component{
   render(){
     const {lastMove,id,board}=this.props
     const {fromField,clicked,color,figure}=lastMove||''
-    const styles={
-      pointInHistory:{
-        display:'grid',
-        gridAutoFlow:'column',
-        justifyItems:'center',
-        alignItems:'center',
-        justifyContent:'space-evenly',
-      },
+    const style={
+      display:'grid',
+      gridAutoFlow:'column',
+      justifyItems:'center',
+      alignItems:'center',
+      justifyContent:'space-evenly',
     }
     const figureIcon=figureIcons?.[color]?.[figure]
     const description=`${id+1}. ${fromField}`
@@ -23,11 +21,10 @@ export default class PointInHistory extends Component{
       <GameProvider.Consumer>
       {value=>{
         const {backToHistory}=value??{}
-        const onClick=()=>{
-          backToHistory?.(_.cloneDeep(board))
-        }
+        // const onClick=()=>backToHistory?.(_.cloneDeep(board))
+        const onClick=()=>{}
         return(
-          <div style={styles.pointInHistory} onClick={onClick}>
+          <div style={style} onClick={onClick}>
             {description}<AiOutlineArrowRight/>{clicked}
             {figureIcon}
           </div>

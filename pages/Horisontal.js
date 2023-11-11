@@ -5,7 +5,7 @@ const Horisontal=({whiteOnTop})=>{
         container:{
             display:'grid',
             gridAutoFlow:'column',
-            width:`calc(8 * ${fieldSize}px + 7px)`,
+            width:`calc(8 * (${fieldSize} + 1px) - 1px)`,
         },
         row:{
             display:'grid',

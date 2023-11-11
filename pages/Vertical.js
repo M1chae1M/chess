@@ -7,10 +7,12 @@ const Vertical=({whiteOnTop})=>{
             position:'absolute',
             display:'grid',
             gridAutoFlow:'row',
-            height:`calc(8 * ${fieldSize}px + 7px)`,
+            height:`calc(8 * (${fieldSize} + 1px) - 1px)`,
             top:'0%',
             left:'0%',
             width:fieldSize,
+            // background:'red',
+            // border:'2px solid grey',
         },
         row:{
             height:fieldSize,

@@ -53,7 +53,7 @@ export class Figure{
             // copy2[destX][destY]=copy2.to
           })
         }
-        // Game?.test?.(
+        // Game?.setGameBoard?.(
         //   _.cloneDeep(copy2)
         // )
       })
@@ -72,7 +72,7 @@ export class Figure{
         return true
       }
 
-      // Game?.test?.(
+      // Game?.setGameBoard?.(
       //   _.cloneDeep(copy)
       // )
     }).includes(true)
@@ -90,7 +90,7 @@ export class Figure{
       })
     })
 
-    // Game?.test?.(
+    // Game?.setGameBoard?.(
     //   _.cloneDeep(copy)
     // )
     return allFieldsAttacked.flat()
@@ -135,7 +135,7 @@ export class Figure{
     boardStartState[acX][acY]=''
     // copy[acX][acY]=''
 
-    // Game?.test?.(
+    // Game?.setGameBoard?.(
     //   _.cloneDeep(copy)
     // )
   }
@@ -181,7 +181,7 @@ export class Figure{
         }
       }
     }
-    // Game?.test?.(
+    // Game?.setGameBoard?.(
     //   _.cloneDeep(copy)
     // )
     return{
@@ -195,7 +195,7 @@ export class Figure{
     const copy=_.cloneDeep(Game?.returnGameBoard())
     const {destX,destY}=destination
 
-    // Game?.test?.(
+    // Game?.setGameBoard?.(
     //   _.cloneDeep(copy)
     // )
     return boardStartState[destX][destY]===''||boardStartState[destX][destY]?.getColor?.()!==this.color
@@ -203,7 +203,7 @@ export class Figure{
   }
   withoutJump(destX,destY){
     // const copy=_.cloneDeep(Game?.returnGameBoard())
-    // Game?.test?.(
+    // Game?.setGameBoard?.(
     //   _.cloneDeep(copy)
     // )
     return boardStartState[destX][destY]===''
@@ -235,7 +235,7 @@ export class Figure{
       if(baseFigure?.getColor?.()===acColor && baseFigure?.getName?.()==='King') return true;
       else return false
     })
-    // Game?.test?.(
+    // Game?.setGameBoard?.(
     //   _.cloneDeep(copy)
     // )
     return results.includes(true)

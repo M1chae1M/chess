@@ -23,7 +23,7 @@ export default class GameBoard extends Component{
     fiftyMovesRule:0,
   }
   componentDidMount(){
-    Game?.test(this.state.boardGameState)
+    Game?.setGameBoard(this.state.boardGameState)
     window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
   }
   render(){
@@ -110,7 +110,7 @@ export default class GameBoard extends Component{
       <div style={styles.App}>
         <button onClick={()=>Game?.save?.()}>save</button>
         <button onClick={()=>Game?.load?.()}>load</button>
-        <button onClick={()=>Game?.test?.(this.state.boardGameState)}>test</button>
+        <button onClick={()=>Game?.setGameBoard?.(this.state.boardGameState)}>setGameBoard</button>
         
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState}}>
           <div style={styles.GameBoard} id='gameboard'>

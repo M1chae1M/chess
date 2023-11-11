@@ -19,29 +19,12 @@ export class Game{
   // static gameBoard=boardStartState
   // constructor() {
   // }
+  static returnGameBoard(){
+    return this.gameBoard
+  }
 
-  static test(boardStartState){
-    // setGameBoard
+  static setGameBoard(boardStartState){
     this.gameBoard=_.cloneDeep(boardStartState)
-
-    // console.log(
-    //   _.cloneDeep(
-    //     this.gameBoard
-    //   )
-    // )
-    
-    // console.log(
-    //   boardStartState
-    // )
-    // console.log(Object.keys(boardStartState))
-    // Object.keys(boardStartState)?.map(x=>delete boardStartState?.[x])
-    // console.log(boardStartState)
-    // console.log(Object.keys(this.load()?.board))
-    // const {board}=this.load()
-    // Object.keys(this.load()?.board)?.map(x=>{
-    //   boardStartState[x]=_.cloneDeep(board?.[x])
-    // })
-    // console.log(boardStartState)
   }
 
   static save(){
@@ -65,10 +48,6 @@ export class Game{
     console.log(board)
 
     return {gameHistory,fiftyMovesRule,samePositions,board}
-  }
-
-  static returnGameBoard(){
-    return this.gameBoard
   }
 
   static getHistory(){
@@ -104,12 +83,12 @@ export class Game{
     alert(`Win player with ${whiteTure?'black':'white'} figures.`)
     return this.reset()
   }
-  static test50moves(){
+  static setGameBoard50moves(){
     if(this.fiftyMovesRule>=50){
       this.pat('wykonaliście 50 ruchów bez bicia,albo ruchu pionkiem,oznacza to remis,przykro mi')
     }
   }
-  static test3sameMoves(){
+  static setGameBoard3sameMoves(){
     Game.clearBoardFromUndefined();
     const cleared=this.getHistory().map(x=>x.board).map(xyz=>
       Xo.map(k=>
@@ -146,8 +125,8 @@ export class Game{
 
   }
   static getMovesCount(){
-    this.test50moves();
-    this.test3sameMoves();
+    this.setGameBoard50moves();
+    this.setGameBoard3sameMoves();
     return this.fiftyMovesRule;
   }
   static resetMoves(){

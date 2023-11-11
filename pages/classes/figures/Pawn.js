@@ -99,7 +99,7 @@ export class Pawn extends Figure{
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
         Game?.addToHistory?.(acX,acY,copyOfOldFileds);
-        // Game?.test?.(
+        // Game?.setGameBoard?.(
         //   _.cloneDeep(copy)
         // )
         return{
@@ -109,7 +109,7 @@ export class Pawn extends Figure{
         }
       }
     }
-    // Game?.test?.(
+    // Game?.setGameBoard?.(
     //   _.cloneDeep(copy)
     // )
     return{

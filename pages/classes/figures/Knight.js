@@ -24,15 +24,6 @@ export class Knight extends Figure{
     const [acX,acY]=this.actualField
     const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
     const newY=(change)=>Number(acY)+change
-    // Xo?.includes?.(newX(1)) &&  Yo?.includes?.(newY(2)) && movesWorking.push(`${newX(1)}${newY(2)}`);
-    // Xo?.includes?.(newX(1)) &&  Yo?.includes?.(newY(-2)) && movesWorking.push(`${newX(1)}${newY(-2)}`);
-    // Xo?.includes?.(newX(-1)) &&  Yo?.includes?.(newY(2)) && movesWorking.push(`${newX(-1)}${newY(2)}`);
-    // Xo?.includes?.(newX(-1)) &&  Yo?.includes?.(newY(-2)) && movesWorking.push(`${newX(-1)}${newY(-2)}`);
-    // Xo?.includes?.(newX(-2)) &&  Yo?.includes?.(newY(1)) && movesWorking.push(`${newX(-2)}${newY(1)}`);
-    // Xo?.includes?.(newX(-2)) &&  Yo?.includes?.(newY(-1)) && movesWorking.push(`${newX(-2)}${newY(-1)}`);
-    // Xo?.includes?.(newX(2)) &&  Yo?.includes?.(newY(1)) && movesWorking.push(`${newX(2)}${newY(1)}`);
-    // Xo?.includes?.(newX(2)) &&  Yo?.includes?.(newY(-1)) && movesWorking.push(`${newX(2)}${newY(-1)}`);
-
     const knightMoves=[[1,2],[1,-2],[-1,2],[-1,-2],[-2,1],[-2,-1],[2,1],[2,-1]];
     knightMoves?.map(([x,y])=>Xo?.includes?.(newX(x)) && Yo?.includes?.(newY(y)) && movesWorking.push(`${newX(x)}${newY(y)}`))
 

@@ -31,17 +31,8 @@ export default class GameBoard extends Component{
   }
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory}=this.state
-    const isChequered=()=>{
-      this.setState(Figure.isKingChequered?.(!this.state.whiteTure).value?{kingAttacked:true}:{kingAttacked:false})
-    }
-    const addToHistory=(data)=>{
-      this.setState({gameHistory:_.cloneDeep(Game?.getHistory?.())})
-      // this.setState({gameHistory:_.cloneDeep(Game?.getHistory?.())},()=>console.log(this.state.gameHistory))
-      // const gameHistoryCopy=_.cloneDeep(this.state.gameHistory);
-      // gameHistoryCopy.push({lastMove:{...data},board:_.cloneDeep(boardGameState)})
-      // Game.addToHistory({lastMove:{...data},board:_.cloneDeep(boardGameState)})
-      // this.setState({gameHistory:_.cloneDeep(gameHistoryCopy)})
-    }
+    const isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
+    const addToHistory=()=>this.setState({gameHistory:_.cloneDeep(Game?.getHistory?.())})
     const checkIsClosed=(resol,baseFigure,clicked)=>{
       const [destX,destY]=clicked??[]
       const {isModalOpened,promoteTo}=this.state;

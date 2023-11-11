@@ -23,9 +23,6 @@ export class Game{
   static getHistory(){
     return this.gameHistory
   }
-  // static addToHistory(newItem){
-  //   this.gameHistory.push(newItem)
-  // }
   static addToHistory(acX,acY,copyOfOldFileds){
     this.gameHistory.push({
       lastMove:{

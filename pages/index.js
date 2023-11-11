@@ -23,7 +23,8 @@ export default class GameBoard extends Component{
     fiftyMovesRule:0,
   }
   componentDidMount(){
-    window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error));
+    Game?.test(this.state.boardGameState)
+    window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
   }
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory}=this.state
@@ -85,8 +86,8 @@ export default class GameBoard extends Component{
     const resetGame=()=>{
       Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]))
 
-      // this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
-      this.setState({whiteTure:true, boardGameState:_.cloneDeep(boardStartStateCopy), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
+      this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
+      // this.setState({whiteTure:true, boardGameState:_.cloneDeep(boardStartStateCopy), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
     }
     const styles={
       App:{
@@ -109,7 +110,7 @@ export default class GameBoard extends Component{
       <div style={styles.App}>
         <button onClick={()=>Game?.save?.()}>save</button>
         <button onClick={()=>Game?.load?.()}>load</button>
-        <button onClick={()=>Game?.test?.()}>test</button>
+        <button onClick={()=>Game?.test?.(this.state.boardGameState)}>test</button>
         
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState}}>
           <div style={styles.GameBoard} id='gameboard'>

@@ -15,10 +15,20 @@ export class Game{
   static gameHistory=[];
   // static gameBoard=boardStartState??[]
   static gameBoard=[]
+  // static gameBoard=_?.cloneDeep?.(boardStartState??[])??[]
   // static gameBoard=boardStartState
+  // constructor() {
+  // }
 
+  static test(boardStartState){
+    // setGameBoard
+    this.gameBoard=_.cloneDeep(boardStartState)
 
-  static test(){
+    // console.log(
+    //   _.cloneDeep(
+    //     this.gameBoard
+    //   )
+    // )
     
     // console.log(
     //   boardStartState
@@ -37,25 +47,20 @@ export class Game{
   static save(){
     const data={
       gameHistory:_.cloneDeep(this.gameHistory),
-      board:_.cloneDeep(boardStartState),
+      // board:_.cloneDeep(boardStartState),
+      board:_.cloneDeep(this.gameBoard),
       fiftyMovesRule:_.cloneDeep(this.fiftyMovesRule),
       samePositions:_.cloneDeep(this.samePositions),
     }
     localStorage.setItem('chess_game_state',JSON.stringify(data))
   }
   static load(){
-    // console.log(
-    //   boardStartState
-    // )
-
-
     const {gameHistory,board,fiftyMovesRule,samePositions}=JSON.parse(localStorage.getItem('chess_game_state'))
 
     this.gameHistory=gameHistory
     this.fiftyMovesRule=fiftyMovesRule
     this.samePositions=samePositions
     this.gameBoard=board
-    // boardStartState=_.merge({},board)
 
     console.log(board)
 
@@ -122,11 +127,23 @@ export class Game{
     }
   }
   static clearBoardFromUndefined(){
+    const copy=_.cloneDeep(this.gameBoard)
+
+    // Object.keys(copy)?.map(x=>Object.keys(copy[x])?.map(y=>{
+    //   if(copy[x][y]===undefined){
+    //     copy[x][y]=''
+    //   }
+    // }))
+
     Object.keys(boardStartState)?.map(x=>Object.keys(boardStartState[x])?.map(y=>{
       if(boardStartState[x][y]===undefined){
         boardStartState[x][y]=''
       }
     }))
+
+    this.gameBoard=_.cloneDeep(copy)
+
+
   }
   static getMovesCount(){
     this.test50moves();

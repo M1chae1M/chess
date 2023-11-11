@@ -6,6 +6,7 @@ import {Knight} from "./Knight";
 import {Bishop} from "./Bishop";
 import {Rook} from "./Rook";
 import {Game} from "../Game";
+import _ from "lodash";
 
 /* Pawn */
 export class Pawn extends Figure{
@@ -38,8 +39,10 @@ export class Pawn extends Figure{
     if(Game?.lastMove?.()?.clicked){
       const [acX,acY]=this.actualField
       const {destX,destY}=destination
+      const copy=_.cloneDeep(Game?.returnGameBoard?.())
 
       const baseFigure=boardStartState?.[destX]?.[destY];
+      // const baseFigure=copy?.[destX]?.[destY];
       const XchangeCond=Math.abs(acX.charCodeAt()-destX.charCodeAt())===1;
   
       const {clicked,fromField,figure}=Game?.lastMove?.()
@@ -56,13 +59,18 @@ export class Pawn extends Figure{
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField
     const destination={destX,destY}
+    const copy=_.cloneDeep(Game?.returnGameBoard?.())
+
     const copyOfOldFileds={
       from:boardStartState[acX][acY]?.copyOfInstance?.(),
       to:boardStartState[destX][destY]?.copyOfInstance?.()
+      // from:copy[acX][acY]?.copyOfInstance?.(),
+      // to:copy[destX][destY]?.copyOfInstance?.()
     }
 
     if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove){
       const ifCanYouBeatInPassing=this?.canYouBeatInPassing?.(destination,whiteTure)
+      // const didIncrement=copy?.[destX]?.[destY]===''
       const didIncrement=boardStartState?.[destX]?.[destY]===''
       this.swap(destX,destY)
 
@@ -70,30 +78,43 @@ export class Pawn extends Figure{
         const {clicked}=Game?.lastMove?.()
         const [lastX,lastY]=clicked
 
+        // copyOfOldFileds.oldPawnField=copy[lastX][lastY]?.copyOfInstance?.();
         copyOfOldFileds.oldPawnField=boardStartState[lastX][lastY]?.copyOfInstance?.();
+        // copy[lastX][lastY]=''
         boardStartState[lastX][lastY]=''
       }
 
       if(Figure.isKingChequered(whiteTure).value){
+        // copy[destX][destY]=copyOfOldFileds.to
         boardStartState[destX][destY]=copyOfOldFileds.to
+        // copy[acX][acY]=copyOfOldFileds.from
         boardStartState[acX][acY]=copyOfOldFileds.from
         if(ifCanYouBeatInPassing){
           const {clicked}=Game?.lastMove?.()
           const [lastX,lastY]=clicked
           boardStartState[lastX][lastY]=copyOfOldFileds.oldPawnField
+          // copy[lastX][lastY]=copyOfOldFileds.oldPawnField
         }
       }
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
         Game?.addToHistory?.(acX,acY,copyOfOldFileds);
+        // Game?.test?.(
+        //   _.cloneDeep(copy)
+        // )
         return{
           shortMove: boardStartState,
+          // shortMove: copy,
           newWhiteTure: !whiteTure
         }
       }
     }
+    // Game?.test?.(
+    //   _.cloneDeep(copy)
+    // )
     return{
       shortMove: boardStartState,
+      // shortMove: copy,
       newWhiteTure: whiteTure
     }
   }

@@ -115,17 +115,19 @@ export default class GameBoard extends Component{
     const resetGame=()=>{
       Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]))
 
-      this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
+      // this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
+      this.setState({whiteTure:true, boardGameState:_.cloneDeep(boardStartStateCopy), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
     }
-    const AllFields=()=>{
-      return Yo?.reverse()?.map(y=>Xo?.map(x=>{
-        return <DynamicField key={`${x}${y}`} x={x} y={y} touch={touch}/>
-      }))
-    }
+    const AllFields=()=>(
+      Yo?.reverse()?.map(y=>Xo?.map(x=>(
+        <DynamicField key={`${x}${y}`} x={x} y={y} touch={touch}/>
+      )))
+    )
     return(
       <div style={styles.App}>
         <button onClick={()=>Game?.save?.()}>save</button>
         <button onClick={()=>Game?.load?.()}>load</button>
+        <button onClick={()=>Game?.test?.()}>test</button>
         
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState}}>
           <div style={styles.GameBoard} id='gameboard'>

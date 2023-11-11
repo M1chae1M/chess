@@ -17,6 +17,23 @@ export class Game{
   static gameBoard=[]
   // static gameBoard=boardStartState
 
+
+  static test(){
+    
+    // console.log(
+    //   boardStartState
+    // )
+    // console.log(Object.keys(boardStartState))
+    // Object.keys(boardStartState)?.map(x=>delete boardStartState?.[x])
+    // console.log(boardStartState)
+    // console.log(Object.keys(this.load()?.board))
+    // const {board}=this.load()
+    // Object.keys(this.load()?.board)?.map(x=>{
+    //   boardStartState[x]=_.cloneDeep(board?.[x])
+    // })
+    // console.log(boardStartState)
+  }
+
   static save(){
     const data={
       gameHistory:_.cloneDeep(this.gameHistory),

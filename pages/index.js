@@ -6,8 +6,7 @@ import {Figure} from './classes/Figure';
 import _ from 'lodash';
 import History from './components/History/History';
 import {Game} from './classes/Game';
-import dynamic from 'next/dynamic';
-const DynamicField=dynamic(()=>import('./components/Field'), {ssr:false});
+import AllFields from './components/AllFields';
 
 export const ModalContext=React.createContext()
 export const GameProvider=React.createContext()
@@ -25,9 +24,7 @@ export default class GameBoard extends Component{
     fiftyMovesRule:0,
   }
   componentDidMount(){
-    window.addEventListener('error',(event) => {
-      console.error('Wystąpił nieobsłużony błąd:',event.error);
-    });
+    window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error));
   }
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory}=this.state
@@ -118,11 +115,6 @@ export default class GameBoard extends Component{
       // this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
       this.setState({whiteTure:true, boardGameState:_.cloneDeep(boardStartStateCopy), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
     }
-    const AllFields=()=>(
-      Yo?.reverse()?.map(y=>Xo?.map(x=>(
-        <DynamicField key={`${x}${y}`} x={x} y={y} touch={touch}/>
-      )))
-    )
     return(
       <div style={styles.App}>
         <button onClick={()=>Game?.save?.()}>save</button>
@@ -132,7 +124,7 @@ export default class GameBoard extends Component{
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState}}>
           <div style={styles.GameBoard} id='gameboard'>
             <ControlPanel whiteTure={whiteTure}/>
-            <AllFields/>
+            <AllFields touch={touch}/>
           </div>
           <Modal/>
           <History gameHistory={gameHistory}/>

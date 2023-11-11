@@ -7,7 +7,8 @@ export class Bishop extends Queen{
     const [acX,acY]=this.actualField
     const movesWorking=[];
     this.crossMoves(movesWorking,acX,acY)
-    return {canMove:movesWorking.includes(`${destX}${destY}`) && this.canStand({destX,destY}),moves:movesWorking}
+    const canMove=movesWorking.includes(`${destX}${destY}`) && this.canStand({destX,destY})
+    return {canMove,moves:movesWorking}
   }
   attacking(whiteTure,destX,destY){
     const [acX,acY]=this.actualField

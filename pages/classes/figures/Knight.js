@@ -1,10 +1,7 @@
 import React,{Component} from "react";
 import {Figure} from "../Figure";
 import {Xo,Yo,boardStartState} from "@/pages/_document";
-// import {Xo,Yo} from "@/pages/_document";
-import {Game} from "../Game";
-// const boardStartState=Game?.returnGameBoard?.()
-const horisontalMove=(acX,chng)=>String.fromCharCode(acX.charCodeAt()+chng);
+
 /* Knight */
 export class Knight extends Figure{
   canMove(destX,destY,whiteTure){
@@ -97,4 +94,8 @@ function attackingField(params){
   const YoLimit=Yo.includes(Number(destY)+chngY)
 
   colorCondition && XoLimit && YoLimit && movesWorking.push(`${horisontalMove(destX,chngX)}${Number(destY)+chngY}`)
+}
+
+function horisontalMove(acX,chng){
+  String.fromCharCode(acX.charCodeAt()+chng)
 }

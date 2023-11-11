@@ -68,16 +68,3 @@ function legalKnightMove(actual,destination){
 
   return {can:moreVerticalMove||moreHorisontalMove}
 }
-
-function attackingField(params){
-  const [chngX,chngY,whiteTure,destX,destY,movesWorking]=params
-  const colorCondition=boardStartState[destX][destY]?.goodTure?.(whiteTure)
-  const XoLimit=Xo.includes(horisontalMove(destX,chngX))
-  const YoLimit=Yo.includes(Number(destY)+chngY);
-
-  colorCondition && XoLimit && YoLimit && movesWorking.push(`${horisontalMove(destX,chngX)}${Number(destY)+chngY}`);
-}
-
-function horisontalMove(acX,chng){
-  String.fromCharCode(acX.charCodeAt()+chng)
-}

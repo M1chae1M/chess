@@ -1,14 +1,13 @@
 import React,{Component} from 'react';
 import {fieldSize,boardStartState,boardStartStateCopy,Xo,Yo} from './_document';
 import ControlPanel from './components/panel/ControlPanel';
-import PromotionModal from './components/Modal/PromotionModal';
 import {Figure} from './classes/Figure';
 import _ from 'lodash';
 import History from './components/History/History';
 import {Game} from './classes/Game';
 import AllFields from './components/AllFields';
+import Modal from './components/Modal';
 
-export const ModalContext=React.createContext()
 export const GameProvider=React.createContext()
 
 export default class GameBoard extends Component{
@@ -81,6 +80,14 @@ export default class GameBoard extends Component{
         secoundClick(fromField,clicked)
       }
     }
+    const closeModalF=(name)=>this.setState({isModalOpened:false,promoteTo:name})
+    const backToHistory=(board)=>this.setState({boardGameState:_.cloneDeep({...board})})
+    const resetGame=()=>{
+      Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]))
+
+      // this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
+      this.setState({whiteTure:true, boardGameState:_.cloneDeep(boardStartStateCopy), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
+    }
     const styles={
       App:{
         display:'grid',
@@ -98,23 +105,6 @@ export default class GameBoard extends Component{
         gridTemplateColumns:`repeat(8,${fieldSize})`,
       },
     }
-    const closeModalF=(name)=>{
-      this.setState({isModalOpened:false,promoteTo:name})
-    }
-    const Modal=()=>{
-      return <ModalContext.Provider value={{closeModalF}}>
-        {this.state.isModalOpened?<PromotionModal whiteTure={whiteTure}/>:null}
-      </ModalContext.Provider>
-    }
-    const backToHistory=(board)=>{
-      this.setState({boardGameState:_.cloneDeep({...board})})
-    }
-    const resetGame=()=>{
-      Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]))
-
-      // this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
-      this.setState({whiteTure:true, boardGameState:_.cloneDeep(boardStartStateCopy), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
-    }
     return(
       <div style={styles.App}>
         <button onClick={()=>Game?.save?.()}>save</button>
@@ -126,7 +116,7 @@ export default class GameBoard extends Component{
             <ControlPanel whiteTure={whiteTure}/>
             <AllFields touch={touch}/>
           </div>
-          <Modal/>
+          <Modal isModalOpened={isModalOpened} closeModalF={closeModalF} whiteTure={whiteTure}/>
           <History gameHistory={gameHistory}/>
         </GameProvider.Provider>
       </div>

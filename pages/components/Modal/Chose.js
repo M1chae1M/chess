@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {ModalContext} from "../..";
+import {ModalContext} from ".";
 
 export default class Chose extends Component{
   render(){

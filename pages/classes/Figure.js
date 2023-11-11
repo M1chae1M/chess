@@ -132,6 +132,8 @@ export class Figure{
         //   copyOfOldFileds.from[acX][acY]
         // )
         // Game.addToHistory({})
+        Game?.addToHistory?.(acX,acY,copyOfOldFileds);
+
         return{
           shortMove:boardStartState,
           newWhiteTure:!whiteTure,

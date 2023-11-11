@@ -86,15 +86,6 @@ export class Pawn extends Figure{
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
         Game?.addToHistory?.(acX,acY,copyOfOldFileds);
-
-        // Game?.addToHistory?.({
-        //   lastMove:{
-        //     fromField:`${acX}${acY}`,
-        //     figure:copyOfOldFileds?.from?.getName?.(),
-        //     color:copyOfOldFileds?.from?.getColor?.(),
-        //     clicked:[acX,acY],
-        //   }
-        // });
         return{
           shortMove: boardStartState,
           newWhiteTure: !whiteTure

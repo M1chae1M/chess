@@ -124,7 +124,10 @@ export default class GameBoard extends Component{
     }
     return(
       <div style={styles.App}>
-        <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame}}>
+        <button onClick={()=>Game?.save?.()}>save</button>
+        <button onClick={()=>Game?.load?.()}>load</button>
+        
+        <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState}}>
           <div style={styles.GameBoard} id='gameboard'>
             <ControlPanel whiteTure={whiteTure}/>
             <AllFields/>

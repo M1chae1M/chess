@@ -1,5 +1,6 @@
 import React,{Component} from "react";
 import {boardStartState,Xo,Yo,boardStartStateCopy} from "../_document";
+import _ from "lodash";
 // import {Xo,Yo} from "../_document";
 // import {Pawn} from "./figures/Pawn";
 // import {Queen} from './figures/Queen';
@@ -15,6 +16,34 @@ export class Game{
   // static gameBoard=boardStartState??[]
   static gameBoard=[]
   // static gameBoard=boardStartState
+
+  static save(){
+    const data={
+      gameHistory:_.cloneDeep(this.gameHistory),
+      board:_.cloneDeep(boardStartState),
+      fiftyMovesRule:_.cloneDeep(this.fiftyMovesRule),
+      samePositions:_.cloneDeep(this.samePositions),
+    }
+    localStorage.setItem('chess_game_state',JSON.stringify(data))
+  }
+  static load(){
+    // console.log(
+    //   boardStartState
+    // )
+
+
+    const {gameHistory,board,fiftyMovesRule,samePositions}=JSON.parse(localStorage.getItem('chess_game_state'))
+
+    this.gameHistory=gameHistory
+    this.fiftyMovesRule=fiftyMovesRule
+    this.samePositions=samePositions
+    this.gameBoard=board
+    // boardStartState=_.merge({},board)
+
+    console.log(board)
+
+    return {gameHistory,fiftyMovesRule,samePositions,board}
+  }
 
   static returnGameBoard(){
     return this.gameBoard

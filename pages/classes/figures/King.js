@@ -1,12 +1,8 @@
 import React,{Component} from "react";
 import {Figure} from "../Figure";
 import {Xo,Yo,boardStartState} from "@/pages/_document";
-// import {Xo,Yo} from "@/pages/_document";
 import {Game} from "../Game";
 
-// const boardStartState=Game.returnGameBoard()
-
-/* King */
 export class King extends Figure{
   castling(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
@@ -26,11 +22,9 @@ export class King extends Figure{
 
     const canRookMove=rook?.returnDefMovesOnly?.();
     const canRookMoveTo=(destField)=>{return canRookMove?.includes(`${destField}${acY}`)}
-    const fieldOccupancy=isG?canRookMoveTo('F'):canRookMoveTo('D')
+    const fieldOccupancy=isG?canRookMoveTo('F'):canRookMoveTo('D');
 
-    if(horisontalMoveCondition===2 && verticalMoveCondition===0 && (cond1||cond2) && fieldOccupancy){
-      rook?.swap?.(destField,acY)
-    }
+    horisontalMoveCondition===2 && verticalMoveCondition===0 && (cond1||cond2) && fieldOccupancy && rook?.swap?.(destField,acY);
   }
   move(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
@@ -77,7 +71,7 @@ export class King extends Figure{
     const isG=destX==='G'
     const rookPosition=isG?'H':'A'
     const rook=boardStartState[rookPosition][acY]
-    const destField=isG?'F':'D';
+    // const destField=isG?'F':'D';
 
     const attacked=Figure.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
     const doesntAttacked=(f1,f2)=>{return !attacked.includes(`E${acY}`) && !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)}
@@ -135,7 +129,7 @@ export class King extends Figure{
     const movesWorking=[];
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField
-    const acColor=this.getColor()
+    // const acColor=this.getColor()
 
     for(let i=-1;i<=1;i++){
       for(let j=-1;j<=1;j++){

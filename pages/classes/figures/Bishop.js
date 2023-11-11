@@ -1,14 +1,13 @@
 import React,{Component} from "react";
 import {Queen} from "./Queen";
 
-/* Bishop */
 export class Bishop extends Queen{
   canMove(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
-    const movesWorking=[];
-    this.crossMoves(movesWorking,acX,acY)
-    const canMove=movesWorking.includes(`${destX}${destY}`) && this.canStand({destX,destY})
-    return {canMove,moves:movesWorking}
+    const moves=[];
+    this.crossMoves(moves,acX,acY)
+    const canMove=moves.includes(`${destX}${destY}`) && this.canStand({destX,destY})
+    return {canMove,moves}
   }
   attacking(whiteTure,destX,destY){
     const [acX,acY]=this.actualField
@@ -17,10 +16,7 @@ export class Bishop extends Queen{
     return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking,startField:[acX,acY]}
   }
   returnDefMovesOnly(){
-    const movesWorking=[]
-    movesWorking.push(this.returnCrossMovesOnly())
-    
-    return movesWorking.flat()
+    return this.returnCrossMovesOnly()
   }
 }
 

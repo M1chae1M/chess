@@ -127,7 +127,6 @@ export default class GameBoard extends Component{
         <button onClick={()=>Game?.setGameBoard?.(this.state.boardGameState)}>setGameBoard</button> */}
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory}}>
           <div style={styles.GameBoard} id='gameboard'>
-            {console.log(gameHistory)}
             <Vertical whiteOnTop={whiteOnTop}/>
             <ControlPanel whiteTure={whiteTure}/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>

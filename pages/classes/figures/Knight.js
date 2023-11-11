@@ -2,48 +2,37 @@ import React,{Component} from "react";
 import {Figure} from "../Figure";
 import {Xo,Yo,boardStartState} from "@/pages/_document";
 
-/* Knight */
 export class Knight extends Figure{
   canMove(destX,destY,whiteTure){
-    const movesWorking=[]
+    const moves=[]
     const [acX,acY]=this.actualField;
     const actual={acX,acY}
     const destination={destX,destY}
 
     if(legalKnightMove(actual,destination).can){
-      this.tryField(1,2,movesWorking)
-      this.tryField(1,-2,movesWorking)
+      const tryFields=[[1,2],[1,-2],[-1,2],[-1,-2],[-2,1],[-2,-1],[2,1],[2,-1]];
+      tryFields?.map(([x1,x2])=>this.tryField(x1,x2,moves))
 
-      this.tryField(-1,2,movesWorking)
-      this.tryField(-1,-2,movesWorking)
-
-      this.tryField(-2,1,movesWorking)
-      this.tryField(-2,-1,movesWorking)
-
-      this.tryField(2,1,movesWorking)
-      this.tryField(2,-1,movesWorking)
-
-      return {canMove:this.canStand(destination),moves:movesWorking}
+      return {canMove:this.canStand(destination),moves}
     }
     else{
-      return {canMove:false,moves:movesWorking}
+      return {canMove:false,moves}
     }
   }
-  attacking(whiteTure,destX,destY) {
+  attacking(whiteTure,destX,destY){
     const movesWorking=[]
+    const [acX,acY]=this.actualField
+    const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
+    const newY=(change)=>Number(acY)+change
 
-    const params=[whiteTure,destX,destY,movesWorking]
-    attackingField([+1,+2,...params]);
-    attackingField([+1,-2,...params]);
-
-    attackingField([-1,+2,...params]);
-    attackingField([-1,-2,...params]);
-
-    attackingField([-2,+1,...params]);
-    attackingField([-2,-1,...params]);
-
-    attackingField([+2,+1,...params]);
-    attackingField([+2,-1,...params]);
+    Xo?.includes?.(newX(1)) &&  Yo?.includes?.(newY(2)) && movesWorking.push(`${newX(1)}${newY(2)}`);
+    Xo?.includes?.(newX(1)) &&  Yo?.includes?.(newY(-2)) && movesWorking.push(`${newX(1)}${newY(-2)}`);
+    Xo?.includes?.(newX(-1)) &&  Yo?.includes?.(newY(2)) && movesWorking.push(`${newX(-1)}${newY(2)}`);
+    Xo?.includes?.(newX(-1)) &&  Yo?.includes?.(newY(-2)) && movesWorking.push(`${newX(-1)}${newY(-2)}`);
+    Xo?.includes?.(newX(-2)) &&  Yo?.includes?.(newY(1)) && movesWorking.push(`${newX(-2)}${newY(1)}`);
+    Xo?.includes?.(newX(-2)) &&  Yo?.includes?.(newY(-1)) && movesWorking.push(`${newX(-2)}${newY(-1)}`);
+    Xo?.includes?.(newX(2)) &&  Yo?.includes?.(newY(1)) && movesWorking.push(`${newX(2)}${newY(1)}`);
+    Xo?.includes?.(newX(2)) &&  Yo?.includes?.(newY(-1)) && movesWorking.push(`${newX(2)}${newY(-1)}`);
 
     return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking}
   }
@@ -91,9 +80,9 @@ function attackingField(params){
   const [chngX,chngY,whiteTure,destX,destY,movesWorking]=params
   const colorCondition=boardStartState[destX][destY]?.goodTure?.(whiteTure)
   const XoLimit=Xo.includes(horisontalMove(destX,chngX))
-  const YoLimit=Yo.includes(Number(destY)+chngY)
+  const YoLimit=Yo.includes(Number(destY)+chngY);
 
-  colorCondition && XoLimit && YoLimit && movesWorking.push(`${horisontalMove(destX,chngX)}${Number(destY)+chngY}`)
+  colorCondition && XoLimit && YoLimit && movesWorking.push(`${horisontalMove(destX,chngX)}${Number(destY)+chngY}`);
 }
 
 function horisontalMove(acX,chng){

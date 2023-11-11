@@ -41,7 +41,7 @@ export default function ControlPanel({whiteTure}){
   return(
     <GameProvider.Consumer>
     {value=>{
-      const {resetGame,turnBord}=value??{}
+      const {resetGame,turnBoard}=value??{}
       const pat=()=>{
         // console.log(
           // const {fiftyMovesRule,samePositions,gameHistory,gameBoard}=
@@ -56,7 +56,7 @@ export default function ControlPanel({whiteTure}){
       }
       const turn=()=>{
         console.log('rotate board')
-        turnBord?.();
+        turnBoard?.();
         // Xo.reverse()
 
       }

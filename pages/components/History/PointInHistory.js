@@ -20,9 +20,13 @@ export default class PointInHistory extends Component{
     return(
       <GameProvider.Consumer>
       {value=>{
-        const {backToHistory}=value??{}
-        // const onClick=()=>backToHistory?.(_.cloneDeep(board))
-        const onClick=()=>{}
+        const {backToHistory,gameHistory}=value??{}
+        const onClick=()=>{
+          console.log(gameHistory?.[id], gameHistory)
+
+          // backToHistory?.(_.cloneDeep(board))
+        }
+        // const onClick=()=>{}
         return(
           <div style={style} onClick={onClick}>
             {description}<AiOutlineArrowRight/>{clicked}

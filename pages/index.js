@@ -33,20 +33,18 @@ export default class GameBoard extends Component{
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop}=this.state
     const isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
     const addToHistory=()=>this.setState({gameHistory:_.cloneDeep(Game?.getHistory?.())})
-    const turnBord=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
-    const checkIsClosed=(resol,baseFigure,clicked)=>{
+    const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
+    const checkIsClosed=(end,baseFigure,clicked)=>{
       const [destX,destY]=clicked??[]
       const {isModalOpened,promoteTo}=this.state;
     
       if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
         const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
         shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
-
-        console.log(baseFigure?.closeModal?.(destX,destY,promoteTo))
         this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
-        resol();
+        end();
       }else{
-        setTimeout(()=>checkIsClosed(resol,baseFigure,clicked),100);
+        setTimeout(()=>checkIsClosed(end,baseFigure,clicked),100);
       }
     }
     const secoundClick=(fromField,clicked)=>{
@@ -60,7 +58,6 @@ export default class GameBoard extends Component{
       if(isPromotionField && canMoveThere && isPawn && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
         this.setState({isModalOpened:true},()=>{
           return new Promise((resolve)=>{
-            console.log(baseFigure, clicked,this.state.boardGameState?.['G'])
             checkIsClosed(resolve,baseFigure,clicked);
           })
         })
@@ -118,9 +115,6 @@ export default class GameBoard extends Component{
         {/* <button onClick={()=>Game?.save?.(this.state.boardGameState)}>save</button>
         <button onClick={()=>{
           const {gameHistory,fiftyMovesRule,samePositions,board,boardStartState}=Game?.load?.()
-          console.log(
-            Game?.load?.()
-          )
           this.setState({whiteTure:true, boardGameState:_.cloneDeep(board), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
           // this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
           // this.setState({
@@ -131,8 +125,9 @@ export default class GameBoard extends Component{
           // })
           }}>load</button>
         <button onClick={()=>Game?.setGameBoard?.(this.state.boardGameState)}>setGameBoard</button> */}
-        <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBord}}>
+        <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory}}>
           <div style={styles.GameBoard} id='gameboard'>
+            {console.log(gameHistory)}
             <Vertical whiteOnTop={whiteOnTop}/>
             <ControlPanel whiteTure={whiteTure}/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>

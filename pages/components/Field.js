@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import {fieldSize,boardStartState} from '../_document';
-// import {fieldSize} from '../_document';
 import {GameProvider} from '..';
 import {ifBlackFunction} from '../classes/Functions';
 
@@ -17,8 +16,6 @@ export default class Field extends Component{
         // const base=boardStartState?.[x]?.[y]
         const base=boardGameState?.[x]?.[y]
         const Figure=()=>base?.returnFigure?.()
-
-
         const {kingAttacked,whiteTure}=value??{}
         const isKing=base?.getName?.()==='King'
         const isColor=base?.goodTure?.(whiteTure)

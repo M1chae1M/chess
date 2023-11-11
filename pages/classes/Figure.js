@@ -107,7 +107,6 @@ export class Figure{
     this.moved=true
     boardStartState[destX][destY]=boardStartState[acX][acY]
     boardStartState[acX][acY]=''
-
   }
   move(destX,destY,whiteTure){
     Game.clearBoardFromUndefined()

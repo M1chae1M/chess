@@ -46,10 +46,13 @@ export const figureIcons={
 export const boardStartState={
   A:{
     1:new Rook('white','A1',false,'Rook'),
-    2:new Pawn('white','A2',false,'Pawn'),
+    // 2:new Pawn('white','A2',false,'Pawn'),
+    2:'',
     3:'',
-    4:'',
-    5:'',
+    4:new Pawn('black','A4',true,'Pawn'),
+    // 4:'',
+    // 5:'',
+    5:new Pawn('white','A5',true,'Pawn'),
     6:'',
     7:new Pawn('black','A7',false,'Pawn'),
     8:new Rook('black','A8',false,'Rook'),

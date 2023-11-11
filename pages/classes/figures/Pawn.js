@@ -113,13 +113,47 @@ export class Pawn extends Figure{
     const canNormalBeat=XchangeCond && baseFigure?.getColor?.()!==this.color && baseFigure!=='' && Ychange===(whiteTure?1:-1)
 
     const newY=Number(acY)+(whiteTure?1:-1)
-    const newX=(change)=>{return String.fromCharCode(acX.charCodeAt()+change)}
-    if(Yo.includes(newY)){
-      boardStartState?.[newX(-1)]?.[newY]!=='' && Xo.includes(newX(-1)) && movesWorking.push(`${newX(-1)}${newY}`);
-      boardStartState?.[newX(1)]?.[newY]!=='' && Xo.includes(newX(1)) && movesWorking.push(`${newX(1)}${newY}`);
-    }
+    const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
 
-    if(this.goodTure(whiteTure) && (ifCanYouBeatInPassing || canNormalBeat || (shortYchange || canLongMove))){
+
+    // console.log( Game?.lastMove?.()?.clicked )
+
+
+    const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
+    // console.log(
+    //   // `old`,enemyX,enemyY,
+    //   // `new`,newX(+1),newY
+
+
+
+    //   `X taki sam?`,enemyX===newX(+1),
+    //   newY-enemyY,
+    //   newY, enemyY
+    // )
+
+    if(Yo?.includes(newY)){
+
+      enemyX===newX(+1) && Xo?.includes(newX(+1)) && movesWorking.push(  `${newX(+1)}${newY}`  );
+      enemyX===newX(-1) && Xo?.includes(newX(-1)) && movesWorking.push(  `${newX(-1)}${newY}`  );
+    }
+    console.log(
+      `newY`,newY,
+      `enemyY`,Number(enemyY),
+      `różnica`,newY-Number(enemyY)
+    )
+    // console.log(movesWorking,`new dest ${`${destX}${destY}`}`)
+
+    // if(Yo.includes(newY)){
+    //   boardStartState?.[newX(-1)]?.[newY]!=='' && Xo.includes(newX(-1)) && movesWorking.push(`${newX(-1)}${newY}`);
+    //   boardStartState?.[newX(1)]?.[newY]!=='' && Xo.includes(newX(1)) && movesWorking.push(`${newX(1)}${newY}`);
+    // }
+
+    if(this.goodTure(whiteTure)
+    && (
+  // ifCanYouBeatInPassing ||
+  // movesWorking?.includes?.(`${destX}${destY}`)||
+  canNormalBeat || (shortYchange || canLongMove))
+  ){
       return {canMove:true,moves:movesWorking}
     }
     return {canMove:false,moves:movesWorking}

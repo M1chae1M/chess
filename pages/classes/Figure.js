@@ -1,5 +1,4 @@
 import React,{Component} from "react";
-// import {boardStartState,Xo,Yo} from "../_document";
 import {boardStartState,Xo,Yo} from "../_document";
 import {figureIcons} from "../_document";
 import _ from 'lodash';
@@ -24,11 +23,6 @@ export class Figure{
       Yo.map(y=>{
         if(boardStartState[x][y]?.getColor?.()==='black'){
           boardStartState[x][y]?.returnDefMovesOnly?.().map(def=>{
-          // const copy2=_.cloneDeep(Game?.returnGameBoard())
-
-        // if(copy2[x][y]?.getColor?.()==='black'){
-          // copy2[x][y]?.returnDefMovesOnly?.().map(def=>{
-
             const [destX,destY]=def;
             const attackedColor=whiteTure?'white':'black';
             const attackingColor=whiteTure?'black':'white';
@@ -36,11 +30,8 @@ export class Figure{
             const copy={
               from:boardStartState[x][y]?.copyOfInstance?.(),
               to:boardStartState[destX][destY]?.copyOfInstance?.()
-              // from:copy2[x][y]?.copyOfInstance?.(),
-              // to:copy2[destX][destY]?.copyOfInstance?.()
             }
             boardStartState[x][y]?.swap?.(destX,destY)
-            // copy2[x][y]?.swap?.(destX,destY)
 
             const allAttacked=Figure.allFieldsAttackedBy?.(attackingColor,whiteTure);
             const heIsChequered=!Figure.isThereKingColor?.(attackedColor,allAttacked);
@@ -49,50 +40,32 @@ export class Figure{
 
             boardStartState[x][y]=copy.from
             boardStartState[destX][destY]=copy.to
-            // copy2[x][y]=copy2.from
-            // copy2[destX][destY]=copy2.to
           })
         }
-        // Game?.setGameBoard?.(
-        //   _.cloneDeep(copy2)
-        // )
       })
     })
-
     return allDefStategies
   }
   static isThereKingColor(attackedColor,allAttacked){
     const KingIsThere=allAttacked?.map(m=>{
       const [x,y]=m
-      const copy=_.cloneDeep(Game?.returnGameBoard())
       if(boardStartState[x][y]?.getColor?.()===attackedColor &&
       boardStartState[x][y]?.getName?.()==='King'){
-      // if(copy[x][y]?.getColor?.()===attackedColor &&
-      // copy[x][y]?.getName?.()==='King'){
         return true
       }
 
-      // Game?.setGameBoard?.(
-      //   _.cloneDeep(copy)
-      // )
     }).includes(true)
     return KingIsThere
   }
   static allFieldsAttackedBy(attackingColor,whiteTure){
     const allFieldsAttacked=[]
-    const copy=_.cloneDeep(Game?.returnGameBoard())
     Xo.map(x=>{
       Yo.map(y=>{
         boardStartState[x][y]?.getColor?.()===attackingColor && 
-        // copy[x][y]?.getColor?.()===attackingColor && 
         allFieldsAttacked.push([...boardStartState[x][y]?.attacking?.(!whiteTure,x,y).legalMoves])
-        // allFieldsAttacked.push([...copy[x][y]?.attacking?.(!whiteTure,x,y).legalMoves])
       })
     })
 
-    // Game?.setGameBoard?.(
-    //   _.cloneDeep(copy)
-    // )
     return allFieldsAttacked.flat()
   }
   setMoved(newState){
@@ -117,10 +90,13 @@ export class Figure{
     return this.moved
   }
   goodTure(whiteTure){
-    if(whiteTure && this.getColor()==='white'){
-      return true
-    }
-    else if(!whiteTure && this.getColor()==='black'){
+    // if(whiteTure && this.getColor()==='white'){
+    //   return true
+    // }
+    // else if(!whiteTure && this.getColor()==='black'){
+    //   return true
+    // }
+    if((whiteTure && this.getColor()==='white') || (!whiteTure && this.getColor()==='black')){
       return true
     }
   }
@@ -129,92 +105,50 @@ export class Figure{
 
     this.actualField=`${destX}${destY}`
     this.moved=true
-    // const copy=_.cloneDeep(Game?.returnGameBoard())
     boardStartState[destX][destY]=boardStartState[acX][acY]
-    // copy[destX][destY]=copy[acX][acY]
     boardStartState[acX][acY]=''
-    // copy[acX][acY]=''
 
-    // Game?.setGameBoard?.(
-    //   _.cloneDeep(copy)
-    // )
   }
   move(destX,destY,whiteTure){
     Game.clearBoardFromUndefined()
     const [acX,acY]=this.actualField
-
-    const copy=_.cloneDeep(Game?.returnGameBoard())
-
     const copyOfOldFileds={
       from:boardStartState[acX][acY]?.copyOfInstance?.(),
       to:boardStartState[destX][destY]?.copyOfInstance?.()
-      // from:copy[acX][acY]?.copyOfInstance?.(),
-      // to:copy[destX][destY]?.copyOfInstance?.()
     }
 
     if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove){
       const didIncrement=boardStartState?.[destX]?.[destY]===''
-      // const didIncrement=copy?.[destX]?.[destY]===''
       this.swap(destX,destY)
-
-      // console.log(
-      //   copyOfOldFileds.from[acX][acY]
-      // )
-
       if(Figure.isKingChequered(whiteTure).value){
         boardStartState[destX][destY]=copyOfOldFileds.to
         boardStartState[acX][acY]=copyOfOldFileds.from
-        // copy[destX][destY]=copyOfOldFileds.to
-        // copy[acX][acY]=copyOfOldFileds.from
       }
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
-
-
         Game?.addToHistory?.(acX,acY,copyOfOldFileds);
 
         return{
           shortMove:boardStartState,
-          // shortMove:copy,
           newWhiteTure:!whiteTure,
           chequered:Figure.isKingChequered(whiteTure).value,
         }
       }
     }
-    // Game?.setGameBoard?.(
-    //   _.cloneDeep(copy)
-    // )
     return{
       shortMove:boardStartState,
-      // shortMove:copy,
       newWhiteTure:whiteTure,
       chequered:Figure.isKingChequered(whiteTure).value,
     }
   }
   canStand(destination){
-    const copy=_.cloneDeep(Game?.returnGameBoard())
     const {destX,destY}=destination
 
-    // Game?.setGameBoard?.(
-    //   _.cloneDeep(copy)
-    // )
     return boardStartState[destX][destY]===''||boardStartState[destX][destY]?.getColor?.()!==this.color
-    // return copy[destX][destY]===''||copy[destX][destY]?.getColor?.()!==this.color
   }
   withoutJump(destX,destY){
-    // const copy=_.cloneDeep(Game?.returnGameBoard())
-    // Game?.setGameBoard?.(
-    //   _.cloneDeep(copy)
-    // )
     return boardStartState[destX][destY]===''
-    // return copy[destX][destY]===''
   }
-  // canMove(){
-
-  // }
-  // attacking(){
-    
-  // }
   static isKingChequered(whiteTure){
     const attackedColor=whiteTure?'white':'black'
     const attackingColor=whiteTure?'black':'white'
@@ -226,18 +160,13 @@ export class Figure{
     return {value:heIsChequered,isGameOver:allDefStategies.length>0?false:true}
   }
   findKing(fields,whiteTure){
-    const copy=_.cloneDeep(Game?.returnGameBoard())
     const results=fields?.map(z=>{
       const [x,y]=z
       const acColor=whiteTure?'black':'white'
       const baseFigure=boardStartState?.[x]?.[y]
-      // const baseFigure=copy?.[x]?.[y]
       if(baseFigure?.getColor?.()===acColor && baseFigure?.getName?.()==='King') return true;
       else return false
     })
-    // Game?.setGameBoard?.(
-    //   _.cloneDeep(copy)
-    // )
     return results.includes(true)
   }
 }

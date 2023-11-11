@@ -8,8 +8,14 @@ import {Rook} from "./Rook";
 import {Game} from "../Game";
 import _ from "lodash";
 
+// const copy_copy_of_board=Game?.returnGameBoard?.()
 /* Pawn */
 export class Pawn extends Figure{
+  // static copy_copy_of_board=[]
+  // this.copy_copy_of_board=
+  // constructor(){
+    // copy_copy_of_board=Game?.returnGameBoard?.()
+  // }
   attacking(whiteTure,destX,destY){
     const movesWorking=[];
     const isWhite=whiteTure && this.getColor()==='white'
@@ -59,7 +65,7 @@ export class Pawn extends Figure{
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField
     const destination={destX,destY}
-    const copy=_.cloneDeep(Game?.returnGameBoard?.())
+    // const copy=_.cloneDeep(Game?.returnGameBoard?.())
 
     const copyOfOldFileds={
       from:boardStartState[acX][acY]?.copyOfInstance?.(),

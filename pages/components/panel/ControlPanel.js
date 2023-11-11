@@ -7,6 +7,7 @@ import Switch from './Switch';
 import styled,{css} from 'styled-components';
 import {GameProvider} from '@/pages';
 import {TbRotate} from 'react-icons/tb';
+import { Xo } from '@/pages/_document';
 
 const size=80;
 const buttonStyles=css`
@@ -40,7 +41,7 @@ export default function ControlPanel({whiteTure}){
   return(
     <GameProvider.Consumer>
     {value=>{
-      const {resetGame}=value??{}
+      const {resetGame,turnBord}=value??{}
       const pat=()=>{
         // console.log(
           // const {fiftyMovesRule,samePositions,gameHistory,gameBoard}=
@@ -53,9 +54,12 @@ export default function ControlPanel({whiteTure}){
         Game.surrender(whiteTure)
         resetGame() 
       }
-      // const turn=()=>{
-      //   console.log('rotate board')
-      // }
+      const turn=()=>{
+        console.log('rotate board')
+        turnBord?.();
+        // Xo.reverse()
+
+      }
       return(
         <div style={styles.ControlPanel}>
           <Switch whiteTure={whiteTure} size={size}/>
@@ -63,7 +67,7 @@ export default function ControlPanel({whiteTure}){
           <div>
             <Button1 onClick={pat}/>
             <Button2 onClick={surrender}/>
-            {/* <Button3 onClick={turn}/> */}
+            <Button3 onClick={turn}/>
           </div>
         </div>
       )

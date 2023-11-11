@@ -1,24 +1,13 @@
 import React,{Component} from "react";
 import {boardStartState,Xo,Yo,boardStartStateCopy} from "../_document";
 import _ from "lodash";
-// import {Xo,Yo} from "../_document";
-// import {Pawn} from "./figures/Pawn";
-// import {Queen} from './figures/Queen';
-// import {King} from './figures/King';
-// import {Bishop} from './figures/Bishop';
-// import {Knight} from './figures/Knight';
-// import {Rook} from './figures/Rook';
 
 export class Game{
   static fiftyMovesRule=0;
   static samePositions=0;
   static gameHistory=[];
-  // static gameBoard=boardStartState??[]
   static gameBoard=[]
-  // static gameBoard=_?.cloneDeep?.(boardStartState??[])??[]
-  // static gameBoard=boardStartState
-  // constructor() {
-  // }
+
   static returnGameBoard(){
     return this.gameBoard
   }
@@ -27,11 +16,11 @@ export class Game{
     this.gameBoard=_.cloneDeep(boardStartState)
   }
 
-  static save(){
+  static save(board){
     const data={
       gameHistory:_.cloneDeep(this.gameHistory),
-      // board:_.cloneDeep(boardStartState),
-      board:_.cloneDeep(this.gameBoard),
+      // board:_.cloneDeep(this.gameBoard),
+      board:_.cloneDeep(board),
       fiftyMovesRule:_.cloneDeep(this.fiftyMovesRule),
       samePositions:_.cloneDeep(this.samePositions),
     }
@@ -45,11 +34,17 @@ export class Game{
     this.samePositions=samePositions
     this.gameBoard=board
 
-    console.log(board)
 
-    return {gameHistory,fiftyMovesRule,samePositions,board}
+    // Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]))
+    Xo.map(x=>Yo.map(y=>boardStartState[x][y]=_.cloneDeep(board[x][y])))
+
+    // console.log(boardStartState)
+
+    return {gameHistory,fiftyMovesRule,samePositions,board,
+      boardStartState,
+      // boardStartState:_.cloneDeep(boardStartState),
+    }
   }
-
   static getHistory(){
     return this.gameHistory
   }
@@ -108,12 +103,6 @@ export class Game{
   static clearBoardFromUndefined(){
     const copy=_.cloneDeep(this.gameBoard)
 
-    // Object.keys(copy)?.map(x=>Object.keys(copy[x])?.map(y=>{
-    //   if(copy[x][y]===undefined){
-    //     copy[x][y]=''
-    //   }
-    // }))
-
     Object.keys(boardStartState)?.map(x=>Object.keys(boardStartState[x])?.map(y=>{
       if(boardStartState[x][y]===undefined){
         boardStartState[x][y]=''
@@ -121,8 +110,6 @@ export class Game{
     }))
 
     this.gameBoard=_.cloneDeep(copy)
-
-
   }
   static getMovesCount(){
     this.setGameBoard50moves();

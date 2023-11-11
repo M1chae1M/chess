@@ -9,13 +9,13 @@ export default class Field extends Component{
     return(
       <GameProvider.Consumer>
       {value=>{
-        const {boardGameState}=value??{}
+        const {boardGameState,whiteOnTop}=value??{}
         const {x,y,touch}=this.props??{};
         const click=()=>{
           touch(`${x}${y}`)
         }
-        const base=boardStartState?.[x]?.[y]
-        // const base=boardGameState?.[x]?.[y]
+        // const base=boardStartState?.[x]?.[y]
+        const base=boardGameState?.[x]?.[y]
         const Figure=()=>base?.returnFigure?.()
 
 

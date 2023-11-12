@@ -109,7 +109,7 @@ export class Pawn extends Figure{
     const sameX=acX===destX && baseFigure===''
     const shortYchange=sameX && (whiteTure?Ychange===1:Ychange===-1);
     const canLongMove=sameX && boardStartState[destX][avrg]==='' && (whiteTure?Ychange<=2 && Ychange>0 && acY==='2':Ychange>=-2 && Ychange<0 && acY==='7');
-    const ifCanYouBeatInPassing=this?.canYouBeatInPassing?.({destX,destY},whiteTure)
+    // const ifCanYouBeatInPassing=this?.canYouBeatInPassing?.({destX,destY},whiteTure)
     const canNormalBeat=XchangeCond && baseFigure?.getColor?.()!==this.color && baseFigure!=='' && Ychange===(whiteTure?1:-1)
 
     const newY=Number(acY)+(whiteTure?1:-1)
@@ -142,9 +142,15 @@ export class Pawn extends Figure{
 
     // console.log(movesWorking,`${destX}${destY}`,movesWorking?.includes(`${destX}${destY}`))
 
+    const ifCanYouBeatInPassing=movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn'
+    // console.log(
+      // Game?.lastMove?.()?.figure==='Pawn',
+      // Game?.lastMove?.()?.color,
+    // )
+
     if(this.goodTure(whiteTure)
     && (
-      movesWorking?.includes(`${destX}${destY}`)||
+      ifCanYouBeatInPassing||
   // ifCanYouBeatInPassing ||
   // movesWorking?.includes?.(`${destX}${destY}`)||
   canNormalBeat || (shortYchange || canLongMove))

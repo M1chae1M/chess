@@ -33,25 +33,19 @@ export class Pawn extends Figure{
     }[newFigure];
     return new FigureClass(this?.getColor?.(),`${destX}${destY}`,true,newFigure)
   }
-  // canYouBeatInPassing(destination,whiteTure){
-  //   Game.clearBoardFromUndefined();
-  //   if(Game?.lastMove?.()?.clicked){
-  //     const [acX,acY]=this.actualField
-  //     const {destX,destY}=destination
+  canYouBeatInPassing(acX,acY,destX,destY,whiteTure,movesWorking){
+    // const movesWorking=[]
+    const newY=Number(acY)+(whiteTure?1:-1)
+    const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
+    const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
 
-  //     const baseFigure=boardStartState?.[destX]?.[destY];
-  //     const XchangeCond=Math.abs(acX.charCodeAt()-destX.charCodeAt())===1;
-  
-  //     const {clicked,fromField,figure}=Game?.lastMove?.()
-  //     const [lastX,lastY]=clicked
-  //     const [lastFromX,lastFromY]=fromField
-  
-  //     return XchangeCond && baseFigure==='' && (!!Game?.lastMove?.()?.clicked) && ((destY-lastY)===(whiteTure?1:-1)) && destX===lastX && (Math.abs(lastY-lastFromY)===2) && figure==='Pawn'
-  //   }
-  //   else{
-  //     return false
-  //   }
-  // }
+    if(Yo?.includes(newY)){
+      enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
+      enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
+    }
+    // const ifCanYouBeatInPassing=
+    return movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn'
+  }
   move(destX,destY,whiteTure){
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField
@@ -63,24 +57,20 @@ export class Pawn extends Figure{
     }
 
     if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove){
-      // const ifCanYouBeatInPassing=this?.canYouBeatInPassing?.(destination,whiteTure)
 
 
 
       const movesWorking=[]
-      const newY=Number(acY)+(whiteTure?1:-1)
-      const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
-      // console.log( Game?.lastMove?.()?.clicked )
-      const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
-      if(Yo?.includes(newY)){
-        enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
-        enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
-      }
-      const ifCanYouBeatInPassing=movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn';
+      // const newY=Number(acY)+(whiteTure?1:-1)
+      // const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
+      // const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
+      // if(Yo?.includes(newY)){
+      //   enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
+      //   enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
+      // }
+      // const ifCanYouBeatInPassing=movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn';
 
-
-      // console.log('czy można?',ifCanYouBeatInPassing)
-
+    const ifCanYouBeatInPassing=this.canYouBeatInPassing(acX,acY,destX,destY,whiteTure,movesWorking)
 
 
       const didIncrement=boardStartState?.[destX]?.[destY]==='';
@@ -92,17 +82,6 @@ export class Pawn extends Figure{
 
         copyOfOldFileds.oldPawnField=boardStartState[lastX][lastY]?.copyOfInstance?.();
         boardStartState[lastX][lastY]=''
-
-
-        // console.log(
-          // boardStartState?.['B'],
-          // boardStartState?.['A'],
-          // Game?.lastMove?.(),
-          // 'last:',lastX,lastY,
-          // lastX,
-          // !whiteTure?Number(lastY)+2:Number(lastY)-2,
-        // )
-
         boardStartState[lastX][!whiteTure?Number(lastY)+2:Number(lastY)-2]=''
       }
 
@@ -131,7 +110,6 @@ export class Pawn extends Figure{
   }
   canMove(destX,destY,whiteTure){
     Game.clearBoardFromUndefined();
-    const movesWorking=[]
     const [acX,acY]=this.actualField;
     const baseFigure=boardStartState?.[destX]?.[destY];
     const XchangeCond=Math.abs(acX.charCodeAt()-destX.charCodeAt())===1;
@@ -140,52 +118,25 @@ export class Pawn extends Figure{
     const sameX=acX===destX && baseFigure===''
     const shortYchange=sameX && (whiteTure?Ychange===1:Ychange===-1);
     const canLongMove=sameX && boardStartState[destX][avrg]==='' && (whiteTure?Ychange<=2 && Ychange>0 && acY==='2':Ychange>=-2 && Ychange<0 && acY==='7');
-    // const ifCanYouBeatInPassing=this?.canYouBeatInPassing?.({destX,destY},whiteTure)
     const canNormalBeat=XchangeCond && baseFigure?.getColor?.()!==this.color && baseFigure!=='' && Ychange===(whiteTure?1:-1)
 
-    const newY=Number(acY)+(whiteTure?1:-1)
-    const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
-    // console.log( Game?.lastMove?.()?.clicked )
-    const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
-    // console.log(
-    //   // `old`,enemyX,enemyY,
-    //   // `new`,newX(+1),newY
-    //   `X taki sam?`,enemyX===newX(+1),
-    //   newY-enemyY,
-    //   newY, enemyY
-    // )
-    if(Yo?.includes(newY)){
-      enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
-      enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
-    }
-    // console.log(
-    //   `acY`,acY,
-    //   `enemyY`,Number(enemyY),
-    //   `różnica`,acY-Number(enemyY),
-    //   !whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2
-    // )
-    // console.log(movesWorking,`new dest ${`${destX}${destY}`}`)
+    const movesWorking=[]
+    // const newY=Number(acY)+(whiteTure?1:-1)
+    // const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
+    // const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
 
-    // if(Yo.includes(newY)){
-    //   boardStartState?.[newX(-1)]?.[newY]!=='' && Xo.includes(newX(-1)) && movesWorking.push(`${newX(-1)}${newY}`);
-    //   boardStartState?.[newX(1)]?.[newY]!=='' && Xo.includes(newX(1)) && movesWorking.push(`${newX(1)}${newY}`);
+    // if(Yo?.includes(newY)){
+    //   enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
+    //   enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
     // }
+    // const ifCanYouBeatInPassing=movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn'
+    
+    
+    const ifCanYouBeatInPassing=this.canYouBeatInPassing(acX,acY,destX,destY,whiteTure,movesWorking)
 
-    // console.log(movesWorking,`${destX}${destY}`,movesWorking?.includes(`${destX}${destY}`))
 
-    const ifCanYouBeatInPassing=movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn'
-    // console.log(
-      // Game?.lastMove?.()?.figure==='Pawn',
-      // Game?.lastMove?.()?.color,
-    // )
 
-    if(this.goodTure(whiteTure)
-    && (
-      ifCanYouBeatInPassing||
-  // ifCanYouBeatInPassing ||
-  // movesWorking?.includes?.(`${destX}${destY}`)||
-  canNormalBeat || (shortYchange || canLongMove))
-  ){
+    if(this.goodTure(whiteTure) && (ifCanYouBeatInPassing || canNormalBeat || (shortYchange || canLongMove))){
       return {canMove:true,moves:movesWorking}
     }
     return {canMove:false,moves:movesWorking}
@@ -206,7 +157,7 @@ export class Pawn extends Figure{
     }
 
     if(isEmpty(1) && Xo.includes(acX)){
-        movesWorking.push(`${acX}${newY}`)
+      movesWorking.push(`${acX}${newY}`)
       if(isEmpty(2) && !base?.getMoved?.()){
         movesWorking.push(`${acX}${newY+changeVector}`)
       }

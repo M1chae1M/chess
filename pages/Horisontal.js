@@ -17,7 +17,7 @@ const Horisontal=({whiteOnTop})=>{
     return(
         <div style={style.container}>
         {
-            (whiteOnTop?Xo.slice().reverse():Xo)?.map(x=>
+            (whiteOnTop?Xo:Xo.slice().reverse())?.map(x=>
                 <div key={x} style={style.row}>{x}</div>
             )
         }

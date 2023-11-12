@@ -1,4 +1,4 @@
-import React,{Component,useEffect,useState} from 'react';
+import React,{useEffect,useState} from 'react';
 import {FaRegHandshake} from 'react-icons/fa';
 import {FiFlag} from 'react-icons/fi';
 import Timer from './Timer';
@@ -7,7 +7,6 @@ import Switch from './Switch';
 import styled,{css} from 'styled-components';
 import {GameProvider} from '@/pages';
 import {TbRotate} from 'react-icons/tb';
-import { Xo } from '@/pages/_document';
 
 const size=80;
 const buttonStyles=css`
@@ -43,22 +42,12 @@ export default function ControlPanel({whiteTure}){
     {value=>{
       const {resetGame,turnBoard}=value??{}
       const pat=()=>{
-        // console.log(
-          // const {fiftyMovesRule,samePositions,gameHistory,gameBoard}=
-          Game.pat()
-          resetGame()
-        // )
+        Game.pat()
+        resetGame()
       }
       const surrender=()=>{
-        // const {fiftyMovesRule,samePositions,gameHistory,gameBoard}=
         Game.surrender(whiteTure)
-        resetGame() 
-      }
-      const turn=()=>{
-        console.log('rotate board')
-        turnBoard?.();
-        // Xo.reverse()
-
+        resetGame()
       }
       return(
         <div style={styles.ControlPanel}>
@@ -67,7 +56,7 @@ export default function ControlPanel({whiteTure}){
           <div>
             <Button1 onClick={pat}/>
             <Button2 onClick={surrender}/>
-            <Button3 onClick={turn}/>
+            <Button3 onClick={turnBoard}/>
           </div>
         </div>
       )

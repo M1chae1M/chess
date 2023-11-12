@@ -71,7 +71,6 @@ export class King extends Figure{
     const isG=destX==='G'
     const rookPosition=isG?'H':'A'
     const rook=boardStartState[rookPosition][acY]
-    // const destField=isG?'F':'D';
 
     const attacked=Figure.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
     const doesntAttacked=(f1,f2)=>{return !attacked.includes(`E${acY}`) && !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)}
@@ -129,7 +128,6 @@ export class King extends Figure{
     const movesWorking=[];
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField
-    // const acColor=this.getColor()
 
     for(let i=-1;i<=1;i++){
       for(let j=-1;j<=1;j++){

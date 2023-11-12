@@ -11,8 +11,6 @@ const Vertical=({whiteOnTop})=>{
             top:'0%',
             left:'0%',
             width:fieldSize,
-            // background:'red',
-            // border:'2px solid grey',
         },
         row:{
             height:fieldSize,

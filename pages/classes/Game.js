@@ -34,7 +34,6 @@ export class Game{
     this.samePositions=samePositions
     this.gameBoard=board
 
-
     // Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]))
     Xo.map(x=>Yo.map(y=>boardStartState[x][y]=_.cloneDeep(board[x][y])))
     return {gameHistory,fiftyMovesRule,samePositions,board,

@@ -23,10 +23,7 @@ export default class PointInHistory extends Component{
         const {backToHistory,gameHistory}=value??{}
         const onClick=()=>{
           console.log(gameHistory?.[id], gameHistory)
-
-          // backToHistory?.(_.cloneDeep(board))
         }
-        // const onClick=()=>{}
         return(
           <div style={style} onClick={onClick}>
             {description}<AiOutlineArrowRight/>{clicked}

@@ -33,8 +33,10 @@ export class Pawn extends Figure{
     }[newFigure];
     return new FigureClass(this?.getColor?.(),`${destX}${destY}`,true,newFigure)
   }
-  canYouBeatInPassing(acX,acY,destX,destY,whiteTure,movesWorking){
-    // const movesWorking=[]
+  canYouBeatInPassing(destination,whiteTure,movesWorking){
+    const [acX,acY]=this.actualField
+
+    const {destX,destY}=destination
     const newY=Number(acY)+(whiteTure?1:-1)
     const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
     const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
@@ -43,7 +45,6 @@ export class Pawn extends Figure{
       enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
       enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
     }
-    // const ifCanYouBeatInPassing=
     return movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn'
   }
   move(destX,destY,whiteTure){
@@ -57,22 +58,8 @@ export class Pawn extends Figure{
     }
 
     if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove){
-
-
-
       const movesWorking=[]
-      // const newY=Number(acY)+(whiteTure?1:-1)
-      // const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
-      // const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
-      // if(Yo?.includes(newY)){
-      //   enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
-      //   enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
-      // }
-      // const ifCanYouBeatInPassing=movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn';
-
-    const ifCanYouBeatInPassing=this.canYouBeatInPassing(acX,acY,destX,destY,whiteTure,movesWorking)
-
-
+      const ifCanYouBeatInPassing=this.canYouBeatInPassing(destination,whiteTure,movesWorking)
       const didIncrement=boardStartState?.[destX]?.[destY]==='';
       this.swap(destX,destY);
 
@@ -119,22 +106,8 @@ export class Pawn extends Figure{
     const shortYchange=sameX && (whiteTure?Ychange===1:Ychange===-1);
     const canLongMove=sameX && boardStartState[destX][avrg]==='' && (whiteTure?Ychange<=2 && Ychange>0 && acY==='2':Ychange>=-2 && Ychange<0 && acY==='7');
     const canNormalBeat=XchangeCond && baseFigure?.getColor?.()!==this.color && baseFigure!=='' && Ychange===(whiteTure?1:-1)
-
     const movesWorking=[]
-    // const newY=Number(acY)+(whiteTure?1:-1)
-    // const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
-    // const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
-
-    // if(Yo?.includes(newY)){
-    //   enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
-    //   enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
-    // }
-    // const ifCanYouBeatInPassing=movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn'
-    
-    
-    const ifCanYouBeatInPassing=this.canYouBeatInPassing(acX,acY,destX,destY,whiteTure,movesWorking)
-
-
+    const ifCanYouBeatInPassing=this.canYouBeatInPassing({destX,destY},whiteTure,movesWorking)
 
     if(this.goodTure(whiteTure) && (ifCanYouBeatInPassing || canNormalBeat || (shortYchange || canLongMove))){
       return {canMove:true,moves:movesWorking}
@@ -169,7 +142,7 @@ export class Pawn extends Figure{
         const newX=String.fromCharCode(acX.charCodeAt()+change);
 
         if(Xo.includes(newX) && base?.canStand?.({destX:newX,destY:newY})){
-        boardStartState[newX][newY]?.getColor?.()===canBeatColor && movesWorking.push(`${newX}${newY}`);
+          boardStartState[newX][newY]?.getColor?.()===canBeatColor && movesWorking.push(`${newX}${newY}`);
 
           if(Game?.lastMove?.()?.clicked){
             const {clicked,fromField,figure}=Game?.lastMove?.()

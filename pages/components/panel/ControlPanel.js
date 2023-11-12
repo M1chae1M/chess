@@ -36,6 +36,11 @@ export default function ControlPanel({whiteTure}){
       display:'grid',
       gridAutoFlow:'column',
     },
+    ControlContainer:{
+      display:'grid',
+      gridTemplateRows:'repeat(2, 1fr)',
+      gridTemplateColumns:'repeat(2, 1fr)',
+    }
   }
   return(
     <GameProvider.Consumer>
@@ -52,11 +57,11 @@ export default function ControlPanel({whiteTure}){
       return(
         <div style={styles.ControlPanel}>
           <Switch whiteTure={whiteTure} size={size}/>
-          <Timer/>
-          <div>
+          {/* <Timer/> */}
+          <div style={styles.ControlContainer}>
             <Button1 onClick={pat}/>
-            <Button2 onClick={surrender}/>
             <Button3 onClick={turnBoard}/>
+            <Button2 onClick={surrender}/>
           </div>
         </div>
       )

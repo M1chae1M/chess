@@ -26,32 +26,32 @@ export class Pawn extends Figure{
   }
   closeModal(destX,destY,newFigure){
     const FigureClass={
-      Knight: Knight,
-      Bishop: Bishop,
-      Rook: Rook,
-      Queen: Queen,
+      Knight:Knight,
+      Bishop:Bishop,
+      Rook:Rook,
+      Queen:Queen,
     }[newFigure];
     return new FigureClass(this?.getColor?.(),`${destX}${destY}`,true,newFigure)
   }
-  canYouBeatInPassing(destination,whiteTure){
-    Game.clearBoardFromUndefined();
-    if(Game?.lastMove?.()?.clicked){
-      const [acX,acY]=this.actualField
-      const {destX,destY}=destination
+  // canYouBeatInPassing(destination,whiteTure){
+  //   Game.clearBoardFromUndefined();
+  //   if(Game?.lastMove?.()?.clicked){
+  //     const [acX,acY]=this.actualField
+  //     const {destX,destY}=destination
 
-      const baseFigure=boardStartState?.[destX]?.[destY];
-      const XchangeCond=Math.abs(acX.charCodeAt()-destX.charCodeAt())===1;
+  //     const baseFigure=boardStartState?.[destX]?.[destY];
+  //     const XchangeCond=Math.abs(acX.charCodeAt()-destX.charCodeAt())===1;
   
-      const {clicked,fromField,figure}=Game?.lastMove?.()
-      const [lastX,lastY]=clicked
-      const [lastFromX,lastFromY]=fromField
+  //     const {clicked,fromField,figure}=Game?.lastMove?.()
+  //     const [lastX,lastY]=clicked
+  //     const [lastFromX,lastFromY]=fromField
   
-      return XchangeCond && baseFigure==='' && (!!Game?.lastMove?.()?.clicked) && ((destY-lastY)===(whiteTure?1:-1)) && destX===lastX && (Math.abs(lastY-lastFromY)===2) && figure==='Pawn'
-    }
-    else{
-      return false
-    }
-  }
+  //     return XchangeCond && baseFigure==='' && (!!Game?.lastMove?.()?.clicked) && ((destY-lastY)===(whiteTure?1:-1)) && destX===lastX && (Math.abs(lastY-lastFromY)===2) && figure==='Pawn'
+  //   }
+  //   else{
+  //     return false
+  //   }
+  // }
   move(destX,destY,whiteTure){
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField
@@ -63,9 +63,28 @@ export class Pawn extends Figure{
     }
 
     if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove){
-      const ifCanYouBeatInPassing=this?.canYouBeatInPassing?.(destination,whiteTure)
-      const didIncrement=boardStartState?.[destX]?.[destY]===''
-      this.swap(destX,destY)
+      // const ifCanYouBeatInPassing=this?.canYouBeatInPassing?.(destination,whiteTure)
+
+
+
+      const movesWorking=[]
+      const newY=Number(acY)+(whiteTure?1:-1)
+      const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
+      // console.log( Game?.lastMove?.()?.clicked )
+      const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
+      if(Yo?.includes(newY)){
+        enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
+        enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
+      }
+      const ifCanYouBeatInPassing=movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn';
+
+
+      // console.log('czy można?',ifCanYouBeatInPassing)
+
+
+
+      const didIncrement=boardStartState?.[destX]?.[destY]==='';
+      this.swap(destX,destY);
 
       if(ifCanYouBeatInPassing){
         const {clicked}=Game?.lastMove?.()
@@ -73,6 +92,18 @@ export class Pawn extends Figure{
 
         copyOfOldFileds.oldPawnField=boardStartState[lastX][lastY]?.copyOfInstance?.();
         boardStartState[lastX][lastY]=''
+
+
+        // console.log(
+          // boardStartState?.['B'],
+          // boardStartState?.['A'],
+          // Game?.lastMove?.(),
+          // 'last:',lastX,lastY,
+          // lastX,
+          // !whiteTure?Number(lastY)+2:Number(lastY)-2,
+        // )
+
+        boardStartState[lastX][!whiteTure?Number(lastY)+2:Number(lastY)-2]=''
       }
 
       if(Figure.isKingChequered(whiteTure).value){
@@ -88,14 +119,14 @@ export class Pawn extends Figure{
         didIncrement?Game.incrementMoves():Game.resetMoves()
         Game?.addToHistory?.(acX,acY,copyOfOldFileds);
         return{
-          shortMove: boardStartState,
-          newWhiteTure: !whiteTure
+          shortMove:boardStartState,
+          newWhiteTure:!whiteTure
         }
       }
     }
     return{
-      shortMove: boardStartState,
-      newWhiteTure: whiteTure
+      shortMove:boardStartState,
+      newWhiteTure:whiteTure
     }
   }
   canMove(destX,destY,whiteTure){

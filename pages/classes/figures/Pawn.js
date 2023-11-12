@@ -114,33 +114,25 @@ export class Pawn extends Figure{
 
     const newY=Number(acY)+(whiteTure?1:-1)
     const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
-
-
     // console.log( Game?.lastMove?.()?.clicked )
-
-
     const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
     // console.log(
     //   // `old`,enemyX,enemyY,
     //   // `new`,newX(+1),newY
-
-
-
     //   `X taki sam?`,enemyX===newX(+1),
     //   newY-enemyY,
     //   newY, enemyY
     // )
-
     if(Yo?.includes(newY)){
-
-      enemyX===newX(+1) && Xo?.includes(newX(+1)) && movesWorking.push(  `${newX(+1)}${newY}`  );
-      enemyX===newX(-1) && Xo?.includes(newX(-1)) && movesWorking.push(  `${newX(-1)}${newY}`  );
+      enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
+      enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
     }
-    console.log(
-      `newY`,newY,
-      `enemyY`,Number(enemyY),
-      `różnica`,newY-Number(enemyY)
-    )
+    // console.log(
+    //   `acY`,acY,
+    //   `enemyY`,Number(enemyY),
+    //   `różnica`,acY-Number(enemyY),
+    //   !whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2
+    // )
     // console.log(movesWorking,`new dest ${`${destX}${destY}`}`)
 
     // if(Yo.includes(newY)){
@@ -148,8 +140,11 @@ export class Pawn extends Figure{
     //   boardStartState?.[newX(1)]?.[newY]!=='' && Xo.includes(newX(1)) && movesWorking.push(`${newX(1)}${newY}`);
     // }
 
+    // console.log(movesWorking,`${destX}${destY}`,movesWorking?.includes(`${destX}${destY}`))
+
     if(this.goodTure(whiteTure)
     && (
+      movesWorking?.includes(`${destX}${destY}`)||
   // ifCanYouBeatInPassing ||
   // movesWorking?.includes?.(`${destX}${destY}`)||
   canNormalBeat || (shortYchange || canLongMove))
@@ -200,7 +195,6 @@ export class Pawn extends Figure{
       beat('left')
       beat('right')
     }
-
     return movesWorking
   }
 }

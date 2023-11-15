@@ -1,7 +1,6 @@
 import React,{Component} from "react";
 import Yo from '@/config/Yo.json'
 import {boardStartState,boardStartStateCopy} from "../_document";
-// import {boardStartStateCopy} from "../_document";
 import Xo from '@/config/Xo.json'
 import _ from "lodash";
 

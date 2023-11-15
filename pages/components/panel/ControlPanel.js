@@ -22,7 +22,7 @@ const Button1=styled(FaRegHandshake)`${buttonStyles}`
 const Button2=styled(FiFlag)`${buttonStyles}`
 const Button3=styled(TbRotate)`${buttonStyles}`
 
-export default function ControlPanel({whiteTure}){
+export default function ControlPanel(){
   const [isClient,setIsClient]=useState(false);
   useEffect(()=>{setIsClient(true)},[])
   if(!isClient)return null
@@ -45,9 +45,9 @@ export default function ControlPanel({whiteTure}){
   return(
     <GameProvider.Consumer>
     {value=>{
-      const {resetGame,turnBoard}=value??{}
+      const {resetGame,turnBoard,whiteTure}=value??{}
       const pat=()=>{
-        Game.pat()
+        Game.pat(``)
         resetGame()
       }
       const surrender=()=>{

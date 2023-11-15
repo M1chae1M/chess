@@ -175,11 +175,12 @@ export class Game{
   }
   static can_NOT_win(){
     const flatedFigures=this.allFigures()
+    const onlyKorB=flatedFigures?.length===1 && (flatedFigures[0]==='Bishop' || flatedFigures[0]==='Knight');
 
     flatedFigures?.length===0 && this.pat('brak figur totalny');
-    flatedFigures?.length===1 && (flatedFigures[0]==='Bishop' || flatedFigures[0]==='Knight') && this.pat('zamatowanie samym skoczkiem, lub gońcem jest niemożliwe');
+    onlyKorB && this.pat('zamatowanie samym skoczkiem, lub gońcem jest niemożliwe');
 
-    return flatedFigures?.length===0 || (flatedFigures?.length===1 && (flatedFigures[0]==='Bishop' || flatedFigures[0]==='Knight'))
+    return flatedFigures?.length===0 || onlyKorB
   }
 }
 

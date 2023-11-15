@@ -134,7 +134,7 @@ export default class GameBoard extends Component{
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory}}>
           <div style={styles.GameBoard} id='gameboard'>
             <Vertical whiteOnTop={whiteOnTop}/>
-            <ControlPanel whiteTure={whiteTure}/>
+            <ControlPanel/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>
             <Horisontal whiteOnTop={whiteOnTop}/>
           </div>

@@ -50,6 +50,13 @@ export default class GameBoard extends Component{
         setTimeout(()=>checkIsClosed(end,baseFigure,clicked),100);
       }
     }
+    const resetGame=()=>{
+      
+      Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]))
+
+      this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
+      // this.setState({whiteTure:true, boardGameState:_.cloneDeep(boardStartStateCopy), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
+    }
     const secoundClick=(fromField,clicked)=>{
       const [destX,destY]=clicked??[]
       const [acX,acY]=fromField
@@ -72,8 +79,9 @@ export default class GameBoard extends Component{
           isChequered()
         }
       }
-      addToHistory({color:baseFigure?.getColor?.(),figure:baseFigure?.getName?.(),fromField,clicked})
-      Game.getMovesCount()
+      // Game?.can_NOT_win?.() && resetGame();
+      addToHistory({color:baseFigure?.getColor?.(),figure:baseFigure?.getName?.(),fromField,clicked});
+      Game.getMovesCount();
     }
     const touch=(clicked)=>{
       const {fromField}=this.state;
@@ -85,18 +93,12 @@ export default class GameBoard extends Component{
         this.setState({fromField:clicked,firstTouch:!firstTouch})
       }
       else if(!firstTouch){
-        secoundClick(fromField,clicked)
+        secoundClick(fromField,clicked);
+        Game?.can_NOT_win?.() && resetGame();
       }
     }
     const closeModalF=(name)=>this.setState({isModalOpened:false,promoteTo:name})
     const backToHistory=(board)=>this.setState({boardGameState:_.cloneDeep({...board})})
-    const resetGame=()=>{
-      
-      Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]))
-
-      this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
-      // this.setState({whiteTure:true, boardGameState:_.cloneDeep(boardStartStateCopy), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
-    }
     const styles={
       App:{
         display:'grid',
@@ -116,10 +118,6 @@ export default class GameBoard extends Component{
     }
     return(
       <div style={styles.App}>
-        <button onClick={()=>{
-          Game?.can_NOT_win?.();
-          resetGame();
-        }}>can_NOT_win</button>
         {/* <button onClick={()=>Game?.save?.(this.state.boardGameState)}>save</button>
         <button onClick={()=>{
           const {gameHistory,fiftyMovesRule,samePositions,board,boardStartState}=Game?.load?.()

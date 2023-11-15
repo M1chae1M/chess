@@ -168,7 +168,7 @@ export class Game{
       Yo?.map(y=>
         boardStartState[x][y] !=='' &&
         boardStartState[x][y]?.getName?.()!=='King' &&
-        allFigures[boardStartState[x][y]?.getColor()].push(boardStartState[x][y]?.getName?.())
+        allFigures?.[boardStartState?.[x]?.[y]?.getColor()]?.push?.(boardStartState?.[x]?.[y]?.getName?.())
       )  
     )
     return [...allFigures.black,...allFigures.white];
@@ -178,6 +178,8 @@ export class Game{
 
     flatedFigures?.length===0 && this.pat('brak figur totalny');
     flatedFigures?.length===1 && (flatedFigures[0]==='Bishop' || flatedFigures[0]==='Knight') && this.pat('zamatowanie samym skoczkiem, lub gońcem jest niemożliwe');
+
+    return flatedFigures?.length===0 || (flatedFigures?.length===1 && (flatedFigures[0]==='Bishop' || flatedFigures[0]==='Knight'))
   }
 }
 

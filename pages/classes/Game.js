@@ -159,7 +159,7 @@ export class Game{
     this.setGameBoard(newBoard)
     return newBoard
   }
-  static can_NOT_win(){
+  static allFigures(){
     const allFigures={
       white:[],
       black:[]
@@ -171,16 +171,13 @@ export class Game{
         allFigures[boardStartState[x][y]?.getColor()].push(boardStartState[x][y]?.getName?.())
       )  
     )
+    return [...allFigures.black,...allFigures.white];
+  }
+  static can_NOT_win(){
+    const flatedFigures=this.allFigures()
 
-    if(allFigures?.black?.length===0 && allFigures?.white?.length===0){
-      this.pat('brak figur totalny')
-    }
-
-    if(allFigures?.black?.length===0 || allFigures?.white?.length===0){
-      if(allFigures?.black?.[0]==='Knight' || allFigures?.white?.[0]==='Knight' || allFigures?.black?.[0]==='Bishop' || allFigures?.white?.[0]==='Bishop'){
-        this.pat('zamatowanie samym skoczkiem, lub gońcem jest niemożliwe')
-      }
-    }
+    flatedFigures?.length===0 && this.pat('brak figur totalny');
+    flatedFigures?.length===1 && (flatedFigures[0]==='Bishop' || flatedFigures[0]==='Knight') && this.pat('zamatowanie samym skoczkiem, lub gońcem jest niemożliwe');
   }
 }
 

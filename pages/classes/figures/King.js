@@ -16,12 +16,12 @@ export class King extends Figure{
     const verticalMoveCondition=Math.abs(Number(acY)-Number(destY))
 
     const attacked=Figure.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
-    const doesntAttacked=(f1,f2)=>{return !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)}
+    const doesntAttacked=(f1,f2)=>!attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)
     const cond1=isG && doesntAttacked('F','G')
     const cond2=!isG && doesntAttacked('C','D')
 
     const canRookMove=rook?.returnDefMovesOnly?.();
-    const canRookMoveTo=(destField)=>{return canRookMove?.includes(`${destField}${acY}`)}
+    const canRookMoveTo=(destField)=>canRookMove?.includes(`${destField}${acY}`)
     const fieldOccupancy=isG?canRookMoveTo('F'):canRookMoveTo('D');
 
     horisontalMoveCondition===2 && verticalMoveCondition===0 && (cond1||cond2) && fieldOccupancy && rook?.swap?.(destField,acY);
@@ -29,8 +29,8 @@ export class King extends Figure{
   move(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
     const copyOfOldFileds={
-      from:boardStartState[acX][acY]?.copyOfInstance?.(),
-      to:boardStartState[destX][destY]?.copyOfInstance?.()
+      from:boardStartState[acX][acY]?.getInstance?.(),
+      to:boardStartState[destX][destY]?.getInstance?.()
     }
 
     if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure) && this.canStand({destX,destY})){
@@ -73,13 +73,13 @@ export class King extends Figure{
     const rook=boardStartState[rookPosition][acY]
 
     const attacked=Figure.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
-    const doesntAttacked=(f1,f2)=>{return !attacked.includes(`E${acY}`) && !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)}
+    const doesntAttacked=(f1,f2)=>!attacked.includes(`E${acY}`) && !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)
 
     const cond1=isG && doesntAttacked('F','G');
     const cond2=!isG && doesntAttacked('C','D');
 
     const canRookMove=rook?.returnDefMovesOnly?.();
-    const canRookMoveTo=(destField)=>{return canRookMove?.includes(`${destField}${acY}`)}
+    const canRookMoveTo=(destField)=>canRookMove?.includes(`${destField}${acY}`)
     const fieldOccupancy=isG?canRookMoveTo('F'):canRookMoveTo('D');
     const figuresMoved=!rook?.getMoved?.() && !boardStartState[acX][acY]?.getMoved?.();
 

@@ -53,8 +53,8 @@ export class Pawn extends Figure{
     const destination={destX,destY}
 
     const copyOfOldFileds={
-      from:boardStartState[acX][acY]?.copyOfInstance?.(),
-      to:boardStartState[destX][destY]?.copyOfInstance?.()
+      from:boardStartState[acX][acY]?.getInstance?.(),
+      to:boardStartState[destX][destY]?.getInstance?.()
     }
 
     if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove){
@@ -67,7 +67,7 @@ export class Pawn extends Figure{
         const {clicked}=Game?.lastMove?.()
         const [lastX,lastY]=clicked
 
-        copyOfOldFileds.oldPawnField=boardStartState[lastX][lastY]?.copyOfInstance?.();
+        copyOfOldFileds.oldPawnField=boardStartState[lastX][lastY]?.getInstance?.();
         boardStartState[lastX][lastY]=''
         boardStartState[lastX][!whiteTure?Number(lastY)+2:Number(lastY)-2]=''
       }

@@ -10,11 +10,9 @@ export default class Field extends Component{
       {value=>{
         const {boardGameState}=value??{}
         const {x,y,touch}=this.props??{};
-        const click=()=>{
-          touch(`${x}${y}`)
-        }
+        const click=()=>touch(`${x}${y}`)
         const base=boardGameState?.[x]?.[y]
-        const Figure=()=>base?.returnFigure?.()
+        const Figure=()=>base?.getFigure?.()
         const {kingAttacked,whiteTure}=value??{}
         const isKing=base?.getName?.()==='King'
         const isColor=base?.goodTure?.(whiteTure)

@@ -11,7 +11,7 @@ export class Figure{
     this.moved=moved||false
     this.name=name
 
-    Array.from(['move','canMove','returnFigure','attacking','returnDefMovesOnly']).map(x=>{
+    Array.from(['move','canMove','getFigure','attacking','returnDefMovesOnly']).map(x=>{
       if(typeof this[x] !== 'function'){
         throw new Error(`Abstract method "${x}" must be implemented!`)
       }
@@ -28,8 +28,8 @@ export class Figure{
             const attackingColor=whiteTure?'black':'white';
 
             const copy={
-              from:boardStartState[x][y]?.copyOfInstance?.(),
-              to:boardStartState[destX][destY]?.copyOfInstance?.()
+              from:boardStartState[x][y]?.getInstance?.(),
+              to:boardStartState[destX][destY]?.getInstance?.()
             }
             boardStartState[x][y]?.swap?.(destX,destY)
 
@@ -68,34 +68,7 @@ export class Figure{
 
     return allFieldsAttacked.flat()
   }
-  setMoved(newState){
-    this.moved=newState
-  }
-  setActualField(newField){
-    this.actualField=newField
-  }
-  copyOfInstance(){
-    return _.cloneDeep(this);
-  }
-  returnFigure(){
-    return figureIcons?.[this?.color]?.[this?.name]
-  }
-  getName(){
-    return this.name
-  }
-  getColor(){
-    return this.color
-  }
-  getMoved(){
-    return this.moved
-  }
   goodTure(whiteTure){
-    // if(whiteTure && this.getColor()==='white'){
-    //   return true
-    // }
-    // else if(!whiteTure && this.getColor()==='black'){
-    //   return true
-    // }
     if((whiteTure && this.getColor()==='white') || (!whiteTure && this.getColor()==='black')){
       return true
     }
@@ -112,8 +85,8 @@ export class Figure{
     Game.clearBoardFromUndefined()
     const [acX,acY]=this.actualField
     const copyOfOldFileds={
-      from:boardStartState[acX][acY]?.copyOfInstance?.(),
-      to:boardStartState[destX][destY]?.copyOfInstance?.()
+      from:boardStartState[acX][acY]?.getInstance?.(),
+      to:boardStartState[destX][destY]?.getInstance?.()
     }
 
     if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove){
@@ -140,14 +113,6 @@ export class Figure{
       chequered:Figure.isKingChequered(whiteTure).value,
     }
   }
-  canStand(destination){
-    const {destX,destY}=destination
-
-    return boardStartState[destX][destY]===''||boardStartState[destX][destY]?.getColor?.()!==this.color
-  }
-  withoutJump(destX,destY){
-    return boardStartState[destX][destY]===''
-  }
   static isKingChequered(whiteTure){
     const attackedColor=whiteTure?'white':'black'
     const attackingColor=whiteTure?'black':'white'
@@ -167,6 +132,34 @@ export class Figure{
       else return false
     })
     return results.includes(true)
+  }
+  canStand(destination){
+    const {destX,destY}=destination
+    return boardStartState[destX][destY]===''||boardStartState[destX][destY]?.getColor?.()!==this.color
+  }
+  withoutJump(destX,destY){
+    return boardStartState[destX][destY]===''
+  }
+  setMoved(newState){
+    this.moved=newState
+  }
+  setActualField(newField){
+    this.actualField=newField
+  }
+  getInstance(){
+    return _.cloneDeep(this);
+  }
+  getFigure(){
+    return figureIcons?.[this?.color]?.[this?.name]
+  }
+  getName(){
+    return this.name
+  }
+  getColor(){
+    return this.color
+  }
+  getMoved(){
+    return this.moved
   }
 }
 

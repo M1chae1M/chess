@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import {Figure} from "../Figure";
-import {Xo,Yo,boardStartState} from "@/pages/_document";
+import {Xo,Yo} from "@/pages/_document";
 
 export class Knight extends Figure{
   canMove(destX,destY,whiteTure){
@@ -62,7 +62,7 @@ function legalKnightMove(actual,destination){
   const {acX,acY}=actual
   const {destX,destY}=destination
   const horisontalMoveCondition=Math.abs(acX.charCodeAt()-destX.charCodeAt());
-  const condition=(h,w)=>{return horisontalMoveCondition===h && Math.abs(destY-acY)===w}
+  const condition=(h,w)=>horisontalMoveCondition===h && Math.abs(destY-acY)===w
   const moreVerticalMove=condition(1,2)
   const moreHorisontalMove=condition(2,1)
 

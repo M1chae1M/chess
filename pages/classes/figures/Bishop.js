@@ -11,9 +11,9 @@ export class Bishop extends Queen{
   }
   attacking(whiteTure,destX,destY){
     const [acX,acY]=this.actualField
-    const movesWorking=[];
-    this.crossAttacks(movesWorking,destX,destY)
-    return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking,startField:[acX,acY]}
+    const legalMoves=[];
+    this.crossAttacks(legalMoves,destX,destY)
+    return {isKingAttacked:this.findKing(legalMoves,whiteTure),legalMoves,startField:[acX,acY]}
   }
   returnDefMovesOnly(){
     return this.returnCrossMovesOnly()

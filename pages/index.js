@@ -117,7 +117,8 @@ export default class GameBoard extends Component{
     return(
       <div style={styles.App}>
         <button onClick={()=>{
-          Game?.can_NOT_win?.()
+          Game?.can_NOT_win?.();
+          resetGame();
         }}>can_NOT_win</button>
         {/* <button onClick={()=>Game?.save?.(this.state.boardGameState)}>save</button>
         <button onClick={()=>{

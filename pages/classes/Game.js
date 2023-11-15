@@ -43,6 +43,16 @@ export class Game{
   static getHistory(){
     return this.gameHistory
   }
+  static withoutMovedFields(){
+    const copy_of_boardStartState=_.cloneDeep(boardStartState)
+
+    Xo?.map(col=>
+      Yo?.map(row=>
+        delete copy_of_boardStartState?.[col]?.[row]?.moved
+      )  
+    )
+    return copy_of_boardStartState
+  }
   static addToHistory(acX,acY,copyOfOldFileds){
     this.gameHistory.push({
       lastMove:{
@@ -50,6 +60,7 @@ export class Game{
         figure:copyOfOldFileds?.from?.getName?.(),
         color:copyOfOldFileds?.from?.getColor?.(),
         clicked:[acX,acY],
+        stringifiedBoard:JSON.stringify(this.withoutMovedFields())
       }
     })
   }
@@ -66,7 +77,7 @@ export class Game{
     return {fiftyMovesRule,samePositions,gameHistory,gameBoard}
   }
   static pat(txt){
-    // alert('pat',txt)
+    alert(`pat ${txt}`)
     return this.reset()
   }
   static surrender(whiteTure){
@@ -79,18 +90,19 @@ export class Game{
     }
   }
   static cleared(){
-    return this.getHistory().map(x=>x.board).map(xyz=>
+    const test=this.getHistory().map(x=>x.board).map(xyz=>
       Xo.map(k=>
         Yo.map(l=>{
           const obj=xyz?.[k]?.[l]
           obj?{name:obj?.getName?.(),color:obj?.getColor?.()}:''
-          }
-        )
+        })
       )
     )
+
+    return this.getHistory()
   }
   static compare(id){
-    return JSON.stringify(this.cleared()[id])
+    return this.gameHistory?.[id]?.lastMove?.stringifiedBoard
   }
   static setGameBoard3sameMoves(){
     Game.clearBoardFromUndefined();

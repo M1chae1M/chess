@@ -1,15 +1,9 @@
 import React,{Component} from "react";
 import Yo from '@/config/Yo.json'
 import {boardStartState,boardStartStateCopy} from "../_document";
+// import {boardStartStateCopy} from "../_document";
 import Xo from '@/config/Xo.json'
 import _ from "lodash";
-// import { Figure } from "./Figure";
-// import { Pawn } from "./figures/Pawn";
-// import { Knight } from "./figures/Knight";
-// import { Queen } from "./figures/Queen";
-// import { King } from "./figures/King";
-// import { Bishop } from "./figures/Bishop";
-// import { Rook } from "./figures/Rook";
 
 export class Game{
   static fiftyMovesRule=0;
@@ -21,8 +15,8 @@ export class Game{
     return this.gameBoard
   }
 
-  static setGameBoard(boardStartState){
-    this.gameBoard=_.cloneDeep(boardStartState)
+  static setGameBoard(board){
+    this.gameBoard=_.cloneDeep(board)
   }
 
   static save(board){
@@ -36,19 +30,15 @@ export class Game{
     localStorage.setItem('chess_game_state',JSON.stringify(data))
   }
   static load(){
-    const {gameHistory,board,fiftyMovesRule,samePositions}=JSON.parse(localStorage.getItem('chess_game_state'))
+    // const {gameHistory,board,fiftyMovesRule,samePositions}=JSON.parse(localStorage.getItem('chess_game_state'))
 
-    this.gameHistory=gameHistory
-    this.fiftyMovesRule=fiftyMovesRule
-    this.samePositions=samePositions
-    this.gameBoard=board
+    // this.gameHistory=gameHistory
+    // this.fiftyMovesRule=fiftyMovesRule
+    // this.samePositions=samePositions
+    // this.gameBoard=board
 
-    // Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]))
-    Xo.map(x=>Yo.map(y=>boardStartState[x][y]=_.cloneDeep(board[x][y])))
-    return {gameHistory,fiftyMovesRule,samePositions,board,
-      boardStartState,
-      // boardStartState:_.cloneDeep(boardStartState),
-    }
+    // Xo.map(x=>Yo.map(y=>boardStartState[x][y]=_.cloneDeep(board[x][y])))
+    // return {gameHistory,fiftyMovesRule,samePositions,board,boardStartState}
   }
   static getHistory(){
     return this.gameHistory
@@ -110,7 +100,13 @@ export class Game{
     }
   }
   static clearBoardFromUndefined(){
-    const copy=_.cloneDeep(this.gameBoard)
+    // const copy=_.cloneDeep(this.gameBoard)
+
+    // Object.keys(this.gameBoard)?.map(x=>Object.keys(this.gameBoard[x])?.map(y=>{
+    //   if(this.gameBoard[x][y]===undefined){
+    //     this.gameBoard[x][y]=''
+    //   }
+    // }))
 
     Object.keys(boardStartState)?.map(x=>Object.keys(boardStartState[x])?.map(y=>{
       if(boardStartState[x][y]===undefined){
@@ -118,7 +114,7 @@ export class Game{
       }
     }))
 
-    this.gameBoard=_.cloneDeep(copy)
+    // this.gameBoard=_.cloneDeep(copy)
   }
   static getMovesCount(){
     this.setGameBoard50moves();
@@ -151,7 +147,8 @@ export class Game{
         newBoard[x][y]=this.makeFigureInstance(board[x][y],figureList)
       )
     })
-    // console.log(newBoard) 
+    // console.log(newBoard)
+    this.setGameBoard(newBoard)
     return newBoard
   }
 }

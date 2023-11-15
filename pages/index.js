@@ -43,6 +43,7 @@ export default class GameBoard extends Component{
       if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
         const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
         shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
+        isChequered();
         this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
         end();
       }else{

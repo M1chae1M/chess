@@ -13,11 +13,9 @@ export class Game{
   static returnGameBoard(){
     return this.gameBoard
   }
-
   static setGameBoard(board){
     this.gameBoard=_.cloneDeep(board)
   }
-
   static save(board){
     const data={
       gameHistory:_.cloneDeep(this.gameHistory),
@@ -106,7 +104,7 @@ export class Game{
   static setGameBoard3sameMoves(){
     Game.clearBoardFromUndefined();
 
-    if(this.compare(0)===this.compare(4) && this.compare(8)===this.compare(4)){
+    if(this.gameHistory?.length>=8 && this.compare(0)===this.compare(4) && this.compare(8)===this.compare(4)){
       this.pat('3-krotnie potwórzyłeś pozycję')
     }
   }
@@ -133,7 +131,6 @@ export class Game{
     return this.fiftyMovesRule;
   }
   static resetMoves(){
-    console.log('było:',this.fiftyMovesRule,'a będzie 0')
     this.fiftyMovesRule=0;
     return this.fiftyMovesRule;
   }

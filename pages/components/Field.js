@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {fieldSize} from '../_document';
+import fieldSize from '@/config/fieldSize.json'
 import {GameProvider} from '..';
 import {ifBlackFunction} from '../classes/Functions';
 

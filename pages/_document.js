@@ -20,8 +20,6 @@ export default function Document(){
   )
 }
 
-export const fieldSize='60px';
-
 export const figureIcons={
   black:{
     Pawn:<TbChessFilled/>,

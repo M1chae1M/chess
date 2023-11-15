@@ -1,4 +1,4 @@
-import {fieldSize} from "./_document"
+import fieldSize from '@/config/fieldSize.json'
 // import {fieldSize,Xo} from "./_document"
 import Xo from '@/config/Xo.json'
 

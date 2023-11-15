@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-import {fieldSize,boardStartState,boardStartStateCopy} from './_document';
+import fieldSize from '@/config/fieldSize.json'
+import {boardStartState,boardStartStateCopy} from './_document';
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
 import ControlPanel from './components/panel/ControlPanel';

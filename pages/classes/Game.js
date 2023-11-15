@@ -3,6 +3,13 @@ import Yo from '@/config/Yo.json'
 import {boardStartState,boardStartStateCopy} from "../_document";
 import Xo from '@/config/Xo.json'
 import _ from "lodash";
+// import { Figure } from "./Figure";
+// import { Pawn } from "./figures/Pawn";
+// import { Knight } from "./figures/Knight";
+// import { Queen } from "./figures/Queen";
+// import { King } from "./figures/King";
+// import { Bishop } from "./figures/Bishop";
+// import { Rook } from "./figures/Rook";
 
 export class Game{
   static fiftyMovesRule=0;
@@ -126,6 +133,26 @@ export class Game{
   static incrementMoves(){
     this.fiftyMovesRule+=1;
     return this.fiftyMovesRule;
+  }
+  static makeEmpty(){
+    return ''
+  }
+  static makeFigureInstance(board,figureList){
+    const [color,actualField,moved,name]=board??''
+    return new figureList[name](color, actualField,moved,name)
+  }
+  static parseJSONboard(board,figureList){
+    const newBoard={}
+    Xo?.map(x=>{
+      newBoard[x]={}
+      Yo?.map(y=>
+        board[x][y]?.length===1?
+        newBoard[x][y]=this.makeEmpty():
+        newBoard[x][y]=this.makeFigureInstance(board[x][y],figureList)
+      )
+    })
+    // console.log(newBoard) 
+    return newBoard
   }
 }
 

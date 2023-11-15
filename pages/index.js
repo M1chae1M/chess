@@ -12,13 +12,32 @@ import AllFields from './components/AllFields';
 import Modal from './components/Modal';
 import Vertical from './Vertical';
 import Horisontal from './Horisontal';
+import board from '@/config/board.json'
+import {Pawn} from './classes/figures/Pawn';
+import {Queen} from './classes/figures/Queen';
+import {King} from './classes/figures/King';
+import {Bishop} from './classes/figures/Bishop';
+import {Knight} from './classes/figures/Knight';
+import {Rook} from './classes/figures/Rook';
 
 export const GameProvider=React.createContext()
+
+const figureList={
+  Pawn:Pawn,
+  Queen:Queen,
+  King:King,
+  Bishop:Bishop,
+  Knight:Knight,
+  Rook:Rook,
+}
 
 export default class GameBoard extends Component{
   state={
     whiteTure:true,
-    boardGameState:{...boardStartState},
+    // boardGameState:{...boardStartState},
+    // boardGameState:{},
+    boardGameState:Game?.parseJSONboard?.(board,figureList),
+    
     firstTouch:true,
     fromField:'',
     isModalOpened:false,
@@ -29,7 +48,19 @@ export default class GameBoard extends Component{
     whiteOnTop:true,
   }
   componentDidMount(){
-    Game?.setGameBoard(this.state.boardGameState)
+    // const figureList={
+    //   Pawn:Pawn,
+    //   Queen:Queen,
+    //   King:King,
+    //   Bishop:Bishop,
+    //   Knight:Knight,
+    //   Rook:Rook,
+    // }
+    // const importBoard=Game?.parseJSONboard?.(board,figureList)
+    // Game?.setGameBoard(importBoard)
+    // console.log(importBoard)
+    // this.setState({boardStartState:_.cloneDeep(importBoard)})
+    // Game?.setGameBoard(this.state.boardGameState)
     window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
   }
   render(){

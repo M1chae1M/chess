@@ -159,6 +159,29 @@ export class Game{
     this.setGameBoard(newBoard)
     return newBoard
   }
+  static can_NOT_win(){
+    const allFigures={
+      white:[],
+      black:[]
+    }
+    Xo?.map(x=>
+      Yo?.map(y=>
+        boardStartState[x][y] !=='' &&
+        boardStartState[x][y]?.getName?.()!=='King' &&
+        allFigures[boardStartState[x][y]?.getColor()].push(boardStartState[x][y]?.getName?.())
+      )  
+    )
+
+    if(allFigures?.black?.length===0 && allFigures?.white?.length===0){
+      this.pat('brak figur totalny')
+    }
+
+    if(allFigures?.black?.length===0 || allFigures?.white?.length===0){
+      if(allFigures?.black?.[0]==='Knight' || allFigures?.white?.[0]==='Knight' || allFigures?.black?.[0]==='Bishop' || allFigures?.white?.[0]==='Bishop'){
+        this.pat('zamatowanie samym skoczkiem, lub gońcem jest niemożliwe')
+      }
+    }
+  }
 }
 
 export default class T1000 extends Component{render(){return(<></>)}}

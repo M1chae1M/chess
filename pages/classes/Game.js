@@ -1,5 +1,7 @@
 import React,{Component} from "react";
-import {boardStartState,Xo,Yo,boardStartStateCopy} from "../_document";
+import Yo from '@/config/Yo.json'
+import {boardStartState,boardStartStateCopy} from "../_document";
+import Xo from '@/config/Xo.json'
 import _ from "lodash";
 
 export class Game{
@@ -79,9 +81,8 @@ export class Game{
       this.pat('wykonaliście 50 ruchów bez bicia,albo ruchu pionkiem,oznacza to remis,przykro mi')
     }
   }
-  static setGameBoard3sameMoves(){
-    Game.clearBoardFromUndefined();
-    const cleared=this.getHistory().map(x=>x.board).map(xyz=>
+  static cleared(){
+    return this.getHistory().map(x=>x.board).map(xyz=>
       Xo.map(k=>
         Yo.map(l=>{
           const obj=xyz?.[k]?.[l]
@@ -90,10 +91,15 @@ export class Game{
         )
       )
     )
-    const compare=(id)=>{return JSON.stringify(cleared[id])}
+  }
+  static compare(id){
+    return JSON.stringify(this.cleared()[id])
+  }
+  static setGameBoard3sameMoves(){
+    Game.clearBoardFromUndefined();
 
-    if(compare(0)===compare(4) && compare(8)===compare(4)){
-      this.pat(',3-krotnie potwórzyłeś pozycję')
+    if(this.compare(0)===this.compare(4) && this.compare(8)===this.compare(4)){
+      this.pat('3-krotnie potwórzyłeś pozycję')
     }
   }
   static clearBoardFromUndefined(){
@@ -118,7 +124,7 @@ export class Game{
     return this.fiftyMovesRule;
   }
   static incrementMoves(){
-    this.fiftyMovesRule += 1;
+    this.fiftyMovesRule+=1;
     return this.fiftyMovesRule;
   }
 }

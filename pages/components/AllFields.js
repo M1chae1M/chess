@@ -1,4 +1,5 @@
-import {Xo,Yo} from '../_document';
+import Yo from '@/config/Yo.json'
+import Xo from '@/config/Xo.json'
 import dynamic from 'next/dynamic';
 
 const DynamicField=dynamic(()=>import('./Field'), {ssr:false});

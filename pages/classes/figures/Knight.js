@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import {Figure} from "../Figure";
-import {Xo,Yo} from "@/pages/_document";
+import Yo from '@/config/Yo.json'
+import Xo from '@/config/Xo.json'
 
 export class Knight extends Figure{
   canMove(destX,destY,whiteTure){

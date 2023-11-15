@@ -1,4 +1,6 @@
-import {fieldSize,Xo} from "./_document"
+import {fieldSize} from "./_document"
+// import {fieldSize,Xo} from "./_document"
+import Xo from '@/config/Xo.json'
 
 const Horisontal=({whiteOnTop})=>{
     const style={

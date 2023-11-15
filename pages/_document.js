@@ -20,8 +20,6 @@ export default function Document(){
   )
 }
 
-export const Xo=['A','B','C','D','E','F','G','H'];
-export const Yo=[1,2,3,4,5,6,7,8];
 export const fieldSize='60px';
 
 export const figureIcons={

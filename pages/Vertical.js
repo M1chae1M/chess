@@ -1,4 +1,5 @@
-import {fieldSize,Yo} from "./_document"
+import {fieldSize} from "./_document"
+import Yo from '@/config/Yo.json'
 
 const Vertical=({whiteOnTop})=>{
     const style={

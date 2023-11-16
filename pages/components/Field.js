@@ -25,7 +25,9 @@ export default class Field extends Component{
           justifyItems:'center',
           alignItems:'center',
           background:kingAttacked && isKing && isColor?'red':color,
-          fontSize:'35px',
+          // fontSize:'35px',
+          // fontSize:`min(5vw, 35px)`,
+          fontSize:fieldSize,
           transition:'all 0.2s ease-in-out',
         }
         return(

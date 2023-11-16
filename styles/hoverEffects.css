@@ -1,6 +1,7 @@
 .Field:hover,.chose:hover{
   border:solid orangered 5px !important;
   transform:scale(95%);
-  font-size:45px !important;
+  /* font-size:45px !important; */
+  font-size:max(3vw, 20px) !important;
   opacity:0.75;
 }

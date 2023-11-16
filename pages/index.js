@@ -79,7 +79,6 @@ export default class GameBoard extends Component{
           isChequered()
         }
       }
-      // Game?.can_NOT_win?.() && resetGame();
       addToHistory({color:baseFigure?.getColor?.(),figure:baseFigure?.getName?.(),fromField,clicked});
       Game.getMovesCount();
     }

@@ -1,5 +1,4 @@
 import fieldSize from '@/config/fieldSize.json'
-// import {fieldSize,Xo} from "./_document"
 import Xo from '@/config/Xo.json'
 
 const Horisontal=({whiteOnTop})=>{
@@ -8,6 +7,9 @@ const Horisontal=({whiteOnTop})=>{
             display:'grid',
             gridAutoFlow:'column',
             width:`calc(8 * (${fieldSize} + 1px) - 1px)`,
+            position:'absolute',
+            bottom:'0%',
+            transform:'translateY(100%)',
         },
         row:{
             display:'grid',

@@ -7,9 +7,14 @@ export class TemplateTimer extends Component{
   }
   componentDidUpdate(){
     const {timeStep,time}=this.state
-    const {condition,start}=this.props
+    const {condition,start,startStopTime}=this.props
     if(condition && start){
-      setTimeout(()=>this.setState({time:time-timeStep>=0?time-timeStep:0}),timeStep)
+      if(time-timeStep<=0){
+        startStopTime?.();
+        alert(`skończył Ci się czas!`);
+      }
+      
+      setTimeout(()=>this.setState({time:time-timeStep>=0?time-timeStep:0}),timeStep);
     }
   }
   render(){

@@ -7,6 +7,7 @@ import Switch from './Switch';
 import styled,{css} from 'styled-components';
 import {GameProvider} from '@/pages';
 import {TbRotate} from 'react-icons/tb';
+import {MdHistory} from "react-icons/md";
 
 const size=80;
 const buttonStyles=css`
@@ -21,6 +22,7 @@ const buttonStyles=css`
 const Button1=styled(FaRegHandshake)`${buttonStyles}`
 const Button2=styled(FiFlag)`${buttonStyles}`
 const Button3=styled(TbRotate)`${buttonStyles}`
+const Button4=styled(MdHistory)`${buttonStyles}`
 
 export default function ControlPanel(){
   const [isClient,setIsClient]=useState(false);
@@ -45,7 +47,7 @@ export default function ControlPanel(){
   return(
     <GameProvider.Consumer>
     {value=>{
-      const {resetGame,turnBoard,whiteTure}=value??{}
+      const {resetGame,turnBoard,whiteTure,show_or_close_history}=value??{}
       const pat=()=>{
         Game.pat(``)
         resetGame()
@@ -54,6 +56,9 @@ export default function ControlPanel(){
         Game.surrender(whiteTure)
         resetGame()
       }
+      // const showHistory=()=>{
+      //   console.log('show history')
+      // }
       return(
         <div style={styles.ControlPanel}>
           <Switch whiteTure={whiteTure} size={size}/>
@@ -62,6 +67,7 @@ export default function ControlPanel(){
             <Button1 onClick={pat}/>
             <Button3 onClick={turnBoard}/>
             <Button2 onClick={surrender}/>
+            <Button4 onClick={show_or_close_history}/>
           </div>
         </div>
       )

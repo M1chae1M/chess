@@ -27,6 +27,7 @@ export default class GameBoard extends Component{
     gameHistory:[],
     fiftyMovesRule:0,
     whiteOnTop:true,
+    showHistory:false,
   }
   componentDidMount(){
     window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
@@ -115,6 +116,7 @@ export default class GameBoard extends Component{
         gridTemplateColumns:`repeat(8,${fieldSize})`,
       },
     }
+    const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     return(
       <div style={styles.App}>
         {/* <button onClick={()=>Game?.save?.(this.state.boardGameState)}>save</button>
@@ -130,7 +132,7 @@ export default class GameBoard extends Component{
           // })
           }}>load</button>
         <button onClick={()=>Game?.setGameBoard?.(this.state.boardGameState)}>setGameBoard</button> */}
-        <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory}}>
+        <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history}}>
           <div style={styles.GameBoard} id='gameboard'>
             <Vertical whiteOnTop={whiteOnTop}/>
             <ControlPanel/>
@@ -138,7 +140,7 @@ export default class GameBoard extends Component{
             <Horisontal whiteOnTop={whiteOnTop}/>
           </div>
           <Modal isModalOpened={isModalOpened} closeModalF={closeModalF} whiteTure={whiteTure}/>
-          <History gameHistory={gameHistory}/>
+          <History gameHistory={gameHistory} showHistory={this.state.showHistory} show_or_close_history={show_or_close_history}/>
         </GameProvider.Provider>
       </div>
     )

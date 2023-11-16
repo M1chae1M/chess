@@ -43,11 +43,8 @@ export class Game{
   static withoutMovedFields(){
     const copy_of_boardStartState=_.cloneDeep(boardStartState)
 
-    Xo?.map(col=>
-      Yo?.map(row=>
-        delete copy_of_boardStartState?.[col]?.[row]?.moved
-      )  
-    )
+    this.loop((col,row)=>delete copy_of_boardStartState?.[col]?.[row]?.moved)
+
     return copy_of_boardStartState
   }
   static addToHistory(acX,acY,copyOfOldFileds){
@@ -87,14 +84,18 @@ export class Game{
     }
   }
   static cleared(){
-    const test=this.getHistory().map(x=>x.board).map(xyz=>
-      Xo.map(k=>
-        Yo.map(l=>{
-          const obj=xyz?.[k]?.[l]
-          obj?{name:obj?.getName?.(),color:obj?.getColor?.()}:''
-        })
-      )
-    )
+    // const test=this.getHistory().map(x=>x.board).map(xyz=>
+      // Xo.map(k=>
+      //   Yo.map(l=>{
+      //     const obj=xyz?.[k]?.[l]
+      //     obj?{name:obj?.getName?.(),color:obj?.getColor?.()}:''
+      //   })
+      // )
+    //   this.loop((k,l)=>{
+    //     const obj=xyz?.[k]?.[l]
+    //     obj?{name:obj?.getName?.(),color:obj?.getColor?.()}:''
+    //   })
+    // )
 
     return this.getHistory()
   }
@@ -155,22 +156,22 @@ export class Game{
         newBoard[x][y]=this.makeFigureInstance(board[x][y],figureList)
       )
     })
-    // console.log(newBoard)
     this.setGameBoard(newBoard)
     return newBoard
+  }
+  static figureOtherThenKing(x,y,allFigures){
+    const field=boardStartState?.[x]?.[y];
+    field !=='' &&
+    field?.getName?.()!=='King' &&
+    allFigures?.[field?.getColor()]?.push?.(field?.getName?.())
   }
   static allFigures(){
     const allFigures={
       white:[],
       black:[]
     }
-    Xo?.map(x=>
-      Yo?.map(y=>
-        boardStartState[x][y] !=='' &&
-        boardStartState[x][y]?.getName?.()!=='King' &&
-        allFigures?.[boardStartState?.[x]?.[y]?.getColor()]?.push?.(boardStartState?.[x]?.[y]?.getName?.())
-      )  
-    )
+
+    this.loop((x,y)=>this.figureOtherThenKing(x,y,allFigures))
     return [...allFigures.black,...allFigures.white];
   }
   static can_NOT_win(){
@@ -181,6 +182,13 @@ export class Game{
     onlyKorB && this.pat('zamatowanie samym skoczkiem, lub gońcem jest niemożliwe');
 
     return flatedFigures?.length===0 || onlyKorB
+  }
+  static loop(callback){
+    Xo?.map(x=>
+      Yo?.map(y=>
+        callback(x,y)
+      )  
+    )
   }
 }
 

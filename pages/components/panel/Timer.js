@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 
+const timeStep=250;
+
 export default class Timer extends Component{
   state={
     start:false,
@@ -11,16 +13,16 @@ export default class Timer extends Component{
         display:'grid',
         alignItems:'center',
         justifyItems:'center',
-        width:`${80/2}px`,
+        // width:`${80/2}px`,
+        width:`${80}px`,
         height:'100%',
       },
     }
     const startStopTime=()=>this.setState({start:!this.state.start})
     return(
       <div style={styles.Timer}>
-        {whiteTure?'białe':'czarne'}
         <BlackTimer start={this.state.start} whiteTure={whiteTure}/>
-        <input type='button' onClick={startStopTime} value='Start'/>
+        <input type='button' onClick={startStopTime} value={!this.state.start?'Start':'Stop'}/>
         <WhiteTimer start={this.state.start} whiteTure={whiteTure}/>
       </div>
     )
@@ -29,34 +31,48 @@ export default class Timer extends Component{
 
 class WhiteTimer extends Component{
   state={
-    white:50000, // ms
+    whiteTime:50000
   }
-  componentDidUpdate(next,prev){
-      if(this.props.whiteTure && this.props.start){
-        setTimeout(()=>this.setState({white:this.state.white-500>=0?
-          this.state.white-500:
-          0
-        }),500)
-      }
+  componentDidUpdate(){
+    if(this.props.whiteTure && this.props.start){
+      setTimeout(()=>this.setState({whiteTime:this.state.whiteTime-timeStep>=0?
+        this.state.whiteTime-timeStep:
+        0
+      }),timeStep)
+    }
   }
   render(){
-    return <div>{this.state.white}</div>
+    return <div>{timeDisplayFormat(this.state.whiteTime)}</div>
   }
 }
 
 class BlackTimer extends Component{
   state={
-    black:50000, // ms
+    blackTime:50000
   }
-  componentDidUpdate(next,prev){
+  componentDidUpdate(){
     if(!this.props.whiteTure && this.props.start){
-      setTimeout(()=>this.setState({black:this.state.black-500>=0?
-        this.state.black-500:
+      setTimeout(()=>this.setState({blackTime:this.state.blackTime-timeStep>=0?
+        this.state.blackTime-timeStep:
         0
-      }),500)
+      }),timeStep)
     }
   }
   render(){
-    return <div>{this.state.black}</div>
+    return <div>{timeDisplayFormat(this.state.blackTime)}</div>
   }
+}
+
+function roundTo00(liczba){
+  const stringed=liczba.toString().slice(0, 2);
+  return liczba<10?`0${stringed}`:stringed
+}
+
+function timeDisplayFormat(time_in_ms) {
+  const time=new Date(time_in_ms);
+  const min=roundTo00(time.getUTCMinutes())
+  const sec=roundTo00(time.getUTCSeconds())
+  const ms=roundTo00(time.getUTCMilliseconds())
+
+  return `${min}:${sec}:${ms}`;
 }

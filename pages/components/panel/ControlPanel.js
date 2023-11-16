@@ -1,4 +1,4 @@
-import React,{Component, useEffect,useState} from 'react';
+import React,{useEffect,useState} from 'react';
 import {FaRegHandshake} from 'react-icons/fa';
 import {FiFlag} from 'react-icons/fi';
 import Timer from './Timer';
@@ -57,7 +57,7 @@ export default function ControlPanel(){
       return(
         <div style={styles.ControlPanel}>
           <Switch whiteTure={whiteTure} size={size}/>
-          <Timer/>
+          <Timer whiteTure={whiteTure}/>
           {/* <CountdownTimer/> */}
           <div style={styles.ControlContainer}>
             <Button1 onClick={pat}/>

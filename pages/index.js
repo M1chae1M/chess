@@ -44,8 +44,7 @@ export default class GameBoard extends Component{
         const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
         shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
         isChequered();
-        this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
-        addToHistory();
+        this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure},addToHistory);
         end();
       }else{
         setTimeout(()=>checkIsClosed(end,baseFigure,clicked),100);

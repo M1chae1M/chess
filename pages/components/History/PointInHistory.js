@@ -24,9 +24,6 @@ export default class PointInHistory extends Component{
         const onClick=()=>{
           console.log(gameHistory?.[id], gameHistory)
         }
-
-
-        console.log(lastMove)
         return(
           <div style={style} onClick={onClick}>
             {description}<AiOutlineArrowRight/>{clicked}

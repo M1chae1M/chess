@@ -45,6 +45,7 @@ export default class GameBoard extends Component{
         shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
         isChequered();
         this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
+        addToHistory();
         end();
       }else{
         setTimeout(()=>checkIsClosed(end,baseFigure,clicked),100);
@@ -79,19 +80,7 @@ export default class GameBoard extends Component{
           isChequered()
         }
       }
-      // addToHistory({color:baseFigure?.getColor?.(),figure:baseFigure?.getName?.(),fromField,clicked});
       addToHistory();
-
-      // console.log('clicked',clicked)
-
-      // addToHistory({
-      //   // color:baseFigure?.getColor?.(),
-      //   color:'black',
-      //   // figure:baseFigure?.getName?.(),
-      //   figure:this.state.promoteTo,
-      //   fromField,
-      //   clicked:clicked
-      // });
       Game.getMovesCount();
     }
     const touch=(clicked)=>{

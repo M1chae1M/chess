@@ -85,7 +85,7 @@ export class Pawn extends Figure{
       }
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
-        Game?.addToHistory?.(acX,acY,copyOfOldFileds);
+        Game?.addToHistory?.(acX,acY,copyOfOldFileds,destX,destY);
         return{
           shortMove:boardStartState,
           newWhiteTure:!whiteTure

@@ -79,7 +79,19 @@ export default class GameBoard extends Component{
           isChequered()
         }
       }
-      addToHistory({color:baseFigure?.getColor?.(),figure:baseFigure?.getName?.(),fromField,clicked});
+      // addToHistory({color:baseFigure?.getColor?.(),figure:baseFigure?.getName?.(),fromField,clicked});
+      addToHistory();
+
+      // console.log('clicked',clicked)
+
+      // addToHistory({
+      //   // color:baseFigure?.getColor?.(),
+      //   color:'black',
+      //   // figure:baseFigure?.getName?.(),
+      //   figure:this.state.promoteTo,
+      //   fromField,
+      //   clicked:clicked
+      // });
       Game.getMovesCount();
     }
     const touch=(clicked)=>{

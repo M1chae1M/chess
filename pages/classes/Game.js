@@ -47,13 +47,13 @@ export class Game{
 
     return copy_of_boardStartState
   }
-  static addToHistory(acX,acY,copyOfOldFileds){
+  static addToHistory(acX,acY,copyOfOldFileds,destX,destY){
     this.gameHistory.push({
       lastMove:{
         fromField:`${acX}${acY}`,
         figure:copyOfOldFileds?.from?.getName?.(),
         color:copyOfOldFileds?.from?.getColor?.(),
-        clicked:[acX,acY],
+        clicked:[destX,destY],
         stringifiedBoard:JSON.stringify(this.withoutMovedFields())
       }
     })

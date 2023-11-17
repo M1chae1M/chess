@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import PointInHistory from "./PointInHistory";
 import CloseBTN from "./CloseBTN";
 import HistoryAnimation from "./HistoryAnimation";
+import ScrollableHistory from "./ScrollableHistory";
 
 export default class History extends Component{
   render(){
@@ -14,17 +15,12 @@ export default class History extends Component{
       width:'20vw',
       textAlign:'center',
     }
-    const scollableHistory={
-      overflow:'auto',
-      maxHeight:'80%',
-      height:'80%',
-    }
     return(
       <HistoryAnimation showHistory={showHistory}>
         <div style={style}>
           <CloseBTN onClick={show_or_close_history}/>
           History
-          <div style={scollableHistory}>
+          <ScrollableHistory>
             {gameHistory?.map(({lastMove,board},i)=>
               <PointInHistory key={i} lastMove={lastMove} id={i} board={board}/>
             )}
@@ -300,7 +296,7 @@ export default class History extends Component{
                 <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
               )}
             </> */}
-          </div>
+          </ScrollableHistory>
         </div>
       </HistoryAnimation>
     )

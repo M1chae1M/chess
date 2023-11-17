@@ -1,9 +1,10 @@
-import styled from "styled-components";
 import {IoClose} from "react-icons/io5";
 
-const CloseBTN=styled(IoClose)`
-  color:red;
-  font-size:65px;
-`
+const style={
+  color:'red',
+  fontSize:'65px',
+}
+
+const CloseBTN=(props)=><IoClose style={style} {...props}/>
 
 export default CloseBTN

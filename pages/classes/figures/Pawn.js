@@ -86,7 +86,6 @@ export class Pawn extends Figure{
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
 
-
         if(acY==='7'||acY==='0'){
           // console.log('teraz',acY)
 

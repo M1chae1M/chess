@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import PointInHistory from "./PointInHistory";
 import CloseBTN from "./CloseBTN";
+import HistoryAnimation from "./HistoryAnimation";
 
 export default class History extends Component{
   render(){
@@ -13,12 +14,15 @@ export default class History extends Component{
       width:'20vw',
     }
     return(
-      showHistory &&
-      <div style={style}>
-        <CloseBTN onClick={show_or_close_history}/>
-        History
-        {gameHistory?.map(({lastMove,board},i)=><PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>)}
-      </div>
+      <HistoryAnimation showHistory={showHistory}>
+        <div style={style}>
+          <CloseBTN onClick={show_or_close_history}/>
+          History
+          {gameHistory?.map(({lastMove,board},i)=>
+            <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+          )}
+        </div>
+      </HistoryAnimation>
     )
   }
 }

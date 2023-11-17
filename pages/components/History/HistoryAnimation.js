@@ -4,7 +4,7 @@ const animation={
 }
 const fadeOutAnimation={
     transition:'transform 1s ease-in-out',
-    transform:'translateX(-100%)',
+    transform:'translateX(100%)',
 }
 
 const HistoryAnimation=({children,showHistory})=>(

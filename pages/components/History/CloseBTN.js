@@ -20,8 +20,8 @@ const style={
 }
 
 const CloseBTN=(props)=>(
-  <div style={style}>
-    <BTN {...props}/>
+  <div style={style} {...props}>
+    <BTN/>
   </div>
 )
 

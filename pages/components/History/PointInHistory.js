@@ -10,13 +10,15 @@ export default class PointInHistory extends Component{
     const {fromField,clicked,color,figure}=lastMove||''
     const style={
       display:'grid',
+      gridTemplateColumns:'repeat(5, 1fr)',
+      // gridTemplateColumns:'10% 20% 20% 20% 20%',
       gridAutoFlow:'column',
       justifyItems:'center',
       alignItems:'center',
       justifyContent:'space-evenly',
     }
     const figureIcon=figureIcons?.[color]?.[figure]
-    const description=`${id+1}. ${fromField}`
+    const ID=id % 2 === 0?`${Math.floor(id/2)+1}.`:''
     return(
       <GameProvider.Consumer>
       {value=>{
@@ -26,8 +28,11 @@ export default class PointInHistory extends Component{
         }
         return(
           <div style={style} onClick={onClick}>
-            {description}<AiOutlineArrowRight/>{clicked}
-            {figureIcon}
+            <div>{ID}</div>
+            <div>{fromField}</div>
+            <div><AiOutlineArrowRight/></div>
+            <div>{clicked}</div>
+            <div>{figureIcon}</div>
           </div>
         )
       }}

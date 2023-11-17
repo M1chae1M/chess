@@ -10,11 +10,12 @@ export default class History extends Component{
       right:'0%',
       top:'0%',
       height:'100vh',
-      background:'brown',
+      borderLeft:'solid grey 3px',
       width:'20vw',
+      textAlign:'center',
     }
     const scollableHistory={
-      overflowY:'scroll',
+      overflow:'auto',
       maxHeight:'80%',
       height:'80%',
     }
@@ -25,9 +26,9 @@ export default class History extends Component{
           History
           <div style={scollableHistory}>
             {gameHistory?.map(({lastMove,board},i)=>
-              <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              <PointInHistory key={i} lastMove={lastMove} id={i} board={board}/>
             )}
-            <>
+            {/* <>
               {gameHistory?.map(({lastMove,board},i)=>
                 <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
               )}
@@ -298,7 +299,7 @@ export default class History extends Component{
               {gameHistory?.map(({lastMove,board},i)=>
                 <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
               )}
-            </>
+            </> */}
           </div>
         </div>
       </HistoryAnimation>

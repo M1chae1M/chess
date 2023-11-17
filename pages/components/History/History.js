@@ -10,17 +10,296 @@ export default class History extends Component{
       right:'0%',
       top:'0%',
       height:'100vh',
-      background:'grey',
+      background:'brown',
       width:'20vw',
+    }
+    const scollableHistory={
+      overflowY:'scroll',
+      maxHeight:'80%',
+      height:'80%',
     }
     return(
       <HistoryAnimation showHistory={showHistory}>
         <div style={style}>
           <CloseBTN onClick={show_or_close_history}/>
           History
-          {gameHistory?.map(({lastMove,board},i)=>
-            <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
-          )}
+          <div style={scollableHistory}>
+            {gameHistory?.map(({lastMove,board},i)=>
+              <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+            )}
+            <>
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+              {gameHistory?.map(({lastMove,board},i)=>
+                <PointInHistory key={i} lastMove={lastMove} id={Math.floor(i/2)} board={board}/>
+              )}
+            </>
+          </div>
         </div>
       </HistoryAnimation>
     )

@@ -1,5 +1,6 @@
-import { GameProvider } from '@/pages';
+import {GameProvider} from '@/pages';
 import React,{Component} from 'react';
+import size from '@/config/size.json'
 
 export class TemplateTimer extends Component{
   state={
@@ -31,6 +32,12 @@ export class TemplateTimer extends Component{
         rotate:whiteTure?'0deg':'180deg',
         color:whiteTure?'black':'white',
         zIndex:2000,
+        display:'grid',
+        alignItems:'center',
+        justifyContent:'center',
+        justifyItems:'center',
+        height:`${size*7/16}px`,
+        width:`${size*6/8}px`,
       }
       return <div style={style}>{timeDisplayFormat(time)}</div>
     }}

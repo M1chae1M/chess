@@ -7,8 +7,8 @@ import styled,{css} from 'styled-components';
 import {GameProvider} from '@/pages';
 import {TbRotate} from 'react-icons/tb';
 import {MdHistory} from "react-icons/md";
+import size from '@/config/size.json'
 
-const size=80;
 const buttonStyles=css`
   font-size:${size/2}px;
   display:grid;
@@ -57,7 +57,7 @@ export default function ControlPanel(){
       }
       return(
         <div style={styles.ControlPanel}>
-          <Switch whiteTure={whiteTure} size={size} whiteOnTop={whiteOnTop}/>
+          <Switch whiteTure={whiteTure} whiteOnTop={whiteOnTop}/>
           <div style={styles.ControlContainer}>
             <Button1 onClick={pat}/>
             <Button3 onClick={turnBoard}/>

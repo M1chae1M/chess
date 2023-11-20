@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import SingleTimer from './TemplateTimer';
+// import SingleTimer from './TemplateTimer';
 import {GameProvider} from '@/pages';
 
 export default class Timer extends Component{
@@ -21,9 +21,9 @@ export default class Timer extends Component{
         const {whiteTure}=value??{}
         return(
           <div style={style}>
-            <SingleTimer startStopTime={startStopTime} condition={!whiteTure} start={this.state.start}/>
+            {/* <SingleTimer startStopTime={startStopTime} condition={!whiteTure} start={this.state.start}/> */}
             <input type='button' onClick={startStopTime} value={!this.state.start?'Start':'Stop'}/>
-            <SingleTimer startStopTime={startStopTime} condition={whiteTure} start={this.state.start}/>
+            {/* <SingleTimer startStopTime={startStopTime} condition={whiteTure} start={this.state.start}/> */}
           </div>
         )
       }}

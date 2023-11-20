@@ -9,7 +9,7 @@ const Horisontal=({whiteOnTop})=>{
             width:`calc(8 * (${fieldSize} + 1px) - 1px)`,
             position:'absolute',
             bottom:'0%',
-            transform:'translateY(100%)',
+            transform:'translateY(calc(100% + 5px))',
         },
         row:{
             display:'grid',

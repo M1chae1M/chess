@@ -4,7 +4,7 @@ import Yo from '@/config/Yo.json'
 const Vertical=({whiteOnTop})=>{
     const style={
         container:{
-            transform:'translateX(-100%)',
+            transform:'translateX(calc(-100% - 5px))',
             position:'absolute',
             display:'grid',
             gridAutoFlow:'row',

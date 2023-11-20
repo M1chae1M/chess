@@ -20,7 +20,11 @@ export class TemplateTimer extends Component{
   }
   render(){
     const {time}=this.state
-    return <div>{timeDisplayFormat(time)}</div>
+    const {condition}=this.props
+    const style={
+      rotate:condition?'0deg':'180deg',
+    }
+    return <div style={style}>{timeDisplayFormat(time)}</div>
   }
 }
 

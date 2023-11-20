@@ -1,3 +1,4 @@
+import { GameProvider } from '@/pages';
 import React,{Component} from 'react';
 
 export class TemplateTimer extends Component{
@@ -19,18 +20,21 @@ export class TemplateTimer extends Component{
     }
   }
   render(){
-    const {time}=this.state
-    const {condition}=this.props
-    const style={
-      rotate:condition?'0deg':'180deg',
-      // rotate:this.props.whiteTure?'0deg':'180deg',
-      // color:condition?'black':'white',
-      // color:'white',
-      color:this.props.whiteTure?'black':'white',
-      // position:''
-      zIndex:2000,
-    }
-    return <div style={style}>{timeDisplayFormat(time)}</div>
+
+    return <GameProvider.Consumer>
+    {value=>{
+      const {whiteTure}=value??{}
+      const {time}=this.state
+      const {color}=this.props
+      const style={
+        rotate:color==='white'?'0deg':'180deg',
+        rotate:whiteTure?'0deg':'180deg',
+        color:whiteTure?'black':'white',
+        zIndex:2000,
+      }
+      return <div style={style}>{timeDisplayFormat(time)}</div>
+    }}
+    </GameProvider.Consumer>
   }
 }
 

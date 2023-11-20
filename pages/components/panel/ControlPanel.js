@@ -1,7 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import {FaRegHandshake} from 'react-icons/fa';
 import {FiFlag} from 'react-icons/fi';
-import Timer from './Timer';
 import {Game} from '@/pages/classes/Game';
 import Switch from './Switch';
 import styled,{css} from 'styled-components';
@@ -47,7 +46,7 @@ export default function ControlPanel(){
   return(
     <GameProvider.Consumer>
     {value=>{
-      const {resetGame,turnBoard,whiteTure,show_or_close_history}=value??{}
+      const {resetGame,turnBoard,whiteTure,show_or_close_history,whiteOnTop}=value??{}
       const pat=()=>{
         Game.pat(``)
         resetGame()
@@ -58,8 +57,7 @@ export default function ControlPanel(){
       }
       return(
         <div style={styles.ControlPanel}>
-          <Switch whiteTure={whiteTure} size={size}/>
-          {/* <Timer/> */}
+          <Switch whiteTure={whiteTure} size={size} whiteOnTop={whiteOnTop}/>
           <div style={styles.ControlContainer}>
             <Button1 onClick={pat}/>
             <Button3 onClick={turnBoard}/>

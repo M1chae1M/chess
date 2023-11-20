@@ -37,6 +37,7 @@ export class Pawn extends Figure{
   }
   canYouBeatInPassing(destination,whiteTure,movesWorking){
     const [acX,acY]=this.actualField
+    const fromY=Game?.lastMove?.()?.fromField?.[1]
 
     const {destX,destY}=destination
     const newY=Number(acY)+(whiteTure?1:-1)
@@ -44,8 +45,8 @@ export class Pawn extends Figure{
     const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
 
     if(Yo?.includes(newY)){
-      enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
-      enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(enemyY)===2:acY-Number(enemyY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
+      enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(fromY)===2:acY-Number(fromY)===-2) && movesWorking.push(  `${newX(+1)}${newY}`  );
+      enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(fromY)===2:acY-Number(fromY)===-2) && movesWorking.push(  `${newX(-1)}${newY}`  );
     }
     return movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn'
   }

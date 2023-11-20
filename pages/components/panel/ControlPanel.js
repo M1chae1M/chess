@@ -37,6 +37,8 @@ export default function ControlPanel(){
       transform:'translate(calc(100% + 8px),-50%)',
       display:'grid',
       gridAutoFlow:'column',
+
+      border:'solid black 1px',
     },
     ControlContainer:{
       display:'grid',
@@ -56,9 +58,6 @@ export default function ControlPanel(){
         Game.surrender(whiteTure)
         resetGame()
       }
-      // const showHistory=()=>{
-      //   console.log('show history')
-      // }
       return(
         <div style={styles.ControlPanel}>
           <Switch whiteTure={whiteTure} size={size}/>

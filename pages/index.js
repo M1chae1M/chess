@@ -10,8 +10,6 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import Vertical from './Vertical'
-import Horisontal from './Horisontal'
 
 export const GameProvider=React.createContext()
 
@@ -108,12 +106,20 @@ export default class GameBoard extends Component{
         height:'100vh',
         gridAutoFlow:'column',
         gridTemplateColumns:'1fr auto',
+        alignContent:'center',
+
+        // border:'solid black 1px',
+        // background:'blue',
+        userSelect:'none',
       },
       GameBoard:{
         position:'relative',
         display:'grid',
         gridGap:'1px',
         gridTemplateColumns:`repeat(8,${fieldSize})`,
+
+
+        // border:'solid black 1px',
       },
     }
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
@@ -134,10 +140,8 @@ export default class GameBoard extends Component{
         <button onClick={()=>Game?.setGameBoard?.(this.state.boardGameState)}>setGameBoard</button> */}
         <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history}}>
           <div style={styles.GameBoard} id='gameboard'>
-            <Vertical whiteOnTop={whiteOnTop}/>
             <ControlPanel/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>
-            <Horisontal whiteOnTop={whiteOnTop}/>
           </div>
           <Modal isModalOpened={isModalOpened} closeModalF={closeModalF} whiteTure={whiteTure}/>
           <History gameHistory={gameHistory} showHistory={this.state.showHistory} show_or_close_history={show_or_close_history}/>

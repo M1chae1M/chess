@@ -59,7 +59,7 @@ export default function ControlPanel(){
       return(
         <div style={styles.ControlPanel}>
           <Switch whiteTure={whiteTure} size={size}/>
-          <Timer/>
+          {/* <Timer/> */}
           <div style={styles.ControlContainer}>
             <Button1 onClick={pat}/>
             <Button3 onClick={turnBoard}/>

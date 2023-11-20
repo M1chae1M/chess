@@ -23,6 +23,12 @@ export class TemplateTimer extends Component{
     const {condition}=this.props
     const style={
       rotate:condition?'0deg':'180deg',
+      // rotate:this.props.whiteTure?'0deg':'180deg',
+      // color:condition?'black':'white',
+      // color:'white',
+      color:this.props.whiteTure?'black':'white',
+      // position:''
+      zIndex:2000,
     }
     return <div style={style}>{timeDisplayFormat(time)}</div>
   }

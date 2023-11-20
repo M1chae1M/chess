@@ -16,6 +16,7 @@ const Horisontal=({whiteOnTop})=>{
             width:fieldSize,
             height:fieldSize,
             justifyItems:'center',
+            fontSize:`calc(${fieldSize} * 0.5)`,
         }
     }
     return(

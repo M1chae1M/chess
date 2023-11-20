@@ -1,7 +1,7 @@
-import React,{Component} from 'react';
+import React,{Component} from 'react'
 import fieldSize from '@/config/fieldSize.json'
-import {GameProvider} from '..';
-import {ifBlackFunction} from '../classes/Functions';
+import {GameProvider} from '..'
+import {ifBlackFunction} from '../classes/Functions'
 
 export default class Field extends Component{
   render(){

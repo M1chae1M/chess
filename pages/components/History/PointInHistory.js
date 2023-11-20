@@ -1,8 +1,8 @@
-import React,{Component} from "react";
-import {figureIcons} from "@/pages/_document";
-import {AiOutlineArrowRight} from 'react-icons/ai';
-import {GameProvider} from "@/pages";
-import _ from 'lodash';
+import React,{Component} from "react"
+import {figureIcons} from "@/pages/_document"
+import {AiOutlineArrowRight} from 'react-icons/ai'
+import {GameProvider} from "@/pages"
+import _ from 'lodash'
 
 export default class PointInHistory extends Component{
   render(){

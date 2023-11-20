@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const BTN=styled(IoClose)`
   width:fit-content;
-  transform-origin: center;
+  transform-origin:center;
   transition:all 0.5s ease-in-out;
   color:red;
   font-size:65px;

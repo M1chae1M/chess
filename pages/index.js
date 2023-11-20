@@ -1,17 +1,17 @@
-import React,{Component} from 'react';
+import React,{Component} from 'react'
 import fieldSize from '@/config/fieldSize.json'
-import {boardStartState,boardStartStateCopy} from './_document';
+import {boardStartState,boardStartStateCopy} from './_document'
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
-import ControlPanel from './components/panel/ControlPanel';
-import {Figure} from './classes/Figure';
-import _ from 'lodash';
-import History from './components/History/History';
-import {Game} from './classes/Game';
-import AllFields from './components/AllFields';
-import Modal from './components/Modal';
-import Vertical from './Vertical';
-import Horisontal from './Horisontal';
+import ControlPanel from './components/panel/ControlPanel'
+import {Figure} from './classes/Figure'
+import _ from 'lodash'
+import History from './components/History/History'
+import {Game} from './classes/Game'
+import AllFields from './components/AllFields'
+import Modal from './components/Modal'
+import Vertical from './Vertical'
+import Horisontal from './Horisontal'
 
 export const GameProvider=React.createContext()
 

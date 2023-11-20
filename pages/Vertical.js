@@ -19,6 +19,7 @@ const Vertical=({whiteOnTop})=>{
             display:'grid',
             justifyItems:'right',
             alignItems:'center',
+            fontSize:`calc(${fieldSize} * 0.5)`,
         }
     }
     return(

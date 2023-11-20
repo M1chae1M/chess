@@ -49,15 +49,15 @@ export class King extends Figure{
         didIncrement?Game.incrementMoves():Game.resetMoves()
         Game?.addToHistory?.(acX,acY,copyOfOldFileds,destX,destY);
         return{
-          shortMove: boardStartState,
-          newWhiteTure: !whiteTure,
+          shortMove:boardStartState,
+          newWhiteTure:!whiteTure,
           chequered:Figure.isKingChequered(whiteTure).value,
         }
       }
     }
     return{
-      shortMove: boardStartState,
-      newWhiteTure: whiteTure,
+      shortMove:boardStartState,
+      newWhiteTure:whiteTure,
       chequered:Figure.isKingChequered(whiteTure).value,
     }
   }

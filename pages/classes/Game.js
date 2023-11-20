@@ -66,7 +66,7 @@ export class Game{
     this.samePositions=0
     this.gameHistory=[]
     this.gameBoard=_.cloneDeep(boardStartStateCopy)
-    console.log('teraz board jest taki  jak,',this.gameBoard)
+    // console.log('teraz board jest taki  jak,',this.gameBoard)
     const {fiftyMovesRule,samePositions,gameHistory,gameBoard}=this
     return {fiftyMovesRule,samePositions,gameHistory,gameBoard}
   }

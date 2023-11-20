@@ -60,16 +60,21 @@ export default class GameBoard extends Component{
       Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
 
 
-      Game?.reset?.();
+      const {fiftyMovesRule,samePositions,gameHistory,gameBoard}=Game?.reset?.();
 
       this.setState({
         whiteTure:true,
-        boardGameState:boardStartStateCopy,
+        // boardGameState:boardStartStateCopy,
+        boardGameState:{...boardStartStateCopy},
         firstTouch:true,
         fromField:'',
         kingAttacked:false,
-        gameHistory:[],
-        fiftyMovesRule:0
+        // gameHistory:[],
+        gameHistory,
+        fiftyMovesRule:0,
+        fiftyMovesRule,
+        isModalOpened:false,
+        promoteTo:'Queen',
       });
       // this.setState({whiteTure:true, boardGameState:_.cloneDeep(boardStartStateCopy), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0});
     }
@@ -147,10 +152,8 @@ export default class GameBoard extends Component{
           // })
           }}>load</button>
         <button onClick={()=>Game?.setGameBoard?.(this.state.boardGameState)}>setGameBoard</button> */}
-        <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,
-        blackTimeRef,whiteTimeRef
-        }}>
-          <div style={styles.GameBoard} id='gameboard'>
+        <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef}}>
+          <div style={styles.GameBoard}>
             <ControlPanel/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>
           </div>

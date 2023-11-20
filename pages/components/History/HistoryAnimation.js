@@ -1,10 +1,17 @@
-const animation={
-    transform:'translateX(0)',
+const baseStyles={
+    position:'absolute',
+    right:'0%',
+    top:'0%',
     transition:'transform 1s ease-in-out',
 }
 
+const animation={
+    ...baseStyles,
+    transform:'translateX(0)',
+}
+
 const fadeOutAnimation={
-    transition:'transform 1s ease-in-out',
+    ...baseStyles,
     transform:'translateX(100%)',
 }
 

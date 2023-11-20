@@ -8,8 +8,6 @@ export default class History extends Component{
   render(){
     const {gameHistory,showHistory,show_or_close_history}=this.props;
     const style={
-      right:'0%',
-      top:'0%',
       height:'100vh',
       borderLeft:'solid grey 3px',
       width:'20vw',

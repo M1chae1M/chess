@@ -104,12 +104,7 @@ export default class GameBoard extends Component{
         alignItems:'center',
         width:'100vw',
         height:'100vh',
-        gridAutoFlow:'column',
-        gridTemplateColumns:'1fr auto',
         alignContent:'center',
-
-        // border:'solid black 1px',
-        // background:'blue',
         userSelect:'none',
       },
       GameBoard:{
@@ -117,9 +112,6 @@ export default class GameBoard extends Component{
         display:'grid',
         gridGap:'1px',
         gridTemplateColumns:`repeat(8,${fieldSize})`,
-
-
-        // border:'solid black 1px',
       },
     }
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
@@ -144,8 +136,8 @@ export default class GameBoard extends Component{
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>
           </div>
           <Modal isModalOpened={isModalOpened} closeModalF={closeModalF} whiteTure={whiteTure}/>
-          <History gameHistory={gameHistory} showHistory={this.state.showHistory} show_or_close_history={show_or_close_history}/>
         </GameProvider.Provider>
+        <History gameHistory={gameHistory} showHistory={this.state.showHistory} show_or_close_history={show_or_close_history}/>
       </div>
     )
   }

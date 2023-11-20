@@ -37,8 +37,6 @@ export default function ControlPanel(){
       transform:'translate(calc(100% + 8px),-50%)',
       display:'grid',
       gridAutoFlow:'column',
-
-      border:'solid black 1px',
     },
     ControlContainer:{
       display:'grid',

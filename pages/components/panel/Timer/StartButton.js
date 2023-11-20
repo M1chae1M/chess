@@ -13,7 +13,7 @@ const StartButton=({start})=>(
                 height:'100%',
                 top:'0%',
                 left:'0%',
-                backdropFilter:'blur(2.5px)',
+                // backdropFilter:'blur(2.5px)',
                 zIndex:2001,
                 display:'grid',
                 justifyItems:'center',

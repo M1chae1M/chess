@@ -32,6 +32,10 @@ export default class GameBoard extends Component{
   }
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop}=this.state
+
+    const blackTimeRef=React.createRef();
+    const whiteTimeRef=React.createRef();
+
     const isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
     const addToHistory=()=>this.setState({gameHistory:_.cloneDeep(Game?.getHistory?.())})
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
@@ -50,11 +54,24 @@ export default class GameBoard extends Component{
       }
     }
     const resetGame=()=>{
-      
-      Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]))
+      blackTimeRef?.current?.reset?.();
+      whiteTimeRef?.current?.reset?.();
 
-      this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
-      // this.setState({whiteTure:true, boardGameState:_.cloneDeep(boardStartStateCopy), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
+      Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
+
+
+      Game?.reset?.();
+
+      this.setState({
+        whiteTure:true,
+        boardGameState:boardStartStateCopy,
+        firstTouch:true,
+        fromField:'',
+        kingAttacked:false,
+        gameHistory:[],
+        fiftyMovesRule:0
+      });
+      // this.setState({whiteTure:true, boardGameState:_.cloneDeep(boardStartStateCopy), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0});
     }
     const secoundClick=(fromField,clicked)=>{
       const [destX,destY]=clicked??[]
@@ -130,7 +147,9 @@ export default class GameBoard extends Component{
           // })
           }}>load</button>
         <button onClick={()=>Game?.setGameBoard?.(this.state.boardGameState)}>setGameBoard</button> */}
-        <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop}}>
+        <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,
+        blackTimeRef,whiteTimeRef
+        }}>
           <div style={styles.GameBoard} id='gameboard'>
             <ControlPanel/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>

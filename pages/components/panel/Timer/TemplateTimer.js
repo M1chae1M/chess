@@ -2,26 +2,39 @@ import {GameProvider} from '@/pages';
 import React,{Component} from 'react';
 import size from '@/config/size.json'
 
+const timePerPlayer=4000
+
 export class TemplateTimer extends Component{
   state={
-    time:50000,
+    time:timePerPlayer,
     timeStep:250,
   }
   componentDidUpdate(){
     const {timeStep,time}=this.state
-    const {condition,start,startStopTime}=this.props
+    const {condition,start,startStopTime,resetGame}=this.props
+
     if(condition && start){
-      const newTime=time-timeStep
+      const newTime=this.state.time-timeStep
       if(newTime<=0){
         startStopTime?.();
-        alert(`skończył Ci się czas!`);
+        resetGame();
+
+
+
+        console.log(resetGame)
+
+
+
+        setTimeout(()=>{
+          alert(`skończył Ci się czas!`);
+        },timeStep)
+      }else{
+        setTimeout(()=>this.setState({time:newTime>0?newTime:timePerPlayer}),timeStep);
       }
-      
-      setTimeout(()=>this.setState({time:newTime>=0?newTime:0}),timeStep);
     }
   }
+  reset=()=>this.setState({time:timePerPlayer})
   render(){
-
     return <GameProvider.Consumer>
     {value=>{
       const {whiteTure}=value??{}

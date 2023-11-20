@@ -3,6 +3,7 @@ import SingleTimer from '../Timer/TemplateTimer';
 import StartButton from '../Timer/StartButton';
 import size from '@/config/size.json'
 import Slider from './Slider';
+import { GameProvider } from '@/pages';
 
 export default class Switch extends Component{
   state={
@@ -23,12 +24,19 @@ export default class Switch extends Component{
     }
     const startStopTime=()=>this.setState({start:!this.state.start})
     return(
-      <div id='switch' style={style} onClick={startStopTime}>
-        <StartButton start={start}/>
-        <SingleTimer startStopTime={startStopTime} start={start} color='black' condition={!whiteTure}/>
-        <SingleTimer startStopTime={startStopTime} start={start} color='white' condition={whiteTure}/>
-        <Slider whiteTure={whiteTure}/>
-      </div>
+      <GameProvider.Consumer>
+      {value=>{
+        const {blackTimeRef,whiteTimeRef,resetGame}=value??{}
+        return(
+          <div style={style} onClick={startStopTime}>
+            <StartButton start={start}/>
+            <SingleTimer ref={blackTimeRef} startStopTime={startStopTime} start={start} color='black' condition={!whiteTure} resetGame={resetGame}/>
+            <SingleTimer ref={whiteTimeRef} startStopTime={startStopTime} start={start} color='white' condition={whiteTure} resetGame={resetGame}/>
+            <Slider whiteTure={whiteTure}/>
+          </div>
+        )
+      }}
+      </GameProvider.Consumer>
     )
   }
 }

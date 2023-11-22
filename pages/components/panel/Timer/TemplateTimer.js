@@ -19,12 +19,6 @@ export class TemplateTimer extends Component{
         startStopTime?.();
         resetGame();
 
-
-
-        console.log(resetGame)
-
-
-
         setTimeout(()=>{
           alert(`skończył Ci się czas!`);
         },timeStep)

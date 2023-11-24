@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import fieldSize from '@/config/fieldSize.json'
 import {GameProvider} from '..'
 import {ifBlackFunction} from '../classes/Functions'
-import styled,{keyframes} from 'styled-components'
+import styled,{css,keyframes} from 'styled-components'
 import animationTime from '@/config/animationTime.json'
 
 export default class Field extends Component{
@@ -19,10 +19,10 @@ export default class Field extends Component{
         const isColor=base?.goodTure?.(whiteTure)
         const color=ifBlackFunction(x,y)
         const slideInLeft = keyframes`
-        from {
+        from{
           transform: translate(0,0);
         }
-        to {
+        to{
           transform:translate(calc(${fieldSize} * ${whiteOnTop?animateX:animateX*(-1)}), calc(${fieldSize} * ${whiteOnTop?animateY*(-1):animateY}));
         }`;
 
@@ -39,7 +39,7 @@ export default class Field extends Component{
 
         & svg{
           color:${`${x}${y}`===fromField && `red !important`};
-          animation: ${`${x}${y}`===fromField && canAnimate && slideInLeft} ${`${x}${y}`===fromField && canAnimate ?`${animationTime}ms ease-in-out both`:'none'};
+          animation: ${`${x}${y}`===fromField && canAnimate ?css`${slideInLeft} ${animationTime}ms ease-in-out both`:'none'};
         }`;
         return(
           <StyledField onClick={click} className='Field'>

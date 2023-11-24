@@ -18,17 +18,6 @@ export default class Field extends Component{
         const isKing=base?.getName?.()==='King'
         const isColor=base?.goodTure?.(whiteTure)
         const color=ifBlackFunction(x,y)
-        const style={
-          // width:fieldSize,
-          // height:fieldSize,
-          // border:'solid black 1px',
-          // display:'grid',
-          // justifyItems:'center',
-          // alignItems:'center',
-          // background:kingAttacked && isKing && isColor?'red':color,
-          // fontSize:fieldSize,
-          // transition:`all ${animationTime}ms ease-in-out`,
-        }
         const slideInLeft = keyframes`
         from {
           transform: translate(0,0);
@@ -48,15 +37,12 @@ export default class Field extends Component{
         font-size:${fieldSize};
         transition:all ${animationTime}ms ease-in-out;
 
-
-        & svg {
+        & svg{
           color:${`${x}${y}`===fromField && `red !important`};
           animation: ${`${x}${y}`===fromField && canAnimate && slideInLeft} ${`${x}${y}`===fromField && canAnimate ?`${animationTime}ms ease-in-out both`:'none'};
         }`;
         return(
-          <StyledField
-          // style={style}
-          onClick={click} className='Field'>
+          <StyledField onClick={click} className='Field'>
             <Figure style={{
               color:'blue',
               fontSize:'30px',

@@ -107,16 +107,6 @@ export default class GameBoard extends Component{
           this.setState({canAnimate:true},()=>setTimeout(()=>this.setState({canAnimate:false}),animationTime));
           this.calculateAnimation(fromField,clicked);
         }
-        // canYouBeatInPassing ??
-
-          
-
-        // canYouBeatInPassing(destination,whiteTure,movesWorking)
-        // isPawn &&
-        // baseFigure?.canYouBeatInPassing?.({destX,destY},whiteTure,baseFigure?.canMove?.(destX,destY,whiteTure)?.moves) &&
-        // console.log(
-        //   'czy to bicie w przelocie', baseFigure?.canYouBeatInPassing?.({destX,destY},whiteTure,baseFigure?.canMove?.(destX,destY,whiteTure)?.moves)
-        // )
         setTimeout(()=>{
           const {shortMove,newWhiteTure}={...baseFigure?.move?.(destX,destY,whiteTure)}
           this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure})
@@ -165,7 +155,7 @@ export default class GameBoard extends Component{
     return(
       <div style={styles.App}>
         <GameProvider.Provider value={{
-          canAnimate,animateX,animateY,
+          canAnimate,animateX,animateY,fromField,
           
           
           kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef}}>

@@ -13,6 +13,15 @@ import Modal from './components/Modal'
 
 export const GameProvider=React.createContext()
 
+export function calculateAnimation(fromField,clicked){
+  const [destX,destY]=clicked??[]
+  const [acX,acY]=fromField??[]
+  this.setState({
+    animateX:destX.charCodeAt()-acX.charCodeAt(),
+    animateY:Number(destY)-Number(acY),
+  })
+}
+
 export default class GameBoard extends Component{
   state={
     whiteTure:true,
@@ -26,6 +35,9 @@ export default class GameBoard extends Component{
     fiftyMovesRule:0,
     whiteOnTop:true,
     showHistory:false,
+    canAnimate:false,
+    animateX:0,
+    animateY:0
   }
   componentDidMount(){
     window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
@@ -98,6 +110,8 @@ export default class GameBoard extends Component{
         this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure})
         if(newWhiteTure!==this.state.whiteTure){
           isChequered()
+          // this.calculateAnimation(fromField,clicked);
+
         }
       }
       addToHistory();

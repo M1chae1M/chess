@@ -43,13 +43,20 @@ export default class GameBoard extends Component{
     this.setState({
       animateX:destX.charCodeAt()-acX.charCodeAt(),
       animateY:Number(destY)-Number(acY),
-    },
-    ()=>console.log(this.state.animateX,this.state.animateY))
+    })
   }
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY}=this.state
     const isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
-    const addToHistory=()=>this.setState({gameHistory:_.cloneDeep(Game?.getHistory?.())})
+    // const addToHistory=()=>this.setState({gameHistory:_.cloneDeep(Game?.getHistory?.())})
+    const addToHistory=()=>{
+      
+      this.setState({
+        gameHistory:this.state.gameHistory.push()
+      })
+    
+    
+    }
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
     const checkIsClosed=(end,baseFigure,clicked)=>{
       const [destX,destY]=clicked??[]
@@ -59,7 +66,7 @@ export default class GameBoard extends Component{
         const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
         shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
         isChequered();
-        this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure},addToHistory);
+        this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
         end();
       }else{
         setTimeout(()=>checkIsClosed(end,baseFigure,clicked),100);

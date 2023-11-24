@@ -23,6 +23,8 @@ const Button2=styled(FiFlag)`${buttonStyles}`
 const Button3=styled(TbRotate)`${buttonStyles}`
 const Button4=styled(MdHistory)`${buttonStyles}`
 
+export const SwitchRef=React.createRef()
+
 export default function ControlPanel(){
   const [isClient,setIsClient]=useState(false);
   useEffect(()=>{setIsClient(true)},[])
@@ -48,16 +50,22 @@ export default function ControlPanel(){
     {value=>{
       const {resetGame,turnBoard,whiteTure,show_or_close_history,whiteOnTop}=value??{}
       const pat=()=>{
+        console.log(
+          SwitchRef?.current?.startStopTime
+        )
         Game.pat(``)
         resetGame()
       }
       const surrender=()=>{
+        console.log(
+          SwitchRef?.current?.startStopTime
+        )
         Game.surrender(whiteTure)
-        resetGame()
+        resetGame();
       }
       return(
         <div style={styles.ControlPanel}>
-          <Switch whiteTure={whiteTure} whiteOnTop={whiteOnTop}/>
+          <Switch whiteTure={whiteTure} whiteOnTop={whiteOnTop} ref={SwitchRef}/>
           <div style={styles.ControlContainer}>
             <Button1 onClick={pat}/>
             <Button3 onClick={turnBoard}/>

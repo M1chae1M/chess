@@ -3,7 +3,7 @@ import SingleTimer from '../Timer/TemplateTimer';
 import StartButton from '../Timer/StartButton';
 import size from '@/config/size.json'
 import Slider from './Slider';
-import { GameProvider } from '@/pages';
+import {GameProvider} from '@/pages';
 
 export default class Switch extends Component{
   state={

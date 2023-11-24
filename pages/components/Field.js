@@ -18,7 +18,7 @@ export default class Field extends Component{
         const isKing=base?.getName?.()==='King'
         const isColor=base?.goodTure?.(whiteTure)
         const color=ifBlackFunction(x,y)
-        const slideInLeft = keyframes`
+        const slideInLeft=keyframes`
         from{
           transform: translate(0,0);
         }
@@ -40,6 +40,13 @@ export default class Field extends Component{
         & svg{
           color:${`${x}${y}`===fromField && `red !important`};
           animation: ${`${x}${y}`===fromField && canAnimate ?css`${slideInLeft} ${animationTime}ms ease-in-out both`:'none'};
+        }
+
+        &:hover{
+          border:solid orangered 5px !important;
+          transform:scale(95%);
+          font-size:max(3vw, 20px) !important;
+          opacity:0.75;
         }`;
         return(
           <StyledField onClick={click} className='Field'>

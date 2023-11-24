@@ -44,9 +44,11 @@ export class Pawn extends Figure{
     const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
     const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
 
-    if(Yo?.includes(newY) && fromX===enemyX && Math.abs((enemyY-fromY))===2){
-      enemyX===newX(+1) && Xo?.includes(newX(+1)) && (!whiteTure?acY-Number(fromY)===2:acY-Number(fromY)===-2) && movesWorking.push(`${newX(+1)}${newY}`);
-      enemyX===newX(-1) && Xo?.includes(newX(-1)) && (!whiteTure?acY-Number(fromY)===2:acY-Number(fromY)===-2) && movesWorking.push(`${newX(-1)}${newY}`);
+    const beatPassingCondition=(change)=>enemyX===newX(change) && Xo?.includes(newX(change)) && movesWorking.push(`${newX(change)}${newY}`)
+
+    if(Yo?.includes(newY) && fromX===enemyX && Math.abs((enemyY-fromY))===2 && (!whiteTure?acY-Number(fromY)===2:acY-Number(fromY)===-2)){
+      beatPassingCondition(+1);
+      beatPassingCondition(-1);
     }
     return movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn'
   }

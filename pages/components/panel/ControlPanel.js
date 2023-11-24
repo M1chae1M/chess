@@ -14,7 +14,7 @@ const buttonStyles=css`
   font-size:${size/2}px;
   display:grid;
   transition:all 0.15s ease-in-out;
-  &:hover {
+  &:hover{
     scale:120%;
   }
 `

@@ -132,7 +132,6 @@ export default class GameBoard extends Component{
       }
     }
     const closeModalF=(name)=>this.setState({isModalOpened:false,promoteTo:name})
-    const backToHistory=(board)=>this.setState({boardGameState:_.cloneDeep({...board})})
     const styles={
       App:{
         display:'grid',
@@ -153,7 +152,7 @@ export default class GameBoard extends Component{
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     return(
       <div style={styles.App}>
-        <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef}}>
+        <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef}}>
           <div style={styles.GameBoard}>
             <ControlPanel/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>

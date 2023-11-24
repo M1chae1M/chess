@@ -22,7 +22,7 @@ export default class PointInHistory extends Component{
     return(
       <GameProvider.Consumer>
       {value=>{
-        const {backToHistory,gameHistory}=value??{}
+        const {gameHistory}=value??{}
         const onClick=()=>{
           console.log(gameHistory?.[id], gameHistory)
         }

@@ -141,7 +141,7 @@ export default class GameBoard extends Component{
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     return(
       <div style={styles.App}>
-        {this.state.promoteTo}
+        {/* {this.state.promoteTo} */}
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,
           resetGame:this.resetGame,
           boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef}}>

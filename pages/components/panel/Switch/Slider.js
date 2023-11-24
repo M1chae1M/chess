@@ -1,4 +1,5 @@
-import size from '@/config/size.json'
+import CONFIG from '@/config/config.json'
+const {size}=CONFIG??''
   
 const Slider=({whiteTure})=>{
     const color=whiteTure?'black':'white'

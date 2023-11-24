@@ -1,5 +1,4 @@
 import React,{Component} from 'react'
-import fieldSize from '@/config/fieldSize.json'
 import {boardStartState,boardStartStateCopy} from './_document'
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
@@ -10,8 +9,9 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import animationTime from '@/config/animationTime.json'
-import { calculateAnimation } from './classes/Functions'
+import {calculateAnimation} from './classes/Functions'
+import CONFIG from '@/config/config.json'
+const {fieldSize,animationTime}=CONFIG??''
 
 export const GameProvider=React.createContext()
 export const blackTimeRef=React.createRef();

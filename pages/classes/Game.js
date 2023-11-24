@@ -10,32 +10,9 @@ export class Game{
   static gameHistory=[];
   static gameBoard=[]
 
-  static returnGameBoard(){
-    return this.gameBoard
-  }
+
   static setGameBoard(board){
     this.gameBoard=_.cloneDeep(board)
-  }
-  static save(board){
-    const data={
-      gameHistory:_.cloneDeep(this.gameHistory),
-      // board:_.cloneDeep(this.gameBoard),
-      board:_.cloneDeep(board),
-      fiftyMovesRule:_.cloneDeep(this.fiftyMovesRule),
-      samePositions:_.cloneDeep(this.samePositions),
-    }
-    localStorage.setItem('chess_game_state',JSON.stringify(data))
-  }
-  static load(){
-    // const {gameHistory,board,fiftyMovesRule,samePositions}=JSON.parse(localStorage.getItem('chess_game_state'))
-
-    // this.gameHistory=gameHistory
-    // this.fiftyMovesRule=fiftyMovesRule
-    // this.samePositions=samePositions
-    // this.gameBoard=board
-
-    // Xo.map(x=>Yo.map(y=>boardStartState[x][y]=_.cloneDeep(board[x][y])))
-    // return {gameHistory,fiftyMovesRule,samePositions,board,boardStartState}
   }
   static getHistory(){
     return this.gameHistory
@@ -83,22 +60,6 @@ export class Game{
       this.pat('wykonaliście 50 ruchów bez bicia,albo ruchu pionkiem,oznacza to remis,przykro mi')
     }
   }
-  static cleared(){
-    // const test=this.getHistory().map(x=>x.board).map(xyz=>
-      // Xo.map(k=>
-      //   Yo.map(l=>{
-      //     const obj=xyz?.[k]?.[l]
-      //     obj?{name:obj?.getName?.(),color:obj?.getColor?.()}:''
-      //   })
-      // )
-    //   this.loop((k,l)=>{
-    //     const obj=xyz?.[k]?.[l]
-    //     obj?{name:obj?.getName?.(),color:obj?.getColor?.()}:''
-    //   })
-    // )
-
-    return this.getHistory()
-  }
   static compare(id){
     return this.gameHistory?.[id]?.lastMove?.stringifiedBoard
   }
@@ -110,21 +71,11 @@ export class Game{
     }
   }
   static clearBoardFromUndefined(){
-    // const copy=_.cloneDeep(this.gameBoard)
-
-    // Object.keys(this.gameBoard)?.map(x=>Object.keys(this.gameBoard[x])?.map(y=>{
-    //   if(this.gameBoard[x][y]===undefined){
-    //     this.gameBoard[x][y]=''
-    //   }
-    // }))
-
     Object.keys(boardStartState)?.map(x=>Object.keys(boardStartState[x])?.map(y=>{
       if(boardStartState[x][y]===undefined){
         boardStartState[x][y]=''
       }
     }))
-
-    // this.gameBoard=_.cloneDeep(copy)
   }
   static getMovesCount(){
     this.setGameBoard50moves();
@@ -145,19 +96,6 @@ export class Game{
   static makeFigureInstance(board,figureList){
     const [color,actualField,moved,name]=board??''
     return new figureList[name](color, actualField,moved,name)
-  }
-  static parseJSONboard(board,figureList){
-    const newBoard={}
-    Xo?.map(x=>{
-      newBoard[x]={}
-      Yo?.map(y=>
-        board[x][y]?.length===1?
-        newBoard[x][y]=this.makeEmpty():
-        newBoard[x][y]=this.makeFigureInstance(board[x][y],figureList)
-      )
-    })
-    this.setGameBoard(newBoard)
-    return newBoard
   }
   static figureOtherThenKing(x,y,allFigures){
     const field=boardStartState?.[x]?.[y];

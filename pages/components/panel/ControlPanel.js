@@ -7,7 +7,8 @@ import styled,{css} from 'styled-components';
 import {GameProvider} from '@/pages';
 import {TbRotate} from 'react-icons/tb';
 import {MdHistory} from "react-icons/md";
-import size from '@/config/size.json'
+import CONFIG from '@/config/config.json'
+const {size}=CONFIG??''
 
 const buttonStyles=css`
   font-size:${size/2}px;

@@ -1,5 +1,6 @@
-import fieldSize from '@/config/fieldSize.json'
 import Yo from '@/config/Yo.json'
+import CONFIG from '@/config/config.json'
+const {fieldSize}=CONFIG??''
 
 const Vertical=({whiteOnTop})=>{
     const style={

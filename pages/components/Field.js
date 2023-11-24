@@ -1,9 +1,9 @@
 import React,{Component} from 'react'
-import fieldSize from '@/config/fieldSize.json'
 import {GameProvider} from '..'
 import {ifBlackFunction} from '../classes/Functions'
 import styled,{css,keyframes} from 'styled-components'
-import animationTime from '@/config/animationTime.json'
+import CONFIG from '@/config/config.json'
+const {fieldSize,animationTime}=CONFIG??''
 
 export default class Field extends Component{
   render(){

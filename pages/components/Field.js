@@ -29,7 +29,7 @@ export default class Field extends Component{
           // fontSize:'35px',
           // fontSize:`min(5vw, 35px)`,
           fontSize:fieldSize,
-          transition:'all 0.2s ease-in-out',
+          transition:`all ${animationTime}ms ease-in-out`,
         }
         const slideInLeft = keyframes`
         from {

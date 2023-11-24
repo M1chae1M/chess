@@ -43,7 +43,8 @@ export default class GameBoard extends Component{
     this.setState({
       animateX:destX.charCodeAt()-acX.charCodeAt(),
       animateY:Number(destY)-Number(acY),
-    })
+    },
+    ()=>console.log(this.state.animateX,this.state.animateY))
   }
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY}=this.state

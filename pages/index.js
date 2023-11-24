@@ -10,17 +10,12 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
+import animationTime from '@/config/animationTime.json'
 
 export const GameProvider=React.createContext()
-
-export function calculateAnimation(fromField,clicked){
-  const [destX,destY]=clicked??[]
-  const [acX,acY]=fromField??[]
-  this.setState({
-    animateX:destX.charCodeAt()-acX.charCodeAt(),
-    animateY:Number(destY)-Number(acY),
-  })
-}
+export const blackTimeRef=React.createRef();
+export const whiteTimeRef=React.createRef();
+export const GameRef=React.createRef();
 
 export default class GameBoard extends Component{
   state={
@@ -42,12 +37,16 @@ export default class GameBoard extends Component{
   componentDidMount(){
     window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
   }
+  calculateAnimation(fromField,clicked){
+    const [destX,destY]=clicked??[]
+    const [acX,acY]=fromField??[]
+    this.setState({
+      animateX:destX.charCodeAt()-acX.charCodeAt(),
+      animateY:Number(destY)-Number(acY),
+    })
+  }
   render(){
-    const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop}=this.state
-
-    const blackTimeRef=React.createRef();
-    const whiteTimeRef=React.createRef();
-
+    const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY}=this.state
     const isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
     const addToHistory=()=>this.setState({gameHistory:_.cloneDeep(Game?.getHistory?.())})
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
@@ -92,29 +91,29 @@ export default class GameBoard extends Component{
     }
     const secoundClick=(fromField,clicked)=>{
       const [destX,destY]=clicked??[]
-      const [acX,acY]=fromField
+      const [acX,acY]=fromField??[]
       const baseFigure=boardGameState?.[acX]?.[acY];
       const isPromotionField=(destY==='8' && whiteTure)||(destY==='1' && !whiteTure);
       const isPawn=baseFigure?.getName?.()==='Pawn';
-      const canMoveThere=baseFigure?.canMove?.(destX,destY,whiteTure);
+      const canMoveThere=baseFigure?.canMove?.(destX,destY,whiteTure)?.canMove;
 
-      if(isPromotionField && canMoveThere && isPawn && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
-        this.setState({isModalOpened:true},()=>{
-          return new Promise((resolve)=>{
-            checkIsClosed(resolve,baseFigure,clicked);
-          })
-        })
+      if(isPromotionField && canMoveThere && isPawn){
+        this.setState({isModalOpened:true},()=>new Promise((resolve)=>checkIsClosed(resolve,baseFigure,clicked)))
       }
       else{
-        const {shortMove,newWhiteTure}={...baseFigure?.move?.(destX,destY,whiteTure)}
-        this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure})
-        if(newWhiteTure!==this.state.whiteTure){
-          isChequered()
-          // this.calculateAnimation(fromField,clicked);
-
+        if(canMoveThere){
+          this.setState({canAnimate:true},()=>setTimeout(()=>this.setState({canAnimate:false}),animationTime));
+          this.calculateAnimation(fromField,clicked);
         }
+        setTimeout(()=>{
+          const {shortMove,newWhiteTure}={...baseFigure?.move?.(destX,destY,whiteTure)}
+          this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure})
+          if(newWhiteTure!==this.state.whiteTure){
+            isChequered()
+          }
+        },animationTime)
       }
-      addToHistory();
+      addToHistory(acX,acY,{from:baseFigure},destX,destY);
       Game.getMovesCount();
     }
     const touch=(clicked)=>{
@@ -153,20 +152,11 @@ export default class GameBoard extends Component{
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     return(
       <div style={styles.App}>
-        {/* <button onClick={()=>Game?.save?.(this.state.boardGameState)}>save</button>
-        <button onClick={()=>{
-          const {gameHistory,fiftyMovesRule,samePositions,board,boardStartState}=Game?.load?.()
-          this.setState({whiteTure:true, boardGameState:_.cloneDeep(board), firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
-          // this.setState({whiteTure:true, boardGameState:boardStartStateCopy, firstTouch:true, fromField:'', kingAttacked:false, gameHistory:[], fiftyMovesRule:0})
-          // this.setState({
-            // boardGameState:_.cloneDeep(board),
-            // boardGameState:_.cloneDeep(boardStartStateCopy),
-            // gameHistory:_.cloneDeep(gameHistory),
-            // fiftyMovesRule:fiftyMovesRule,
-          // })
-          }}>load</button>
-        <button onClick={()=>Game?.setGameBoard?.(this.state.boardGameState)}>setGameBoard</button> */}
-        <GameProvider.Provider value={{kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef}}>
+        <GameProvider.Provider value={{
+          canAnimate,animateX,animateY,
+          
+          
+          kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef}}>
           <div style={styles.GameBoard}>
             <ControlPanel/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>

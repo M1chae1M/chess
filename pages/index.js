@@ -49,13 +49,17 @@ export default class GameBoard extends Component{
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY}=this.state
     const isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
     // const addToHistory=()=>this.setState({gameHistory:_.cloneDeep(Game?.getHistory?.())})
-    const addToHistory=()=>{
-      
-      this.setState({
-        gameHistory:this.state.gameHistory.push()
-      })
-    
-    
+    const addToHistory=(acX,acY,copyOfOldFileds,destX,destY)=>{
+        this.setState({gameHistory:
+          [...this.state.gameHistory,{
+          lastMove:{
+            fromField:`${acX}${acY}`,
+            figure:copyOfOldFileds?.from?.getName?.(),
+            color:copyOfOldFileds?.from?.getColor?.(),
+            clicked:[destX,destY],
+            stringifiedBoard:JSON.stringify(Game?.withoutMovedFields?.())
+          }}]
+        })
     }
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
     const checkIsClosed=(end,baseFigure,clicked)=>{

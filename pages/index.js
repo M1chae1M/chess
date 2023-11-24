@@ -64,6 +64,8 @@ export default class GameBoard extends Component{
         shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
         isChequered();
         this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
+        addToHistory(fromField[0],fromField[1],{from:baseFigure},destX,destY);
+        Game.getMovesCount();
         end();
       }else{
         setTimeout(()=>checkIsClosed(end,baseFigure,clicked),100);
@@ -100,9 +102,9 @@ export default class GameBoard extends Component{
         this.setState({isModalOpened:true},()=>new Promise((resolve)=>checkIsClosed(resolve,baseFigure,clicked)))
       }
       else{
-        if(canMoveThere
-          // || (isPawn && baseFigure?.canYouBeatInPassing?.({destX,destY},whiteTure,moves))
-        ){
+        if(canMoveThere){
+          addToHistory(acX,acY,{from:baseFigure},destX,destY);
+          Game.getMovesCount();
           this.setState({canAnimate:true},()=>setTimeout(()=>this.setState({canAnimate:false}),animationTime));
           this.calculateAnimation(fromField,clicked);
         }
@@ -114,8 +116,6 @@ export default class GameBoard extends Component{
           }
         },animationTime)
       }
-      addToHistory(acX,acY,{from:baseFigure},destX,destY);
-      Game.getMovesCount();
     }
     const touch=(clicked)=>{
       const {fromField}=this.state;
@@ -153,8 +153,7 @@ export default class GameBoard extends Component{
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     return(
       <div style={styles.App}>
-        <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,
-kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef}}>
+        <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,backToHistory,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef}}>
           <div style={styles.GameBoard}>
             <ControlPanel/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>

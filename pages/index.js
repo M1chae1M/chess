@@ -9,7 +9,7 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import {calculateAnimation} from './classes/Functions'
+import {addToHistory, calculateAnimation} from './classes/Functions'
 import CONFIG from '@/config/config.json'
 const {fieldSize,animationTime}=CONFIG??''
 
@@ -39,21 +39,28 @@ export default class GameBoard extends Component{
     window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
   }
   calculateAnimation=calculateAnimation
+  addToHistory=addToHistory
+  resetGame=()=>{
+    blackTimeRef?.current?.reset?.();
+    whiteTimeRef?.current?.reset?.();
+
+    Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
+
+    this.setState({
+      whiteTure:true,
+      boardGameState:{...boardStartStateCopy},
+      firstTouch:true,
+      fromField:'',
+      kingAttacked:false,
+      gameHistory:[],
+      fiftyMovesRule:0,
+      isModalOpened:false,
+      promoteTo:'Queen',
+    });
+  }
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY}=this.state
     const isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
-    const addToHistory=(acX,acY,copyOfOldFileds,destX,destY)=>{
-      this.setState({gameHistory:
-        [...this.state.gameHistory,{
-        lastMove:{
-          fromField:`${acX}${acY}`,
-          figure:copyOfOldFileds?.from?.getName?.(),
-          color:copyOfOldFileds?.from?.getColor?.(),
-          clicked:[destX,destY],
-          stringifiedBoard:JSON.stringify(Game?.withoutMovedFields?.())
-        }}]
-      })
-    }
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
     const checkIsClosed=(end,baseFigure,clicked)=>{
       const [destX,destY]=clicked??[]
@@ -64,30 +71,12 @@ export default class GameBoard extends Component{
         shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
         isChequered();
         this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
-        addToHistory(fromField[0],fromField[1],{from:baseFigure},destX,destY);
+        this.addToHistory(fromField[0],fromField[1],{from:baseFigure},destX,destY);
         Game.getMovesCount();
         end();
       }else{
         setTimeout(()=>checkIsClosed(end,baseFigure,clicked),100);
       }
-    }
-    const resetGame=()=>{
-      blackTimeRef?.current?.reset?.();
-      whiteTimeRef?.current?.reset?.();
-
-      Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
-
-      this.setState({
-        whiteTure:true,
-        boardGameState:{...boardStartStateCopy},
-        firstTouch:true,
-        fromField:'',
-        kingAttacked:false,
-        gameHistory:[],
-        fiftyMovesRule:0,
-        isModalOpened:false,
-        promoteTo:'Queen',
-      });
     }
     const secoundClick=(fromField,clicked)=>{
       const [destX,destY]=clicked??[]
@@ -103,7 +92,7 @@ export default class GameBoard extends Component{
       }
       else{
         if(canMoveThere){
-          addToHistory(acX,acY,{from:baseFigure},destX,destY);
+          this.addToHistory(acX,acY,{from:baseFigure},destX,destY);
           Game.getMovesCount();
           this.setState({canAnimate:true},()=>setTimeout(()=>this.setState({canAnimate:false}),animationTime));
           this.calculateAnimation(fromField,clicked);
@@ -128,7 +117,7 @@ export default class GameBoard extends Component{
       }
       else if(!firstTouch){
         secoundClick(fromField,clicked);
-        Game?.can_NOT_win?.() && resetGame();
+        Game?.can_NOT_win?.() && this.resetGame();
       }
     }
     const closeModalF=(name)=>this.setState({isModalOpened:false,promoteTo:name})
@@ -152,7 +141,10 @@ export default class GameBoard extends Component{
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     return(
       <div style={styles.App}>
-        <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,resetGame,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef}}>
+        {this.state.promoteTo}
+        <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,
+          resetGame:this.resetGame,
+          boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef}}>
           <div style={styles.GameBoard}>
             <ControlPanel/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>

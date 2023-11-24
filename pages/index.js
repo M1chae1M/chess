@@ -97,15 +97,26 @@ export default class GameBoard extends Component{
       const isPromotionField=(destY==='8' && whiteTure)||(destY==='1' && !whiteTure);
       const isPawn=baseFigure?.getName?.()==='Pawn';
       const canMoveThere=baseFigure?.canMove?.(destX,destY,whiteTure)?.canMove;
+      const {moves}=baseFigure?.canMove?.(destX,destY,whiteTure)??{}
 
       if(isPromotionField && canMoveThere && isPawn){
         this.setState({isModalOpened:true},()=>new Promise((resolve)=>checkIsClosed(resolve,baseFigure,clicked)))
       }
       else{
-        if(canMoveThere){
+        if(canMoveThere || baseFigure?.canYouBeatInPassing?.({destX,destY},whiteTure,moves)){
           this.setState({canAnimate:true},()=>setTimeout(()=>this.setState({canAnimate:false}),animationTime));
           this.calculateAnimation(fromField,clicked);
         }
+        // canYouBeatInPassing ??
+
+          
+
+        // canYouBeatInPassing(destination,whiteTure,movesWorking)
+        // isPawn &&
+        // baseFigure?.canYouBeatInPassing?.({destX,destY},whiteTure,baseFigure?.canMove?.(destX,destY,whiteTure)?.moves) &&
+        // console.log(
+        //   'czy to bicie w przelocie', baseFigure?.canYouBeatInPassing?.({destX,destY},whiteTure,baseFigure?.canMove?.(destX,destY,whiteTure)?.moves)
+        // )
         setTimeout(()=>{
           const {shortMove,newWhiteTure}={...baseFigure?.move?.(destX,destY,whiteTure)}
           this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure})

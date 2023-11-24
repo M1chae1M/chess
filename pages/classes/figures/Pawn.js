@@ -39,7 +39,7 @@ export class Pawn extends Figure{
     const [acX,acY]=this.actualField
     const fromY=Game?.lastMove?.()?.fromField?.[1]
 
-    const {destX,destY}=destination
+    const {destX,destY}=destination??{}
     const newY=Number(acY)+(whiteTure?1:-1)
     const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
     const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''

@@ -11,6 +11,7 @@ import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
 import animationTime from '@/config/animationTime.json'
+import { calculateAnimation } from './classes/Functions'
 
 export const GameProvider=React.createContext()
 export const blackTimeRef=React.createRef();
@@ -37,29 +38,21 @@ export default class GameBoard extends Component{
   componentDidMount(){
     window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
   }
-  calculateAnimation(fromField,clicked){
-    const [destX,destY]=clicked??[]
-    const [acX,acY]=fromField??[]
-    this.setState({
-      animateX:destX.charCodeAt()-acX.charCodeAt(),
-      animateY:Number(destY)-Number(acY),
-    })
-  }
+  calculateAnimation=calculateAnimation
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY}=this.state
     const isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
-    // const addToHistory=()=>this.setState({gameHistory:_.cloneDeep(Game?.getHistory?.())})
     const addToHistory=(acX,acY,copyOfOldFileds,destX,destY)=>{
-        this.setState({gameHistory:
-          [...this.state.gameHistory,{
-          lastMove:{
-            fromField:`${acX}${acY}`,
-            figure:copyOfOldFileds?.from?.getName?.(),
-            color:copyOfOldFileds?.from?.getColor?.(),
-            clicked:[destX,destY],
-            stringifiedBoard:JSON.stringify(Game?.withoutMovedFields?.())
-          }}]
-        })
+      this.setState({gameHistory:
+        [...this.state.gameHistory,{
+        lastMove:{
+          fromField:`${acX}${acY}`,
+          figure:copyOfOldFileds?.from?.getName?.(),
+          color:copyOfOldFileds?.from?.getColor?.(),
+          clicked:[destX,destY],
+          stringifiedBoard:JSON.stringify(Game?.withoutMovedFields?.())
+        }}]
+      })
     }
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
     const checkIsClosed=(end,baseFigure,clicked)=>{
@@ -107,7 +100,9 @@ export default class GameBoard extends Component{
         this.setState({isModalOpened:true},()=>new Promise((resolve)=>checkIsClosed(resolve,baseFigure,clicked)))
       }
       else{
-        if(canMoveThere || baseFigure?.canYouBeatInPassing?.({destX,destY},whiteTure,moves)){
+        if(canMoveThere
+          // || (isPawn && baseFigure?.canYouBeatInPassing?.({destX,destY},whiteTure,moves))
+        ){
           this.setState({canAnimate:true},()=>setTimeout(()=>this.setState({canAnimate:false}),animationTime));
           this.calculateAnimation(fromField,clicked);
         }

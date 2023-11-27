@@ -58,21 +58,23 @@ const figureList={
   King:King,
   Knight:Knight,
   Rook:Rook,
-};
+}
 export function getBoardFromLocalStory(){
   const {boardGameState}=this?.state??{}
-  const loadBoard=localStorage?.getItem?.('game_board') && JSON.parse(localStorage?.getItem?.('game_board'))
-  Xo?.map(x=>
-    Yo?.map(y=>{
-      if(loadBoard?.[x]?.[y]===''){
-        boardGameState[x][y]=loadBoard?.[x]?.[y];
-      }else{
-        const {actualField,color,moved,name}=loadBoard?.[x]?.[y]||{};
-        const FigureClass=figureList[name];
-        boardGameState[x][y]=FigureClass && new FigureClass(color,actualField,moved,name);
-      }
-    })
-  )
+  if(localStorage?.getItem?.('game_board')){
+    const loadBoard=JSON.parse(localStorage?.getItem?.('game_board'))
+    Xo?.map(x=>
+      Yo?.map(y=>{
+        if(loadBoard?.[x]?.[y]===''){
+          boardGameState[x][y]=loadBoard?.[x]?.[y];
+        }else{
+          const {actualField,color,moved,name}=loadBoard?.[x]?.[y]||{};
+          const FigureClass=figureList[name];
+          boardGameState[x][y]=FigureClass && new FigureClass(color,actualField,moved,name);
+        }
+      })
+    )
+  }
   this.setState({boardGameState:boardGameState})
 }
 

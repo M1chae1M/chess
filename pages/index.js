@@ -39,6 +39,7 @@ export default class GameBoard extends Component{
   }
   isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
   secoundClick=(fromField,clicked)=>{
+    const {whiteTure,firstTouch,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule}=this.state
     const [destX,destY]=clicked??[]
     const [acX,acY]=fromField??[]
     const baseFigure=this.state.boardGameState?.[acX]?.[acY];
@@ -51,7 +52,7 @@ export default class GameBoard extends Component{
     }
     else{
       if(canMoveThere){
-        this.addToHistory(acX,acY,{from:baseFigure},destX,destY);
+        this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
         Game.getMovesCount();
         this.setState({canAnimate:true},()=>setTimeout(()=>this.setState({canAnimate:false}),animationTime));
         this.calculateAnimation(fromField,clicked);
@@ -82,7 +83,7 @@ export default class GameBoard extends Component{
   setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory
   render(){
-    const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory}=this.state
+    const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory,fiftyMovesRule}=this.state
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
     const checkIsClosed=(end,baseFigure,clicked)=>{
       const [destX,destY]=clicked??[]
@@ -93,7 +94,7 @@ export default class GameBoard extends Component{
         shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
         this.isChequered();
         this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
-        this.addToHistory(fromField[0],fromField[1],{from:baseFigure},destX,destY);
+        this.addToHistory(fromField[0],fromField[1],{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
         Game.getMovesCount();
         end();
       }else{

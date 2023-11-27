@@ -20,8 +20,8 @@ export default class History extends Component{
           <CloseBTN onClick={show_or_close_history}/>
           History
           <ScrollableHistory>
-            {gameHistory?.map(({lastMove,board},i)=>
-              <PointInHistory key={i} lastMove={lastMove} id={i} board={board} getBoardFromHistory={getBoardFromHistory}/>
+            {gameHistory?.map(({lastMove},i)=>
+              <PointInHistory key={i} lastMove={lastMove} id={i} getBoardFromHistory={getBoardFromHistory}/>
             )}
           </ScrollableHistory>
         </div>

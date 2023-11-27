@@ -23,7 +23,7 @@ export function calculateAnimation(fromField,clicked){
     animateY:Number(destY)-Number(acY),
   })
 }
-export function addToHistory(acX,acY,copyOfOldFileds,destX,destY){
+export function addToHistory(acX,acY,copyOfOldFileds,destX,destY,status){
   this.setState({gameHistory:
     [...this.state.gameHistory,{
     lastMove:{
@@ -31,7 +31,8 @@ export function addToHistory(acX,acY,copyOfOldFileds,destX,destY){
       figure:copyOfOldFileds?.from?.getName?.(),
       color:copyOfOldFileds?.from?.getColor?.(),
       clicked:[destX,destY],
-      stringifiedBoard:JSON.stringify(Game?.withoutMovedFields?.())
+      stringifiedBoard:JSON.stringify(Game?.withoutMovedFields?.()),
+      status
     }}]
   })
 }
@@ -45,8 +46,7 @@ export const resetState={
   kingAttacked:false,
   gameHistory:[],
   fiftyMovesRule:0,
-  whiteOnTop:true,
-  // showHistory:false,
+  showHistory:false,
   showHistory:true,
   canAnimate:false,
   animateX:0,
@@ -84,9 +84,11 @@ export function getBoardFromLocalStory(){
   }
   this.setState({boardGameState})
 }
-export function getBoardFromHistory(boardStringed){
+export function getBoardFromHistory(lastMove){
+  const {stringifiedBoard,status}=lastMove??{}
+
   const {boardGameState}=this?.state??{}
-  const momentInHistory=JSON.parse(boardStringed)
+  const momentInHistory=JSON.parse(stringifiedBoard)
 
   if(momentInHistory){
     Xo?.map(x=>
@@ -101,7 +103,7 @@ export function getBoardFromHistory(boardStringed){
       })
     )
   }
-  this.setState({boardGameState})
+  this.setState({...status, boardGameState})
 }
 export function setBoardInLocalStory(){
   const {whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,boardGameState}=this.state??{}

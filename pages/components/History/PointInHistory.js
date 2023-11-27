@@ -18,8 +18,10 @@ export default class PointInHistory extends Component{
     }
     const figureIcon=figureIcons?.[color]?.[figure]
     const ID=id % 2 === 0?`${Math.floor(id/2)+1}.`:''
-    const onClick=()=>getBoardFromHistory?.(lastMove)
-
+    const onClick=()=>{
+      getBoardFromHistory?.(lastMove)
+      console.log(lastMove?.figure)
+    }
     return(
       <div style={style} onClick={onClick}>
         <div>{ID}</div>

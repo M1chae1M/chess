@@ -52,6 +52,7 @@ export default class GameBoard extends Component{
     }
     else{
       if(canMoveThere){
+        // Figure.isKingChequered?.(this.state.whiteTure).value &&
         this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
         Game.getMovesCount();
         this.setState({canAnimate:true},()=>setTimeout(()=>this.setState({canAnimate:false}),animationTime));
@@ -67,7 +68,7 @@ export default class GameBoard extends Component{
     }
   }
   touch=(clicked)=>{
-    const {fromField,boardGameState,whiteTure,firstTouch}=this.state;
+    const {fromField,boardGameState,whiteTure,firstTouch,kingAttacked}=this.state;
     const [destX,destY]=clicked??[]
 
     const clickedField=boardGameState?.[destX]?.[destY];
@@ -77,6 +78,15 @@ export default class GameBoard extends Component{
     }
     else if(!firstTouch){
       this.secoundClick(fromField,clicked);
+      // console.log()
+      const [acX,acY]=fromField??[]
+      const baseFigure=this.state.boardGameState?.[acX]?.[acY];
+      // this.addToHistory(fromField[0],fromField[1],{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
+
+
+      console.log(acX,acY,baseFigure)
+      this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
+
       Game?.can_NOT_win?.() && this.resetGame();
     }
   }
@@ -94,7 +104,8 @@ export default class GameBoard extends Component{
         shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
         this.isChequered();
         this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
-        this.addToHistory(fromField[0],fromField[1],{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
+        // Figure.isKingChequered?.(this.state.whiteTure).value &&
+        // this.addToHistory(fromField[0],fromField[1],{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
         Game.getMovesCount();
         end();
       }else{
@@ -107,6 +118,11 @@ export default class GameBoard extends Component{
     const touch=this.touch
     return(
       <AppContainer>
+        {/* <button onClick={()=>{
+          console.log(
+            Figure.isKingChequered?.(this.state.whiteTure).value
+          )
+        }}>check test</button> */}
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame}}>
           <GameBoardContainer>
             <ControlPanel/>

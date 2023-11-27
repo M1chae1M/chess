@@ -26,12 +26,13 @@ export function calculateAnimation(fromField,clicked){
 export function addToHistory(acX,acY,copyOfOldFileds,destX,destY,status){
   this.setState({gameHistory:
     [...this.state.gameHistory,{
-    lastMove:{
+      lastMove:{
       fromField:`${acX}${acY}`,
       figure:copyOfOldFileds?.from?.getName?.(),
       color:copyOfOldFileds?.from?.getColor?.(),
       clicked:[destX,destY],
       stringifiedBoard:JSON.stringify(Game?.withoutMovedFields?.()),
+      // stringifiedBoard:localStorage?.getItem?.('chess_game_board'),
       status
     }}]
   })

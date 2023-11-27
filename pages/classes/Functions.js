@@ -18,7 +18,6 @@ export function calculateAnimation(fromField,clicked){
     animateY:Number(destY)-Number(acY),
   })
 }
-
 export function addToHistory(acX,acY,copyOfOldFileds,destX,destY){
   this.setState({gameHistory:
     [...this.state.gameHistory,{
@@ -31,5 +30,21 @@ export function addToHistory(acX,acY,copyOfOldFileds,destX,destY){
     }}]
   })
 }
+export const resetState=()=>({
+  whiteTure:true,
+  boardGameState:{...boardStartState},
+  firstTouch:true,
+  fromField:'',
+  isModalOpened:false,
+  promoteTo:'Queen',
+  kingAttacked:false,
+  gameHistory:[],
+  fiftyMovesRule:0,
+  whiteOnTop:true,
+  showHistory:false,
+  canAnimate:false,
+  animateX:0,
+  animateY:0
+})
 
 export default class Functions extends Component{render(){return(<></>)}}

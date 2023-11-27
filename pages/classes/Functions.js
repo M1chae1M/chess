@@ -61,6 +61,22 @@ const figureList={
   Knight:Knight,
   Rook:Rook,
 }
+export function boardModifier(board){
+  const {boardGameState}=this?.state??{}
+  if(board){
+    Xo?.map(x=>
+      Yo?.map(y=>{
+        if(board?.[x]?.[y]===''){
+          boardGameState[x][y]=board?.[x]?.[y];
+        }else{
+          const {actualField,color,moved,name}=board?.[x]?.[y]||{};
+          const FigureClass=figureList[name];
+          boardGameState[x][y]=FigureClass && new FigureClass(color,actualField,moved,name);
+        }
+      })
+    )
+  }
+}
 export function getBoardFromLocalStory(){
   const {boardGameState}=this?.state??{}
 
@@ -69,41 +85,14 @@ export function getBoardFromLocalStory(){
     this?.setState?.(loadStatus)
   }
 
-  if(localStorage?.getItem?.('chess_game_board')){
-    const loadBoard=JSON.parse(localStorage?.getItem?.('chess_game_board'))
-    Xo?.map(x=>
-      Yo?.map(y=>{
-        if(loadBoard?.[x]?.[y]===''){
-          boardGameState[x][y]=loadBoard?.[x]?.[y];
-        }else{
-          const {actualField,color,moved,name}=loadBoard?.[x]?.[y]||{};
-          const FigureClass=figureList[name];
-          boardGameState[x][y]=FigureClass && new FigureClass(color,actualField,moved,name);
-        }
-      })
-    )
-  }
+  this.boardModifier(JSON.parse(localStorage?.getItem?.('chess_game_board')));
   this.setState({boardGameState})
 }
 export function getBoardFromHistory(lastMove){
   const {stringifiedBoard,status}=lastMove??{}
-
   const {boardGameState}=this?.state??{}
-  const momentInHistory=JSON.parse(stringifiedBoard)
 
-  if(momentInHistory){
-    Xo?.map(x=>
-      Yo?.map(y=>{
-        if(momentInHistory?.[x]?.[y]===''){
-          boardGameState[x][y]=momentInHistory?.[x]?.[y];
-        }else{
-          const {actualField,color,moved,name}=momentInHistory?.[x]?.[y]||{};
-          const FigureClass=figureList[name];
-          boardGameState[x][y]=FigureClass && new FigureClass(color,actualField,moved,name);
-        }
-      })
-    )
-  }
+  this.boardModifier(JSON.parse(stringifiedBoard));
   this.setState({...status, boardGameState})
 }
 export function setBoardInLocalStory(){

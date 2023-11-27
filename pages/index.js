@@ -9,7 +9,7 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import {addToHistory,calculateAnimation,getBoardFromHistory,getBoardFromLocalStory,resetState, setBoardInLocalStory} from './classes/Functions'
+import {addToHistory,boardModifier,calculateAnimation,getBoardFromHistory,getBoardFromLocalStory,resetState, setBoardInLocalStory} from './classes/Functions'
 import CONFIG from '@/config/config.json'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
@@ -67,6 +67,7 @@ export default class GameBoard extends Component{
       },animationTime)
     }
   }
+  boardModifier=boardModifier.bind(this)
   touch=(clicked)=>{
     const {fromField,boardGameState,whiteTure,firstTouch,kingAttacked}=this.state;
     const [destX,destY]=clicked??[]
@@ -78,7 +79,6 @@ export default class GameBoard extends Component{
     }
     else if(!firstTouch){
       this.secoundClick(fromField,clicked);
-      // console.log()
       const [acX,acY]=fromField??[]
       const baseFigure=this.state.boardGameState?.[acX]?.[acY];
       // this.addToHistory(fromField[0],fromField[1],{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
@@ -118,11 +118,6 @@ export default class GameBoard extends Component{
     const touch=this.touch
     return(
       <AppContainer>
-        {/* <button onClick={()=>{
-          console.log(
-            Figure.isKingChequered?.(this.state.whiteTure).value
-          )
-        }}>check test</button> */}
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame}}>
           <GameBoardContainer>
             <ControlPanel/>

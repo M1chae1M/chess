@@ -79,16 +79,14 @@ export default class GameBoard extends Component{
     }
     else if(!firstTouch){
       this.secoundClick(fromField,clicked);
-      const [acX,acY]=fromField??[]
-      const baseFigure=this.state.boardGameState?.[acX]?.[acY];
-      // this.addToHistory(fromField[0],fromField[1],{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
-
-
-      console.log(acX,acY,baseFigure)
-      this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
-
+      // const [acX,acY]=fromField??[]
+      // const baseFigure=this.state.boardGameState?.[acX]?.[acY];
+      // this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
       Game?.can_NOT_win?.() && this.resetGame();
     }
+    // const [acX,acY]=fromField??[]
+    // const baseFigure=this.state.boardGameState?.[acX]?.[acY];
+    // this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
   }
   setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory

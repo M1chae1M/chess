@@ -61,8 +61,14 @@ const figureList={
 }
 export function getBoardFromLocalStory(){
   const {boardGameState}=this?.state??{}
-  if(localStorage?.getItem?.('game_board')){
-    const loadBoard=JSON.parse(localStorage?.getItem?.('game_board'))
+
+  if(localStorage?.getItem?.('chess_game_status')){
+    const loadStatus=JSON.parse(localStorage?.getItem?.('chess_game_status'))
+    this?.setState?.(loadStatus)
+  }
+
+  if(localStorage?.getItem?.('chess_game_board')){
+    const loadBoard=JSON.parse(localStorage?.getItem?.('chess_game_board'))
     Xo?.map(x=>
       Yo?.map(y=>{
         if(loadBoard?.[x]?.[y]===''){
@@ -75,7 +81,7 @@ export function getBoardFromLocalStory(){
       })
     )
   }
-  this.setState({boardGameState:boardGameState})
+  this.setState({boardGameState})
 }
 
 export default class Functions extends Component{render(){return(<></>)}}

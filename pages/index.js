@@ -78,7 +78,19 @@ export default class GameBoard extends Component{
       Game?.can_NOT_win?.() && this.resetGame();
     }
   }
-  setBoardInLocalStory=()=>localStorage.setItem('game_board',JSON.stringify(this.state.boardGameState))
+  setBoardInLocalStory=()=>{
+    localStorage.setItem('chess_game_board',JSON.stringify(this.state.boardGameState))
+    localStorage.setItem('chess_game_status',JSON.stringify({
+      whiteTure:this.state.whiteTure,
+      firstTouch:this.state.firstTouch,
+      fromField:this.state.fromField,
+      isModalOpened:this.state.isModalOpened,
+      promoteTo:this.state.promoteTo,
+      kingAttacked:this.state.kingAttacked,
+      gameHistory:this.state.gameHistory,
+      fiftyMovesRule:this.state.fiftyMovesRule,
+    }))
+  }
   getBoardFromLocalStory=getBoardFromLocalStory
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory}=this.state

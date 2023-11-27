@@ -9,16 +9,10 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import {addToHistory,calculateAnimation,resetState} from './classes/Functions'
+import {addToHistory,calculateAnimation,getBoardFromLocalStory,resetState} from './classes/Functions'
 import CONFIG from '@/config/config.json'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
-import {Pawn} from './classes/figures/Pawn'
-import {Bishop} from './classes/figures/Bishop'
-import {Queen} from './classes/figures/Queen'
-import {King} from './classes/figures/King'
-import {Knight} from './classes/figures/Knight'
-import {Rook} from './classes/figures/Rook'
 const {animationTime}=CONFIG??''
 export const GameProvider=React.createContext()
 export const blackTimeRef=React.createRef();
@@ -85,32 +79,7 @@ export default class GameBoard extends Component{
     }
   }
   setBoardInLocalStory=()=>localStorage.setItem('game_board',JSON.stringify(this.state.boardGameState))
-  getBoardFromLocalStory=()=>{
-    const {boardGameState}=this.state
-    const loadBoard=localStorage?.getItem?.('game_board') && JSON.parse(localStorage?.getItem?.('game_board'))
-    Xo?.map(x=>
-      Yo?.map(y=>{
-        if(loadBoard?.[x]?.[y]===''){
-          boardGameState[x][y]=loadBoard?.[x]?.[y];
-        }else{
-          const figureList={
-            Pawn:Pawn,
-            Bishop:Bishop,
-            Queen:Queen,
-            King:King,
-            Knight:Knight,
-            Rook:Rook,
-          };
-
-          const {actualField,color,moved,name}=loadBoard?.[x]?.[y]??{};
-          const FigureClass=figureList[name];
-
-          boardGameState[x][y]=FigureClass && new FigureClass(color,actualField,moved,name);
-        }
-      })
-    )
-    this.setState({boardGameState:boardGameState})
-  }
+  getBoardFromLocalStory=getBoardFromLocalStory
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory}=this.state
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})

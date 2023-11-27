@@ -1,9 +1,14 @@
 import React,{Component} from "react";
 import {Game} from "./Game";
-import {blackTimeRef,whiteTimeRef} from "..";
 import Xo from '@/config/Xo.json'
 import Yo from '@/config/Yo.json'
 import {boardStartStateCopy,boardStartState} from "../_document";
+import {Pawn} from "./figures/Pawn";
+import {Bishop} from "./figures/Bishop";
+import {Queen} from "./figures/Queen";
+import {King} from "./figures/King";
+import {Knight} from "./figures/Knight";
+import {Rook} from "./figures/Rook";
 
 export function ifBlackFunction(x,y){
   const isEvenX=x?.charCodeAt?.()%2===0;
@@ -46,5 +51,29 @@ export const resetState=()=>({
   animateX:0,
   animateY:0
 })
+const figureList={
+  Pawn:Pawn,
+  Bishop:Bishop,
+  Queen:Queen,
+  King:King,
+  Knight:Knight,
+  Rook:Rook,
+};
+export function getBoardFromLocalStory(){
+  const {boardGameState}=this?.state??{}
+  const loadBoard=localStorage?.getItem?.('game_board') && JSON.parse(localStorage?.getItem?.('game_board'))
+  Xo?.map(x=>
+    Yo?.map(y=>{
+      if(loadBoard?.[x]?.[y]===''){
+        boardGameState[x][y]=loadBoard?.[x]?.[y];
+      }else{
+        const {actualField,color,moved,name}=loadBoard?.[x]?.[y]||{};
+        const FigureClass=figureList[name];
+        boardGameState[x][y]=FigureClass && new FigureClass(color,actualField,moved,name);
+      }
+    })
+  )
+  this.setState({boardGameState:boardGameState})
+}
 
 export default class Functions extends Component{render(){return(<></>)}}

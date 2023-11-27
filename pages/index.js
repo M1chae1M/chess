@@ -99,12 +99,13 @@ export default class GameBoard extends Component{
     const closeModalF=(name)=>this.setState({isModalOpened:false,promoteTo:name})
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     const resetGame=this.resetGame
+    const touch=this.touch
     return(
       <AppContainer>
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame}}>
           <GameBoardContainer>
             <ControlPanel/>
-            <AllFields touch={this.touch} whiteOnTop={whiteOnTop}/>
+            <AllFields touch={touch} whiteOnTop={whiteOnTop}/>
           </GameBoardContainer>
           <Modal isModalOpened={isModalOpened} closeModalF={closeModalF} whiteTure={whiteTure}/>
         </GameProvider.Provider>

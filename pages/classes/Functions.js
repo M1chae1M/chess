@@ -35,7 +35,7 @@ export function addToHistory(acX,acY,copyOfOldFileds,destX,destY){
     }}]
   })
 }
-export const resetState=()=>({
+export const resetState={
   whiteTure:true,
   boardGameState:{...boardStartState},
   firstTouch:true,
@@ -46,11 +46,12 @@ export const resetState=()=>({
   gameHistory:[],
   fiftyMovesRule:0,
   whiteOnTop:true,
-  showHistory:false,
+  // showHistory:false,
+  showHistory:true,
   canAnimate:false,
   animateX:0,
   animateY:0
-})
+}
 const figureList={
   Pawn:Pawn,
   Bishop:Bishop,
@@ -75,6 +76,25 @@ export function getBoardFromLocalStory(){
           boardGameState[x][y]=loadBoard?.[x]?.[y];
         }else{
           const {actualField,color,moved,name}=loadBoard?.[x]?.[y]||{};
+          const FigureClass=figureList[name];
+          boardGameState[x][y]=FigureClass && new FigureClass(color,actualField,moved,name);
+        }
+      })
+    )
+  }
+  this.setState({boardGameState})
+}
+export function getBoardFromHistory(boardStringed){
+  const {boardGameState}=this?.state??{}
+  const momentInHistory=JSON.parse(boardStringed)
+
+  if(momentInHistory){
+    Xo?.map(x=>
+      Yo?.map(y=>{
+        if(momentInHistory?.[x]?.[y]===''){
+          boardGameState[x][y]=momentInHistory?.[x]?.[y];
+        }else{
+          const {actualField,color,moved,name}=momentInHistory?.[x]?.[y]||{};
           const FigureClass=figureList[name];
           boardGameState[x][y]=FigureClass && new FigureClass(color,actualField,moved,name);
         }

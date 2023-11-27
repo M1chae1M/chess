@@ -6,7 +6,8 @@ import _ from 'lodash'
 
 export default class PointInHistory extends Component{
   render(){
-    const {lastMove,id,board}=this.props
+    const {lastMove,id,board,getBoardFromHistory}=this.props
+    // const {lastMove,id,board}=this.props
     const {fromField,clicked,color,figure}=lastMove||''
     const style={
       display:'grid',
@@ -22,9 +23,11 @@ export default class PointInHistory extends Component{
     return(
       <GameProvider.Consumer>
       {value=>{
-        const {gameHistory}=value??{}
+        // const {gameHistory,getBoardFromHistory}=value??{}
         const onClick=()=>{
-          console.log(gameHistory?.[id], gameHistory)
+          getBoardFromHistory?.(
+            lastMove?.stringifiedBoard
+          )
         }
         return(
           <div style={style} onClick={onClick}>

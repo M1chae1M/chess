@@ -9,7 +9,7 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import {addToHistory,calculateAnimation,getBoardFromLocalStory,resetState, setBoardInLocalStory} from './classes/Functions'
+import {addToHistory,calculateAnimation,getBoardFromHistory,getBoardFromLocalStory,resetState, setBoardInLocalStory} from './classes/Functions'
 import CONFIG from '@/config/config.json'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
@@ -21,7 +21,7 @@ export const GameRef=React.createRef();
 
 export default class GameBoard extends Component{
   state={
-    ...resetState()
+    ...resetState
   }
   componentDidMount(){
     this.getBoardFromLocalStory();
@@ -29,12 +29,13 @@ export default class GameBoard extends Component{
   }
   calculateAnimation=calculateAnimation
   addToHistory=addToHistory
+  getBoardFromHistory=getBoardFromHistory.bind(this)
   resetGame=()=>{
     blackTimeRef?.current?.reset?.();
     whiteTimeRef?.current?.reset?.();
 
     Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
-    this.setState(resetState())
+    this.setState(resetState)
   }
   isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
   secoundClick=(fromField,clicked)=>{
@@ -112,7 +113,7 @@ export default class GameBoard extends Component{
           </GameBoardContainer>
           <Modal isModalOpened={isModalOpened} closeModalF={closeModalF} whiteTure={whiteTure}/>
         </GameProvider.Provider>
-        <History gameHistory={gameHistory} showHistory={showHistory} show_or_close_history={show_or_close_history}/>
+        <History getBoardFromHistory={this.getBoardFromHistory} gameHistory={gameHistory} showHistory={showHistory} show_or_close_history={show_or_close_history}/>
       </AppContainer>
     )
   }

@@ -9,7 +9,7 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import {addToHistory,calculateAnimation,getBoardFromLocalStory,resetState} from './classes/Functions'
+import {addToHistory,calculateAnimation,getBoardFromLocalStory,resetState, setBoardInLocalStory} from './classes/Functions'
 import CONFIG from '@/config/config.json'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
@@ -78,19 +78,7 @@ export default class GameBoard extends Component{
       Game?.can_NOT_win?.() && this.resetGame();
     }
   }
-  setBoardInLocalStory=()=>{
-    localStorage.setItem('chess_game_board',JSON.stringify(this.state.boardGameState))
-    localStorage.setItem('chess_game_status',JSON.stringify({
-      whiteTure:this.state.whiteTure,
-      firstTouch:this.state.firstTouch,
-      fromField:this.state.fromField,
-      isModalOpened:this.state.isModalOpened,
-      promoteTo:this.state.promoteTo,
-      kingAttacked:this.state.kingAttacked,
-      gameHistory:this.state.gameHistory,
-      fiftyMovesRule:this.state.fiftyMovesRule,
-    }))
-  }
+  setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory}=this.state

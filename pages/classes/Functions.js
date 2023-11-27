@@ -83,5 +83,10 @@ export function getBoardFromLocalStory(){
   }
   this.setState({boardGameState})
 }
+export function setBoardInLocalStory(){
+  const {whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,boardGameState}=this.state??{}
+  localStorage.setItem('chess_game_board',JSON.stringify(boardGameState))
+  localStorage.setItem('chess_game_status',JSON.stringify({whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule}))
+}
 
 export default class Functions extends Component{render(){return(<></>)}}

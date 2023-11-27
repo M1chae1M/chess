@@ -89,13 +89,6 @@ export class Game{
     this.fiftyMovesRule+=1;
     return this.fiftyMovesRule;
   }
-  static makeEmpty(){
-    return ''
-  }
-  static makeFigureInstance(board,figureList){
-    const [color,actualField,moved,name]=board??''
-    return new figureList[name](color, actualField,moved,name)
-  }
   static figureOtherThenKing(x,y,allFigures){
     const field=boardStartState?.[x]?.[y];
     field !=='' &&

@@ -13,12 +13,12 @@ import {addToHistory,calculateAnimation,resetState} from './classes/Functions'
 import CONFIG from '@/config/config.json'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
-import { Pawn } from './classes/figures/Pawn'
-import { Bishop } from './classes/figures/Bishop'
-import { Queen } from './classes/figures/Queen'
-import { King } from './classes/figures/King'
-import { Knight } from './classes/figures/Knight'
-import { Rook } from './classes/figures/Rook'
+import {Pawn} from './classes/figures/Pawn'
+import {Bishop} from './classes/figures/Bishop'
+import {Queen} from './classes/figures/Queen'
+import {King} from './classes/figures/King'
+import {Knight} from './classes/figures/Knight'
+import {Rook} from './classes/figures/Rook'
 const {animationTime}=CONFIG??''
 export const GameProvider=React.createContext()
 export const blackTimeRef=React.createRef();
@@ -30,6 +30,7 @@ export default class GameBoard extends Component{
     ...resetState()
   }
   componentDidMount(){
+    this.getBoardFromLocalStory();
     window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
   }
   calculateAnimation=calculateAnimation
@@ -62,7 +63,7 @@ export default class GameBoard extends Component{
       }
       setTimeout(()=>{
         const {shortMove,newWhiteTure}={...baseFigure?.move?.(destX,destY,this.state.whiteTure)}
-        this.setState({firstTouch:!this.state.firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure})
+        this.setState({firstTouch:!this.state.firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure},this.setBoardInLocalStory)
         if(newWhiteTure!==this.state.whiteTure){
           this.isChequered()
         }
@@ -83,13 +84,33 @@ export default class GameBoard extends Component{
       Game?.can_NOT_win?.() && this.resetGame();
     }
   }
+  setBoardInLocalStory=()=>localStorage.setItem('game_board',JSON.stringify(this.state.boardGameState))
+  getBoardFromLocalStory=()=>{
+    const {boardGameState}=this.state
+    const loadBoard=localStorage?.getItem?.('game_board') && JSON.parse(localStorage?.getItem?.('game_board'))
+    Xo?.map(x=>
+      Yo?.map(y=>{
+        if(loadBoard?.[x]?.[y]===''){
+          boardGameState[x][y]=loadBoard?.[x]?.[y];
+        }else{
+          const figureList={
+            Pawn:Pawn,
+            Bishop:Bishop,
+            Queen:Queen,
+            King:King,
+            Knight:Knight,
+            Rook:Rook,
+          };
 
+          const {actualField,color,moved,name}=loadBoard?.[x]?.[y]??{};
+          const FigureClass=figureList[name];
 
-  jsonBoardParser=(stringedBoard)=>{
-    console.log(stringedBoard)
+          boardGameState[x][y]=FigureClass && new FigureClass(color,actualField,moved,name);
+        }
+      })
+    )
+    this.setState({boardGameState:boardGameState})
   }
-
-
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory}=this.state
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
@@ -115,36 +136,6 @@ export default class GameBoard extends Component{
     const touch=this.touch
     return(
       <AppContainer>
-        <button onClick={()=>{
-          localStorage.setItem('game_board',JSON.stringify(boardGameState))
-        }}>save</button>
-        <button onClick={()=>{
-          const loadBoard=localStorage?.getItem?.('game_board') && JSON.parse(localStorage?.getItem?.('game_board'))
-          Xo?.map(x=>
-            Yo?.map(y=>{
-              if(loadBoard?.[x]?.[y]===''){
-                boardGameState[x][y]=loadBoard?.[x]?.[y];
-              }else{
-                const figureList={
-                  Pawn:Pawn,
-                  Bishop:Bishop,
-                  Queen:Queen,
-                  King:King,
-                  Knight:Knight,
-                  Rook:Rook,
-                };
-
-                const {actualField,color,moved,name}=loadBoard?.[x]?.[y]??{};
-                const FigureClass=figureList[name];
-
-                boardGameState[x][y]=FigureClass && new FigureClass(color,actualField,moved,name);
-              }
-            })  
-          )
-
-
-          this.setState({boardGameState:boardGameState})
-        }}>load</button>
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame}}>
           <GameBoardContainer>
             <ControlPanel/>

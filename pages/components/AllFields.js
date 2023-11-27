@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import Vertical from './GameBoardContainer/Vertical';
 import Horisontal from './GameBoardContainer/Horisontal';
 
-const DynamicField=dynamic(()=>import('./Field'), {ssr:false});
+const DynamicField=dynamic(()=>import('./Field'),{ssr:false});
 
 const AllFields=({touch,whiteOnTop})=>(
     <>

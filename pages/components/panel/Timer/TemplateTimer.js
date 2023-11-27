@@ -55,7 +55,7 @@ export class TemplateTimer extends Component{
 
 function timeDisplayFormat(time_in_ms){
   function roundTo00(liczba){
-    const stringed=liczba.toString().slice(0, 2);
+    const stringed=liczba.toString().slice(0,2);
     return liczba<10?`0${stringed}`:stringed
   }
   const time=new Date(time_in_ms);

@@ -38,7 +38,7 @@ export class Figure{
             const allAttacked=Figure.allFieldsAttackedBy?.(attackingColor,whiteTure);
             const heIsChequered=!Figure.isThereKingColor?.(attackedColor,allAttacked);
 
-            heIsChequered && allDefStategies.push({from:`${x}${y}`, to:def});
+            heIsChequered && allDefStategies.push({from:`${x}${y}`,to:def});
 
             boardStartState[x][y]=copy.from
             boardStartState[destX][destY]=copy.to

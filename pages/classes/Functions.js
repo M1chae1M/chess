@@ -93,7 +93,7 @@ export function getBoardFromHistory(lastMove){
   const {boardGameState}=this?.state??{}
 
   this.boardModifier(JSON.parse(stringifiedBoard));
-  this.setState({...status, boardGameState})
+  this.setState({...status,boardGameState})
 }
 export function setBoardInLocalStory(){
   const {whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,boardGameState}=this.state??{}

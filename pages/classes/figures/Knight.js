@@ -36,7 +36,7 @@ export class Knight extends Figure{
     const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
     const newY=(change)=>Number(acY)+change
 
-    const Xxx=newX(x), Yyy=newY(y);
+    const Xxx=newX(x),Yyy=newY(y);
     Xo.includes(Xxx) && Yo.includes(Yyy) && movesWorking.push(`${Xxx}${Yyy}`);
   }
   returnDefMovesOnly(){

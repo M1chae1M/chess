@@ -15,9 +15,7 @@ export class Bishop extends Queen{
     this.crossAttacks(legalMoves,destX,destY)
     return {isKingAttacked:this.findKing(legalMoves,whiteTure),legalMoves,startField:[acX,acY]}
   }
-  returnDefMovesOnly(){
-    return this.returnCrossMovesOnly()
-  }
+  returnDefMovesOnly=()=>this.returnCrossMovesOnly()
 }
 
 export default class T2 extends Component{render(){return(<></>)}}

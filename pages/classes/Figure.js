@@ -148,21 +148,11 @@ export class Figure{
   setActualField(newField){
     this.actualField=newField
   }
-  getInstance(){
-    return _.cloneDeep(this);
-  }
-  getFigure(){
-    return figureIcons?.[this?.color]?.[this?.name]
-  }
-  getName(){
-    return this.name
-  }
-  getColor(){
-    return this.color
-  }
-  getMoved(){
-    return this.moved
-  }
+  getInstance=()=>_.cloneDeep(this)
+  getFigure=()=>figureIcons?.[this?.color]?.[this?.name]
+  getName=()=>this.name
+  getColor=()=>this.color
+  getMoved=()=>this.moved
 }
 
 export default class T3 extends Component{render(){return(<></>)}}

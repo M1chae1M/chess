@@ -9,6 +9,7 @@ import {Queen} from "./figures/Queen";
 import {King} from "./figures/King";
 import {Knight} from "./figures/Knight";
 import {Rook} from "./figures/Rook";
+import _ from "lodash";
 
 export function ifBlackFunction(x,y){
   const isEvenX=x?.charCodeAt?.()%2===0;
@@ -31,8 +32,7 @@ export function addToHistory(acX,acY,copyOfOldFileds,destX,destY,status){
       figure:copyOfOldFileds?.from?.getName?.(),
       color:copyOfOldFileds?.from?.getColor?.(),
       clicked:[destX,destY],
-      stringifiedBoard:JSON.stringify(Game?.withoutMovedFields?.()),
-      // stringifiedBoard:localStorage?.getItem?.('chess_game_board'),
+      stringifiedBoard:JSON.stringify(_.cloneDeep(boardStartState)),
       status
     }}]
   })
@@ -51,7 +51,7 @@ export const resetState={
   showHistory:true,
   canAnimate:false,
   animateX:0,
-  animateY:0
+  animateY:0,
 }
 const figureList={
   Pawn:Pawn,

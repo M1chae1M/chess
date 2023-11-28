@@ -22,6 +22,7 @@ export const GameRef=React.createRef();
 export default class GameBoard extends Component{
   state={
     ...resetState,
+    whiteOnTop:true,
     upToDate:true,
   }
   componentDidMount(){
@@ -53,8 +54,6 @@ export default class GameBoard extends Component{
     }
     else{
       if(canMoveThere){
-        // Figure.isKingChequered?.(this.state.whiteTure).value &&
-        this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
         Game.getMovesCount();
         this.setState({canAnimate:true},()=>setTimeout(()=>this.setState({canAnimate:false}),animationTime));
         this.calculateAnimation(fromField,clicked);
@@ -63,7 +62,8 @@ export default class GameBoard extends Component{
         const {shortMove,newWhiteTure}={...baseFigure?.move?.(destX,destY,this.state.whiteTure)}
         this.setState({firstTouch:!this.state.firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure},this.setBoardInLocalStory)
         if(newWhiteTure!==this.state.whiteTure){
-          this.isChequered()
+          this.isChequered();
+          this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
         }
       },animationTime)
     }

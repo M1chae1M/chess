@@ -21,7 +21,8 @@ export const GameRef=React.createRef();
 
 export default class GameBoard extends Component{
   state={
-    ...resetState
+    ...resetState,
+    upToDate:true,
   }
   componentDidMount(){
     this.getBoardFromLocalStory();
@@ -114,9 +115,15 @@ export default class GameBoard extends Component{
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     const resetGame=this.resetGame
     const touch=this.touch
+
+
+    const changeUpToDate=()=>this.setState({upToDate:!this.state.upToDate})
     return(
       <AppContainer>
-        <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame}}>
+        <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame,
+        
+        changeUpToDate,
+        }}>
           <GameBoardContainer>
             <ControlPanel/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>

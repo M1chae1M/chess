@@ -1,8 +1,8 @@
-import React,{Component} from "react"
-import {figureIcons} from "@/pages/_document"
+import React,{Component} from 'react'
+import {figureIcons} from '@/pages/_document'
 import {AiOutlineArrowRight} from 'react-icons/ai'
 import _ from 'lodash'
-import PointInHistoryContainer from "./PointInHistoryContainer"
+import PointInHistoryContainer from './PointInHistoryContainer'
 
 export default class PointInHistory extends Component{
   render(){

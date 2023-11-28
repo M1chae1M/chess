@@ -92,6 +92,12 @@ export function getBoardFromHistory(lastMove){
   const {stringifiedBoard,status}=lastMove??{}
   const {boardGameState}=this?.state??{}
 
+
+  Game?.setUpToDate?.(false);
+  // sprawdź, bo jak jest to ostatni w historii, to można ponownie odblokować
+
+
+
   this.boardModifier(JSON.parse(stringifiedBoard));
   this.setState({...status,boardGameState})
 }

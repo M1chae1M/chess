@@ -62,7 +62,7 @@ export class Pawn extends Figure{
       to:boardStartState[destX][destY]?.getInstance?.()
     }
 
-    if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove){
+    if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove && Game?.isUpToDate?.()){
       const movesWorking=[]
       const ifCanYouBeatInPassing=this.canYouBeatInPassing(destination,whiteTure,movesWorking)
       const didIncrement=boardStartState?.[destX]?.[destY]==='';

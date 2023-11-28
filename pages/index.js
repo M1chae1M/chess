@@ -23,7 +23,7 @@ export default class GameBoard extends Component{
   state={
     ...resetState,
     whiteOnTop:true,
-    upToDate:true,
+    // upToDate:true,
   }
   componentDidMount(){
     this.getBoardFromLocalStory();
@@ -117,13 +117,13 @@ export default class GameBoard extends Component{
     const touch=this.touch
 
 
-    const changeUpToDate=()=>this.setState({upToDate:!this.state.upToDate})
+    // const changeUpToDate=()=>this.setState({upToDate:!this.state.upToDate})
     return(
       <AppContainer>
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame,
-        
-        changeUpToDate,
-        }}>
+
+// changeUpToDate,
+}}>
           <GameBoardContainer>
             <ControlPanel/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>

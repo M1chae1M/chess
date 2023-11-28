@@ -35,7 +35,7 @@ export class King extends Figure{
       to:boardStartState[destX][destY]?.getInstance?.()
     }
 
-    if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure) && this.canStand({destX,destY})){
+    if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure) && this.canStand({destX,destY}) && Game?.isUpToDate?.()){
       this.castling(destX,destY,whiteTure);
       
       const didIncrement=boardStartState?.[destX]?.[destY]===''

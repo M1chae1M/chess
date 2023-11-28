@@ -91,7 +91,7 @@ export class Figure{
       to:boardStartState[destX][destY]?.getInstance?.()
     }
 
-    if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove){
+    if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove && Game?.isUpToDate?.()){
       const didIncrement=boardStartState?.[destX]?.[destY]===''
       this.swap(destX,destY)
       if(Figure.isKingChequered(whiteTure).value){

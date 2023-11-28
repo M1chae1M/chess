@@ -8,9 +8,14 @@ export class Game{
   static fiftyMovesRule=0;
   static samePositions=0;
   static gameHistory=[];
-  static gameBoard=[]
+  static gameBoard=[];
+  static upToDate=true;
+  // static upToDate=false;
 
-
+  static isUpToDate=()=>this.upToDate
+  static setUpToDate=(newState)=>{
+    this.upToDate=newState
+  }
   static setGameBoard(board){
     this.gameBoard=_.cloneDeep(board)
   }

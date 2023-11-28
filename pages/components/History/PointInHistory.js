@@ -11,17 +11,17 @@ export default class PointInHistory extends Component{
     const figureIcon=figureIcons?.[color]?.[figure]
     const ID=id % 2 === 0?`${Math.floor(id/2)+1}.`:''
     const onClick=()=>getBoardFromHistory?.(lastMove,id)
+    const style={
+      background:id===actualMove && '#dcd4d4',
+    }
     return(
-      <PointInHistoryContainer style={{
-        // color:id===actualMove?'blue !important':'black !important',
-        background:id===actualMove && 'grey',
-      }} onClick={onClick}>
+      <PointInHistoryContainer style={style} onClick={onClick}>
         <div>{ID}</div>
         <div>{fromField}</div>
         <div><AiOutlineArrowRight/></div>
         <div>{clicked}</div>
         <div>{figureIcon}</div>
       </PointInHistoryContainer>
-)
+    )
   }
 }

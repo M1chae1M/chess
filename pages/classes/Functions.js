@@ -47,8 +47,6 @@ export const resetState={
   kingAttacked:false,
   gameHistory:[],
   fiftyMovesRule:0,
-  showHistory:false,
-  showHistory:true,
   canAnimate:false,
   animateX:0,
   animateY:0,

@@ -9,8 +9,9 @@ const PointInHistoryContainer=styled.div`
     justify-content:space-evenly;
 
     &:hover{
-    color:red;
-    box-shadow: 2px 2px grey;
+        color:red;
+        box-shadow: 2px 2px grey;
+        background:#f1e8e8;
     }
 `
 

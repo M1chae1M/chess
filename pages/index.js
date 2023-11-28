@@ -23,7 +23,7 @@ export default class GameBoard extends Component{
   state={
     ...resetState,
     whiteOnTop:true,
-    actualMove:0,
+    showHistory:false,
   }
   componentDidMount(){
     this.getBoardFromLocalStory();
@@ -81,14 +81,8 @@ export default class GameBoard extends Component{
     }
     else if(!firstTouch){
       this.secoundClick(fromField,clicked);
-      // const [acX,acY]=fromField??[]
-      // const baseFigure=this.state.boardGameState?.[acX]?.[acY];
-      // this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
       Game?.can_NOT_win?.() && this.resetGame();
     }
-    // const [acX,acY]=fromField??[]
-    // const baseFigure=this.state.boardGameState?.[acX]?.[acY];
-    // this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
   }
   setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory
@@ -104,8 +98,6 @@ export default class GameBoard extends Component{
         shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
         this.isChequered();
         this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
-        // Figure.isKingChequered?.(this.state.whiteTure).value &&
-        // this.addToHistory(fromField[0],fromField[1],{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
         Game.getMovesCount();
         end();
       }else{
@@ -116,16 +108,9 @@ export default class GameBoard extends Component{
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     const resetGame=this.resetGame
     const touch=this.touch
-
-
-    // const changeUpToDate=()=>this.setState({upToDate:!this.state.upToDate})
     return(
       <AppContainer>
-        <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame,
-
-// changeUpToDate,
-// actualMove,
-}}>
+        <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame}}>
           <GameBoardContainer>
             <ControlPanel/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>

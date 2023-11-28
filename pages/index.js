@@ -37,6 +37,8 @@ export default class GameBoard extends Component{
     whiteTimeRef?.current?.reset?.();
 
     Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
+    localStorage.removeItem('chess_game_board');
+    localStorage.removeItem('chess_game_status');
     this.setState(resetState)
   }
   isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})

@@ -23,7 +23,7 @@ export default class GameBoard extends Component{
   state={
     ...resetState,
     whiteOnTop:true,
-    // upToDate:true,
+    actualMove:0,
   }
   componentDidMount(){
     this.getBoardFromLocalStory();
@@ -57,6 +57,7 @@ export default class GameBoard extends Component{
         Game.getMovesCount();
         this.setState({canAnimate:true},()=>setTimeout(()=>this.setState({canAnimate:false}),animationTime));
         this.calculateAnimation(fromField,clicked);
+        this.setState({actualMove:this.state.actualMove+1})
       }
       setTimeout(()=>{
         const {shortMove,newWhiteTure}={...baseFigure?.move?.(destX,destY,this.state.whiteTure)}
@@ -92,7 +93,7 @@ export default class GameBoard extends Component{
   setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory
   render(){
-    const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory,fiftyMovesRule}=this.state
+    const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory,fiftyMovesRule,actualMove}=this.state
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
     const checkIsClosed=(end,baseFigure,clicked)=>{
       const [destX,destY]=clicked??[]
@@ -123,6 +124,7 @@ export default class GameBoard extends Component{
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame,
 
 // changeUpToDate,
+// actualMove,
 }}>
           <GameBoardContainer>
             <ControlPanel/>
@@ -130,7 +132,9 @@ export default class GameBoard extends Component{
           </GameBoardContainer>
           <Modal isModalOpened={isModalOpened} closeModalF={closeModalF} whiteTure={whiteTure}/>
         </GameProvider.Provider>
-        <History getBoardFromHistory={this.getBoardFromHistory} gameHistory={gameHistory} showHistory={showHistory} show_or_close_history={show_or_close_history}/>
+        <History
+        actualMove={actualMove}
+        getBoardFromHistory={this.getBoardFromHistory} gameHistory={gameHistory} showHistory={showHistory} show_or_close_history={show_or_close_history}/>
       </AppContainer>
     )
   }

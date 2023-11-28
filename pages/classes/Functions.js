@@ -52,6 +52,7 @@ export const resetState={
   canAnimate:false,
   animateX:0,
   animateY:0,
+  actualMove:0,
 }
 const figureList={
   Pawn:Pawn,
@@ -92,18 +93,9 @@ export function getBoardFromHistory(lastMove,id){
   const {stringifiedBoard,status}=lastMove??{}
   const {boardGameState}=this?.state??{}
 
-
-  // Game?.setUpToDate?.(false);
-  // console.log('ruch numer: ', id)
-  // console.log(
-  //   this.state.gameHistory?.length-1===id
-  // )
-
   Game?.setUpToDate?.(this.state.gameHistory?.length-1===id);
-
-
   this.boardModifier(JSON.parse(stringifiedBoard));
-  this.setState({...status,boardGameState})
+  this.setState({...status,boardGameState,actualMove:id})
 }
 export function setBoardInLocalStory(){
   const {whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,boardGameState}=this.state??{}

@@ -6,7 +6,7 @@ import ScrollableHistory from "./ScrollableHistory"
 
 export default class History extends Component{
   render(){
-    const {gameHistory,showHistory,show_or_close_history,getBoardFromHistory}=this.props;
+    const {gameHistory,showHistory,show_or_close_history,getBoardFromHistory,actualMove}=this.props;
     const style={
       height:'100vh',
       borderLeft:'solid grey 3px',
@@ -21,7 +21,7 @@ export default class History extends Component{
           History
           <ScrollableHistory>
             {gameHistory?.map(({lastMove},i)=>
-              <PointInHistory key={i} lastMove={lastMove} id={i} getBoardFromHistory={getBoardFromHistory}/>
+              <PointInHistory key={i} lastMove={lastMove} id={i} getBoardFromHistory={getBoardFromHistory} actualMove={actualMove}/>
             )}
           </ScrollableHistory>
         </div>

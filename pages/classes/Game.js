@@ -13,9 +13,7 @@ export class Game{
   // static upToDate=false;
 
   static isUpToDate=()=>this.upToDate
-  static setUpToDate=(newState)=>{
-    this.upToDate=newState
-  }
+  static setUpToDate=(newState)=>this.upToDate=newState
   static setGameBoard(board){
     this.gameBoard=_.cloneDeep(board)
   }
@@ -48,6 +46,7 @@ export class Game{
     this.samePositions=0
     this.gameHistory=[]
     this.gameBoard=_.cloneDeep(boardStartStateCopy)
+    this.upToDate=true
     const {fiftyMovesRule,samePositions,gameHistory,gameBoard}=this
     return {fiftyMovesRule,samePositions,gameHistory,gameBoard}
   }

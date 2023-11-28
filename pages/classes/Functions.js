@@ -88,14 +88,18 @@ export function getBoardFromLocalStory(){
   this.boardModifier(JSON.parse(localStorage?.getItem?.('chess_game_board')));
   this.setState({boardGameState})
 }
-export function getBoardFromHistory(lastMove){
+export function getBoardFromHistory(lastMove,id){
   const {stringifiedBoard,status}=lastMove??{}
   const {boardGameState}=this?.state??{}
 
 
-  Game?.setUpToDate?.(false);
-  // sprawdź, bo jak jest to ostatni w historii, to można ponownie odblokować
+  // Game?.setUpToDate?.(false);
+  // console.log('ruch numer: ', id)
+  // console.log(
+  //   this.state.gameHistory?.length-1===id
+  // )
 
+  Game?.setUpToDate?.(this.state.gameHistory?.length-1===id);
 
 
   this.boardModifier(JSON.parse(stringifiedBoard));

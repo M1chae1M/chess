@@ -63,7 +63,7 @@ export default class GameBoard extends Component{
         this.setState({firstTouch:!this.state.firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure},this.setBoardInLocalStory)
         if(newWhiteTure!==this.state.whiteTure){
           this.isChequered();
-          this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure,kingAttacked});
+          this.addToHistory(acX,acY,{from:baseFigure},destX,destY,{whiteTure:newWhiteTure,kingAttacked});
         }
       },animationTime)
     }

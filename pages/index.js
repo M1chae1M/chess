@@ -111,7 +111,7 @@ export default class GameBoard extends Component{
         setTimeout(()=>checkIsClosed(end,baseFigure,clicked),100);
       }
     }
-    const closeModalF=(name)=>this.setState({isModalOpened:false,promoteTo:name})
+    const closeModalF=(promoteTo)=>this.setState({isModalOpened:false,promoteTo})
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     const resetGame=this.resetGame
     const touch=this.touch

@@ -51,17 +51,13 @@ export default function ControlPanel(){
     {value=>{
       const {resetGame,turnBoard,whiteTure,show_or_close_history,whiteOnTop}=value??{}
       const pat=()=>{
-        console.log(
-          SwitchRef?.current?.startStopTime
-        )
-        Game.pat(``)
-        resetGame()
+        SwitchRef?.current?.changeState?.({start:false});
+        Game.pat(``);
+        resetGame();
       }
       const surrender=()=>{
-        console.log(
-          SwitchRef?.current?.startStopTime
-        )
-        Game.surrender(whiteTure)
+        SwitchRef?.current?.changeState?.({start:false});
+        Game.surrender(whiteTure);
         resetGame();
       }
       return(

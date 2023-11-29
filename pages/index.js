@@ -33,8 +33,10 @@ export default class GameBoard extends Component{
   addToHistory=addToHistory
   getBoardFromHistory=getBoardFromHistory.bind(this)
   resetGame=()=>{
-    blackTimeRef?.current?.reset?.();
-    whiteTimeRef?.current?.reset?.();
+    setTimeout(()=>{
+      blackTimeRef?.current?.reset?.();
+      whiteTimeRef?.current?.reset?.();
+    },animationTime)
 
     Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
     localStorage.removeItem('chess_game_board');

@@ -10,7 +10,6 @@ export class Game{
   static gameHistory=[];
   static gameBoard=[];
   static upToDate=true;
-  // static upToDate=false;
 
   static isUpToDate=()=>this.upToDate
   static setUpToDate=(newState)=>this.upToDate=newState

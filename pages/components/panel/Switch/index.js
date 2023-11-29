@@ -10,6 +10,8 @@ export default class Switch extends Component{
   state={
     start:false,
   }
+  startStopTime=()=>this.setState({start:!this.state.start})
+  changeState=(newState)=>this.setState(newState) 
   render(){
     const {start}=this.state
     const {whiteTure,whiteOnTop}=this.props;
@@ -23,16 +25,15 @@ export default class Switch extends Component{
       position:'relative',
       padding:'5px',
     }
-    const startStopTime=()=>this.setState({start:!this.state.start})
     return(
       <GameProvider.Consumer>
       {value=>{
         const {blackTimeRef,whiteTimeRef,resetGame}=value??{}
         return(
-          <div style={style} onClick={startStopTime}>
+          <div style={style} onClick={this.startStopTime}>
             <StartButton start={start}/>
-            <SingleTimer ref={blackTimeRef} startStopTime={startStopTime} start={start} color='black' condition={!whiteTure} resetGame={resetGame}/>
-            <SingleTimer ref={whiteTimeRef} startStopTime={startStopTime} start={start} color='white' condition={whiteTure} resetGame={resetGame}/>
+            <SingleTimer ref={blackTimeRef} startStopTime={this.startStopTime} start={start} color='black' condition={!whiteTure} resetGame={resetGame}/>
+            <SingleTimer ref={whiteTimeRef} startStopTime={this.startStopTime} start={start} color='white' condition={whiteTure} resetGame={resetGame}/>
             <Slider whiteTure={whiteTure}/>
           </div>
         )

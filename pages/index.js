@@ -9,7 +9,7 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,getBoardFromHistory,getBoardFromLocalStory,resetState,setBoardInLocalStory} from './classes/Functions'
+import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,getBoardFromHistory,getBoardFromLocalStory,resetState,setBoardInLocalStory,touch} from './classes/Functions'
 import CONFIG from '@/config/config.json'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
@@ -72,20 +72,7 @@ export default class GameBoard extends Component{
       },animationTime)
     }
   }
-  touch=(clicked)=>{
-    const {fromField,boardGameState,whiteTure,firstTouch,kingAttacked}=this.state;
-    const [destX,destY]=clicked??[]
-
-    const clickedField=boardGameState?.[destX]?.[destY];
-    const colorCondition=clickedField?.goodTure?.(whiteTure)
-    if(firstTouch && clickedField!=='' && colorCondition){
-      this.setState({fromField:clicked,firstTouch:!firstTouch})
-    }
-    else if(!firstTouch){
-      this.secoundClick(fromField,clicked);
-      Game?.can_NOT_win?.() && this.resetGame();
-    }
-  }
+  touch=touch.bind(this)
   calculateAnimation=calculateAnimation
   addToHistory=addToHistory
   getBoardFromHistory=getBoardFromHistory.bind(this)

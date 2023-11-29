@@ -115,5 +115,19 @@ export function checkIsClosed(end,baseFigure,clicked){
     setTimeout(()=>this.checkIsClosed(end,baseFigure,clicked),100);
   }
 }
+export function touch(clicked){
+  const {fromField,boardGameState,whiteTure,firstTouch,kingAttacked}=this.state;
+  const [destX,destY]=clicked??[]
+
+  const clickedField=boardGameState?.[destX]?.[destY];
+  const colorCondition=clickedField?.goodTure?.(whiteTure)
+  if(firstTouch && clickedField!=='' && colorCondition){
+    this.setState({fromField:clicked,firstTouch:!firstTouch})
+  }
+  else if(!firstTouch){
+    this.secoundClick(fromField,clicked);
+    Game?.can_NOT_win?.() && this.resetGame();
+  }
+}
 
 export default class Functions extends Component{render(){return(<></>)}}

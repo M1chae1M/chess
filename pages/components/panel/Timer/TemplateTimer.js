@@ -1,6 +1,7 @@
 import {GameProvider} from '@/pages';
 import React,{Component} from 'react';
 import CONFIG from '@/config/config.json'
+import {timeDisplayFormat} from '@/pages/classes/Functions';
 const {size}=CONFIG??''
 
 const timePerPlayer=4000
@@ -21,7 +22,7 @@ export class TemplateTimer extends Component{
         resetGame();
 
         setTimeout(()=>{
-          alert(`skończył Ci się czas!`);
+          alert(`You're out of time!`);
         },timeStep)
       }else{
         setTimeout(()=>this.setState({time:newTime>0?newTime:timePerPlayer}),timeStep);
@@ -51,19 +52,6 @@ export class TemplateTimer extends Component{
     }}
     </GameProvider.Consumer>
   }
-}
-
-function timeDisplayFormat(time_in_ms){
-  function roundTo00(liczba){
-    const stringed=liczba.toString().slice(0,2);
-    return liczba<10?`0${stringed}`:stringed
-  }
-  const time=new Date(time_in_ms);
-  const min=roundTo00(time.getUTCMinutes())
-  const sec=roundTo00(time.getUTCSeconds())
-  const ms=roundTo00(time.getUTCMilliseconds())
-
-  return `${min}:${sec}:${ms}`;
 }
 
 export default TemplateTimer

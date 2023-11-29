@@ -59,7 +59,7 @@ export class Game{
   }
   static setGameBoard50moves(){
     if(this.fiftyMovesRule>=50){
-      this.pat('wykonaliście 50 ruchów bez bicia,albo ruchu pionkiem,oznacza to remis,przykro mi')
+      this.pat('You made 50 without a drum, or a pawn move, it means a draw, sorry!')
     }
   }
   static compare(id){
@@ -69,7 +69,7 @@ export class Game{
     Game.clearBoardFromUndefined();
 
     if(this.gameHistory?.length>=8 && this.compare(0)===this.compare(4) && this.compare(8)===this.compare(4)){
-      this.pat('3-krotnie potwórzyłeś pozycję')
+      this.pat('You repeated your fast three times!')
     }
   }
   static clearBoardFromUndefined(){

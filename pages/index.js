@@ -93,21 +93,6 @@ export default class GameBoard extends Component{
   boardModifier=boardModifier.bind(this)
   setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory
-  // checkIsClosed=(end,baseFigure,clicked)=>{
-  //   const [destX,destY]=clicked??[]
-  //   const {isModalOpened,promoteTo}=this.state;
-  
-  //   if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
-  //     const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
-  //     shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
-  //     this.isChequered();
-  //     this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
-  //     Game.getMovesCount();
-  //     end();
-  //   }else{
-  //     setTimeout(()=>this.checkIsClosed(end,baseFigure,clicked),100);
-  //   }
-  // }
   checkIsClosed=checkIsClosed
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory,fiftyMovesRule,actualMove}=this.state

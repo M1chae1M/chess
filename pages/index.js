@@ -28,11 +28,11 @@ export default class GameBoard extends Component{
   calculateAnimation=calculateAnimation
   addToHistory=addToHistory
   getBoardFromHistory=getBoardFromHistory.bind(this)
-  isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
   boardModifier=boardModifier.bind(this)
   setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory
   checkIsClosed=checkIsClosed
+  isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory,fiftyMovesRule,actualMove}=this.state
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})

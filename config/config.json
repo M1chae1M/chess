@@ -1,5 +1,6 @@
 {
     "animationTime":175,
     "fieldSize":"max(5vw, 45px)",
-    "size":80
+    "size":80,
+    "timePerPlayer":60000
 }

@@ -1,19 +1,13 @@
 import React,{Component} from 'react'
-import {boardStartState,boardStartStateCopy} from './_document'
-import Yo from '@/config/Yo.json'
-import Xo from '@/config/Xo.json'
 import ControlPanel from './components/panel/ControlPanel'
 import {Figure} from './classes/Figure'
 import _ from 'lodash'
 import History from './components/History/History'
-import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
 import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,componentDidMount,getBoardFromHistory,getBoardFromLocalStory,resetGame,resetState,secoundClick,setBoardInLocalStory,touch} from './classes/Functions'
-import CONFIG from '@/config/config.json'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
-const {animationTime}=CONFIG??''
 
 export const GameProvider=React.createContext()
 export const blackTimeRef=React.createRef();

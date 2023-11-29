@@ -100,5 +100,20 @@ export function setBoardInLocalStory(){
   localStorage.setItem('chess_game_board',JSON.stringify(boardGameState))
   localStorage.setItem('chess_game_status',JSON.stringify({whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule}))
 }
+export function checkIsClosed(end,baseFigure,clicked){
+  const [destX,destY]=clicked??[]
+  const {isModalOpened,promoteTo}=this.state;
+
+  if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
+    const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
+    shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
+    this.isChequered();
+    this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
+    Game.getMovesCount();
+    end();
+  }else{
+    setTimeout(()=>this.checkIsClosed(end,baseFigure,clicked),100);
+  }
+}
 
 export default class Functions extends Component{render(){return(<></>)}}

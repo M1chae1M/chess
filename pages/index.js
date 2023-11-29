@@ -9,7 +9,7 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import {addToHistory,boardModifier,calculateAnimation,getBoardFromHistory,getBoardFromLocalStory,resetState,setBoardInLocalStory} from './classes/Functions'
+import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,getBoardFromHistory,getBoardFromLocalStory,resetState,setBoardInLocalStory} from './classes/Functions'
 import CONFIG from '@/config/config.json'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
@@ -93,21 +93,22 @@ export default class GameBoard extends Component{
   boardModifier=boardModifier.bind(this)
   setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory
-  checkIsClosed=(end,baseFigure,clicked)=>{
-    const [destX,destY]=clicked??[]
-    const {isModalOpened,promoteTo}=this.state;
+  // checkIsClosed=(end,baseFigure,clicked)=>{
+  //   const [destX,destY]=clicked??[]
+  //   const {isModalOpened,promoteTo}=this.state;
   
-    if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
-      const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
-      shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
-      this.isChequered();
-      this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
-      Game.getMovesCount();
-      end();
-    }else{
-      setTimeout(()=>this.checkIsClosed(end,baseFigure,clicked),100);
-    }
-  }
+  //   if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
+  //     const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
+  //     shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
+  //     this.isChequered();
+  //     this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
+  //     Game.getMovesCount();
+  //     end();
+  //   }else{
+  //     setTimeout(()=>this.checkIsClosed(end,baseFigure,clicked),100);
+  //   }
+  // }
+  checkIsClosed=checkIsClosed
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory,fiftyMovesRule,actualMove}=this.state
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})

@@ -53,7 +53,7 @@ export default class GameBoard extends Component{
     const canMoveThere=baseFigure?.canMove?.(destX,destY,this.state.whiteTure)?.canMove;
 
     if(isPromotionField && canMoveThere && isPawn){
-      this.setState({isModalOpened:true},()=>new Promise((resolve)=>checkIsClosed(resolve,baseFigure,clicked)))
+      this.setState({isModalOpened:true},()=>new Promise((resolve)=>this.checkIsClosed(resolve,baseFigure,clicked)))
     }
     else{
       if(canMoveThere){
@@ -93,24 +93,24 @@ export default class GameBoard extends Component{
   boardModifier=boardModifier.bind(this)
   setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory
+  checkIsClosed=(end,baseFigure,clicked)=>{
+    const [destX,destY]=clicked??[]
+    const {isModalOpened,promoteTo}=this.state;
+  
+    if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
+      const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
+      shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
+      this.isChequered();
+      this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
+      Game.getMovesCount();
+      end();
+    }else{
+      setTimeout(()=>this.checkIsClosed(end,baseFigure,clicked),100);
+    }
+  }
   render(){
     const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory,fiftyMovesRule,actualMove}=this.state
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
-    const checkIsClosed=(end,baseFigure,clicked)=>{
-      const [destX,destY]=clicked??[]
-      const {isModalOpened,promoteTo}=this.state;
-    
-      if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure).canMove){
-        const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
-        shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
-        this.isChequered();
-        this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
-        Game.getMovesCount();
-        end();
-      }else{
-        setTimeout(()=>checkIsClosed(end,baseFigure,clicked),100);
-      }
-    }
     const closeModalF=(promoteTo)=>this.setState({isModalOpened:false,promoteTo})
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     const resetGame=this.resetGame

@@ -10,11 +10,16 @@ export class Game{
   static gameHistory=[];
   static gameBoard=[];
   static upToDate=true;
+  // static upToDate=false;
 
   static isUpToDate=()=>this.upToDate
   static setUpToDate=(newState)=>this.upToDate=newState
-  static setGameBoard=(board)=>this.gameBoard=_.cloneDeep(board)
-  static getHistory=()=>this.gameHistory  
+  static setGameBoard(board){
+    this.gameBoard=_.cloneDeep(board)
+  }
+  static getHistory(){
+    return this.gameHistory
+  }
   static withoutMovedFields(){
     const copy_of_boardStartState=_.cloneDeep(boardStartState)
 
@@ -33,7 +38,9 @@ export class Game{
       }
     })
   }
-  static lastMove=()=>this.getHistory?.()[this.getHistory?.()?.length-1]?.lastMove
+  static lastMove(){
+    return this.getHistory?.()[this.getHistory?.()?.length-1]?.lastMove
+  }
   static reset(){
     this.fiftyMovesRule=0
     this.samePositions=0
@@ -56,7 +63,9 @@ export class Game{
       this.pat('wykonaliście 50 ruchów bez bicia,albo ruchu pionkiem,oznacza to remis,przykro mi')
     }
   }
-  static compare=(id)=>this.gameHistory?.[id]?.lastMove?.stringifiedBoard
+  static compare(id){
+    return this.gameHistory?.[id]?.lastMove?.stringifiedBoard
+  }
   static setGameBoard3sameMoves(){
     Game.clearBoardFromUndefined();
 
@@ -76,8 +85,14 @@ export class Game{
     this.setGameBoard3sameMoves();
     return this.fiftyMovesRule;
   }
-  static resetMoves=()=>this.fiftyMovesRule=0
-  static incrementMoves=()=>this.fiftyMovesRule+=1
+  static resetMoves(){
+    this.fiftyMovesRule=0;
+    return this.fiftyMovesRule;
+  }
+  static incrementMoves(){
+    this.fiftyMovesRule+=1;
+    return this.fiftyMovesRule;
+  }
   static figureOtherThenKing(x,y,allFigures){
     const field=boardStartState?.[x]?.[y];
     field !=='' &&

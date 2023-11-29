@@ -91,6 +91,12 @@ export class Pawn extends Figure{
         didIncrement?Game.incrementMoves():Game.resetMoves()
 
         if(acY==='7'||acY==='0'){
+          // console.log('teraz',acY)
+
+          console.log(
+            // copyOfOldFileds.
+            // boardStartState?.['E']?.['8']
+          )
 
         }
         Game?.addToHistory?.(acX,acY,copyOfOldFileds,destX,destY);

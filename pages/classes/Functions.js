@@ -131,7 +131,6 @@ export function touch(clicked){
     Game?.can_NOT_win?.() && this.resetGame();
   }
 }
-
 export function secoundClick(fromField,clicked){
   const {whiteTure,firstTouch,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule}=this.state
   const [destX,destY]=clicked??[]
@@ -160,6 +159,10 @@ export function secoundClick(fromField,clicked){
       }
     },animationTime)
   }
+}
+export function componentDidMount(){
+  this.getBoardFromLocalStory();
+  window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
 }
 
 export default class Functions extends Component{render(){return(<></>)}}

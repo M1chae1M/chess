@@ -9,7 +9,7 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,getBoardFromHistory,getBoardFromLocalStory,resetState,secoundClick,setBoardInLocalStory,touch} from './classes/Functions'
+import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,componentDidMount,getBoardFromHistory,getBoardFromLocalStory,resetState,secoundClick,setBoardInLocalStory,touch} from './classes/Functions'
 import CONFIG from '@/config/config.json'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
@@ -27,10 +27,7 @@ export default class GameBoard extends Component{
     whiteOnTop:true,
     showHistory:false,
   }
-  componentDidMount(){
-    this.getBoardFromLocalStory();
-    window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
-  }
+  componentDidMount=componentDidMount
   resetGame=()=>{
     setTimeout(()=>{
       blackTimeRef?.current?.reset?.();

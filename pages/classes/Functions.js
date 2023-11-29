@@ -10,6 +10,7 @@ import {King} from "./figures/King";
 import {Knight} from "./figures/Knight";
 import {Rook} from "./figures/Rook";
 import _ from "lodash";
+import {blackTimeRef,whiteTimeRef,SwitchRef} from "..";
 import CONFIG from '@/config/config.json'
 const {animationTime}=CONFIG??''
 
@@ -163,6 +164,18 @@ export function secoundClick(fromField,clicked){
 export function componentDidMount(){
   this.getBoardFromLocalStory();
   window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
+}
+export function resetGame(){
+  setTimeout(()=>{
+    blackTimeRef?.current?.reset?.();
+    whiteTimeRef?.current?.reset?.();
+  },animationTime)
+
+  Xo?.map(x=>Yo?.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
+  localStorage.removeItem('chess_game_board');
+  localStorage.removeItem('chess_game_status');
+  this.setState(resetState)
+  SwitchRef?.current?.changeState?.({start:false});
 }
 
 export default class Functions extends Component{render(){return(<></>)}}

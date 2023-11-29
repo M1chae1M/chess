@@ -9,7 +9,7 @@ import History from './components/History/History'
 import {Game} from './classes/Game'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,componentDidMount,getBoardFromHistory,getBoardFromLocalStory,resetState,secoundClick,setBoardInLocalStory,touch} from './classes/Functions'
+import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,componentDidMount,getBoardFromHistory,getBoardFromLocalStory,resetGame,resetState,secoundClick,setBoardInLocalStory,touch} from './classes/Functions'
 import CONFIG from '@/config/config.json'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
@@ -28,18 +28,7 @@ export default class GameBoard extends Component{
     showHistory:false,
   }
   componentDidMount=componentDidMount
-  resetGame=()=>{
-    setTimeout(()=>{
-      blackTimeRef?.current?.reset?.();
-      whiteTimeRef?.current?.reset?.();
-    },animationTime)
-
-    Xo.map(x=>Yo.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
-    localStorage.removeItem('chess_game_board');
-    localStorage.removeItem('chess_game_status');
-    this.setState(resetState)
-    SwitchRef?.current?.changeState?.({start:false});
-  }
+  resetGame=resetGame.bind(this)
   secoundClick=secoundClick
   touch=touch.bind(this)
   calculateAnimation=calculateAnimation
@@ -56,13 +45,12 @@ export default class GameBoard extends Component{
     const closeModalF=(promoteTo)=>this.setState({isModalOpened:false,promoteTo})
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
     const resetGame=this.resetGame
-    const touch=this.touch
     return(
       <AppContainer>
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame}}>
           <GameBoardContainer>
             <ControlPanel SwitchRef={SwitchRef}/>
-            <AllFields touch={touch} whiteOnTop={whiteOnTop}/>
+            <AllFields touch={this.touch} whiteOnTop={whiteOnTop}/>
           </GameBoardContainer>
           <Modal isModalOpened={isModalOpened} closeModalF={closeModalF} whiteTure={whiteTure}/>
         </GameProvider.Provider>

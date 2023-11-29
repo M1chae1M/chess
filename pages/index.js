@@ -31,9 +31,6 @@ export default class GameBoard extends Component{
     this.getBoardFromLocalStory();
     window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
   }
-  calculateAnimation=calculateAnimation
-  addToHistory=addToHistory
-  getBoardFromHistory=getBoardFromHistory.bind(this)
   resetGame=()=>{
     setTimeout(()=>{
       blackTimeRef?.current?.reset?.();
@@ -46,7 +43,6 @@ export default class GameBoard extends Component{
     this.setState(resetState)
     SwitchRef?.current?.changeState?.({start:false});
   }
-  isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
   secoundClick=(fromField,clicked)=>{
     const {whiteTure,firstTouch,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule}=this.state
     const [destX,destY]=clicked??[]
@@ -76,7 +72,6 @@ export default class GameBoard extends Component{
       },animationTime)
     }
   }
-  boardModifier=boardModifier.bind(this)
   touch=(clicked)=>{
     const {fromField,boardGameState,whiteTure,firstTouch,kingAttacked}=this.state;
     const [destX,destY]=clicked??[]
@@ -91,6 +86,11 @@ export default class GameBoard extends Component{
       Game?.can_NOT_win?.() && this.resetGame();
     }
   }
+  calculateAnimation=calculateAnimation
+  addToHistory=addToHistory
+  getBoardFromHistory=getBoardFromHistory.bind(this)
+  isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
+  boardModifier=boardModifier.bind(this)
   setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory
   render(){
@@ -124,9 +124,7 @@ export default class GameBoard extends Component{
           </GameBoardContainer>
           <Modal isModalOpened={isModalOpened} closeModalF={closeModalF} whiteTure={whiteTure}/>
         </GameProvider.Provider>
-        <History
-        actualMove={actualMove}
-        getBoardFromHistory={this.getBoardFromHistory} gameHistory={gameHistory} showHistory={showHistory} show_or_close_history={show_or_close_history}/>
+        <History actualMove={actualMove} getBoardFromHistory={this.getBoardFromHistory} gameHistory={gameHistory} showHistory={showHistory} show_or_close_history={show_or_close_history}/>
       </AppContainer>
     )
   }

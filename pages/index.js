@@ -14,10 +14,12 @@ import CONFIG from '@/config/config.json'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
 const {animationTime}=CONFIG??''
+
 export const GameProvider=React.createContext()
 export const blackTimeRef=React.createRef();
 export const whiteTimeRef=React.createRef();
 export const GameRef=React.createRef();
+export const SwitchRef=React.createRef()
 
 export default class GameBoard extends Component{
   state={
@@ -42,6 +44,7 @@ export default class GameBoard extends Component{
     localStorage.removeItem('chess_game_board');
     localStorage.removeItem('chess_game_status');
     this.setState(resetState)
+    SwitchRef?.current?.changeState?.({start:false});
   }
   isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
   secoundClick=(fromField,clicked)=>{
@@ -116,7 +119,7 @@ export default class GameBoard extends Component{
       <AppContainer>
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame}}>
           <GameBoardContainer>
-            <ControlPanel/>
+            <ControlPanel SwitchRef={SwitchRef}/>
             <AllFields touch={touch} whiteOnTop={whiteOnTop}/>
           </GameBoardContainer>
           <Modal isModalOpened={isModalOpened} closeModalF={closeModalF} whiteTure={whiteTure}/>

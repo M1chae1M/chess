@@ -24,9 +24,7 @@ const Button2=styled(FiFlag)`${buttonStyles}`
 const Button3=styled(TbRotate)`${buttonStyles}`
 const Button4=styled(MdHistory)`${buttonStyles}`
 
-export const SwitchRef=React.createRef()
-
-export default function ControlPanel(){
+export default function ControlPanel({SwitchRef}){
   const [isClient,setIsClient]=useState(false);
   useEffect(()=>{setIsClient(true)},[])
   if(!isClient)return null
@@ -51,12 +49,10 @@ export default function ControlPanel(){
     {value=>{
       const {resetGame,turnBoard,whiteTure,show_or_close_history,whiteOnTop}=value??{}
       const pat=()=>{
-        SwitchRef?.current?.changeState?.({start:false});
         Game.pat(``);
         resetGame();
       }
       const surrender=()=>{
-        SwitchRef?.current?.changeState?.({start:false});
         Game.surrender(whiteTure);
         resetGame();
       }

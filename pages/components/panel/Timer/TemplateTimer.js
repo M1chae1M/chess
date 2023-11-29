@@ -28,7 +28,7 @@ export class TemplateTimer extends Component{
       }
     }
   }
-  reset=()=>this.setState({time:timePerPlayer},()=>console.log(this.state.time))
+  reset=()=>this.setState({time:timePerPlayer})
   render(){
     return <GameProvider.Consumer>
     {value=>{

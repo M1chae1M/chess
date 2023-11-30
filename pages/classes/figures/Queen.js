@@ -40,9 +40,6 @@ export class Queen extends Figure{
     
     return {canMove:movesWorking.flat().includes(`${destX}${destY}`) && this.canStand({destX,destY}), moves:movesWorking}
   }
-
-
-
   crossAttack=(destX,destY,vectorY,vectorX,movesWorking)=>{
     let i=vectorY==='top'?destY+1:destY-1;
     const limit=vectorY==='top'?9:0;
@@ -64,45 +61,10 @@ export class Queen extends Figure{
     }
   }
   crossAttacks(movesWorking,destX,destY){
-    // const crossAttack=(destX,destY,vectorY,vectorX)=>{
-    //   let i=vectorY==='top'?destY+1:destY-1;
-    //   const limit=vectorY==='top'?9:0;
-    //   const increment=vectorY==='top'?1:-1;
-    //   const letter=destX.charCodeAt();
-    //   const vectorXcond=vectorX==='right';
-    //   const vectorYcond=vectorY==='top';
-
-    //   while(i!==limit){
-    //     const newX=String.fromCharCode(letter+((-i+destY)*(vectorYcond?(vectorXcond?1:-1):(vectorXcond?-1:1))));
-
-    //     if(Xo.includes(newX) && Yo.includes(i)){
-    //       movesWorking.push(`${newX}${i}`)
-    //       if(boardStartState[newX][i]?.getName?.()){
-    //         break;
-    //       }
-    //     }
-    //     i+=increment;
-    //   }
-    // }
-
-    // this.crossAttack(destX,destY,'top','right',movesWorking)
-    // this.crossAttack(destX,destY,'top','left',movesWorking)
-    // this.crossAttack(destX,destY,'bot','right',movesWorking)
-    // this.crossAttack(destX,destY,'bot','left',movesWorking)
-
-
     this.crossAttack(destX,destY,'top','right',movesWorking)
     this.crossAttack(destX,destY,'top','left',movesWorking)
     this.crossAttack(destX,destY,'bot','right',movesWorking)
     this.crossAttack(destX,destY,'bot','left',movesWorking)
-
-
-    // crossAttack(destX,destY,'top','right')
-    // crossAttack(destX,destY,'top','left')
-    // crossAttack(destX,destY,'bot','right')
-    // crossAttack(destX,destY,'bot','left')
-
-    console.log('cross atacks:',movesWorking)
 
     if(movesWorking.includes(`${destX}${destY}`)){
       return {canMove:true,moves:movesWorking}
@@ -116,51 +78,6 @@ export class Queen extends Figure{
     this.linearAttacks(movesWorking,destX,destY,whiteTure)
     return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking,startField:[acX,acY]}
   }
-
-
-
-
-  horisontal=(vector,movesWorking)=>{
-    const [acX,acY]=this.actualField
-
-    const isLeft=vector==='left'
-    const Xcode=acX.charCodeAt()
-
-    const start=isLeft?Xcode-1:Xcode+1
-    const increment=isLeft?-1:1;
-
-    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
-    let i=start;
-    while(i!==limit){
-      const fromCode=String.fromCharCode(i)
-      movesWorking.push(`${fromCode}${acY}`)
-      if(boardStartState[fromCode][acY]?.getName?.()){
-        break;
-      }
-      i+=increment;
-    }
-  }
-  vertical=(vector,movesWorking)=>{
-    const [acX,acY]=this.actualField
-
-    const isTop=vector==='top';
-    const Ynum=Number(acY);
-    const start=isTop?(Ynum+1):(Ynum-1)
-    const increment=isTop?1:-1;
-
-    const limit=isTop?9:0;
-    let i=start;
-    while(i!==limit){
-      const base=boardStartState[acX]
-      movesWorking.push(`${acX}${i}`)
-      if(base[i]?.getName?.()){
-        break;
-      }
-      i+=increment;
-    }
-  }
-
-
 
   linearMoves(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
@@ -202,10 +119,6 @@ export class Queen extends Figure{
         i+=increment;
       }
     }
-    // this.horisontal('left',movesWorking)
-    // this.horisontal('right',movesWorking)
-    // this.vertical('bot',movesWorking)
-    // this.vertical('top',movesWorking)
 
     horisontal('left')
     horisontal('right')

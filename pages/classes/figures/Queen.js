@@ -79,51 +79,93 @@ export class Queen extends Figure{
     return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking,startField:[acX,acY]}
   }
 
+
+
+
+
+  horisontal=(vector,movesWorking,acX,acY)=>{
+    const isLeft=vector==='left'
+    const Xcode=acX.charCodeAt()
+
+    const start=isLeft?Xcode-1:Xcode+1
+    const increment=isLeft?-1:1;
+
+    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
+    let i=start;
+    while(i!==limit){
+      const fromCode=String.fromCharCode(i)
+      movesWorking.push(`${fromCode}${acY}`)
+      if(boardStartState[fromCode][acY]?.getName?.()){
+        break;
+      }
+      i+=increment;
+    }
+  }
+  vertical=(vector,movesWorking,acX,acY)=>{
+    const isTop=vector==='top';
+    const Ynum=Number(acY);
+    const start=isTop?(Ynum+1):(Ynum-1)
+    const increment=isTop?1:-1;
+
+    const limit=isTop?9:0;
+    let i=start;
+    while(i!==limit){
+      const base=boardStartState[acX]
+      movesWorking.push(`${acX}${i}`)
+      if(base[i]?.getName?.()){
+        break;
+      }
+      i+=increment;
+    }
+  }
+
   linearMoves(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
     // const destination={destX,destY}
     const movesWorking=[]
 
-    const horisontal=(vector)=>{
-      const isLeft=vector==='left'
-      const Xcode=acX.charCodeAt()
+    // const horisontal=(vector)=>{
+    //   const isLeft=vector==='left'
+    //   const Xcode=acX.charCodeAt()
   
-      const start=isLeft?Xcode-1:Xcode+1
-      const increment=isLeft?-1:1;
+    //   const start=isLeft?Xcode-1:Xcode+1
+    //   const increment=isLeft?-1:1;
   
-      const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
-      let i=start;
-      while(i!==limit){
-        const fromCode=String.fromCharCode(i)
-        movesWorking.push(`${fromCode}${acY}`)
-        if(boardStartState[fromCode][acY]?.getName?.()){
-          break;
-        }
-        i+=increment;
-      }
-    }
-    const vertical=(vector)=>{
-      const isTop=vector==='top';
-      const Ynum=Number(acY);
-      const start=isTop?(Ynum+1):(Ynum-1)
-      const increment=isTop?1:-1;
+    //   const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
+    //   let i=start;
+    //   while(i!==limit){
+    //     const fromCode=String.fromCharCode(i)
+    //     movesWorking.push(`${fromCode}${acY}`)
+    //     if(boardStartState[fromCode][acY]?.getName?.()){
+    //       break;
+    //     }
+    //     i+=increment;
+    //   }
+    // }
+    // const vertical=(vector)=>{
+    //   const isTop=vector==='top';
+    //   const Ynum=Number(acY);
+    //   const start=isTop?(Ynum+1):(Ynum-1)
+    //   const increment=isTop?1:-1;
   
-      const limit=isTop?9:0;
-      let i=start;
-      while(i!==limit){
-        const base=boardStartState[acX]
-        movesWorking.push(`${acX}${i}`)
-        if(base[i]?.getName?.()){
-          break;
-        }
-        i+=increment;
-      }
-    }
+    //   const limit=isTop?9:0;
+    //   let i=start;
+    //   while(i!==limit){
+    //     const base=boardStartState[acX]
+    //     movesWorking.push(`${acX}${i}`)
+    //     if(base[i]?.getName?.()){
+    //       break;
+    //     }
+    //     i+=increment;
+    //   }
+    // }
 
-    horisontal('left')
-    horisontal('right')
-    vertical('bot')
-    vertical('top')
+    this.horisontal('left',movesWorking,acX,acY)
+    this.horisontal('right',movesWorking,acX,acY)
+    this.vertical('bot',movesWorking,acX,acY)
+    this.vertical('top',movesWorking,acX,acY)
+
+    console.log('linear moves: ',movesWorking)
 
     if(movesWorking.includes(`${destX}${destY}`) && boardStartState[acX][acY]?.canStand?.({destX,destY})){
       return {canMove:true,moves:movesWorking}

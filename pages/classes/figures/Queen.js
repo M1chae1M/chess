@@ -122,42 +122,32 @@ export class Queen extends Figure{
       i+=increment;
     }
   }
-
-
-  verticalMoves=(vector,movesWorking,acX,acY)=>{
+  verticalConsts(vector,acY){
     const isTop=vector==='top';
     const Ynum=Number(acY);
     const start=isTop?(Ynum+1):(Ynum-1)
     const increment=isTop?1:-1;
 
     const limit=isTop?9:0;
-    let i=start;
-    while(i!==limit){
-      const base=boardStartState[acX]
-      movesWorking.push(`${acX}${i}`)
-      if(base[i]?.getName?.()){
-        break;
-      }
-      i+=increment;
-    }
+    return{isTop,Ynum,start,increment,limit}
   }
-  verticalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>{
-    const isTop=vector==='top';
-    const Ynum=Number(acY);
-    const start=isTop?(Ynum+1):(Ynum-1)
-    const increment=isTop?1:-1;
-
-    const limit=isTop?9:0;
+  verticalHelper(vector,acX,acY,movesWorking,compareColors,acColor){
+    const {start,increment,limit}=this.verticalConsts(vector,acY)
     let i=start;
     while(i!==limit){
-      const base=boardStartState[acX][i]
-      base?.getColor?.()!==acColor && movesWorking.push(`${acX}${i}`);
+      const base=boardStartState[acX][i];
+
+      compareColors?
+      base?.getColor?.()!==acColor && movesWorking.push(`${acX}${i}`):
+      movesWorking.push(`${acX}${i}`);
       if(base?.getName?.()){
         break;
       }
       i+=increment;
     }
   }
+  verticalMoves=(vector,movesWorking,acX,acY)=>this.verticalHelper(vector,acX,acY,movesWorking,false)
+  verticalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>this.verticalHelper(vector,acX,acY,movesWorking,true,acColor)
   returnLinearMovesOnly(){
     const [acX,acY]=this.actualField
     const acColor=this.getColor()
@@ -170,24 +160,15 @@ export class Queen extends Figure{
 
     return movesWorking
   }
-
-
   verticalAtacks=(vector,movesWorking,acX,acY,whiteTure)=>{
-    const isTop=vector==='top';
-    const Ynum=Number(acY);
-    const start=isTop?(Ynum+1):(Ynum-1)
-    const increment=isTop?1:-1;
-
-    const limit=isTop?9:0;
+    const {start,increment,limit}=this.verticalConsts(vector,acY)
     let i=start;
     const base=boardStartState?.[acX]
     const colorCondition=base?.[acY]?.goodTure?.(whiteTure)
     while(i!==limit){
       if(colorCondition){
         movesWorking.push(`${acX}${i}`)
-        if(base[i]?.getName?.() &&
-        !(base[i]?.getName?.()==='King' &&
-        base[i]?.goodTure?.(!whiteTure))){
+        if(base[i]?.getName?.() && !(base[i]?.getName?.()==='King' && base[i]?.goodTure?.(!whiteTure))){
           break;
         }
       }

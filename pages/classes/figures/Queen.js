@@ -95,11 +95,6 @@ export class Queen extends Figure{
       i+=increment;
     }
   }
-
-
-
-
-
   horisontalConsts(vector,acX){
     const isLeft=vector==='left'
     const Xcode=acX.charCodeAt()
@@ -110,33 +105,27 @@ export class Queen extends Figure{
     const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
     return {start,increment,limit}
   }
-
-  horisontalMoves=(vector,movesWorking,acX,acY)=>{
+  horisontalHelper(vector,movesWorking,acX,acY,compareColors,acColor){
     const {start,increment,limit}=this.horisontalConsts(vector,acX)
     let i=start;
     while(i!==limit){
       const fromCode=String.fromCharCode(i)
-      movesWorking.push(`${fromCode}${acY}`)
-      if(boardStartState[fromCode][acY]?.getName?.()){
+      const base=boardStartState[fromCode][acY];
+      compareColors?
+      base?.getColor?.()!==acColor && movesWorking.push(`${fromCode}${acY}`):
+      movesWorking.push(`${fromCode}${acY}`);
+
+      if(base?.getName?.()){
         break;
       }
       i+=increment;
     }
   }
+  horisontalMoves=(vector,movesWorking,acX,acY)=>{
+    this.horisontalHelper(vector,movesWorking,acX,acY,false)
+  }
   horisontalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>{
-    const {start,increment,limit}=this.horisontalConsts(vector,acX)
-    let i=start;
-      while(i!==limit){
-        const fromCode=String.fromCharCode(i)
-        const base=boardStartState[fromCode][acY]
-
-        base?.getColor?.()!==acColor && movesWorking.push(`${fromCode}${acY}`);
-        
-        if(base?.getName?.()){
-          break;
-        }
-        i+=increment;
-      }
+    this.horisontalHelper(vector,movesWorking,acX,acY,true,acColor)
   }
   horisontalAttacks=(vector,movesWorking,acX,acY,whiteTure)=>{
     const {start,increment,limit}=this.horisontalConsts(vector,acX)

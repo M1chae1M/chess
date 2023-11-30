@@ -98,7 +98,9 @@ export class Queen extends Figure{
 
 
 
-  horisontalWrapper(vector,movesWorking,acX,acY,callback){
+
+
+  horisontalConsts(vector,acX){
     const isLeft=vector==='left'
     const Xcode=acX.charCodeAt()
 
@@ -106,24 +108,12 @@ export class Queen extends Figure{
     const increment=isLeft?-1:1;
 
     const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
-    let i=start;
-
-    callback?.(i,limit,increment)
+    return {start,increment,limit}
   }
 
-
   horisontalMoves=(vector,movesWorking,acX,acY)=>{
-    // const isLeft=vector==='left'
-    // const Xcode=acX.charCodeAt()
-
-    // const start=isLeft?Xcode-1:Xcode+1
-    // const increment=isLeft?-1:1;
-
-    // const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
-    // let i=start;
-    // while(i!==limit){
-    this.horisontalWrapper(vector,movesWorking,acX,acY,
-      (i,limit,increment)=>{
+    const {start,increment,limit}=this.horisontalConsts(vector,acX)
+    let i=start;
         while(i!==limit){
           const fromCode=String.fromCharCode(i)
           movesWorking.push(`${fromCode}${acY}`)
@@ -132,21 +122,10 @@ export class Queen extends Figure{
           }
           i+=increment;
         }
-      })
-      // console.log('movesWorking',movesWorking)
-    // }
   }
   horisontalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>{
-    const isLeft=vector==='left'
-    const Xcode=acX.charCodeAt()
-
-    const start=isLeft?Xcode-1:Xcode+1
-    const increment=isLeft?-1:1;
-
-    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
+    const {start,increment,limit}=this.horisontalConsts(vector,acX)
     let i=start;
-    // this.horisontalWrapper(vector,movesWorking,acX,acY,
-    //   (i,limit,increment)=>{
       while(i!==limit){
         const fromCode=String.fromCharCode(i)
         const base=boardStartState[fromCode][acY]
@@ -158,18 +137,9 @@ export class Queen extends Figure{
         }
         i+=increment;
       }
-    // })
-
-    console.log('horisontalLinearMovesOnly',movesWorking)
   }
   horisontalAttacks=(vector,movesWorking,acX,acY,whiteTure)=>{
-    const isLeft=vector==='left'
-    const Xcode=acX.charCodeAt()
-
-    const start=isLeft?Xcode-1:Xcode+1
-    const increment=isLeft?-1:1;
-
-    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
+    const {start,increment,limit}=this.horisontalConsts(vector,acX)
     let i=start;
     const colorCondition=boardStartState[acX][acY]?.goodTure?.(whiteTure)
     while(i!==limit){

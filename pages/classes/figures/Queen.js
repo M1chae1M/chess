@@ -5,11 +5,7 @@ import {boardStartState} from "@/pages/_document";
 import Xo from '@/config/Xo.json'
 
 export class Queen extends Figure{
-  crossMove=(leftOrRight,topOrBot,movesWorking
-    ,acX,acY
-  )=>{
-    // const [acX,acY]=this.actualField
-
+  crossMove=(leftOrRight,topOrBot,movesWorking,acX,acY)=>{
     const isLeft=leftOrRight==='left'
     const isTop=topOrBot==='top'
     let i=acX.charCodeAt()+(isLeft?-1:1);
@@ -30,86 +26,83 @@ export class Queen extends Figure{
       i+=leftOrRight==='left'?-1:1;
     }
   }
-  crossMoves(movesWorking
-    ,acX,acY
-  ){
-    this.crossMove('left','top',movesWorking
-    ,acX,acY
-    )
-    this.crossMove('left','bot',movesWorking
-    ,acX,acY
-    )
-    this.crossMove('right','top',movesWorking
-    ,acX,acY
-    )
-    this.crossMove('right','bot',movesWorking
-    ,acX,acY
-    )
+  crossMoves(movesWorking,acX,acY){
+    this.crossMove('left','top',movesWorking,acX,acY)
+    this.crossMove('left','bot',movesWorking,acX,acY)
+    this.crossMove('right','top',movesWorking,acX,acY)
+    this.crossMove('right','bot',movesWorking,acX,acY)
   }
   canMove(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
     const movesWorking=[];
-    this.crossMoves(movesWorking
-      ,acX,acY
-    )
+    this.crossMoves(movesWorking,acX,acY)
     movesWorking.push(this.linearMoves(movesWorking,acX,acY).moves)
     
     return {canMove:movesWorking.flat().includes(`${destX}${destY}`) && this.canStand({destX,destY}), moves:movesWorking}
   }
 
 
-  // crossAttack=(destX,destY,vectorY,vectorX,movesWorking)=>{
-  //   let i=vectorY==='top'?destY+1:destY-1;
-  //   const limit=vectorY==='top'?9:0;
-  //   const increment=vectorY==='top'?1:-1;
-  //   const letter=destX.charCodeAt();
-  //   const vectorXcond=vectorX==='right';
-  //   const vectorYcond=vectorY==='top';
 
-  //   while(i!==limit){
-  //     const newX=String.fromCharCode(letter+((-i+destY)*(vectorYcond?(vectorXcond?1:-1):(vectorXcond?-1:1))));
+  crossAttack=(destX,destY,vectorY,vectorX,movesWorking)=>{
+    let i=vectorY==='top'?destY+1:destY-1;
+    const limit=vectorY==='top'?9:0;
+    const increment=vectorY==='top'?1:-1;
+    const letter=destX.charCodeAt();
+    const vectorXcond=vectorX==='right';
+    const vectorYcond=vectorY==='top';
 
-  //     if(Xo.includes(newX) && Yo.includes(i)){
-  //       movesWorking.push(`${newX}${i}`)
-  //       if(boardStartState[newX][i]?.getName?.()){
-  //         break;
-  //       }
-  //     }
-  //     i+=increment;
-  //   }
-  // }
+    while(i!==limit){
+      const newX=String.fromCharCode(letter+((-i+destY)*(vectorYcond?(vectorXcond?1:-1):(vectorXcond?-1:1))));
 
-  crossAttacks(movesWorking,destX,destY){
-    const crossAttack=(destX,destY,vectorY,vectorX)=>{
-      let i=vectorY==='top'?destY+1:destY-1;
-      const limit=vectorY==='top'?9:0;
-      const increment=vectorY==='top'?1:-1;
-      const letter=destX.charCodeAt();
-      const vectorXcond=vectorX==='right';
-      const vectorYcond=vectorY==='top';
-
-      while(i!==limit){
-        const newX=String.fromCharCode(letter+((-i+destY)*(vectorYcond?(vectorXcond?1:-1):(vectorXcond?-1:1))));
-
-        if(Xo.includes(newX) && Yo.includes(i)){
-          movesWorking.push(`${newX}${i}`)
-          if(boardStartState[newX][i]?.getName?.()){
-            break;
-          }
+      if(Xo.includes(newX) && Yo.includes(i)){
+        movesWorking.push(`${newX}${i}`)
+        if(boardStartState[newX][i]?.getName?.()){
+          break;
         }
-        i+=increment;
       }
+      i+=increment;
     }
+  }
+  crossAttacks(movesWorking,destX,destY){
+    // const crossAttack=(destX,destY,vectorY,vectorX)=>{
+    //   let i=vectorY==='top'?destY+1:destY-1;
+    //   const limit=vectorY==='top'?9:0;
+    //   const increment=vectorY==='top'?1:-1;
+    //   const letter=destX.charCodeAt();
+    //   const vectorXcond=vectorX==='right';
+    //   const vectorYcond=vectorY==='top';
+
+    //   while(i!==limit){
+    //     const newX=String.fromCharCode(letter+((-i+destY)*(vectorYcond?(vectorXcond?1:-1):(vectorXcond?-1:1))));
+
+    //     if(Xo.includes(newX) && Yo.includes(i)){
+    //       movesWorking.push(`${newX}${i}`)
+    //       if(boardStartState[newX][i]?.getName?.()){
+    //         break;
+    //       }
+    //     }
+    //     i+=increment;
+    //   }
+    // }
 
     // this.crossAttack(destX,destY,'top','right',movesWorking)
     // this.crossAttack(destX,destY,'top','left',movesWorking)
     // this.crossAttack(destX,destY,'bot','right',movesWorking)
     // this.crossAttack(destX,destY,'bot','left',movesWorking)
 
-    crossAttack(destX,destY,'top','right')
-    crossAttack(destX,destY,'top','left')
-    crossAttack(destX,destY,'bot','right')
-    crossAttack(destX,destY,'bot','left')
+
+    this.crossAttack(destX,destY,'top','right',movesWorking)
+    this.crossAttack(destX,destY,'top','left',movesWorking)
+    this.crossAttack(destX,destY,'bot','right',movesWorking)
+    this.crossAttack(destX,destY,'bot','left',movesWorking)
+
+
+    // crossAttack(destX,destY,'top','right')
+    // crossAttack(destX,destY,'top','left')
+    // crossAttack(destX,destY,'bot','right')
+    // crossAttack(destX,destY,'bot','left')
+
+    console.log('cross atacks:',movesWorking)
 
     if(movesWorking.includes(`${destX}${destY}`)){
       return {canMove:true,moves:movesWorking}
@@ -218,9 +211,6 @@ export class Queen extends Figure{
     horisontal('right')
     vertical('bot')
     vertical('top')
-
-
-    console.log('linear moves: ',movesWorking)
 
     if(movesWorking.includes(`${destX}${destY}`) && boardStartState[acX][acY]?.canStand?.({destX,destY})){
       return {canMove:true,moves:movesWorking}

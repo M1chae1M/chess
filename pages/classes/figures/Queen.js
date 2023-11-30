@@ -145,17 +145,22 @@ export class Queen extends Figure{
 
     const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
     let i=start;
-    while(i!==limit){
-      const fromCode=String.fromCharCode(i)
-      const base=boardStartState[fromCode][acY]
+    // this.horisontalWrapper(vector,movesWorking,acX,acY,
+    //   (i,limit,increment)=>{
+      while(i!==limit){
+        const fromCode=String.fromCharCode(i)
+        const base=boardStartState[fromCode][acY]
 
-      base?.getColor?.()!==acColor && movesWorking.push(`${fromCode}${acY}`);
-      
-      if(base?.getName?.()){
-        break;
+        base?.getColor?.()!==acColor && movesWorking.push(`${fromCode}${acY}`);
+        
+        if(base?.getName?.()){
+          break;
+        }
+        i+=increment;
       }
-      i+=increment;
-    }
+    // })
+
+    console.log('horisontalLinearMovesOnly',movesWorking)
   }
   horisontalAttacks=(vector,movesWorking,acX,acY,whiteTure)=>{
     const isLeft=vector==='left'

@@ -78,7 +78,7 @@ export class Queen extends Figure{
     this.linearAttacks(movesWorking,destX,destY,whiteTure)
     return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking,startField:[acX,acY]}
   }
-  horisontal=(vector,movesWorking,acX,acY)=>{
+  horisontalMoves=(vector,movesWorking,acX,acY)=>{
     const isLeft=vector==='left'
     const Xcode=acX.charCodeAt()
 
@@ -96,7 +96,7 @@ export class Queen extends Figure{
       i+=increment;
     }
   }
-  vertical=(vector,movesWorking,acX,acY)=>{
+  verticalMoves=(vector,movesWorking,acX,acY)=>{
     const isTop=vector==='top';
     const Ynum=Number(acY);
     const start=isTop?(Ynum+1):(Ynum-1)
@@ -117,68 +117,65 @@ export class Queen extends Figure{
     const [acX,acY]=this.actualField
     const movesWorking=[]
 
-    this.horisontal('left',movesWorking,acX,acY)
-    this.horisontal('right',movesWorking,acX,acY)
-    this.vertical('bot',movesWorking,acX,acY)
-    this.vertical('top',movesWorking,acX,acY)
+    this.horisontalMoves('left',movesWorking,acX,acY)
+    this.horisontalMoves('right',movesWorking,acX,acY)
+    this.verticalMoves('bot',movesWorking,acX,acY)
+    this.verticalMoves('top',movesWorking,acX,acY)
 
     if(movesWorking.includes(`${destX}${destY}`) && boardStartState[acX][acY]?.canStand?.({destX,destY})){
       return {canMove:true,moves:movesWorking}
     }
     return {canMove:false,moves:movesWorking}
   }
+  horisontalAttacks=(vector,movesWorking,acX,acY,whiteTure)=>{
+    const isLeft=vector==='left'
+    const Xcode=acX.charCodeAt()
 
+    const start=isLeft?Xcode-1:Xcode+1
+    const increment=isLeft?-1:1;
 
+    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
+    let i=start;
+    const colorCondition=boardStartState[acX][acY]?.goodTure?.(whiteTure)
+    while(i!==limit){
+      if(colorCondition){
+        const fromCode=String.fromCharCode(i)
+        movesWorking.push(`${fromCode}${acY}`)
+        const base=boardStartState[fromCode][acY]
+        if(base?.getName?.() && !(base?.getName?.()==='King' && base?.goodTure(!whiteTure))){
+          break;
+        }
+      }
+      i+=increment;
+    }
+  }
+  verticalAtacks=(vector,movesWorking,acX,acY,whiteTure)=>{
+    const isTop=vector==='top';
+    const Ynum=Number(acY);
+    const start=isTop?(Ynum+1):(Ynum-1)
+    const increment=isTop?1:-1;
 
+    const limit=isTop?9:0;
+    let i=start;
+    const base=boardStartState?.[acX]
+    const colorCondition=base?.[acY]?.goodTure?.(whiteTure)
+    while(i!==limit){
+      if(colorCondition){
+        movesWorking.push(`${acX}${i}`)
+        if(base[i]?.getName?.() &&
+        !(base[i]?.getName?.()==='King' &&
+        base[i]?.goodTure?.(!whiteTure))){
+          break;
+        }
+      }
+      i+=increment;
+    }
+  }
   linearAttacks(movesWorking,acX,acY,whiteTure){
-    const horisontal=(vector)=>{
-      const isLeft=vector==='left'
-      const Xcode=acX.charCodeAt()
-
-      const start=isLeft?Xcode-1:Xcode+1
-      const increment=isLeft?-1:1;
-
-      const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
-      let i=start;
-      const colorCondition=boardStartState[acX][acY]?.goodTure?.(whiteTure)
-      while(i!==limit){
-        if(colorCondition){
-          const fromCode=String.fromCharCode(i)
-          movesWorking.push(`${fromCode}${acY}`)
-          const base=boardStartState[fromCode][acY]
-          if(base?.getName?.() && !(base?.getName?.()==='King' && base?.goodTure(!whiteTure))){
-            break;
-          }
-        }
-        i+=increment;
-      }
-    }
-    const vertical=(vector)=>{
-      const isTop=vector==='top';
-      const Ynum=Number(acY);
-      const start=isTop?(Ynum+1):(Ynum-1)
-      const increment=isTop?1:-1;
-
-      const limit=isTop?9:0;
-      let i=start;
-      const base=boardStartState?.[acX]
-      const colorCondition=base?.[acY]?.goodTure?.(whiteTure)
-      while(i!==limit){
-        if(colorCondition){
-          movesWorking.push(`${acX}${i}`)
-          if(base[i]?.getName?.() &&
-          !(base[i]?.getName?.()==='King' &&
-          base[i]?.goodTure?.(!whiteTure))){
-            break;
-          }
-        }
-        i+=increment;
-      }
-    }
-    horisontal('left')
-    horisontal('right')
-    vertical('bot')
-    vertical('top')
+    this.horisontalAttacks('left',movesWorking,acX,acY,whiteTure)
+    this.horisontalAttacks('right',movesWorking,acX,acY,whiteTure)
+    this.verticalAtacks('bot',movesWorking,acX,acY,whiteTure)
+    this.verticalAtacks('top',movesWorking,acX,acY,whiteTure)
   }
   returnDefMovesOnly(){
     const movesWorking=[]

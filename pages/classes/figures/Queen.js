@@ -234,39 +234,64 @@ export class Queen extends Figure{
     
     return movesWorking.flat()
   }
+  crossMoveForCrossMovesOnly=(leftOrRight,topOrBot,movesWorking,acColor,acX,acY)=>{
+    const isLeft=leftOrRight==='left'
+    const isTop=topOrBot==='top'
+    let i=acX.charCodeAt()+(isLeft?-1:1);
+    while((isLeft&&i>='A'.charCodeAt())||(!isLeft&&i<='H'.charCodeAt())){
+      const againLetter=String.fromCharCode(i);
+      const numY=Number(acY);
+      const acXcode=i-acX.charCodeAt();
+      const numPlus=numY+acXcode;
+      const numMinus=numY-acXcode;
+      const changedY=isLeft?(isTop?numMinus:numPlus):(isTop?numPlus:numMinus)
+  
+      if(Xo.includes(againLetter)&&Yo.includes(changedY)){
+        const base=boardStartState[againLetter][changedY]
+        base?.getColor?.()!==acColor && movesWorking.push(`${againLetter}${changedY}`);
+
+        if(base?.getName?.()){
+          return false
+        }
+      }
+      i+=leftOrRight==='left'?-1:1;
+    }
+  }
   returnCrossMovesOnly(){
     const movesWorking=[]
     const [acX,acY]=this.actualField
     const acColor=this.getColor()
 
-    const crossMove=(leftOrRight,topOrBot)=>{
-      const isLeft=leftOrRight==='left'
-      const isTop=topOrBot==='top'
-      let i=acX.charCodeAt()+(isLeft?-1:1);
-      while((isLeft&&i>='A'.charCodeAt())||(!isLeft&&i<='H'.charCodeAt())){
-        const againLetter=String.fromCharCode(i);
-        const numY=Number(acY);
-        const acXcode=i-acX.charCodeAt();
-        const numPlus=numY+acXcode;
-        const numMinus=numY-acXcode;
-        const changedY=isLeft?(isTop?numMinus:numPlus):(isTop?numPlus:numMinus)
+    // const crossMove=(leftOrRight,topOrBot)=>{
+    //   const isLeft=leftOrRight==='left'
+    //   const isTop=topOrBot==='top'
+    //   let i=acX.charCodeAt()+(isLeft?-1:1);
+    //   while((isLeft&&i>='A'.charCodeAt())||(!isLeft&&i<='H'.charCodeAt())){
+    //     const againLetter=String.fromCharCode(i);
+    //     const numY=Number(acY);
+    //     const acXcode=i-acX.charCodeAt();
+    //     const numPlus=numY+acXcode;
+    //     const numMinus=numY-acXcode;
+    //     const changedY=isLeft?(isTop?numMinus:numPlus):(isTop?numPlus:numMinus)
     
-        if(Xo.includes(againLetter)&&Yo.includes(changedY)){
-          const base=boardStartState[againLetter][changedY]
-          base?.getColor?.()!==acColor && movesWorking.push(`${againLetter}${changedY}`);
+    //     if(Xo.includes(againLetter)&&Yo.includes(changedY)){
+    //       const base=boardStartState[againLetter][changedY]
+    //       base?.getColor?.()!==acColor && movesWorking.push(`${againLetter}${changedY}`);
 
-          if(base?.getName?.()){
-            return false
-          }
-        }
-        i+=leftOrRight==='left'?-1:1;
-      }
-    }
+    //       if(base?.getName?.()){
+    //         return false
+    //       }
+    //     }
+    //     i+=leftOrRight==='left'?-1:1;
+    //   }
+    // }
 
-    crossMove('left','top')
-    crossMove('left','bot')
-    crossMove('right','top')
-    crossMove('right','bot')
+    this.crossMoveForCrossMovesOnly('left','top',movesWorking,acColor,acX,acY)
+    this.crossMoveForCrossMovesOnly('left','bot',movesWorking,acColor,acX,acY)
+    this.crossMoveForCrossMovesOnly('right','top',movesWorking,acColor,acX,acY)
+    this.crossMoveForCrossMovesOnly('right','bot',movesWorking,acColor,acX,acY)
+    
+    console.log('crossMoves: ', movesWorking)
 
     return movesWorking
   }

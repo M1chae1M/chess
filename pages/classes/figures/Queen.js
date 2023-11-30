@@ -114,14 +114,14 @@ export class Queen extends Figure{
   horisontalMoves=(vector,movesWorking,acX,acY)=>{
     const {start,increment,limit}=this.horisontalConsts(vector,acX)
     let i=start;
-        while(i!==limit){
-          const fromCode=String.fromCharCode(i)
-          movesWorking.push(`${fromCode}${acY}`)
-          if(boardStartState[fromCode][acY]?.getName?.()){
-            break;
-          }
-          i+=increment;
-        }
+    while(i!==limit){
+      const fromCode=String.fromCharCode(i)
+      movesWorking.push(`${fromCode}${acY}`)
+      if(boardStartState[fromCode][acY]?.getName?.()){
+        break;
+      }
+      i+=increment;
+    }
   }
   horisontalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>{
     const {start,increment,limit}=this.horisontalConsts(vector,acX)

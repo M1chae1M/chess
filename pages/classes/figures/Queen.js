@@ -121,12 +121,8 @@ export class Queen extends Figure{
       i+=increment;
     }
   }
-  horisontalMoves=(vector,movesWorking,acX,acY)=>{
-    this.horisontalHelper(vector,movesWorking,acX,acY,false)
-  }
-  horisontalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>{
-    this.horisontalHelper(vector,movesWorking,acX,acY,true,acColor)
-  }
+  horisontalMoves=(vector,movesWorking,acX,acY)=>this.horisontalHelper(vector,movesWorking,acX,acY,false)
+  horisontalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>this.horisontalHelper(vector,movesWorking,acX,acY,true,acColor)
   horisontalAttacks=(vector,movesWorking,acX,acY,whiteTure)=>{
     const {start,increment,limit}=this.horisontalConsts(vector,acX)
     let i=start;
@@ -143,8 +139,6 @@ export class Queen extends Figure{
       i+=increment;
     }
   }
-
-
   verticalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>{
     const isTop=vector==='top';
     const Ynum=Number(acY);

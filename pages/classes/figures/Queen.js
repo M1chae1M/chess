@@ -5,7 +5,9 @@ import {boardStartState} from "@/pages/_document";
 import Xo from '@/config/Xo.json'
 
 export class Queen extends Figure{
-  crossMove=(leftOrRight,topOrBot,movesWorking,acX,acY)=>{
+  crossMove=(leftOrRight,topOrBot,movesWorking
+    ,acX,acY
+  )=>{
     // const [acX,acY]=this.actualField
 
     const isLeft=leftOrRight==='left'
@@ -28,16 +30,28 @@ export class Queen extends Figure{
       i+=leftOrRight==='left'?-1:1;
     }
   }
-  crossMoves(movesWorking,acX,acY){
-    this.crossMove('left','top',movesWorking,acX,acY)
-    this.crossMove('left','bot',movesWorking,acX,acY)
-    this.crossMove('right','top',movesWorking,acX,acY)
-    this.crossMove('right','bot',movesWorking,acX,acY)
+  crossMoves(movesWorking
+    ,acX,acY
+  ){
+    this.crossMove('left','top',movesWorking
+    ,acX,acY
+    )
+    this.crossMove('left','bot',movesWorking
+    ,acX,acY
+    )
+    this.crossMove('right','top',movesWorking
+    ,acX,acY
+    )
+    this.crossMove('right','bot',movesWorking
+    ,acX,acY
+    )
   }
   canMove(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
     const movesWorking=[];
-    this.crossMoves(movesWorking,acX,acY)
+    this.crossMoves(movesWorking
+      ,acX,acY
+    )
     movesWorking.push(this.linearMoves(movesWorking,acX,acY).moves)
     
     return {canMove:movesWorking.flat().includes(`${destX}${destY}`) && this.canStand({destX,destY}), moves:movesWorking}

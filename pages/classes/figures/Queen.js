@@ -5,60 +5,34 @@ import {boardStartState} from "@/pages/_document";
 import Xo from '@/config/Xo.json'
 
 export class Queen extends Figure{
-  // crossMove=(leftOrRight,topOrBot,movesWorking)=>{
-  //   const [acX,acY]=this.actualField
+  crossMove=(leftOrRight,topOrBot,movesWorking,acX,acY)=>{
+    // const [acX,acY]=this.actualField
 
-  //   const isLeft=leftOrRight==='left'
-  //   const isTop=topOrBot==='top'
-  //   let i=acX.charCodeAt()+(isLeft?-1:1);
-  //   while((isLeft&&i>='A'.charCodeAt())||(!isLeft&&i<='H'.charCodeAt())){
-  //     const againLetter=String.fromCharCode(i);
-  //     const numY=Number(acY);
-  //     const acXcode=i-acX.charCodeAt();
-  //     const numPlus=numY+acXcode;
-  //     const numMinus=numY-acXcode;
-  //     const changedY=isLeft?(isTop?numMinus:numPlus):(isTop?numPlus:numMinus)
+    const isLeft=leftOrRight==='left'
+    const isTop=topOrBot==='top'
+    let i=acX.charCodeAt()+(isLeft?-1:1);
+    while((isLeft&&i>='A'.charCodeAt())||(!isLeft&&i<='H'.charCodeAt())){
+      const againLetter=String.fromCharCode(i);
+      const numY=Number(acY);
+      const acXcode=i-acX.charCodeAt();
+      const numPlus=numY+acXcode;
+      const numMinus=numY-acXcode;
+      const changedY=isLeft?(isTop?numMinus:numPlus):(isTop?numPlus:numMinus)
   
-  //     if(Xo.includes(againLetter)&&Yo.includes(changedY)){
-  //       movesWorking.push(`${againLetter}${changedY}`);
-  //       if(boardStartState[againLetter][changedY]?.getName?.()){
-  //         return false
-  //       }
-  //     }
-  //     i+=leftOrRight==='left'?-1:1;
-  //   }
-  // }
-  crossMoves(movesWorking,acX,acY){
-    const crossMove=(leftOrRight,topOrBot)=>{
-      const isLeft=leftOrRight==='left'
-      const isTop=topOrBot==='top'
-      let i=acX.charCodeAt()+(isLeft?-1:1);
-      while((isLeft&&i>='A'.charCodeAt())||(!isLeft&&i<='H'.charCodeAt())){
-        const againLetter=String.fromCharCode(i);
-        const numY=Number(acY);
-        const acXcode=i-acX.charCodeAt();
-        const numPlus=numY+acXcode;
-        const numMinus=numY-acXcode;
-        const changedY=isLeft?(isTop?numMinus:numPlus):(isTop?numPlus:numMinus)
-    
-        if(Xo.includes(againLetter)&&Yo.includes(changedY)){
-          movesWorking.push(`${againLetter}${changedY}`);
-          if(boardStartState[againLetter][changedY]?.getName?.()){
-            return false
-          }
+      if(Xo.includes(againLetter)&&Yo.includes(changedY)){
+        movesWorking.push(`${againLetter}${changedY}`);
+        if(boardStartState[againLetter][changedY]?.getName?.()){
+          return false
         }
-        i+=leftOrRight==='left'?-1:1;
       }
+      i+=leftOrRight==='left'?-1:1;
     }
-
-    // this.crossMove('left','top',movesWorking)
-    // this.crossMove('left','bot',movesWorking)
-    // this.crossMove('right','top',movesWorking)
-    // this.crossMove('right','bot',movesWorking)
-    crossMove('left','top')
-    crossMove('left','bot')
-    crossMove('right','top')
-    crossMove('right','bot')
+  }
+  crossMoves(movesWorking,acX,acY){
+    this.crossMove('left','top',movesWorking,acX,acY)
+    this.crossMove('left','bot',movesWorking,acX,acY)
+    this.crossMove('right','top',movesWorking,acX,acY)
+    this.crossMove('right','bot',movesWorking,acX,acY)
   }
   canMove(destX,destY,whiteTure){
     const [acX,acY]=this.actualField

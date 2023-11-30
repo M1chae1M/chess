@@ -113,6 +113,56 @@ export class Queen extends Figure{
       i+=increment;
     }
   }
+  horisontalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>{
+    const isLeft=vector==='left'
+    const Xcode=acX.charCodeAt()
+
+    const start=isLeft?Xcode-1:Xcode+1
+    const increment=isLeft?-1:1;
+
+    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
+    let i=start;
+    while(i!==limit){
+      const fromCode=String.fromCharCode(i)
+      const base=boardStartState[fromCode][acY]
+
+      base?.getColor?.()!==acColor && movesWorking.push(`${fromCode}${acY}`);
+      
+      if(base?.getName?.()){
+        break;
+      }
+      i+=increment;
+    }
+  }
+  verticalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>{
+    const isTop=vector==='top';
+    const Ynum=Number(acY);
+    const start=isTop?(Ynum+1):(Ynum-1)
+    const increment=isTop?1:-1;
+
+    const limit=isTop?9:0;
+    let i=start;
+    while(i!==limit){
+      const base=boardStartState[acX][i]
+      base?.getColor?.()!==acColor && movesWorking.push(`${acX}${i}`);
+      if(base?.getName?.()){
+        break;
+      }
+      i+=increment;
+    }
+  }
+  returnLinearMovesOnly(){
+    const [acX,acY]=this.actualField
+    const acColor=this.getColor()
+    const movesWorking=[]
+
+    this.horisontalLinearMovesOnly('left',acX,acY,acColor,movesWorking)
+    this.horisontalLinearMovesOnly('right',acX,acY,acColor,movesWorking)
+    this.verticalLinearMovesOnly('bot',acX,acY,acColor,movesWorking)
+    this.verticalLinearMovesOnly('top',acX,acY,acColor,movesWorking)
+
+    return movesWorking
+  }
   linearMoves(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
     const movesWorking=[]
@@ -183,56 +233,6 @@ export class Queen extends Figure{
     movesWorking.push(this.returnCrossMovesOnly())
     
     return movesWorking.flat()
-  }
-  returnLinearMovesOnly(){
-    const [acX,acY]=this.actualField
-    const acColor=this.getColor()
-    const movesWorking=[]
-
-    const horisontal=(vector)=>{
-      const isLeft=vector==='left'
-      const Xcode=acX.charCodeAt()
-  
-      const start=isLeft?Xcode-1:Xcode+1
-      const increment=isLeft?-1:1;
-  
-      const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
-      let i=start;
-      while(i!==limit){
-        const fromCode=String.fromCharCode(i)
-        const base=boardStartState[fromCode][acY]
-
-        base?.getColor?.()!==acColor && movesWorking.push(`${fromCode}${acY}`);
-        
-        if(base?.getName?.()){
-          break;
-        }
-        i+=increment;
-      }
-    }
-    const vertical=(vector)=>{
-      const isTop=vector==='top';
-      const Ynum=Number(acY);
-      const start=isTop?(Ynum+1):(Ynum-1)
-      const increment=isTop?1:-1;
-  
-      const limit=isTop?9:0;
-      let i=start;
-      while(i!==limit){
-        const base=boardStartState[acX][i]
-        base?.getColor?.()!==acColor && movesWorking.push(`${acX}${i}`);
-        if(base?.getName?.()){
-          break;
-        }
-        i+=increment;
-      }
-    }
-    horisontal('left')
-    horisontal('right')
-    vertical('bot')
-    vertical('top')
-
-    return movesWorking
   }
   returnCrossMovesOnly(){
     const movesWorking=[]

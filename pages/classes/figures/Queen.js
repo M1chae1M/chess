@@ -78,23 +78,6 @@ export class Queen extends Figure{
     this.linearAttacks(movesWorking,destX,destY,whiteTure)
     return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking,startField:[acX,acY]}
   }
-  verticalMoves=(vector,movesWorking,acX,acY)=>{
-    const isTop=vector==='top';
-    const Ynum=Number(acY);
-    const start=isTop?(Ynum+1):(Ynum-1)
-    const increment=isTop?1:-1;
-
-    const limit=isTop?9:0;
-    let i=start;
-    while(i!==limit){
-      const base=boardStartState[acX]
-      movesWorking.push(`${acX}${i}`)
-      if(base[i]?.getName?.()){
-        break;
-      }
-      i+=increment;
-    }
-  }
   horisontalConsts(vector,acX){
     const isLeft=vector==='left'
     const Xcode=acX.charCodeAt()
@@ -139,6 +122,25 @@ export class Queen extends Figure{
       i+=increment;
     }
   }
+
+
+  verticalMoves=(vector,movesWorking,acX,acY)=>{
+    const isTop=vector==='top';
+    const Ynum=Number(acY);
+    const start=isTop?(Ynum+1):(Ynum-1)
+    const increment=isTop?1:-1;
+
+    const limit=isTop?9:0;
+    let i=start;
+    while(i!==limit){
+      const base=boardStartState[acX]
+      movesWorking.push(`${acX}${i}`)
+      if(base[i]?.getName?.()){
+        break;
+      }
+      i+=increment;
+    }
+  }
   verticalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>{
     const isTop=vector==='top';
     const Ynum=Number(acY);
@@ -168,20 +170,8 @@ export class Queen extends Figure{
 
     return movesWorking
   }
-  linearMoves(destX,destY,whiteTure){
-    const [acX,acY]=this.actualField
-    const movesWorking=[]
 
-    this.horisontalMoves('left',movesWorking,acX,acY)
-    this.horisontalMoves('right',movesWorking,acX,acY)
-    this.verticalMoves('bot',movesWorking,acX,acY)
-    this.verticalMoves('top',movesWorking,acX,acY)
 
-    if(movesWorking.includes(`${destX}${destY}`) && boardStartState[acX][acY]?.canStand?.({destX,destY})){
-      return {canMove:true,moves:movesWorking}
-    }
-    return {canMove:false,moves:movesWorking}
-  }
   verticalAtacks=(vector,movesWorking,acX,acY,whiteTure)=>{
     const isTop=vector==='top';
     const Ynum=Number(acY);
@@ -203,6 +193,20 @@ export class Queen extends Figure{
       }
       i+=increment;
     }
+  }
+  linearMoves(destX,destY,whiteTure){
+    const [acX,acY]=this.actualField
+    const movesWorking=[]
+
+    this.horisontalMoves('left',movesWorking,acX,acY)
+    this.horisontalMoves('right',movesWorking,acX,acY)
+    this.verticalMoves('bot',movesWorking,acX,acY)
+    this.verticalMoves('top',movesWorking,acX,acY)
+
+    if(movesWorking.includes(`${destX}${destY}`) && boardStartState[acX][acY]?.canStand?.({destX,destY})){
+      return {canMove:true,moves:movesWorking}
+    }
+    return {canMove:false,moves:movesWorking}
   }
   linearAttacks(movesWorking,acX,acY,whiteTure){
     this.horisontalAttacks('left',movesWorking,acX,acY,whiteTure)

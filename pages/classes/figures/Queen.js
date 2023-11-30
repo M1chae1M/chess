@@ -78,24 +78,6 @@ export class Queen extends Figure{
     this.linearAttacks(movesWorking,destX,destY,whiteTure)
     return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking,startField:[acX,acY]}
   }
-  horisontalMoves=(vector,movesWorking,acX,acY)=>{
-    const isLeft=vector==='left'
-    const Xcode=acX.charCodeAt()
-
-    const start=isLeft?Xcode-1:Xcode+1
-    const increment=isLeft?-1:1;
-
-    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
-    let i=start;
-    while(i!==limit){
-      const fromCode=String.fromCharCode(i)
-      movesWorking.push(`${fromCode}${acY}`)
-      if(boardStartState[fromCode][acY]?.getName?.()){
-        break;
-      }
-      i+=increment;
-    }
-  }
   verticalMoves=(vector,movesWorking,acX,acY)=>{
     const isTop=vector==='top';
     const Ynum=Number(acY);
@@ -112,6 +94,47 @@ export class Queen extends Figure{
       }
       i+=increment;
     }
+  }
+
+
+
+  horisontalWrapper(vector,movesWorking,acX,acY,callback){
+    const isLeft=vector==='left'
+    const Xcode=acX.charCodeAt()
+
+    const start=isLeft?Xcode-1:Xcode+1
+    const increment=isLeft?-1:1;
+
+    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
+    let i=start;
+
+    callback?.(i,limit,increment)
+  }
+
+
+  horisontalMoves=(vector,movesWorking,acX,acY)=>{
+    // const isLeft=vector==='left'
+    // const Xcode=acX.charCodeAt()
+
+    // const start=isLeft?Xcode-1:Xcode+1
+    // const increment=isLeft?-1:1;
+
+    // const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
+    // let i=start;
+    // while(i!==limit){
+    this.horisontalWrapper(vector,movesWorking,acX,acY,
+      (i,limit,increment)=>{
+        while(i!==limit){
+          const fromCode=String.fromCharCode(i)
+          movesWorking.push(`${fromCode}${acY}`)
+          if(boardStartState[fromCode][acY]?.getName?.()){
+            break;
+          }
+          i+=increment;
+        }
+      })
+      // console.log('movesWorking',movesWorking)
+    // }
   }
   horisontalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>{
     const isLeft=vector==='left'
@@ -134,6 +157,30 @@ export class Queen extends Figure{
       i+=increment;
     }
   }
+  horisontalAttacks=(vector,movesWorking,acX,acY,whiteTure)=>{
+    const isLeft=vector==='left'
+    const Xcode=acX.charCodeAt()
+
+    const start=isLeft?Xcode-1:Xcode+1
+    const increment=isLeft?-1:1;
+
+    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
+    let i=start;
+    const colorCondition=boardStartState[acX][acY]?.goodTure?.(whiteTure)
+    while(i!==limit){
+      if(colorCondition){
+        const fromCode=String.fromCharCode(i)
+        movesWorking.push(`${fromCode}${acY}`)
+        const base=boardStartState[fromCode][acY]
+        if(base?.getName?.() && !(base?.getName?.()==='King' && base?.goodTure(!whiteTure))){
+          break;
+        }
+      }
+      i+=increment;
+    }
+  }
+
+
   verticalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>{
     const isTop=vector==='top';
     const Ynum=Number(acY);
@@ -176,28 +223,6 @@ export class Queen extends Figure{
       return {canMove:true,moves:movesWorking}
     }
     return {canMove:false,moves:movesWorking}
-  }
-  horisontalAttacks=(vector,movesWorking,acX,acY,whiteTure)=>{
-    const isLeft=vector==='left'
-    const Xcode=acX.charCodeAt()
-
-    const start=isLeft?Xcode-1:Xcode+1
-    const increment=isLeft?-1:1;
-
-    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
-    let i=start;
-    const colorCondition=boardStartState[acX][acY]?.goodTure?.(whiteTure)
-    while(i!==limit){
-      if(colorCondition){
-        const fromCode=String.fromCharCode(i)
-        movesWorking.push(`${fromCode}${acY}`)
-        const base=boardStartState[fromCode][acY]
-        if(base?.getName?.() && !(base?.getName?.()==='King' && base?.goodTure(!whiteTure))){
-          break;
-        }
-      }
-      i+=increment;
-    }
   }
   verticalAtacks=(vector,movesWorking,acX,acY,whiteTure)=>{
     const isTop=vector==='top';

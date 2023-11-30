@@ -5,6 +5,29 @@ import {boardStartState} from "@/pages/_document";
 import Xo from '@/config/Xo.json'
 
 export class Queen extends Figure{
+  // crossMove=(leftOrRight,topOrBot,movesWorking)=>{
+  //   const [acX,acY]=this.actualField
+
+  //   const isLeft=leftOrRight==='left'
+  //   const isTop=topOrBot==='top'
+  //   let i=acX.charCodeAt()+(isLeft?-1:1);
+  //   while((isLeft&&i>='A'.charCodeAt())||(!isLeft&&i<='H'.charCodeAt())){
+  //     const againLetter=String.fromCharCode(i);
+  //     const numY=Number(acY);
+  //     const acXcode=i-acX.charCodeAt();
+  //     const numPlus=numY+acXcode;
+  //     const numMinus=numY-acXcode;
+  //     const changedY=isLeft?(isTop?numMinus:numPlus):(isTop?numPlus:numMinus)
+  
+  //     if(Xo.includes(againLetter)&&Yo.includes(changedY)){
+  //       movesWorking.push(`${againLetter}${changedY}`);
+  //       if(boardStartState[againLetter][changedY]?.getName?.()){
+  //         return false
+  //       }
+  //     }
+  //     i+=leftOrRight==='left'?-1:1;
+  //   }
+  // }
   crossMoves(movesWorking,acX,acY){
     const crossMove=(leftOrRight,topOrBot)=>{
       const isLeft=leftOrRight==='left'
@@ -28,6 +51,10 @@ export class Queen extends Figure{
       }
     }
 
+    // this.crossMove('left','top',movesWorking)
+    // this.crossMove('left','bot',movesWorking)
+    // this.crossMove('right','top',movesWorking)
+    // this.crossMove('right','bot',movesWorking)
     crossMove('left','top')
     crossMove('left','bot')
     crossMove('right','top')
@@ -41,6 +68,29 @@ export class Queen extends Figure{
     
     return {canMove:movesWorking.flat().includes(`${destX}${destY}`) && this.canStand({destX,destY}), moves:movesWorking}
   }
+
+
+  // crossAttack=(destX,destY,vectorY,vectorX,movesWorking)=>{
+  //   let i=vectorY==='top'?destY+1:destY-1;
+  //   const limit=vectorY==='top'?9:0;
+  //   const increment=vectorY==='top'?1:-1;
+  //   const letter=destX.charCodeAt();
+  //   const vectorXcond=vectorX==='right';
+  //   const vectorYcond=vectorY==='top';
+
+  //   while(i!==limit){
+  //     const newX=String.fromCharCode(letter+((-i+destY)*(vectorYcond?(vectorXcond?1:-1):(vectorXcond?-1:1))));
+
+  //     if(Xo.includes(newX) && Yo.includes(i)){
+  //       movesWorking.push(`${newX}${i}`)
+  //       if(boardStartState[newX][i]?.getName?.()){
+  //         break;
+  //       }
+  //     }
+  //     i+=increment;
+  //   }
+  // }
+
   crossAttacks(movesWorking,destX,destY){
     const crossAttack=(destX,destY,vectorY,vectorX)=>{
       let i=vectorY==='top'?destY+1:destY-1;
@@ -63,6 +113,11 @@ export class Queen extends Figure{
       }
     }
 
+    // this.crossAttack(destX,destY,'top','right',movesWorking)
+    // this.crossAttack(destX,destY,'top','left',movesWorking)
+    // this.crossAttack(destX,destY,'bot','right',movesWorking)
+    // this.crossAttack(destX,destY,'bot','left',movesWorking)
+
     crossAttack(destX,destY,'top','right')
     crossAttack(destX,destY,'top','left')
     crossAttack(destX,destY,'bot','right')
@@ -80,9 +135,55 @@ export class Queen extends Figure{
     this.linearAttacks(movesWorking,destX,destY,whiteTure)
     return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking,startField:[acX,acY]}
   }
+
+
+
+
+  horisontal=(vector,movesWorking)=>{
+    const [acX,acY]=this.actualField
+
+    const isLeft=vector==='left'
+    const Xcode=acX.charCodeAt()
+
+    const start=isLeft?Xcode-1:Xcode+1
+    const increment=isLeft?-1:1;
+
+    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
+    let i=start;
+    while(i!==limit){
+      const fromCode=String.fromCharCode(i)
+      movesWorking.push(`${fromCode}${acY}`)
+      if(boardStartState[fromCode][acY]?.getName?.()){
+        break;
+      }
+      i+=increment;
+    }
+  }
+  vertical=(vector,movesWorking)=>{
+    const [acX,acY]=this.actualField
+
+    const isTop=vector==='top';
+    const Ynum=Number(acY);
+    const start=isTop?(Ynum+1):(Ynum-1)
+    const increment=isTop?1:-1;
+
+    const limit=isTop?9:0;
+    let i=start;
+    while(i!==limit){
+      const base=boardStartState[acX]
+      movesWorking.push(`${acX}${i}`)
+      if(base[i]?.getName?.()){
+        break;
+      }
+      i+=increment;
+    }
+  }
+
+
+
   linearMoves(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
-    const destination={destX,destY}
+    // const destination={destX,destY}
     const movesWorking=[]
 
     const horisontal=(vector)=>{
@@ -120,10 +221,18 @@ export class Queen extends Figure{
         i+=increment;
       }
     }
+    // this.horisontal('left',movesWorking)
+    // this.horisontal('right',movesWorking)
+    // this.vertical('bot',movesWorking)
+    // this.vertical('top',movesWorking)
+
     horisontal('left')
     horisontal('right')
     vertical('bot')
     vertical('top')
+
+
+    console.log('linear moves: ',movesWorking)
 
     if(movesWorking.includes(`${destX}${destY}`) && boardStartState[acX][acY]?.canStand?.({destX,destY})){
       return {canMove:true,moves:movesWorking}
@@ -131,54 +240,54 @@ export class Queen extends Figure{
     return {canMove:false,moves:movesWorking}
   }
   linearAttacks(movesWorking,acX,acY,whiteTure){
-  const horisontal=(vector)=>{
-    const isLeft=vector==='left'
-    const Xcode=acX.charCodeAt()
+    const horisontal=(vector)=>{
+      const isLeft=vector==='left'
+      const Xcode=acX.charCodeAt()
 
-    const start=isLeft?Xcode-1:Xcode+1
-    const increment=isLeft?-1:1;
+      const start=isLeft?Xcode-1:Xcode+1
+      const increment=isLeft?-1:1;
 
-    const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
-    let i=start;
-    const colorCondition=boardStartState[acX][acY]?.goodTure?.(whiteTure)
-    while(i!==limit){
-      if(colorCondition){
-        const fromCode=String.fromCharCode(i)
-        movesWorking.push(`${fromCode}${acY}`)
-        const base=boardStartState[fromCode][acY]
-        if(base?.getName?.() && !(base?.getName?.()==='King' && base?.goodTure(!whiteTure))){
-          break;
+      const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
+      let i=start;
+      const colorCondition=boardStartState[acX][acY]?.goodTure?.(whiteTure)
+      while(i!==limit){
+        if(colorCondition){
+          const fromCode=String.fromCharCode(i)
+          movesWorking.push(`${fromCode}${acY}`)
+          const base=boardStartState[fromCode][acY]
+          if(base?.getName?.() && !(base?.getName?.()==='King' && base?.goodTure(!whiteTure))){
+            break;
+          }
         }
+        i+=increment;
       }
-      i+=increment;
     }
-  }
-  const vertical=(vector)=>{
-    const isTop=vector==='top';
-    const Ynum=Number(acY);
-    const start=isTop?(Ynum+1):(Ynum-1)
-    const increment=isTop?1:-1;
+    const vertical=(vector)=>{
+      const isTop=vector==='top';
+      const Ynum=Number(acY);
+      const start=isTop?(Ynum+1):(Ynum-1)
+      const increment=isTop?1:-1;
 
-    const limit=isTop?9:0;
-    let i=start;
-    const base=boardStartState?.[acX]
-    const colorCondition=base?.[acY]?.goodTure?.(whiteTure)
-    while(i!==limit){
-      if(colorCondition){
-        movesWorking.push(`${acX}${i}`)
-        if(base[i]?.getName?.() &&
-        !(base[i]?.getName?.()==='King' &&
-        base[i]?.goodTure?.(!whiteTure))){
-          break;
+      const limit=isTop?9:0;
+      let i=start;
+      const base=boardStartState?.[acX]
+      const colorCondition=base?.[acY]?.goodTure?.(whiteTure)
+      while(i!==limit){
+        if(colorCondition){
+          movesWorking.push(`${acX}${i}`)
+          if(base[i]?.getName?.() &&
+          !(base[i]?.getName?.()==='King' &&
+          base[i]?.goodTure?.(!whiteTure))){
+            break;
+          }
         }
+        i+=increment;
       }
-      i+=increment;
     }
-  }
-  horisontal('left')
-  horisontal('right')
-  vertical('bot')
-  vertical('top')
+    horisontal('left')
+    horisontal('right')
+    vertical('bot')
+    vertical('top')
   }
   returnDefMovesOnly(){
     const movesWorking=[]

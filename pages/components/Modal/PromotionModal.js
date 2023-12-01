@@ -2,10 +2,10 @@ import React,{Component} from "react";
 import {figureIcons} from "../../_document";
 import Chose from "./Chose";
 import Background from "./Background";
+import {GameProvider} from "../..";
 
 export default class PromotionModal extends Component{
   render(){
-    const {whiteTure}=this.props;
     const styles={
       PromotionModal:{
         top:'50%',
@@ -31,18 +31,25 @@ export default class PromotionModal extends Component{
         textAlign:'center',
       },
     }
-    const color=whiteTure?'white':'black'
-    const figureCLR=figureIcons[color]
-    const figuresNames=['Knight','Bishop','Rook','Queen']
     return(
-      <Background>
-        <div style={styles.PromotionModal}>
-          <div style={styles.label}>Change pawn in:</div>
-          <div style={styles.menu}>
-            {figuresNames?.map(x=><Chose key={x} figure={figureCLR[x]} name={x}/>)}
-          </div>
-        </div>
-      </Background>
+      <GameProvider.Consumer>
+      {value=>{
+        const {whiteTure}=value??{}
+        const color=whiteTure?'white':'black'
+        const figureCLR=figureIcons[color]
+        const figuresNames=['Knight','Bishop','Rook','Queen']
+        return(
+          <Background>
+            <div style={styles.PromotionModal}>
+              <div style={styles.label}>Change pawn in:</div>
+              <div style={styles.menu}>
+                {figuresNames?.map(x=><Chose key={x} figure={figureCLR[x]} name={x}/>)}
+              </div>
+            </div>
+          </Background>
+        )
+      }}
+      </GameProvider.Consumer>
     )
   }
 }

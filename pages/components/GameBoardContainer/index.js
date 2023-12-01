@@ -1,5 +1,6 @@
 import CONFIG from '@/config/config.json'
 const {fieldSize}=CONFIG??''
+
 const style={
     position:'relative',
     display:'grid',

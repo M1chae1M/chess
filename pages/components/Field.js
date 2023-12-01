@@ -15,7 +15,8 @@ export default class Field extends Component{
         const click=()=>touch(`${x}${y}`)
         const base=boardGameState?.[x]?.[y]
         const Figure=()=>base?.getFigure?.()
-        const isKing=base?.getName?.()==='King'
+        // const isKing=base?.getName?.()==='King'
+        const isKing=base?.isKing?.()
         const isColor=base?.goodTure?.(whiteTure)
         const color=ifBlackFunction(x,y)
         const slideInLeft=keyframes`

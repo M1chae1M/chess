@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import {Figure} from "../Figure";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
+import { boardStartState } from "@/pages/_document";
 
 export class Knight extends Figure{
   canMove(destX,destY,whiteTure){
@@ -35,6 +36,8 @@ export class Knight extends Figure{
     const newY=(change)=>Number(acY)+change
 
     const Xxx=newX(x),Yyy=newY(y);
+
+    !boardStartState?.[Xxx]?.[Yyy]?.isKing?.() && 
     Xo.includes(Xxx) && Yo.includes(Yyy) && movesWorking.push(`${Xxx}${Yyy}`);
   }
   returnDefMovesOnly(){

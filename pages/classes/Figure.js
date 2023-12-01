@@ -19,6 +19,7 @@ export class Figure{
       }
     })
   }
+  isKing=()=>this.name==='King'
   static defStategies(attackedColor,whiteTure){
     const allDefStategies=[]
     Xo.map(x=>{

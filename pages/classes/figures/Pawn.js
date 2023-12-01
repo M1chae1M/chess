@@ -155,6 +155,7 @@ export class Pawn extends Figure{
             const [lastX,lastY]=clicked
             const [lastFromX,lastFromY]=fromField
 
+            !boardStartState?.[newX]?.[newY]?.isKing?.() &&
             lastFromX===lastX && figure==='Pawn' && Math.abs(+lastY-+lastFromY)===2 && movesWorking.push(`${lastX}${(+lastY+(+lastFromY))/2}`);
           }
         }

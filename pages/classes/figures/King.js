@@ -138,6 +138,7 @@ export class King extends Figure{
         const destField=`${newX}${newY}`;
         const attacked=!Figure.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure).includes(destField)
 
+        !boardStartState?.[newX]?.[newY]?.isKing?.() &&
         Xo.includes(newX) && Yo.includes(newY) && this?.canStand?.({destX:newX,destY:newY}) && attacked && movesWorking.push(destField);
       }
     }

@@ -9,7 +9,7 @@ import {Rook} from './classes/figures/Rook';
 import _ from 'lodash';
 
 export default function Document(){
-  return (
+  return(
     <Html lang='pl'>
       <Head/>
       <body>
@@ -121,89 +121,5 @@ export const boardStartState={
     8:new Rook('black','H8',false,'Rook'),
   },
 }
-
-// export const boardStartState={
-//   A:{
-//     1:'',
-//     2:'',
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:'',
-//     8:'',
-//   },
-//   B:{
-//     1:'',
-//     2:'',
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:'',
-//     8:'',
-//   },
-//   C:{
-//     1:'',
-//     2:'',
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:new Pawn('white','C7',true,'Pawn'),
-//     // 7:'',
-//     8:'',
-//   },
-//   D:{
-//     1:'',
-//     2:'',
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:'',
-//     8:'',
-//   },
-//   E:{
-//     1:new King('white','E1',false,'King'),
-//     2:'',
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:new Pawn('white','E6',true,'Pawn'),
-//     7:'',
-//     8:new King('black','E8',false,'King'),
-//   },
-//   F:{
-//     1:'',
-//     2:'',
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:'',
-//     8:'',
-//   },
-//   G:{
-//     1:'',
-//     2:'',
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:'',
-//     8:'',
-//   },
-//   H:{
-//     1:'',
-//     2:'',
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:'',
-//     8:'',
-//   },
-// }
 
 export const boardStartStateCopy=_.cloneDeep(boardStartState);

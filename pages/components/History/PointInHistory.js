@@ -12,7 +12,7 @@ export default class PointInHistory extends Component{
     const ID=id % 2 === 0?`${Math.floor(id/2)+1}.`:''
     const onClick=()=>getBoardFromHistory?.(lastMove,id)
     const style={
-      background:id===actualMove && '#dcd4d4',
+      background:id===actualMove-1 && '#dcd4d4',
     }
     return(
       <PointInHistoryContainer style={style} onClick={onClick}>

@@ -202,10 +202,12 @@ export class Queen extends Figure{
     
     return movesWorking.flat()
   }
-  crossMoveForCrossMovesOnly=(leftOrRight,topOrBot,movesWorking,acColor,acX,acY)=>{
+  crossMoveForCrossMovesOnly=(leftOrRight,topOrBot,movesWorking)=>{
+    const acColor=this.getColor()
+    const {acX,acY}=this.actualField
     const isLeft=leftOrRight==='left'
     const isTop=topOrBot==='top'
-    let i=acX.charCodeAt()+(isLeft?-1:1);
+    let i=acX?.charCodeAt?.()+(isLeft?-1:1);
     while((isLeft&&i>='A'.charCodeAt())||(!isLeft&&i<='H'.charCodeAt())){
       const againLetter=String.fromCharCode(i);
       const numY=Number(acY);
@@ -227,13 +229,11 @@ export class Queen extends Figure{
   }
   returnCrossMovesOnly(){
     const movesWorking=[]
-    const [acX,acY]=this.actualField
-    const acColor=this.getColor()
 
-    this.crossMoveForCrossMovesOnly('left','top',movesWorking,acColor,acX,acY)
-    this.crossMoveForCrossMovesOnly('left','bot',movesWorking,acColor,acX,acY)
-    this.crossMoveForCrossMovesOnly('right','top',movesWorking,acColor,acX,acY)
-    this.crossMoveForCrossMovesOnly('right','bot',movesWorking,acColor,acX,acY)
+    this.crossMoveForCrossMovesOnly('left','top',movesWorking)
+    this.crossMoveForCrossMovesOnly('left','bot',movesWorking)
+    this.crossMoveForCrossMovesOnly('right','top',movesWorking)
+    this.crossMoveForCrossMovesOnly('right','bot',movesWorking)
     
     return movesWorking
   }

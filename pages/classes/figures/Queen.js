@@ -80,7 +80,7 @@ export class Queen extends Figure{
   }
   horisontalConsts(vector,acX){
     const isLeft=vector==='left'
-    const Xcode=acX.charCodeAt()
+    const Xcode=acX?.charCodeAt?.()
 
     const start=isLeft?Xcode-1:Xcode+1
     const increment=isLeft?-1:1;
@@ -93,7 +93,7 @@ export class Queen extends Figure{
     let i=start;
     while(i!==limit){
       const fromCode=String.fromCharCode(i)
-      const base=boardStartState[fromCode][acY];
+      const base=boardStartState?.[fromCode]?.[acY];
       compareColors?
       base?.getColor?.()!==acColor && movesWorking.push(`${fromCode}${acY}`):
       movesWorking.push(`${fromCode}${acY}`);
@@ -104,7 +104,6 @@ export class Queen extends Figure{
       i+=increment;
     }
   }
-  horisontalMoves=(vector,movesWorking,acX,acY)=>this.horisontalHelper(vector,movesWorking,acX,acY,false)
   horisontalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>this.horisontalHelper(vector,movesWorking,acX,acY,true,acColor)
   horisontalAttacks=(vector,movesWorking,acX,acY,whiteTure)=>{
     const {start,increment,limit}=this.horisontalConsts(vector,acX)
@@ -175,6 +174,7 @@ export class Queen extends Figure{
       i+=increment;
     }
   }
+  horisontalMoves=(vector,movesWorking,acX,acY)=>this.horisontalHelper(vector,movesWorking,acX,acY,false)
   linearMoves(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
     const movesWorking=[]
@@ -189,11 +189,11 @@ export class Queen extends Figure{
     }
     return {canMove:false,moves:movesWorking}
   }
-  linearAttacks(movesWorking,acX,acY,whiteTure){
-    this.horisontalAttacks('left',movesWorking,acX,acY,whiteTure)
-    this.horisontalAttacks('right',movesWorking,acX,acY,whiteTure)
-    this.verticalAtacks('bot',movesWorking,acX,acY,whiteTure)
-    this.verticalAtacks('top',movesWorking,acX,acY,whiteTure)
+  linearAttacks(movesWorking,destX,destY,whiteTure){
+    this.horisontalAttacks('left',movesWorking,destX,destY,whiteTure)
+    this.horisontalAttacks('right',movesWorking,destX,destY,whiteTure)
+    this.verticalAtacks('bot',movesWorking,destX,destY,whiteTure)
+    this.verticalAtacks('top',movesWorking,destX,destY,whiteTure)
   }
   returnDefMovesOnly(){
     const movesWorking=[]

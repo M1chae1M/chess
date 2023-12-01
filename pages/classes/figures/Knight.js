@@ -37,9 +37,7 @@ export class Knight extends Figure{
 
     const Xxx=newX(x),Yyy=newY(y);
 
-    !boardStartState?.[Xxx]?.[Yyy]?.isKing?.() && 
-    Xo.includes(Xxx) && Yo.includes(Yyy) &&
-    movesWorking.push(`${Xxx}${Yyy}`);
+    Xo.includes(Xxx) && Yo.includes(Yyy) && boardStartState?.[acX]?.[acY]?.canStand?.({destX:Xxx,destY:Yyy}) && movesWorking.push(`${Xxx}${Yyy}`);
   }
   returnDefMovesOnly(){
     const movesWorking=[]

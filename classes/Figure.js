@@ -1,8 +1,8 @@
 import React,{Component} from "react";
-import {boardStartState} from "../_document";
+import {boardStartState} from "../pages/_document";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
-import {figureIcons} from "../_document";
+import {figureIcons} from "../pages/_document";
 import _ from 'lodash';
 import {Game} from "./Game";
 
@@ -165,5 +165,3 @@ export class Figure{
     return this.moved
   }
 }
-
-export default class T3 extends Component{render(){return(<></>)}}

@@ -166,5 +166,3 @@ export class Pawn extends Figure{
     return movesWorking
   }
 }
-
-export default class T2 extends Component{render(){return(<></>)}}

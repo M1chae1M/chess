@@ -1,7 +1,7 @@
 import {GameProvider} from '@/pages';
 import React,{Component} from 'react';
 import CONFIG from '@/config/config.json'
-import {timeDisplayFormat} from '@/pages/classes/Functions';
+import {timeDisplayFormat} from '@/classes/Functions';
 const {size,timePerPlayer}=CONFIG??''
 
 export class TemplateTimer extends Component{

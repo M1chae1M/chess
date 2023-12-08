@@ -19,5 +19,3 @@ export class Rook extends Queen{
     return movesWorking.flat()
   }
 }
-
-export default class T2 extends Component{render(){return(<></>)}}

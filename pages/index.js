@@ -1,11 +1,11 @@
 import React,{Component} from 'react'
 import ControlPanel from './components/panel/ControlPanel'
-import {Figure} from './classes/Figure'
+import {Figure} from '../classes/Figure'
 import _ from 'lodash'
 import History from './components/History/History'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,componentDidMount,getBoardFromHistory,getBoardFromLocalStory,resetGame,resetState,secoundClick,setBoardInLocalStory,touch} from './classes/Functions'
+import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,componentDidMount,getBoardFromHistory,getBoardFromLocalStory,resetGame,resetState,secoundClick,setBoardInLocalStory,touch} from '../classes/Functions'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
 

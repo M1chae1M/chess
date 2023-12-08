@@ -238,5 +238,3 @@ export class Queen extends Figure{
     return movesWorking
   }
 }
-
-export default class T2 extends Component{render(){return(<></>)}}

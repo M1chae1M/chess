@@ -66,5 +66,3 @@ export class Knight extends Figure{
     return {can:moreVerticalMove||moreHorisontalMove}
   }
 }
-
-export default class T2 extends Component{render(){return(<></>)}}

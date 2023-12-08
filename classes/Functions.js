@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import {Game} from "./Game";
 import Xo from '@/config/Xo.json'
 import Yo from '@/config/Yo.json'
-import {boardStartStateCopy,boardStartState} from "../_document";
+import {boardStartStateCopy,boardStartState} from "../pages/_document";
 import {Pawn} from "./figures/Pawn";
 import {Bishop} from "./figures/Bishop";
 import {Queen} from "./figures/Queen";
@@ -10,7 +10,7 @@ import {King} from "./figures/King";
 import {Knight} from "./figures/Knight";
 import {Rook} from "./figures/Rook";
 import _ from "lodash";
-import {blackTimeRef,whiteTimeRef,SwitchRef} from "..";
+import {blackTimeRef,whiteTimeRef,SwitchRef} from "../pages";
 import CONFIG from '@/config/config.json'
 const {animationTime}=CONFIG??''
 
@@ -189,5 +189,3 @@ export function timeDisplayFormat(time_in_ms){
 
   return `${min}:${sec}:${ms}`;
 }
-
-export default class Functions extends Component{render(){return(<></>)}}

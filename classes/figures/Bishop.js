@@ -19,5 +19,3 @@ export class Bishop extends Queen{
     return this.returnCrossMovesOnly()
   }
 }
-
-export default class T2 extends Component{render(){return(<></>)}}

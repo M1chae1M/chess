@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import Yo from '@/config/Yo.json'
-import {boardStartState,boardStartStateCopy} from "../_document";
+import {boardStartState,boardStartStateCopy} from "../pages/_document";
 import Xo from '@/config/Xo.json'
 import _ from "lodash";
 
@@ -124,5 +124,3 @@ export class Game{
     )
   }
 }
-
-export default class T1000 extends Component{render(){return(<></>)}}

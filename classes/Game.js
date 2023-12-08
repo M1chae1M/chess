@@ -1,10 +1,9 @@
-import React,{Component} from "react";
 import Yo from '@/config/Yo.json'
 import {boardStartState,boardStartStateCopy} from "../pages/_document";
 import Xo from '@/config/Xo.json'
 import _ from "lodash";
 
-export class Game{
+export default class Game{
   static fiftyMovesRule=0;
   static samePositions=0;
   static gameHistory=[];

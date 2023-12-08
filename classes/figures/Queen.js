@@ -1,10 +1,9 @@
-import React,{Component} from "react";
-import {Figure} from "../Figure";
+import Figure from "../Figure";
 import Yo from '@/config/Yo.json'
 import {boardStartState} from "@/pages/_document";
 import Xo from '@/config/Xo.json'
 
-export class Queen extends Figure{
+export default class Queen extends Figure{
   crossMove=(leftOrRight,topOrBot,movesWorking,acX,acY)=>{
     const isLeft=leftOrRight==='left'
     const isTop=topOrBot==='top'

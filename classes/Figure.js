@@ -1,12 +1,11 @@
-import React,{Component} from "react";
 import {boardStartState} from "../pages/_document";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
 import {figureIcons} from "../pages/_document";
 import _ from 'lodash';
-import {Game} from "./Game";
+import Game from "./Game";
 
-export class Figure{
+export default class Figure{
   constructor(color,actualField,moved,name){
     this.color=color
     this.actualField=actualField

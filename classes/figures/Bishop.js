@@ -1,7 +1,6 @@
-import React,{Component} from "react";
-import {Queen} from "./Queen";
+import Queen from "./Queen";
 
-export class Bishop extends Queen{
+export default class Bishop extends Queen{
   canMove(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
     const moves=[];

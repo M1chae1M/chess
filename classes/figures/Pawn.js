@@ -1,16 +1,16 @@
 import React,{Component} from "react";
-import {Figure} from "../Figure";
+import Figure from "../Figure";
 import {boardStartState} from "@/pages/_document";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
-import {Queen} from "./Queen";
-import {Knight} from "./Knight";
-import {Bishop} from "./Bishop";
-import {Rook} from "./Rook";
-import {Game} from "../Game";
+import Queen from "./Queen";
+import Knight from "./Knight";
+import Bishop from "./Bishop";
+import Rook from "./Rook";
+import Game from "../Game";
 import _ from "lodash";
 
-export class Pawn extends Figure{
+export default class Pawn extends Figure{
   attacking(whiteTure,destX,destY){
     const movesWorking=[];
     const isWhite=whiteTure && this.getColor()==='white'

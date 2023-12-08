@@ -1,11 +1,10 @@
-import React,{Component} from "react";
-import {Figure} from "../Figure";
+import Figure from "../Figure";
 import Yo from '@/config/Yo.json'
 import {boardStartState} from "@/pages/_document";
 import Xo from '@/config/Xo.json'
-import {Game} from "../Game";
+import Game from "../Game";
 
-export class King extends Figure{
+export default class King extends Figure{
   castling(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
 

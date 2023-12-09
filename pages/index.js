@@ -10,9 +10,9 @@ import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
 
 export const GameProvider=React.createContext()
-export const blackTimeRef=React.createRef();
-export const whiteTimeRef=React.createRef();
-export const GameRef=React.createRef();
+export const blackTimeRef=React.createRef()
+export const whiteTimeRef=React.createRef()
+export const GameRef=React.createRef()
 export const SwitchRef=React.createRef()
 
 export default class GameBoard extends Component{

@@ -34,13 +34,11 @@ export default class GameBoard extends Component{
   checkIsClosed=checkIsClosed
   isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
   render(){
-    const {firstTouch,fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory,fiftyMovesRule,actualMove}=this.state
+    const {fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory,actualMove}=this.state
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})
     const closeModalF=(promoteTo)=>this.setState({isModalOpened:false,promoteTo})
     const show_or_close_history=()=>this.setState({showHistory:!this.state.showHistory})
-    const resetGame=this.resetGame
-    const getBoardFromHistory=this.getBoardFromHistory
-    const touch=this.touch
+    const {resetGame,getBoardFromHistory,touch}=this
     return(
       <AppContainer>
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame,actualMove,showHistory,getBoardFromHistory,isModalOpened,closeModalF,touch}}>

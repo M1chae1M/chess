@@ -10,7 +10,5 @@ export default class Rook extends Queen{
     this.linearAttacks(legalMoves,acX,acY,whiteTure)
     return {isKingAttacked:this.findKing(legalMoves,whiteTure),startField:[acX,acY],legalMoves}
   }
-  returnDefMovesOnly(){
-    return this.returnLinearMovesOnly().flat()
-  }
+  returnDefMovesOnly=()=>this.returnLinearMovesOnly().flat()
 }

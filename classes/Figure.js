@@ -22,50 +22,46 @@ export default class Figure{
   static allAttacked=(whiteTure)=>this.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
   static defStategies(whiteTure){
     const allDefStategies=[]
-    Xo.map(x=>{
-      Yo.map(y=>{
-        if(boardStartState[x][y]?.getColor?.()==='black'){
-          boardStartState[x][y]?.returnDefMovesOnly?.().map(def=>{
-            const [destX,destY]=def;
-            const attackedColor=whiteTure?'white':'black';
 
-            const copy={
-              from:boardStartState[x][y]?.getInstance?.(),
-              to:boardStartState[destX][destY]?.getInstance?.()
-            }
-            boardStartState[x][y]?.swap?.(destX,destY)
+    Game?.loop?.((x,y)=>{
+      if(boardStartState[x][y]?.getColor?.()==='black'){
+        boardStartState[x][y]?.returnDefMovesOnly?.().map(def=>{
+          const [destX,destY]=def;
+          const attackedColor=whiteTure?'white':'black';
 
-            const allAttacked=this.allAttacked(whiteTure);
-            const heIsChequered=!Figure.isThereKingColor?.(attackedColor,allAttacked);
+          const copy={
+            from:boardStartState[x][y]?.getInstance?.(),
+            to:boardStartState[destX][destY]?.getInstance?.()
+          }
+          boardStartState[x][y]?.swap?.(destX,destY)
 
-            heIsChequered && allDefStategies.push({from:`${x}${y}`,to:def});
+          const allAttacked=this.allAttacked(whiteTure);
+          const heIsChequered=!Figure.isThereKingColor?.(attackedColor,allAttacked);
 
-            boardStartState[x][y]=copy.from
-            boardStartState[destX][destY]=copy.to
-          })
-        }
-      })
+          heIsChequered && allDefStategies.push({from:`${x}${y}`,to:def});
+
+          boardStartState[x][y]=copy.from
+          boardStartState[destX][destY]=copy.to
+        })
+      }
     })
+
     return allDefStategies
   }
   static isThereKingColor(attackedColor,allAttacked){
     const KingIsThere=allAttacked?.map(m=>{
       const [x,y]=m
-      if(boardStartState[x][y]?.getColor?.()===attackedColor &&
-      boardStartState[x][y]?.getName?.()==='King'){
+      if(boardStartState[x][y]?.getColor?.()===attackedColor && boardStartState[x][y]?.getName?.()==='King'){
         return true
       }
-
     }).includes(true)
     return KingIsThere
   }
   static allFieldsAttackedBy(attackingColor,whiteTure){
     const allFieldsAttacked=[]
-    Xo.map(x=>{
-      Yo.map(y=>{
-        boardStartState[x][y]?.getColor?.()===attackingColor && 
-        allFieldsAttacked.push([...boardStartState[x][y]?.attacking?.(!whiteTure,x,y).legalMoves])
-      })
+    Game?.loop?.((x,y)=>{
+      boardStartState[x][y]?.getColor?.()===attackingColor && 
+      allFieldsAttacked.push([...boardStartState[x][y]?.attacking?.(!whiteTure,x,y).legalMoves])
     })
 
     return allFieldsAttacked.flat()
@@ -118,19 +114,18 @@ export default class Figure{
   static isKingChequered(whiteTure){
     const attackedColor=whiteTure?'white':'black'
     const allAttacked=this.allAttacked(whiteTure)
-    const heIsChequered=Figure.isThereKingColor?.(attackedColor,allAttacked)
+    const value=Figure.isThereKingColor?.(attackedColor,allAttacked)
     const allDefStategies=Figure.defStategies?.(whiteTure).filter(x=>x.to.length>0)
-
-    allDefStategies.length<=0 && alert('Game over!');
-    return {value:heIsChequered,isGameOver:allDefStategies.length>0?false:true}
+    const isGameOver=allDefStategies.length<=0
+    isGameOver && alert('Game over!');
+    return {value,isGameOver}
   }
   findKing(fields,whiteTure){
     const results=fields?.map(z=>{
       const [x,y]=z
       const acColor=whiteTure?'black':'white'
       const baseFigure=boardStartState?.[x]?.[y]
-      if(baseFigure?.getColor?.()===acColor && baseFigure?.getName?.()==='King') return true;
-      else return false
+      return baseFigure?.getColor?.()===acColor && baseFigure?.getName?.()==='King'
     })
     return results.includes(true)
   }

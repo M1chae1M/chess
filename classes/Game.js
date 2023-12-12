@@ -59,9 +59,9 @@ export default class Game{
   }
   static compare=(id)=>this.getHistory()?.[id]?.lastMove?.stringifiedBoard
   static setGameBoard3sameMoves(){
-    Game.clearBoardFromUndefined();
+    this.clearBoardFromUndefined();
 
-    if(this.gameHistory?.length>=8 && this.compare(0)===this.compare(4) && this.compare(8)===this.compare(4)){
+    if(this.getHistory()?.length>=8 && this.compare(0)===this.compare(4) && this.compare(8)===this.compare(4)){
       this.pat('You repeated your fast three times!')
     }
   }
@@ -102,13 +102,13 @@ export default class Game{
   }
   static can_NOT_win(){
     const flatedFigures=this.allFigures()
-    // const onlyKorB=flatedFigures?.length===1 && (flatedFigures[0]==='Bishop' || flatedFigures[0]==='Knight');
     const onlyKorB=this.onlyKnightOrBishop(flatedFigures)
+    const countFigures=flatedFigures?.length===0
 
-    flatedFigures?.length===0 && this.pat('Total lack of figures');
-    onlyKorB && this.pat('Winning with a knight or a bishop alone is impossible');
+    countFigures && this.pat(' - total lack of figures');
+    onlyKorB && this.pat('- winning with a knight or a bishop alone is impossible');
 
-    return flatedFigures?.length===0 || onlyKorB
+    return countFigures || onlyKorB
   }
   static loop(callback){
     Xo?.map(x=>

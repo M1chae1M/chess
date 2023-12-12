@@ -200,7 +200,7 @@ export const boardStartState={
 //     4:'',
 //     5:'',
 //     6:'',
-//     7:new Pawn('black','H7',false,'Pawn'),
+//     7:new Knight('black','H7',false,'Knight'),
 //     // 8:new Rook('black','H8',false,'Rook'),
 //   },
 // }

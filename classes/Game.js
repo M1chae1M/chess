@@ -12,12 +12,8 @@ export default class Game{
 
   static isUpToDate=()=>this.upToDate
   static setUpToDate=(newState)=>this.upToDate=newState
-  static setGameBoard(board){
-    this.gameBoard=_.cloneDeep(board)
-  }
-  static getHistory(){
-    return this.gameHistory
-  }
+  static getHistory=()=>this.gameHistory
+  
   static withoutMovedFields(){
     const copy_of_boardStartState=_.cloneDeep(boardStartState)
 

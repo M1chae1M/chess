@@ -99,9 +99,9 @@ export function getBoardFromHistory(lastMove,id){
   this.setState({...status,boardGameState,actualMove:id+1})
 }
 export function setBoardInLocalStory(){
-  const {whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,boardGameState}=this.state??{}
+  const {whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,boardGameState,actualMove}=this.state??{}
   localStorage.setItem('chess_game_board',JSON.stringify(boardGameState))
-  localStorage.setItem('chess_game_status',JSON.stringify({whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule}))
+  localStorage.setItem('chess_game_status',JSON.stringify({whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,actualMove}))
 }
 export function checkIsClosed(end,baseFigure,clicked){
   const [destX,destY]=clicked??[]

@@ -1,12 +1,12 @@
 import {Html,Head,Main,NextScript} from 'next/document'
-import {TbChessBishopFilled,TbChessFilled,TbChessKingFilled,TbChessKnightFilled,TbChessQueenFilled,TbChessRookFilled,TbChessBishop,TbChessKing,TbChessKnight,TbChessQueen,TbChessRook,TbChess} from 'react-icons/tb';
-import Pawn from '../classes/figures/Pawn';
-import Queen from '../classes/figures/Queen';
-import King from '../classes/figures/King';
-import Bishop from '../classes/figures/Bishop';
-import Knight from '../classes/figures/Knight';
-import Rook from '../classes/figures/Rook';
-import _ from 'lodash';
+import {TbChessBishopFilled,TbChessFilled,TbChessKingFilled,TbChessKnightFilled,TbChessQueenFilled,TbChessRookFilled,TbChessBishop,TbChessKing,TbChessKnight,TbChessQueen,TbChessRook,TbChess} from 'react-icons/tb'
+import Pawn from '../classes/figures/Pawn'
+import Queen from '../classes/figures/Queen'
+import King from '../classes/figures/King'
+import Bishop from '../classes/figures/Bishop'
+import Knight from '../classes/figures/Knight'
+import Rook from '../classes/figures/Rook'
+import _ from 'lodash'
 
 export default function Document(){
   return(

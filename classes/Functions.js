@@ -81,9 +81,11 @@ export function boardModifier(board){
 }
 export function getBoardFromLocalStory(){
   const {boardGameState}=this?.state??{}
+  const getGameStatus=localStorage?.getItem?.('chess_game_status')
 
-  if(localStorage?.getItem?.('chess_game_status')){
-    const loadStatus=JSON.parse(localStorage?.getItem?.('chess_game_status'))
+  if(getGameStatus){
+    Game?.setHistory?.(JSON.parse(getGameStatus)?.gameHistory)
+    const loadStatus=JSON.parse(getGameStatus)
     this?.setState?.(loadStatus)
   }
 

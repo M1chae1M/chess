@@ -32,9 +32,8 @@ export default class Game{
       }
     })
   }
-  static lastMove(){
-    return this.getHistory?.()[this.getHistory?.()?.length-1]?.lastMove
-  }
+  static lastMove=()=>this.getHistory?.()[this.getHistory?.()?.length-1]?.lastMove
+  static setHistory=(newHistory)=>this.gameHistory=newHistory
   static reset(){
     this.fiftyMovesRule=0
     this.samePositions=0
@@ -57,9 +56,7 @@ export default class Game{
       this.pat('You made 50 without a drum, or a pawn move, it means a draw, sorry!')
     }
   }
-  static compare(id){
-    return this.gameHistory?.[id]?.lastMove?.stringifiedBoard
-  }
+  static compare=(id)=>this.getHistory()?.[id]?.lastMove?.stringifiedBoard
   static setGameBoard3sameMoves(){
     Game.clearBoardFromUndefined();
 

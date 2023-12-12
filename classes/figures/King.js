@@ -5,12 +5,9 @@ import Xo from '@/config/Xo.json'
 import Game from "../Game";
 
 export default class King extends Figure{
-  attacked(whiteTure){
-    return Figure.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
-  }
   doesntAttacked=(f1,f2,whiteTure)=>{
     const acY=this.actualField[1]
-    const attacked=this.attacked(whiteTure)
+    const attacked=Figure.allAttacked(whiteTure)
     return !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)
   }
   castling(destX,destY,whiteTure){
@@ -77,7 +74,7 @@ export default class King extends Figure{
     const isG=destX==='G'
     const rookPosition=isG?'H':'A'
     const rook=boardStartState[rookPosition][acY]
-    const attacked=this.attacked(whiteTure)
+    const attacked=Figure.allAttacked(whiteTure)
     
     const doesntAttacked=(f1,f2)=>!attacked.includes(`E${acY}`) && !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)
 
@@ -140,7 +137,7 @@ export default class King extends Figure{
         const newX=String.fromCharCode(acX.charCodeAt()+i);
         const newY=Number(acY)+j;
         const destField=`${newX}${newY}`;
-        const attacked=!this.attacked(whiteTure).includes(destField);
+        const attacked=!Figure.allAttacked(whiteTure).includes(destField);
 
         !boardStartState?.[newX]?.[newY]?.isKing?.() &&
         Xo.includes(newX) && Yo.includes(newY) && this?.canStand?.({destX:newX,destY:newY}) && attacked && movesWorking.push(destField);

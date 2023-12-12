@@ -128,7 +128,7 @@ export default class Queen extends Figure{
     const limit=isTop?9:0;
     return{isTop,Ynum,start,increment,limit}
   }
-  verticalHelper(vector,acX,acY,movesWorking,compareColors,acColor){
+  verticalHelper(vector,movesWorking,acX,acY,compareColors,acColor){
     const {start,increment,limit}=this.verticalConsts(vector,acY)
     let i=start;
     while(i!==limit){
@@ -150,8 +150,8 @@ export default class Queen extends Figure{
 
     this.horisontalHelper('left',movesWorking,acX,acY,true,acColor)
     this.horisontalHelper('right',movesWorking,acX,acY,true,acColor)
-    this.verticalHelper('bot',acX,acY,movesWorking,true,acColor)
-    this.verticalHelper('top',acX,acY,movesWorking,true,acColor)
+    this.verticalHelper('bot',movesWorking,acX,acY,true,acColor)
+    this.verticalHelper('top',movesWorking,acX,acY,true,acColor)
 
     return movesWorking
   }
@@ -176,8 +176,8 @@ export default class Queen extends Figure{
 
     this.horisontalHelper('left',movesWorking,acX,acY,false)
     this.horisontalHelper('right',movesWorking,acX,acY,false)
-    this.verticalHelper('bot',acX,acY,movesWorking,false)
-    this.verticalHelper('top',acX,acY,movesWorking,false)
+    this.verticalHelper('bot',movesWorking,acX,acY,false)
+    this.verticalHelper('top',movesWorking,acX,acY,false)
 
     if(movesWorking.includes(`${destX}${destY}`) && boardStartState[acX][acY]?.canStand?.({destX,destY})){
       return {canMove:true,moves:movesWorking}

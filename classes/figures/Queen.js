@@ -143,7 +143,6 @@ export default class Queen extends Figure{
       i+=increment;
     }
   }
-  verticalMoves=(vector,movesWorking,acX,acY)=>this.verticalHelper(vector,acX,acY,movesWorking,false)
   returnLinearMovesOnly(){
     const [acX,acY]=this.actualField
     const acColor=this.getColor()
@@ -171,15 +170,14 @@ export default class Queen extends Figure{
       i+=increment;
     }
   }
-  horisontalMoves=(vector,movesWorking,acX,acY)=>this.horisontalHelper(vector,movesWorking,acX,acY,false)
   linearMoves(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
     const movesWorking=[]
 
-    this.horisontalMoves('left',movesWorking,acX,acY)
-    this.horisontalMoves('right',movesWorking,acX,acY)
-    this.verticalMoves('bot',movesWorking,acX,acY)
-    this.verticalMoves('top',movesWorking,acX,acY)
+    this.horisontalHelper('left',movesWorking,acX,acY,false)
+    this.horisontalHelper('right',movesWorking,acX,acY,false)
+    this.verticalHelper('bot',acX,acY,movesWorking,false)
+    this.verticalHelper('top',acX,acY,movesWorking,false)
 
     if(movesWorking.includes(`${destX}${destY}`) && boardStartState[acX][acY]?.canStand?.({destX,destY})){
       return {canMove:true,moves:movesWorking}

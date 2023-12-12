@@ -15,6 +15,7 @@ export default class Game{
   static getHistory=()=>[...this.gameHistory]
   static lastMove=()=>this.getHistory?.()?.pop?.()?.lastMove
   static setHistory=(newHistory)=>this.gameHistory=newHistory
+  static onlyKnightOrBishop=(flatedFigures)=>flatedFigures?.length===1 && (flatedFigures[0]==='Bishop' || flatedFigures[0]==='Knight')
 
   static withoutMovedFields(){
     const copy_of_boardStartState=_.cloneDeep(boardStartState)
@@ -101,10 +102,11 @@ export default class Game{
   }
   static can_NOT_win(){
     const flatedFigures=this.allFigures()
-    const onlyKorB=flatedFigures?.length===1 && (flatedFigures[0]==='Bishop' || flatedFigures[0]==='Knight');
+    // const onlyKorB=flatedFigures?.length===1 && (flatedFigures[0]==='Bishop' || flatedFigures[0]==='Knight');
+    const onlyKorB=this.onlyKnightOrBishop(flatedFigures)
 
-    flatedFigures?.length===0 && this.pat('brak figur totalny');
-    onlyKorB && this.pat('zamatowanie samym skoczkiem, lub gońcem jest niemożliwe');
+    flatedFigures?.length===0 && this.pat('Total lack of figures');
+    onlyKorB && this.pat('Winning with a knight or a bishop alone is impossible');
 
     return flatedFigures?.length===0 || onlyKorB
   }

@@ -8,6 +8,7 @@ import Modal from './components/Modal'
 import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,componentDidMount,getBoardFromHistory,getBoardFromLocalStory,resetGame,resetState,secoundClick,setBoardInLocalStory,touch} from '../classes/Functions'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
+import Game from '@/classes/Game'
 
 export const GameProvider=React.createContext()
 export const blackTimeRef=React.createRef()

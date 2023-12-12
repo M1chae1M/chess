@@ -1,7 +1,7 @@
 import Yo from '@/config/Yo.json'
-import {boardStartState,boardStartStateCopy} from "../pages/_document";
+import {boardStartState,boardStartStateCopy} from "../pages/_document"
 import Xo from '@/config/Xo.json'
-import _ from "lodash";
+import _ from "lodash"
 
 export default class Game{
   static fiftyMovesRule=0;
@@ -12,8 +12,10 @@ export default class Game{
 
   static isUpToDate=()=>this.upToDate
   static setUpToDate=(newState)=>this.upToDate=newState
-  static getHistory=()=>this.gameHistory
-  
+  static getHistory=()=>[...this.gameHistory]
+  static lastMove=()=>this.getHistory?.()?.pop?.()?.lastMove
+  static setHistory=(newHistory)=>this.gameHistory=newHistory
+
   static withoutMovedFields(){
     const copy_of_boardStartState=_.cloneDeep(boardStartState)
 
@@ -32,8 +34,6 @@ export default class Game{
       }
     })
   }
-  static lastMove=()=>this.getHistory?.()[this.getHistory?.()?.length-1]?.lastMove
-  static setHistory=(newHistory)=>this.gameHistory=newHistory
   static reset(){
     this.fiftyMovesRule=0
     this.samePositions=0

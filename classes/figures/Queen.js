@@ -103,7 +103,6 @@ export default class Queen extends Figure{
       i+=increment;
     }
   }
-  horisontalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>this.horisontalHelper(vector,movesWorking,acX,acY,true,acColor)
   horisontalAttacks=(vector,movesWorking,acX,acY,whiteTure)=>{
     const {start,increment,limit}=this.horisontalConsts(vector,acX)
     let i=start;
@@ -145,16 +144,15 @@ export default class Queen extends Figure{
     }
   }
   verticalMoves=(vector,movesWorking,acX,acY)=>this.verticalHelper(vector,acX,acY,movesWorking,false)
-  verticalLinearMovesOnly=(vector,acX,acY,acColor,movesWorking)=>this.verticalHelper(vector,acX,acY,movesWorking,true,acColor)
   returnLinearMovesOnly(){
     const [acX,acY]=this.actualField
     const acColor=this.getColor()
     const movesWorking=[]
 
-    this.horisontalLinearMovesOnly('left',acX,acY,acColor,movesWorking)
-    this.horisontalLinearMovesOnly('right',acX,acY,acColor,movesWorking)
-    this.verticalLinearMovesOnly('bot',acX,acY,acColor,movesWorking)
-    this.verticalLinearMovesOnly('top',acX,acY,acColor,movesWorking)
+    this.horisontalHelper('left',movesWorking,acX,acY,true,acColor)
+    this.horisontalHelper('right',movesWorking,acX,acY,true,acColor)
+    this.verticalHelper('bot',acX,acY,movesWorking,true,acColor)
+    this.verticalHelper('top',acX,acY,movesWorking,true,acColor)
 
     return movesWorking
   }
@@ -196,9 +194,8 @@ export default class Queen extends Figure{
   }
   returnDefMovesOnly(){
     const movesWorking=[]
-    movesWorking.push(this.returnLinearMovesOnly())
-    movesWorking.push(this.returnCrossMovesOnly())
-    
+    movesWorking.push([...this.returnLinearMovesOnly(),...this.returnCrossMovesOnly()])
+
     return movesWorking.flat()
   }
   crossMoveForCrossMovesOnly=(leftOrRight,topOrBot,movesWorking)=>{

@@ -133,9 +133,6 @@ export default class Figure{
     const {destX,destY}=destination
     return boardStartState[destX][destY]===''||boardStartState[destX][destY]?.getColor?.()!==this.color
   }
-  withoutJump(destX,destY){
-    return boardStartState[destX][destY]===''
-  }
   setMoved(newState){
     this.moved=newState
   }
@@ -145,16 +142,13 @@ export default class Figure{
   getInstance(){
     return _.cloneDeep(this);
   }
-  getFigure(){
-    return figureIcons?.[this?.color]?.[this?.name]
-  }
-  getName(){
-    return this.name
-  }
-  getColor(){
-    return this.color
-  }
-  getMoved(){
-    return this.moved
-  }
+  // getMoved(){
+  //   return this.moved
+  // }
+  withoutJump=(destX,destY)=>boardStartState[destX][destY]===''
+  // getInstance=()=>_.cloneDeep(this);
+  getFigure=()=>figureIcons?.[this?.color]?.[this?.name]
+  getName=()=>this.name
+  getColor=()=>this.color
+  getMoved=()=>this.moved
 }

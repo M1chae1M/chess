@@ -84,7 +84,7 @@ export default class King extends Figure{
     const canRookMove=rook?.returnDefMovesOnly?.();
     const canRookMoveTo=(destField)=>canRookMove?.includes(`${destField}${acY}`)
     const fieldOccupancy=isG?canRookMoveTo('F'):canRookMoveTo('D');
-    const figuresMoved=!rook?.getMoved?.() && !boardStartState[acX][acY]?.getMoved?.();
+    const figuresMoved=!rook.moved && !boardStartState[acX][acY]?.moved
 
     for(let i=-1;i<=1;i++){
       for(let j=-1;j<=1;j++){
@@ -97,8 +97,8 @@ export default class King extends Figure{
         movesWorking.push(destField);
       }
     }
-    if(horisontalMoveCondition===2 && verticalMoveCondition===0 && acX==='E'){
-      if((cond1||cond2) && fieldOccupancy && figuresMoved){
+    if(horisontalMoveCondition===2 && verticalMoveCondition===0 && acX==='E' && figuresMoved){
+      if((cond1||cond2) && fieldOccupancy){
         return {canMove:true,moves:movesWorking}
       }
     }

@@ -19,7 +19,7 @@ export default class Figure{
     })
   }
   isKing=()=>this.name==='King'
-  static allAttacked=(whiteTure)=>Figure.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
+  static allAttacked=(whiteTure)=>this.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
   static defStategies(whiteTure){
     const allDefStategies=[]
     Xo.map(x=>{

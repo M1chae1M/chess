@@ -139,16 +139,12 @@ export default class Figure{
   setActualField(newField){
     this.actualField=newField
   }
-  getInstance(){
-    return _.cloneDeep(this);
-  }
-  // getMoved(){
-  //   return this.moved
-  // }
   withoutJump=(destX,destY)=>boardStartState[destX][destY]===''
-  // getInstance=()=>_.cloneDeep(this);
   getFigure=()=>figureIcons?.[this?.color]?.[this?.name]
   getName=()=>this.name
   getColor=()=>this.color
   getMoved=()=>this.moved
+  getInstance(){
+    return _.cloneDeep(this);
+  }
 }

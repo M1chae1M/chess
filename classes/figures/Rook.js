@@ -2,8 +2,7 @@ import Queen from "./Queen";
 
 export default class Rook extends Queen{
   canMove(destX,destY,whiteTure){
-    const {canMove,moves}=this.linearMoves(destX,destY,whiteTure)
-    return {canMove,moves}
+    return this.linearMoves(destX,destY,whiteTure)
   }
   attacking(whiteTure,destX,destY){
     const movesWorking=[];
@@ -12,9 +11,6 @@ export default class Rook extends Queen{
     return {isKingAttacked:this.findKing(movesWorking,whiteTure),startField:[acX,acY],legalMoves:movesWorking}
   }
   returnDefMovesOnly(){
-    const movesWorking=[]
-    movesWorking.push(this.returnLinearMovesOnly())
-    
-    return movesWorking.flat()
+    return this.returnLinearMovesOnly().flat()
   }
 }

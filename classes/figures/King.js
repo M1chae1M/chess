@@ -5,6 +5,14 @@ import Xo from '@/config/Xo.json'
 import Game from "../Game";
 
 export default class King extends Figure{
+  attacked(whiteTure){
+    return Figure.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
+  }
+  doesntAttacked=(f1,f2,whiteTure)=>{
+    const acY=this.actualField[1]
+    const attacked=this.attacked(whiteTure)
+    return !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)
+  }
   castling(destX,destY,whiteTure){
     const [acX,acY]=this.actualField
 
@@ -15,11 +23,8 @@ export default class King extends Figure{
 
     const horisontalMoveCondition=Math.abs(acX.charCodeAt()-destX.charCodeAt())
     const verticalMoveCondition=Math.abs(Number(acY)-Number(destY))
-
-    const attacked=Figure.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
-    const doesntAttacked=(f1,f2)=>!attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)
-    const cond1=isG && doesntAttacked('F','G')
-    const cond2=!isG && doesntAttacked('C','D')
+    const cond1=isG && this.doesntAttacked('F','G',whiteTure)
+    const cond2=!isG && this.doesntAttacked('C','D',whiteTure)
 
     const canRookMove=rook?.returnDefMovesOnly?.();
     const canRookMoveTo=(destField)=>canRookMove?.includes(`${destField}${acY}`)
@@ -72,8 +77,8 @@ export default class King extends Figure{
     const isG=destX==='G'
     const rookPosition=isG?'H':'A'
     const rook=boardStartState[rookPosition][acY]
-
-    const attacked=Figure.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
+    const attacked=this.attacked(whiteTure)
+    
     const doesntAttacked=(f1,f2)=>!attacked.includes(`E${acY}`) && !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)
 
     const cond1=isG && doesntAttacked('F','G');
@@ -135,7 +140,7 @@ export default class King extends Figure{
         const newX=String.fromCharCode(acX.charCodeAt()+i);
         const newY=Number(acY)+j;
         const destField=`${newX}${newY}`;
-        const attacked=!Figure.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure).includes(destField)
+        const attacked=!this.attacked(whiteTure).includes(destField);
 
         !boardStartState?.[newX]?.[newY]?.isKing?.() &&
         Xo.includes(newX) && Yo.includes(newY) && this?.canStand?.({destX:newX,destY:newY}) && attacked && movesWorking.push(destField);

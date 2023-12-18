@@ -22,28 +22,27 @@ export default class Figure{
   static allAttacked=(whiteTure)=>this.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
   static defStategies(whiteTure){
     const allDefStategies=[]
+    const attackedColor=whiteTure?'white':'black';
 
     Game?.loop?.((x,y)=>{
-      if(boardStartState[x][y]?.getColor?.()==='black'){
-        boardStartState[x][y]?.returnDefMovesOnly?.()?.map(def=>{
-          const [destX,destY]=def;
-          const attackedColor=whiteTure?'white':'black';
+      const base=boardStartState[x][y];
+      base?.getColor?.()===attackedColor &&
+      base?.returnDefMovesOnly?.()?.map(def=>{
+        const [destX,destY]=def;
+        const copy={
+          from:boardStartState[x][y]?.getInstance?.(),
+          to:boardStartState[destX][destY]?.getInstance?.()
+        }
+        boardStartState[x][y]?.swap?.(destX,destY)
 
-          const copy={
-            from:boardStartState[x][y]?.getInstance?.(),
-            to:boardStartState[destX][destY]?.getInstance?.()
-          }
-          boardStartState[x][y]?.swap?.(destX,destY)
+        const allAttacked=this.allAttacked(whiteTure);
+        const heIsChequered=!Figure.isThereKingColor?.(attackedColor,allAttacked);
 
-          const allAttacked=this.allAttacked(whiteTure);
-          const heIsChequered=!Figure.isThereKingColor?.(attackedColor,allAttacked);
+        heIsChequered && allDefStategies.push({from:`${x}${y}`,to:def});
 
-          heIsChequered && allDefStategies.push({from:`${x}${y}`,to:def});
-
-          boardStartState[x][y]=copy.from
-          boardStartState[destX][destY]=copy.to
-        })
-      }
+        boardStartState[x][y]=copy.from
+        boardStartState[destX][destY]=copy.to
+      })
     })
 
     return allDefStategies
@@ -120,9 +119,20 @@ export default class Figure{
 
     // whiteTure===false &&
     console.log(
-      // whiteTure===false,
-      allDefStategies
+      'whiteTure:',whiteTure,
+      // 'allAttacked:', allAttacked?.length,
+      'allDefStategies:', allDefStategies?.length,
     );
+
+    // bez odświeżania
+    // allAttacked: 44 allDefStategies: 25
+    // Figure.js:122 allAttacked: 44 allDefStategies: 25
+    // Figure.js:122 allAttacked: 75 allDefStategies: 1
+
+    // po odświeżeniu xddd
+    // allAttacked: 44 allDefStategies: 25
+    // Figure.js:122 allAttacked: 44 allDefStategies: 13
+    // Figure.js:122 allAttacked: 75 allDefStategies: 0
 
     isGameOver && alert('Game over!');
     return {value,isGameOver}

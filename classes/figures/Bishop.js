@@ -14,9 +14,5 @@ export default class Bishop extends Queen{
     this.crossAttacks(legalMoves,destX,destY)
     return {isKingAttacked:this.findKing(legalMoves,whiteTure),legalMoves,startField:[acX,acY]}
   }
-  // returnDefMovesOnly=()=>this.returnCrossMovesOnly()
-  returnDefMovesOnly=()=>{
-    // console.log('teraz testuję, czy można się obronić gońcem')
-    return this.returnCrossMovesOnly()
-  }
+  returnDefMovesOnly=this.returnCrossMovesOnly
 }

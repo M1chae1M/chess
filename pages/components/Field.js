@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import {GameProvider} from '..'
-import {ifBlackFunction} from '../../classes/Functions'
+import {ifBlackFunction} from '@/functions/ifBlackFunction'
 import styled,{css,keyframes} from 'styled-components'
 import CONFIG from '@/config/config.json'
 const {fieldSize,animationTime}=CONFIG??''

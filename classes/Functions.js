@@ -13,11 +13,11 @@ import {blackTimeRef,whiteTimeRef,SwitchRef} from "../pages";
 import CONFIG from '@/config/config.json'
 const {animationTime}=CONFIG??''
 
-export function ifBlackFunction(x,y){
-  const isEvenX=x?.charCodeAt?.()%2===0;
-  const isEvenY=y % 2===0;
-  return isEvenX!==isEvenY?'white':'grey'
-}
+// export function ifBlackFunction(x,y){
+//   const isEvenX=x?.charCodeAt?.()%2===0;
+//   const isEvenY=y % 2===0;
+//   return isEvenX!==isEvenY?'white':'grey'
+// }
 export function calculateAnimation(fromField,clicked){
   const [destX,destY]=clicked??[]
   const [acX,acY]=fromField??[]

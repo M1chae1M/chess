@@ -112,11 +112,18 @@ export default class Figure{
     }
   }
   static isKingChequered(whiteTure){
-    const attackedColor=whiteTure?'white':'black'
-    const allAttacked=this.allAttacked(whiteTure)
-    const value=Figure.isThereKingColor?.(attackedColor,allAttacked)
-    const allDefStategies=Figure.defStategies?.(whiteTure).filter(x=>x.to.length>0)
+    const attackedColor=whiteTure?'white':'black';
+    const allAttacked=this.allAttacked(whiteTure);
+    const value=Figure.isThereKingColor?.(attackedColor,allAttacked);
+    const allDefStategies=Figure.defStategies?.(whiteTure).filter(x=>x.to.length>0);
     const isGameOver=allDefStategies.length<=0;
+
+    // whiteTure===false &&
+    console.log(
+      // whiteTure===false,
+      allDefStategies
+    );
+
     isGameOver && alert('Game over!');
     return {value,isGameOver}
   }

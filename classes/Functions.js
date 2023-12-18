@@ -1,4 +1,3 @@
-import React,{Component} from "react";
 import Game from "./Game";
 import Xo from '@/config/Xo.json'
 import Yo from '@/config/Yo.json'
@@ -135,7 +134,8 @@ export function touch(clicked){
   }
 }
 export function secoundClick(fromField,clicked){
-  const {whiteTure,firstTouch,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule}=this.state
+  // const {whiteTure,firstTouch,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule}=this.state
+  const {kingAttacked}=this.state
   const [destX,destY]=clicked??[]
   const [acX,acY]=fromField??[]
   const baseFigure=this.state.boardGameState?.[acX]?.[acY];

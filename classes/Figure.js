@@ -1,6 +1,6 @@
 import {boardStartState} from "../pages/_document";
-import Yo from '@/config/Yo.json'
-import Xo from '@/config/Xo.json'
+// import Yo from '@/config/Yo.json'
+// import Xo from '@/config/Xo.json'
 import {figureIcons} from "../pages/_document";
 import _ from 'lodash';
 import Game from "./Game";
@@ -25,14 +25,6 @@ export default class Figure{
 
     Game?.loop?.((x,y)=>{
       if(boardStartState[x][y]?.getColor?.()==='black'){
-
-        // x==='B'
-        // y==='3'
-        // `${x}${y}`==='B3' &&
-        // console.log(
-        //   'ten bishop', boardStartState[x][y]?.returnDefMovesOnly?.()
-        // );
-        
         boardStartState[x][y]?.returnDefMovesOnly?.()?.map(def=>{
           const [destX,destY]=def;
           const attackedColor=whiteTure?'white':'black';
@@ -124,11 +116,7 @@ export default class Figure{
     const allAttacked=this.allAttacked(whiteTure)
     const value=Figure.isThereKingColor?.(attackedColor,allAttacked)
     const allDefStategies=Figure.defStategies?.(whiteTure).filter(x=>x.to.length>0)
-
-    // console.log('allDefStategies', allDefStategies, `czy jest tura białych? ${whiteTure}`, Figure.defStategies?.(whiteTure))
-    console.log(allDefStategies.filter(x=>x.from==='B3'))
-
-    const isGameOver=allDefStategies.length<=0
+    const isGameOver=allDefStategies.length<=0;
     isGameOver && alert('Game over!');
     return {value,isGameOver}
   }

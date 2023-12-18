@@ -230,8 +230,6 @@ export default class Queen extends Figure{
     this.crossMoveForCrossMovesOnly('right','top',movesWorking)
     this.crossMoveForCrossMovesOnly('right','bot',movesWorking)
 
-    console.log('movesWorking',movesWorking?.length)
-    
     return movesWorking
   }
 }

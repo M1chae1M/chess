@@ -4,6 +4,7 @@ import King from "./figures/King"
 import Bishop from "./figures/Bishop"
 import Knight from "./figures/Knight"
 import Rook from "./figures/Rook"
+import _ from 'lodash'
 
 // export const boardStartState={
 //   A:{
@@ -175,3 +176,5 @@ export const boardStartState={
       8:new Rook('black','H8',false,'Rook'),
     },
 }
+
+export const boardStartStateCopy=_.cloneDeep(boardStartState);

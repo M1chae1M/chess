@@ -5,14 +5,15 @@ import _ from 'lodash'
 import History from './components/History/History'
 import AllFields from './components/AllFields'
 import Modal from './components/Modal'
-import {addToHistory,boardModifier,checkIsClosed,getBoardFromHistory,getBoardFromLocalStory,resetGame,resetState,secoundClick,touch} from '../classes/Functions'
+import {addToHistory,boardModifier,getBoardFromLocalStory,resetGame,resetState,secoundClick,touch} from '../classes/Functions'
+import {getBoardFromHistory} from '@/functions/getBoardFromHistory'
+// import {addToHistory,boardModifier,checkIsClosed,getBoardFromHistory,getBoardFromLocalStory,resetGame,resetState,secoundClick,touch} from '../classes/Functions'
 import {setBoardInLocalStory} from '@/functions/setBoardInLocalStory'
+import {checkIsClosed} from '@/functions/checkIsClosed'
 import {componentDidMount} from '@/functions/componentDidMount'
-// import {addToHistory,boardModifier,calculateAnimation,checkIsClosed,componentDidMount,getBoardFromHistory,getBoardFromLocalStory,resetGame,resetState,secoundClick,setBoardInLocalStory,touch} from '../classes/Functions'
 import {calculateAnimation} from '@/functions/calculateAnimation'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
-// import Game from '@/classes/Game'
 
 export const GameProvider=React.createContext()
 export const blackTimeRef=React.createRef()

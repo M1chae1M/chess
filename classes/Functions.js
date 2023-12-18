@@ -71,29 +71,29 @@ export function getBoardFromLocalStory(){
   this.boardModifier(JSON.parse(localStorage?.getItem?.('chess_game_board')));
   this.setState({boardGameState})
 }
-export function getBoardFromHistory(lastMove,id){
-  const {stringifiedBoard,status}=lastMove??{}
-  const {boardGameState}=this?.state??{}
+// export function getBoardFromHistory(lastMove,id){
+//   const {stringifiedBoard,status}=lastMove??{}
+//   const {boardGameState}=this?.state??{}
 
-  Game?.setUpToDate?.(this.state.gameHistory?.length-1===id);
-  this.boardModifier(JSON.parse(stringifiedBoard));
-  this.setState({...status,boardGameState,actualMove:id+1})
-}
-export function checkIsClosed(end,baseFigure,clicked){
-  const [destX,destY]=clicked??[]
-  const {isModalOpened,promoteTo,whiteTure,firstTouch}=this.state;
+//   Game?.setUpToDate?.(this.state.gameHistory?.length-1===id);
+//   this.boardModifier(JSON.parse(stringifiedBoard));
+//   this.setState({...status,boardGameState,actualMove:id+1})
+// }
+// export function checkIsClosed(end,baseFigure,clicked){
+//   const [destX,destY]=clicked??[]
+//   const {isModalOpened,promoteTo,whiteTure,firstTouch}=this.state;
 
-  if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure)?.canMove){
-    const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
-    shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
-    this.isChequered();
-    this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
-    Game.getMovesCount();
-    end();
-  }else{
-    setTimeout(()=>this.checkIsClosed(end,baseFigure,clicked),100);
-  }
-}
+//   if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure)?.canMove){
+//     const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
+//     shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
+//     this.isChequered();
+//     this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
+//     Game.getMovesCount();
+//     end();
+//   }else{
+//     setTimeout(()=>this.checkIsClosed(end,baseFigure,clicked),100);
+//   }
+// }
 export function touch(clicked){
   const {fromField,boardGameState,whiteTure,firstTouch,kingAttacked}=this.state;
   const [destX,destY]=clicked??[]
@@ -137,10 +137,6 @@ export function secoundClick(fromField,clicked){
     },animationTime)
   }
 }
-// export function componentDidMount(){
-//   this.getBoardFromLocalStory();
-//   window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
-// }
 export async function resetGame(){
   setTimeout(()=>{
     blackTimeRef?.current?.reset?.();
@@ -152,15 +148,3 @@ export async function resetGame(){
   await localStorage.removeItem('chess_game_status');
   this.setState(resetState,()=>SwitchRef?.current?.changeState?.({start:false}))
 }
-// export function timeDisplayFormat(time_in_ms){
-//   function roundTo00(liczba){
-//     const stringed=liczba.toString().slice(0,2);
-//     return liczba<10?`0${stringed}`:stringed
-//   }
-//   const time=new Date(time_in_ms);
-//   const min=roundTo00(time.getUTCMinutes())
-//   const sec=roundTo00(time.getUTCSeconds())
-//   const ms=roundTo00(time.getUTCMilliseconds())
-
-//   return `${min}:${sec}:${ms}`;
-// }

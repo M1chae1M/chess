@@ -1,7 +1,6 @@
 import {GameProvider} from '@/pages';
 import React,{Component} from 'react';
 import CONFIG from '@/config/config.json'
-// import {timeDisplayFormat} from '@/classes/Functions';
 import {timeDisplayFormat} from '@/functions/timeDisplayFormat';
 const {size,timePerPlayer}=CONFIG??''
 

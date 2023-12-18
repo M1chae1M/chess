@@ -198,10 +198,11 @@ export default class Queen extends Figure{
   }
   crossMoveForCrossMovesOnly=(leftOrRight,topOrBot,movesWorking)=>{
     const acColor=this.getColor()
-    const {acX,acY}=this.actualField
+    const [acX,acY]=this.actualField
     const isLeft=leftOrRight==='left'
     const isTop=topOrBot==='top'
     let i=acX?.charCodeAt?.()+(isLeft?-1:1);
+
     while((isLeft&&i>='A'.charCodeAt())||(!isLeft&&i<='H'.charCodeAt())){
       const againLetter=String.fromCharCode(i);
       const numY=Number(acY);
@@ -209,8 +210,8 @@ export default class Queen extends Figure{
       const numPlus=numY+acXcode;
       const numMinus=numY-acXcode;
       const changedY=isLeft?(isTop?numMinus:numPlus):(isTop?numPlus:numMinus)
-  
-      if(Xo.includes(againLetter)&&Yo.includes(changedY)){
+
+      if(Xo.includes(againLetter) && Yo.includes(changedY)){
         const base=boardStartState[againLetter][changedY]
         base?.getColor?.()!==acColor && movesWorking.push(`${againLetter}${changedY}`);
 
@@ -228,6 +229,8 @@ export default class Queen extends Figure{
     this.crossMoveForCrossMovesOnly('left','bot',movesWorking)
     this.crossMoveForCrossMovesOnly('right','top',movesWorking)
     this.crossMoveForCrossMovesOnly('right','bot',movesWorking)
+
+    // console.log('movesWorking',movesWorking)
     
     return movesWorking
   }

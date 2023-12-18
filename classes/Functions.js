@@ -159,17 +159,16 @@ export function componentDidMount(){
   this.getBoardFromLocalStory();
   window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
 }
-export function resetGame(){
+export async function resetGame(){
   setTimeout(()=>{
     blackTimeRef?.current?.reset?.();
     whiteTimeRef?.current?.reset?.();
   },animationTime)
 
   Xo?.map(x=>Yo?.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
-  localStorage.removeItem('chess_game_board');
-  localStorage.removeItem('chess_game_status');
-  this.setState(resetState)
-  SwitchRef?.current?.changeState?.({start:false});
+  await localStorage.removeItem('chess_game_board');
+  await localStorage.removeItem('chess_game_status');
+  this.setState(resetState,()=>SwitchRef?.current?.changeState?.({start:false}))
 }
 export function timeDisplayFormat(time_in_ms){
   function roundTo00(liczba){

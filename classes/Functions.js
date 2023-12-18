@@ -13,19 +13,6 @@ import {blackTimeRef,whiteTimeRef,SwitchRef} from "../pages";
 import CONFIG from '@/config/config.json'
 const {animationTime}=CONFIG??''
 
-// export function ifBlackFunction(x,y){
-//   const isEvenX=x?.charCodeAt?.()%2===0;
-//   const isEvenY=y % 2===0;
-//   return isEvenX!==isEvenY?'white':'grey'
-// }
-// export function calculateAnimation(fromField,clicked){
-//   const [destX,destY]=clicked??[]
-//   const [acX,acY]=fromField??[]
-//   this.setState({
-//     animateX:destX.charCodeAt()-acX.charCodeAt(),
-//     animateY:Number(destY)-Number(acY),
-//   })
-// }
 export function addToHistory(acX,acY,copyOfOldFileds,destX,destY,status){
   this.setState({gameHistory:
     [...this.state.gameHistory,{
@@ -54,7 +41,7 @@ export const resetState={
   animateY:0,
   actualMove:0,
 }
-const figureList={Pawn, Bishop, Queen, King, Knight, Rook}
+const figureList={Pawn,Bishop,Queen,King,Knight,Rook}
 export function boardModifier(board){
   const {boardGameState}=this?.state??{}
   if(board){
@@ -92,11 +79,6 @@ export function getBoardFromHistory(lastMove,id){
   this.boardModifier(JSON.parse(stringifiedBoard));
   this.setState({...status,boardGameState,actualMove:id+1})
 }
-// export function setBoardInLocalStory(){
-//   const {whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,boardGameState,actualMove}=this.state??{}
-//   localStorage.setItem('chess_game_board',JSON.stringify(boardGameState))
-//   localStorage.setItem('chess_game_status',JSON.stringify({whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,actualMove}))
-// }
 export function checkIsClosed(end,baseFigure,clicked){
   const [destX,destY]=clicked??[]
   const {isModalOpened,promoteTo,whiteTure,firstTouch}=this.state;
@@ -155,10 +137,10 @@ export function secoundClick(fromField,clicked){
     },animationTime)
   }
 }
-export function componentDidMount(){
-  this.getBoardFromLocalStory();
-  window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
-}
+// export function componentDidMount(){
+//   this.getBoardFromLocalStory();
+//   window.addEventListener('error',(event)=>console.error('Wystąpił nieobsłużony błąd:',event.error))
+// }
 export async function resetGame(){
   setTimeout(()=>{
     blackTimeRef?.current?.reset?.();
@@ -170,15 +152,15 @@ export async function resetGame(){
   await localStorage.removeItem('chess_game_status');
   this.setState(resetState,()=>SwitchRef?.current?.changeState?.({start:false}))
 }
-export function timeDisplayFormat(time_in_ms){
-  function roundTo00(liczba){
-    const stringed=liczba.toString().slice(0,2);
-    return liczba<10?`0${stringed}`:stringed
-  }
-  const time=new Date(time_in_ms);
-  const min=roundTo00(time.getUTCMinutes())
-  const sec=roundTo00(time.getUTCSeconds())
-  const ms=roundTo00(time.getUTCMilliseconds())
+// export function timeDisplayFormat(time_in_ms){
+//   function roundTo00(liczba){
+//     const stringed=liczba.toString().slice(0,2);
+//     return liczba<10?`0${stringed}`:stringed
+//   }
+//   const time=new Date(time_in_ms);
+//   const min=roundTo00(time.getUTCMinutes())
+//   const sec=roundTo00(time.getUTCSeconds())
+//   const ms=roundTo00(time.getUTCMilliseconds())
 
-  return `${min}:${sec}:${ms}`;
-}
+//   return `${min}:${sec}:${ms}`;
+// }

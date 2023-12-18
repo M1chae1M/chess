@@ -54,14 +54,7 @@ export const resetState={
   animateY:0,
   actualMove:0,
 }
-const figureList={
-  Pawn:Pawn,
-  Bishop:Bishop,
-  Queen:Queen,
-  King:King,
-  Knight:Knight,
-  Rook:Rook,
-}
+const figureList={Pawn, Bishop, Queen, King, Knight, Rook}
 export function boardModifier(board){
   const {boardGameState}=this?.state??{}
   if(board){
@@ -134,7 +127,6 @@ export function touch(clicked){
   }
 }
 export function secoundClick(fromField,clicked){
-  // const {whiteTure,firstTouch,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule}=this.state
   const {kingAttacked}=this.state
   const [destX,destY]=clicked??[]
   const [acX,acY]=fromField??[]

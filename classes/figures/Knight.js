@@ -1,7 +1,7 @@
 import Figure from "../Figure";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
-import {boardStartState} from "@/pages/_document";
+import {boardStartState} from "../boardStartState";
 
 export default class Knight extends Figure{
   canMove(destX,destY,whiteTure){

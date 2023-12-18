@@ -1,6 +1,6 @@
 import Figure from "../Figure";
 import Yo from '@/config/Yo.json'
-import {boardStartState} from "@/pages/_document";
+import {boardStartState} from "../boardStartState";
 import Xo from '@/config/Xo.json'
 
 export default class Queen extends Figure{

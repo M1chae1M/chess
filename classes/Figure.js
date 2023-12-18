@@ -1,6 +1,4 @@
-import {boardStartState} from "../pages/_document";
-// import Yo from '@/config/Yo.json'
-// import Xo from '@/config/Xo.json'
+import {boardStartState} from "./boardStartState";
 import {figureIcons} from "../pages/_document";
 import _ from 'lodash';
 import Game from "./Game";
@@ -117,22 +115,10 @@ export default class Figure{
     const allDefStategies=Figure.defStategies?.(whiteTure).filter(x=>x.to.length>0);
     const isGameOver=allDefStategies.length<=0;
 
-    // whiteTure===false &&
     console.log(
       'whiteTure:',whiteTure,
-      // 'allAttacked:', allAttacked?.length,
       'allDefStategies:', allDefStategies?.length,
     );
-
-    // bez odświeżania
-    // allAttacked: 44 allDefStategies: 25
-    // Figure.js:122 allAttacked: 44 allDefStategies: 25
-    // Figure.js:122 allAttacked: 75 allDefStategies: 1
-
-    // po odświeżeniu xddd
-    // allAttacked: 44 allDefStategies: 25
-    // Figure.js:122 allAttacked: 44 allDefStategies: 13
-    // Figure.js:122 allAttacked: 75 allDefStategies: 0
 
     isGameOver && alert('Game over!');
     return {value,isGameOver}

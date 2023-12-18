@@ -1,6 +1,5 @@
-import React,{Component} from "react";
 import Figure from "../Figure";
-import {boardStartState} from "@/pages/_document";
+import {boardStartState} from "../boardStartState";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
 import Queen from "./Queen";

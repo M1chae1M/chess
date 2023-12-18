@@ -1,5 +1,6 @@
 import Yo from '@/config/Yo.json'
-import {boardStartState,boardStartStateCopy} from "../pages/_document"
+import {boardStartStateCopy} from "../pages/_document"
+import {boardStartState} from './boardStartState'
 import Xo from '@/config/Xo.json'
 import _ from "lodash"
 

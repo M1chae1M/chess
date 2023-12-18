@@ -1,6 +1,6 @@
 import Figure from "../Figure";
 import Yo from '@/config/Yo.json'
-import {boardStartState} from "../boardStartState";
+import {boardStartState} from "../../components/boardStartState";
 import Xo from '@/config/Xo.json'
 import Game from "../Game";
 

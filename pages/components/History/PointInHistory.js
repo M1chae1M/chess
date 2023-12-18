@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import {figureIcons} from '@/classes/figureIcons'
+import figureIcons from '@/components/figureIcons'
 import {AiOutlineArrowRight} from 'react-icons/ai'
 import _ from 'lodash'
 import PointInHistoryContainer from './PointInHistoryContainer'

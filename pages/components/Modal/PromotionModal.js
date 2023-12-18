@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {figureIcons} from "@/classes/figureIcons";
+import figureIcons from "@/components/figureIcons";
 import Chose from "./Chose";
 import Background from "./Background";
 import {GameProvider} from "../..";

@@ -1,5 +1,5 @@
-import {boardStartState} from "./boardStartState";
-import {figureIcons} from "./figureIcons";
+import {boardStartState} from "../components/boardStartState";
+import figureIcons from "../components/figureIcons";
 import _ from 'lodash';
 import Game from "./Game";
 

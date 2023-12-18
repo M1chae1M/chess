@@ -1,9 +1,9 @@
-import Pawn from "./figures/Pawn"
-import Queen from "./figures/Queen"
-import King from "./figures/King"
-import Bishop from "./figures/Bishop"
-import Knight from "./figures/Knight"
-import Rook from "./figures/Rook"
+import Pawn from "../classes/figures/Pawn"
+import Queen from "../classes/figures/Queen"
+import King from "../classes/figures/King"
+import Bishop from "../classes/figures/Bishop"
+import Knight from "../classes/figures/Knight"
+import Rook from "../classes/figures/Rook"
 import _ from 'lodash'
 
 // export const boardStartState={

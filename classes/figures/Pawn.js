@@ -1,5 +1,5 @@
 import Figure from "../Figure";
-import {boardStartState} from "../boardStartState";
+import {boardStartState} from "../../components/boardStartState";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
 import Queen from "./Queen";

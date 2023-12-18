@@ -18,14 +18,14 @@ const {animationTime}=CONFIG??''
 //   const isEvenY=y % 2===0;
 //   return isEvenX!==isEvenY?'white':'grey'
 // }
-export function calculateAnimation(fromField,clicked){
-  const [destX,destY]=clicked??[]
-  const [acX,acY]=fromField??[]
-  this.setState({
-    animateX:destX.charCodeAt()-acX.charCodeAt(),
-    animateY:Number(destY)-Number(acY),
-  })
-}
+// export function calculateAnimation(fromField,clicked){
+//   const [destX,destY]=clicked??[]
+//   const [acX,acY]=fromField??[]
+//   this.setState({
+//     animateX:destX.charCodeAt()-acX.charCodeAt(),
+//     animateY:Number(destY)-Number(acY),
+//   })
+// }
 export function addToHistory(acX,acY,copyOfOldFileds,destX,destY,status){
   this.setState({gameHistory:
     [...this.state.gameHistory,{
@@ -92,11 +92,11 @@ export function getBoardFromHistory(lastMove,id){
   this.boardModifier(JSON.parse(stringifiedBoard));
   this.setState({...status,boardGameState,actualMove:id+1})
 }
-export function setBoardInLocalStory(){
-  const {whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,boardGameState,actualMove}=this.state??{}
-  localStorage.setItem('chess_game_board',JSON.stringify(boardGameState))
-  localStorage.setItem('chess_game_status',JSON.stringify({whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,actualMove}))
-}
+// export function setBoardInLocalStory(){
+//   const {whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,boardGameState,actualMove}=this.state??{}
+//   localStorage.setItem('chess_game_board',JSON.stringify(boardGameState))
+//   localStorage.setItem('chess_game_status',JSON.stringify({whiteTure,firstTouch,fromField,isModalOpened,promoteTo,kingAttacked,gameHistory,fiftyMovesRule,actualMove}))
+// }
 export function checkIsClosed(end,baseFigure,clicked){
   const [destX,destY]=clicked??[]
   const {isModalOpened,promoteTo,whiteTure,firstTouch}=this.state;

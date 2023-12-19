@@ -1,7 +1,7 @@
 import Game from "./Game";
 import Xo from '@/config/Xo.json'
 import Yo from '@/config/Yo.json'
-import {boardStartState,boardStartStateCopy} from "../components/boardStartState";
+import {boardStartState} from "../components/boardStartState";
 import Pawn from "./figures/Pawn";
 import Bishop from "./figures/Bishop";
 import Queen from "./figures/Queen";
@@ -9,7 +9,6 @@ import King from "./figures/King";
 import Knight from "./figures/Knight";
 import Rook from "./figures/Rook";
 import _ from "lodash";
-import {blackTimeRef,whiteTimeRef,SwitchRef} from "../pages";
 import CONFIG from '@/config/config.json'
 const {animationTime}=CONFIG??''
 
@@ -113,20 +112,4 @@ export function secoundClick(fromField,clicked){
       }
     },animationTime)
   }
-}
-export async function resetGame(){
-  setTimeout(()=>{
-    blackTimeRef?.current?.reset?.();
-    whiteTimeRef?.current?.reset?.();
-  },animationTime)
-
-  Xo?.map(x=>Yo?.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
-  await localStorage.removeItem('chess_game_board');
-  await localStorage.removeItem('chess_game_status');
-
-  this.setState(resetState,async()=>{
-    await SwitchRef?.current?.changeState?.({start:false});
-    await this.setBoardInLocalStory();
-    await this.getBoardFromLocalStory();
-  })
 }

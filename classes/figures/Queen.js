@@ -196,9 +196,9 @@ export default class Queen extends Figure{
 
     return movesWorking.flat()
   }
-  crossMoveForCrossMovesOnly=(leftOrRight,topOrBot,movesWorking)=>{
+  crossMoveForCrossMovesOnly=(leftOrRight,topOrBot,movesWorking,actualField)=>{
     const acColor=this.getColor()
-    const [acX,acY]=this.actualField
+    const [acX,acY]=actualField
     const isLeft=leftOrRight==='left'
     const isTop=topOrBot==='top'
     let i=acX?.charCodeAt?.()+(isLeft?-1:1);
@@ -225,11 +225,11 @@ export default class Queen extends Figure{
   returnCrossMovesOnly(){
     const movesWorking=[]
 
-    this.crossMoveForCrossMovesOnly('left','top',movesWorking)
-    this.crossMoveForCrossMovesOnly('left','bot',movesWorking)
-    this.crossMoveForCrossMovesOnly('right','top',movesWorking)
-    this.crossMoveForCrossMovesOnly('right','bot',movesWorking)
-
+    this.crossMoveForCrossMovesOnly('left','top',movesWorking, this.actualField);
+    this.crossMoveForCrossMovesOnly('left','bot',movesWorking, this.actualField);
+    this.crossMoveForCrossMovesOnly('right','top',movesWorking, this.actualField);
+    this.crossMoveForCrossMovesOnly('right','bot',movesWorking, this.actualField);
+    
     return movesWorking
   }
 }

@@ -18,8 +18,8 @@ export default class Figure{
   }
   isKing=()=>this.name==='King'
   static allAttacked=(whiteTure)=>this.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
-  static defStategies(whiteTure){
-    const allDefStategies=[]
+  static defStrategies(whiteTure){
+    const allDefStrategies=[]
     const attackedColor=whiteTure?'white':'black';
 
     Game?.loop?.((x,y)=>{
@@ -36,14 +36,14 @@ export default class Figure{
         const allAttacked=this.allAttacked(whiteTure);
         const heIsChequered=!Figure.isThereKingColor?.(attackedColor,allAttacked);
 
-        heIsChequered && allDefStategies.push({from:`${x}${y}`,to:def});
+        heIsChequered && allDefStrategies.push({from:`${x}${y}`,to:def});
 
         boardStartState[x][y]=copy.from
         boardStartState[destX][destY]=copy.to
       })
     })
 
-    return allDefStategies
+    return allDefStrategies
   }
   static isThereKingColor(attackedColor,allAttacked){
     const KingIsThere=allAttacked?.map(m=>{
@@ -92,9 +92,8 @@ export default class Figure{
         boardStartState[acX][acY]=copyOfOldFileds.from
       }
       else{
-        didIncrement?Game.incrementMoves():Game.resetMoves()
+        didIncrement?Game.incrementMoves():Game.resetMoves();
         Game?.addToHistory?.(acX,acY,copyOfOldFileds,destX,destY);
-
         return{
           shortMove:boardStartState,
           newWhiteTure:!whiteTure,
@@ -112,8 +111,8 @@ export default class Figure{
     const attackedColor=whiteTure?'white':'black';
     const allAttacked=this.allAttacked(whiteTure);
     const value=Figure.isThereKingColor?.(attackedColor,allAttacked);
-    const allDefStategies=Figure.defStategies?.(whiteTure).filter(x=>x.to.length>0);
-    const isGameOver=allDefStategies.length<=0;
+    const allDefStrategies=Figure.defStrategies?.(whiteTure).filter(x=>x.to.length>0);
+    const isGameOver=allDefStrategies.length<=0;
 
     isGameOver && alert('Game over!');
     return {value,isGameOver}

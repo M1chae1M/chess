@@ -115,12 +115,6 @@ export default class Figure{
     const allDefStategies=Figure.defStategies?.(whiteTure).filter(x=>x.to.length>0);
     const isGameOver=allDefStategies.length<=0;
 
-    console.log(
-      'whiteTure:',whiteTure,
-      'allDefStategies:', allDefStategies?.length,
-      allDefStategies,
-    );
-
     isGameOver && alert('Game over!');
     return {value,isGameOver}
   }

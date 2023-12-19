@@ -71,29 +71,6 @@ export function getBoardFromLocalStory(){
   this.boardModifier(JSON.parse(localStorage?.getItem?.('chess_game_board')));
   this.setState({boardGameState})
 }
-// export function getBoardFromHistory(lastMove,id){
-//   const {stringifiedBoard,status}=lastMove??{}
-//   const {boardGameState}=this?.state??{}
-
-//   Game?.setUpToDate?.(this.state.gameHistory?.length-1===id);
-//   this.boardModifier(JSON.parse(stringifiedBoard));
-//   this.setState({...status,boardGameState,actualMove:id+1})
-// }
-// export function checkIsClosed(end,baseFigure,clicked){
-//   const [destX,destY]=clicked??[]
-//   const {isModalOpened,promoteTo,whiteTure,firstTouch}=this.state;
-
-//   if(isModalOpened===false && baseFigure?.canMove?.(destX,destY,whiteTure)?.canMove){
-//     const {shortMove,newWhiteTure,chequered}={...baseFigure?.move?.(destX,destY,whiteTure)};
-//     shortMove[destX][destY]=_.cloneDeep(baseFigure?.closeModal?.(destX,destY,promoteTo));
-//     this.isChequered();
-//     this.setState({firstTouch:!firstTouch,boardGameState:shortMove,whiteTure:newWhiteTure});
-//     Game.getMovesCount();
-//     end();
-//   }else{
-//     setTimeout(()=>this.checkIsClosed(end,baseFigure,clicked),100);
-//   }
-// }
 export function touch(clicked){
   const {fromField,boardGameState,whiteTure,firstTouch,kingAttacked}=this.state;
   const [destX,destY]=clicked??[]

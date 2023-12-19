@@ -36,21 +36,24 @@ export default class Game{
     })
   }
   static reset(){
-    this.fiftyMovesRule=0
-    this.samePositions=0
-    this.gameHistory=[]
-    this.gameBoard=_.cloneDeep(boardStartStateCopy)
-    this.upToDate=true
+    // this.fiftyMovesRule=0
+    // this.samePositions=0
+    // this.gameHistory=[]
+    // this.gameBoard=_.cloneDeep(boardStartStateCopy)
+
+
+    console.log(this.gameBoard)
+    // this.upToDate=true
     const {fiftyMovesRule,samePositions,gameHistory,gameBoard}=this
     return {fiftyMovesRule,samePositions,gameHistory,gameBoard}
   }
   static pat(txt){
     alert(`pat ${txt}`)
-    return this.reset()
+    // return this.reset()
   }
   static surrender(whiteTure){
     alert(`Win player with ${whiteTure?'black':'white'} figures.`)
-    return this.reset()
+    // return this.reset()
   }
   static setGameBoard50moves(){
     if(this.fiftyMovesRule>=50){

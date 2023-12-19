@@ -7,7 +7,6 @@ import AllFields from './components/AllFields'
 import Modal from './components/Modal'
 import {addToHistory,boardModifier,getBoardFromLocalStory,resetGame,resetState,secoundClick,touch} from '../classes/Functions'
 import {getBoardFromHistory} from '@/functions/getBoardFromHistory'
-// import {addToHistory,boardModifier,checkIsClosed,getBoardFromHistory,getBoardFromLocalStory,resetGame,resetState,secoundClick,touch} from '../classes/Functions'
 import {setBoardInLocalStory} from '@/functions/setBoardInLocalStory'
 import {checkIsClosed} from '@/functions/checkIsClosed'
 import {componentDidMount} from '@/functions/componentDidMount'
@@ -47,6 +46,23 @@ export default class GameBoard extends Component{
     const {resetGame,getBoardFromHistory,touch}=this
     return(
       <AppContainer>
+        <div>
+          <div>whiteTure: {this.state.whiteTure}</div>
+          {/* <div>boardGameState: {this.state.boardGameState}</div> */}
+          <div>firstTouch: {this.state.firstTouch}</div>
+          <div>fromField: {this.state.fromField}</div>
+          <div>isModalOpened: {this.state.isModalOpened}</div>
+          <div>promoteTo: {this.state.promoteTo}</div>
+          <div>kingAttacked: {this.state.kingAttacked}</div>
+          {/* <div>gameHistory: {this.state.gameHistory}</div> */}
+          <div>fiftyMovesRule: {this.state.fiftyMovesRule}</div>
+          <div>canAnimate: {this.state.canAnimate}</div>
+          <div>animateX: {this.state.animateX}</div>
+          <div>animateY: {this.state.animateY}</div>
+          <div>actualMove: {this.state.actualMove}</div>
+          <div>whiteOnTop: {this.state.whiteOnTop}</div>
+          <div>showHistory: {this.state.showHistory}</div>
+        </div>
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame,actualMove,showHistory,getBoardFromHistory,isModalOpened,closeModalF,touch}}>
           <GameBoardContainer>
             <ControlPanel SwitchRef={SwitchRef}/>

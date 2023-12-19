@@ -118,6 +118,7 @@ export default class Figure{
     console.log(
       'whiteTure:',whiteTure,
       'allDefStategies:', allDefStategies?.length,
+      allDefStategies,
     );
 
     isGameOver && alert('Game over!');

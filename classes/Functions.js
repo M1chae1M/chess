@@ -123,5 +123,10 @@ export async function resetGame(){
   Xo?.map(x=>Yo?.map(y=>boardStartState[x][y]=boardStartStateCopy[x][y]));
   await localStorage.removeItem('chess_game_board');
   await localStorage.removeItem('chess_game_status');
-  this.setState(resetState,()=>SwitchRef?.current?.changeState?.({start:false}))
+
+  this.setState(resetState,async()=>{
+    await SwitchRef?.current?.changeState?.({start:false});
+    await this.setBoardInLocalStory();
+    await this.getBoardFromLocalStory();
+  })
 }

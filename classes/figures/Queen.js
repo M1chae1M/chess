@@ -225,10 +225,10 @@ export default class Queen extends Figure{
   returnCrossMovesOnly(){
     const movesWorking=[]
 
-    this.crossMoveForCrossMovesOnly('left','top',movesWorking, this.actualField);
-    this.crossMoveForCrossMovesOnly('left','bot',movesWorking, this.actualField);
-    this.crossMoveForCrossMovesOnly('right','top',movesWorking, this.actualField);
-    this.crossMoveForCrossMovesOnly('right','bot',movesWorking, this.actualField);
+    this.crossMoveForCrossMovesOnly('left','top',movesWorking,this.actualField)
+    this.crossMoveForCrossMovesOnly('left','bot',movesWorking,this.actualField)
+    this.crossMoveForCrossMovesOnly('right','top',movesWorking,this.actualField)
+    this.crossMoveForCrossMovesOnly('right','bot',movesWorking,this.actualField)
     
     return movesWorking
   }

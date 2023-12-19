@@ -1,28 +1,15 @@
-import Game from "./Game";
+import Game from './Game'
 import Xo from '@/config/Xo.json'
 import Yo from '@/config/Yo.json'
-import {boardStartState} from "../components/boardStartState";
-import Pawn from "./figures/Pawn";
-import Bishop from "./figures/Bishop";
-import Queen from "./figures/Queen";
-import King from "./figures/King";
-import Knight from "./figures/Knight";
-import Rook from "./figures/Rook";
-import _ from "lodash";
+import {boardStartState} from '../components/boardStartState'
+import Pawn from './figures/Pawn'
+import Bishop from './figures/Bishop'
+import Queen from './figures/Queen'
+import King from './figures/King'
+import Knight from './figures/Knight'
+import Rook from './figures/Rook'
+import _ from 'lodash'
 
-export function addToHistory(acX,acY,copyOfOldFileds,destX,destY,status){
-  this.setState({gameHistory:
-    [...this.state.gameHistory,{
-      lastMove:{
-      fromField:`${acX}${acY}`,
-      figure:copyOfOldFileds?.from?.getName?.(),
-      color:copyOfOldFileds?.from?.getColor?.(),
-      clicked:[destX,destY],
-      stringifiedBoard:JSON.stringify(_.cloneDeep(boardStartState)),
-      status
-    }}]
-  })
-}
 export const resetState={
   whiteTure:true,
   boardGameState:{...boardStartState},

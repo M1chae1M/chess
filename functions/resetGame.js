@@ -1,6 +1,6 @@
 import {blackTimeRef,whiteTimeRef,SwitchRef} from "@/pages";
 import {boardStartState,boardStartStateCopy} from "../components/boardStartState";
-import {resetState} from "@/classes/Functions";
+import {resetState} from "@/functions/resetState";
 import CONFIG from '@/config/config.json'
 import Game from "@/classes/Game";
 const {animationTime}=CONFIG??''

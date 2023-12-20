@@ -87,7 +87,8 @@ export default class Queen extends Figure{
     const limit=isLeft?'@'.charCodeAt():'I'.charCodeAt()
     return {start,increment,limit}
   }
-  horisontalHelper(vector,movesWorking,acX,acY,compareColors,acColor){
+  horisontalHelper(vector,movesWorking,actualField,compareColors,acColor){
+    const [acX,acY]=actualField
     const {start,increment,limit}=this.horisontalConsts(vector,acX)
     let i=start;
     while(i!==limit){
@@ -128,7 +129,8 @@ export default class Queen extends Figure{
     const limit=isTop?9:0;
     return{isTop,Ynum,start,increment,limit}
   }
-  verticalHelper(vector,movesWorking,acX,acY,compareColors,acColor){
+  verticalHelper(vector,movesWorking,actualField,compareColors,acColor){
+    const [acX,acY]=actualField
     const {start,increment,limit}=this.verticalConsts(vector,acY)
     let i=start;
     while(i!==limit){
@@ -144,14 +146,14 @@ export default class Queen extends Figure{
     }
   }
   returnLinearMovesOnly(){
-    const [acX,acY]=this.actualField
     const acColor=this.getColor()
     const movesWorking=[]
 
-    this.horisontalHelper('left',movesWorking,acX,acY,true,acColor)
-    this.horisontalHelper('right',movesWorking,acX,acY,true,acColor)
-    this.verticalHelper('bot',movesWorking,acX,acY,true,acColor)
-    this.verticalHelper('top',movesWorking,acX,acY,true,acColor)
+    this.horisontalHelper('left',movesWorking,this.actualField,true,acColor)
+    this.horisontalHelper('right',movesWorking,this.actualField,true,acColor)
+
+    this.verticalHelper('bot',movesWorking,this.actualField,true,acColor)
+    this.verticalHelper('top',movesWorking,this.actualField,true,acColor)
 
     return movesWorking
   }
@@ -174,10 +176,11 @@ export default class Queen extends Figure{
     const [acX,acY]=this.actualField
     const movesWorking=[]
 
-    this.horisontalHelper('left',movesWorking,acX,acY,false)
-    this.horisontalHelper('right',movesWorking,acX,acY,false)
-    this.verticalHelper('bot',movesWorking,acX,acY,false)
-    this.verticalHelper('top',movesWorking,acX,acY,false)
+    this.horisontalHelper('left',movesWorking,this.actualField,false)
+    this.horisontalHelper('right',movesWorking,this.actualField,false)
+
+    this.verticalHelper('bot',movesWorking,this.actualField,false)
+    this.verticalHelper('top',movesWorking,this.actualField,false)
 
     if(movesWorking.includes(`${destX}${destY}`) && boardStartState[acX][acY]?.canStand?.({destX,destY})){
       return {canMove:true,moves:movesWorking}

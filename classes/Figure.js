@@ -2,6 +2,7 @@ import {boardStartState} from "../components/boardStartState";
 import figureIcons from "../components/figureIcons";
 import _ from 'lodash';
 import Game from "./Game";
+import abstractFunctions from '@/config/abstractFunctions.json'
 
 export default class Figure{
   constructor(color,actualField,moved,name){
@@ -10,7 +11,7 @@ export default class Figure{
     this.moved=moved||false
     this.name=name
 
-    Array.from(['move','canMove','getFigure','attacking','returnDefMovesOnly']).map(x=>{
+    abstractFunctions?.map(x=>{
       if(typeof this[x] !== 'function'){
         throw new Error(`Abstract method "${x}" must be implemented!`)
       }

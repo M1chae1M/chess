@@ -73,7 +73,7 @@ export default class Game{
   static figureOtherThenKing(x,y,allFigures){
     const field=boardStartState?.[x]?.[y];
     field !=='' &&
-    field?.getName?.()!=='King' &&
+    !field?.isKing?.() &&
     allFigures?.[field?.getColor()]?.push?.(field?.getName?.())
   }
   static allFigures(){

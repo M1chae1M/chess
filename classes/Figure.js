@@ -49,7 +49,8 @@ export default class Figure{
   static isThereKingColor(attackedColor,allAttacked){
     const KingIsThere=allAttacked?.map(m=>{
       const [x,y]=m
-      if(boardStartState[x][y]?.getColor?.()===attackedColor && boardStartState[x][y]?.getName?.()==='King'){
+      // if(boardStartState[x][y]?.getColor?.()===attackedColor && boardStartState[x][y]?.getName?.()==='King'){
+      if(boardStartState[x][y]?.getColor?.()===attackedColor && boardStartState[x][y]?.isKing?.()){
         return true
       }
     }).includes(true)
@@ -123,7 +124,9 @@ export default class Figure{
       const [x,y]=z
       const acColor=whiteTure?'black':'white'
       const baseFigure=boardStartState?.[x]?.[y]
-      return baseFigure?.getColor?.()===acColor && baseFigure?.getName?.()==='King'
+      // return baseFigure?.getColor?.()===acColor && baseFigure?.getName?.()==='King'
+      return baseFigure?.getColor?.()===acColor && baseFigure?.isKing?.()
+      
     })
     return results.includes(true)
   }

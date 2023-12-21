@@ -11,7 +11,7 @@ import _ from "lodash";
 
 export default class Pawn extends Figure{
   attacking(whiteTure,destX,destY){
-    const movesWorking=[];
+    const legalMoves=[];
     const isWhite=whiteTure && this.getColor()==='white'
 
     if(this.goodTure(whiteTure)){
@@ -20,10 +20,10 @@ export default class Pawn extends Figure{
         const letter=String.fromCharCode(destX.charCodeAt()+x)
         const isIncluded=Xo.includes(letter) && Yo.includes(numY)
   
-        isIncluded && movesWorking.push(`${letter}${numY}`)
+        isIncluded && legalMoves.push(`${letter}${numY}`)
       })
     }
-    return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking}
+    return {isKingAttacked:this.findKing(legalMoves,whiteTure),legalMoves}
   }
   closeModal(destX,destY,newFigure){
     const FigureClass={

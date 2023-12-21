@@ -16,12 +16,9 @@ export default class Game{
   static lastMove=()=>this.getHistory?.()?.pop?.()?.lastMove
   static setHistory=(newHistory)=>this.gameHistory=newHistory
   static onlyKnightOrBishop=(flatedFigures)=>flatedFigures?.length===1 && (flatedFigures[0]==='Bishop' || flatedFigures[0]==='Knight')
-
   static withoutMovedFields(){
     const copy_of_boardStartState=_.cloneDeep(boardStartState)
-
     this.loop((col,row)=>delete copy_of_boardStartState?.[col]?.[row]?.moved)
-
     return copy_of_boardStartState
   }
   static addToHistory(acX,acY,copyOfOldFileds,destX,destY){

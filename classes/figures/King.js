@@ -63,7 +63,7 @@ export default class King extends Figure{
     }
   }
   canMove(destX,destY,whiteTure){
-    const movesWorking=[];
+    const moves=[];
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField
     const destination={destX,destY}
@@ -94,24 +94,24 @@ export default class King extends Figure{
         Xo.includes(newX) && Yo.includes(newY) &&
         this?.canStand?.({destX:newX,destY:newY}) &&
         !attacked.includes(destField) &&
-        movesWorking.push(destField);
+        moves.push(destField);
       }
     }
     if(horisontalMoveCondition===2 && verticalMoveCondition===0 && acX==='E' && figuresMoved){
       if((cond1||cond2) && fieldOccupancy){
-        return {canMove:true,moves:movesWorking}
+        return {canMove:true,moves}
       }
     }
     else if(horisontalMoveCondition<=1 && verticalMoveCondition<=1){
-      return {canMove:this.canStand(destination),moves:movesWorking}
+      return {canMove:this.canStand(destination),moves}
     }
     else{
-      return {canMove:false,moves:movesWorking}
+      return {canMove:false,moves}
     }
   }
   attacking(whiteTure,destX,destY){
     const [acX,acY]=this.actualField
-    const movesWorking=[];
+    const legalMoves=[];
     const NumbY=Number(destY);
     const letterCode=destX.charCodeAt();
 
@@ -119,13 +119,13 @@ export default class King extends Figure{
       if(Xo.includes(String.fromCharCode(i))){
         for(let j=NumbY-1;j<=NumbY+1;j++){
           if(Yo.includes(j)){
-            movesWorking.push(`${String.fromCharCode(i)}${j}`);
+            legalMoves.push(`${String.fromCharCode(i)}${j}`);
           }
         }
       }
     }
 
-    return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking,startField:[acX,acY]}
+    return {isKingAttacked:this.findKing(legalMoves,whiteTure),legalMoves,startField:[acX,acY]}
   }
   returnDefMovesOnly(whiteTure){
     const movesWorking=[];

@@ -19,14 +19,14 @@ export default class Knight extends Figure{
     }
   }
   attacking(whiteTure,destX,destY){
-    const movesWorking=[]
+    const legalMoves=[]
     const [acX,acY]=this.actualField
     const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
     const newY=(change)=>Number(acY)+change
     const knightMoves=[[1,2],[1,-2],[-1,2],[-1,-2],[-2,1],[-2,-1],[2,1],[2,-1]];
-    knightMoves?.map(([x,y])=>Xo?.includes?.(newX(x)) && Yo?.includes?.(newY(y)) && movesWorking.push(`${newX(x)}${newY(y)}`))
+    knightMoves?.map(([x,y])=>Xo?.includes?.(newX(x)) && Yo?.includes?.(newY(y)) && legalMoves.push(`${newX(x)}${newY(y)}`))
 
-    return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking}
+    return {isKingAttacked:this.findKing(legalMoves,whiteTure),legalMoves}
   }
   tryField(x,y,movesWorking){
     const [acX,acY]=this.actualField;

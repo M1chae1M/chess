@@ -71,10 +71,10 @@ export default class Game{
     return this.fiftyMovesRule;
   }
   static figureOtherThenKing(x,y,allFigures){
-    const field=boardStartState?.[x]?.[y];
-    field !=='' &&
-    !field?.isKing?.() &&
-    allFigures?.[field?.getColor()]?.push?.(field?.getName?.())
+    const base=boardStartState?.[x]?.[y];
+    base !=='' &&
+    !base?.isKing?.() &&
+    allFigures?.[base?.getColor()]?.push?.(base?.getName?.())
   }
   static allFigures(){
     const allFigures={
@@ -95,11 +95,5 @@ export default class Game{
 
     return countFigures || onlyKorB
   }
-  static loop(callback){
-    Xo?.map(x=>
-      Yo?.map(y=>
-        callback(x,y)
-      )  
-    )
-  }
+  static loop=(callback)=>Xo?.map(x=>Yo?.map(y=>callback(x,y)))
 }

@@ -6,9 +6,6 @@ import {GameProvider} from '@/pages';
 import CONFIG from '@/config/config.json'
 const {size}=CONFIG??''
 
-
-import Countdown from 'react-countdown';
-
 export default class Switch extends Component{
   state={
     start:false,
@@ -32,24 +29,12 @@ export default class Switch extends Component{
       <GameProvider.Consumer>
       {value=>{
         const {blackTimeRef,whiteTimeRef,resetGame}=value??{}
-
-
-        const onComplete = () => {
-          console.log('Odliczanie zakończone!');
-        }
-        const renderer=({minutes,seconds,milliseconds})=>(
-          <span>{minutes}:{seconds}:{milliseconds}</span>
-        )
         return(
           <div style={style} onClick={this.startStopTime}>
-
-
-          <Countdown date={Date.now() + 10000} onComplete={onComplete} renderer={renderer}/>
-
-            {/* <StartButton start={start}/>
+            <StartButton start={start}/>
             <SingleTimer ref={blackTimeRef} startStopTime={this.startStopTime} start={start} color='black' condition={!whiteTure} resetGame={resetGame}/>
             <SingleTimer ref={whiteTimeRef} startStopTime={this.startStopTime} start={start} color='white' condition={whiteTure} resetGame={resetGame}/>
-            <Slider whiteTure={whiteTure}/> */}
+            <Slider whiteTure={whiteTure}/>
           </div>
         )
       }}

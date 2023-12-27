@@ -33,17 +33,17 @@ export default class GameBoard extends Component{
     showHistory:false,
   }
   componentDidMount=componentDidMount
-  resetGame=resetGame.bind(this)
   secoundClick=secoundClick
-  touch=touch.bind(this)
   calculateAnimation=calculateAnimation
   addToHistory=addToHistory
-  getBoardFromHistory=getBoardFromHistory.bind(this)
-  boardModifier=boardModifier.bind(this)
   setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory
   checkIsClosed=checkIsClosed
   isChequered=isChequered.bind(this)
+  resetGame=resetGame.bind(this)
+  touch=touch.bind(this)
+  getBoardFromHistory=getBoardFromHistory.bind(this)
+  boardModifier=boardModifier.bind(this)
   render(){
     const {fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory,actualMove}=this.state
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})

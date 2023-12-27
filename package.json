@@ -1,27 +1,27 @@
 {
-  "name": "objective-chess",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+  "name":"objective-chess",
+  "version":"0.1.0",
+  "private":true,
+  "scripts":{
+    "dev":"next dev",
+    "build":"next build",
+    "start":"next start",
+    "lint":"next lint"
   },
-  "dependencies": {
-    "lodash": "^4.17.21",
-    "next": "^13.4.4",
-    "next-transpile-modules": "^10.0.1",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.9.1",
-    "react-countdown": "^2.3.5",
-    "react-countdown-now": "^2.1.2",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.12.0",
-    "styled-component": "^2.8.0",
-    "styled-components": "^6.0.0-rc.6"
+  "dependencies":{
+    "lodash":"^4.17.21",
+    "next":"^13.4.4",
+    "next-transpile-modules":"^10.0.1",
+    "react":"^18.2.0",
+    "react-bootstrap":"^2.9.1",
+    "react-countdown":"^2.3.5",
+    "react-countdown-now":"^2.1.2",
+    "react-dom":"^18.2.0",
+    "react-icons":"^4.12.0",
+    "styled-component":"^2.8.0",
+    "styled-components":"^6.0.0-rc.6"
   },
-  "devDependencies": {
-    "terser-webpack-plugin": "^5.3.9"
+  "devDependencies":{
+    "terser-webpack-plugin":"^5.3.9"
   }
 }

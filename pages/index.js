@@ -1,6 +1,5 @@
 import React,{Component} from 'react'
 import ControlPanel from './components/panel/ControlPanel'
-import Figure from '../classes/Figure'
 import _ from 'lodash'
 import History from './components/History/History'
 import AllFields from './components/AllFields'
@@ -19,6 +18,7 @@ import {componentDidMount} from '@/functions/componentDidMount'
 import {calculateAnimation} from '@/functions/calculateAnimation'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
+import isChequered from '@/functions/isChequered'
 
 export const GameProvider=React.createContext()
 export const blackTimeRef=React.createRef()
@@ -43,7 +43,7 @@ export default class GameBoard extends Component{
   setBoardInLocalStory=setBoardInLocalStory
   getBoardFromLocalStory=getBoardFromLocalStory
   checkIsClosed=checkIsClosed
-  isChequered=()=>this.setState({kingAttacked:Figure.isKingChequered?.(!this.state.whiteTure).value})
+  isChequered=isChequered.bind(this)
   render(){
     const {fromField,whiteTure,boardGameState,isModalOpened,kingAttacked,gameHistory,whiteOnTop,canAnimate,animateX,animateY,showHistory,actualMove}=this.state
     const turnBoard=()=>this.setState({whiteOnTop:!this.state.whiteOnTop})

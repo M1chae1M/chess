@@ -8,6 +8,7 @@ import {GameProvider} from '@/pages';
 import {TbRotate} from 'react-icons/tb';
 import {MdHistory} from "react-icons/md";
 import CONFIG from '@/config/config.json'
+import VisibleControlPanel from './VisibleControlPanel';
 const {size}=CONFIG??''
 
 const buttonStyles=css`
@@ -28,32 +29,10 @@ export default function ControlPanel({SwitchRef}){
   const [isClient,setIsClient]=useState(false);
   useEffect(()=>{setIsClient(true)},[])
   if(!isClient)return null
-
-  const rightPanel={
-    top:'50%',
-    right:'0%',
-    transform:'translate(calc(100% + 8px),-50%)',
-    gridAutoFlow:'column',
-  }
-  const bottomPanel={
-    top:'100%',
-    right:'50%',
-    transform:'translate(calc(100% + 8px - 50%),25%)',
-    gridAutoFlow:'row',
-  }
-
   const styles={
-    ControlPanel:{
-      position:'absolute',
-      ...rightPanel,
-      // ...bottomPanel,
-      display:'grid',
-    },
-    ControlContainer:{
-      display:'grid',
-      gridTemplateRows:'repeat(2, 1fr)',
-      gridTemplateColumns:'repeat(2, 1fr)',
-    }
+    display:'grid',
+    gridTemplateRows:'repeat(2, 1fr)',
+    gridTemplateColumns:'repeat(2, 1fr)',
   }
   return(
     <GameProvider.Consumer>
@@ -68,15 +47,15 @@ export default function ControlPanel({SwitchRef}){
         resetGame();
       }
       return(
-        <div style={styles.ControlPanel}>
+        <VisibleControlPanel>
           <Switch whiteTure={whiteTure} whiteOnTop={whiteOnTop} ref={SwitchRef}/>
-          <div style={styles.ControlContainer}>
+          <div style={styles}>
             <Button1 onClick={pat}/>
             <Button3 onClick={turnBoard}/>
             <Button2 onClick={surrender}/>
             <Button4 onClick={show_or_close_history}/>
           </div>
-        </div>
+        </VisibleControlPanel>
       )
     }}
     </GameProvider.Consumer>

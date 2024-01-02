@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import ControlPanel from './components/panel/ControlPanel'
+import ControlPanel from './components/panel/index'
 import _ from 'lodash'
 import History from './components/History/History'
 import AllFields from './components/AllFields'

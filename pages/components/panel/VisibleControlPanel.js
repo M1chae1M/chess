@@ -5,7 +5,7 @@ const {fieldSize,size}=CONFIG??{}
 const DV=styled.div`
 top:100%;
 right:50%;
-transform:translate(calc(100% + 8px - 50%),25%);
+transform:translate(calc(50% + 8px),25%);
 grid-auto-flow:row;
 
 display:grid;

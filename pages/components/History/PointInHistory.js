@@ -3,6 +3,7 @@ import figureIcons from '@/components/figureIcons'
 import {AiOutlineArrowRight} from 'react-icons/ai'
 import _ from 'lodash'
 import PointInHistoryContainer from './PointInHistoryContainer'
+import Column from './Column'
 
 export default class PointInHistory extends Component{
   render(){
@@ -16,11 +17,11 @@ export default class PointInHistory extends Component{
     }
     return(
       <PointInHistoryContainer style={style} onClick={onClick}>
-        <div>{ID}</div>
-        <div>{fromField}</div>
-        <div><AiOutlineArrowRight/></div>
-        <div>{clicked}</div>
-        <div>{figureIcon}</div>
+        <Column>{ID}</Column>
+        <Column>{fromField}</Column>
+        <Column><AiOutlineArrowRight/></Column>
+        <Column>{clicked}</Column>
+        <Column>{figureIcon}</Column>
       </PointInHistoryContainer>
     )
   }

@@ -29,14 +29,25 @@ export default function ControlPanel({SwitchRef}){
   useEffect(()=>{setIsClient(true)},[])
   if(!isClient)return null
 
+  const rightPanel={
+    top:'50%',
+    right:'0%',
+    transform:'translate(calc(100% + 8px),-50%)',
+    gridAutoFlow:'column',
+  }
+  const bottomPanel={
+    top:'100%',
+    right:'50%',
+    transform:'translate(calc(100% + 8px - 50%),25%)',
+    gridAutoFlow:'row',
+  }
+
   const styles={
     ControlPanel:{
       position:'absolute',
-      top:'50%',
-      right:'0%',
-      transform:'translate(calc(100% + 8px),-50%)',
+      ...rightPanel,
+      // ...bottomPanel,
       display:'grid',
-      gridAutoFlow:'column',
     },
     ControlContainer:{
       display:'grid',

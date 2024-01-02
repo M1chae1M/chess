@@ -18,8 +18,8 @@ export default class Switch extends Component{
     const style={
       rotate:!whiteOnTop?'180deg':'0deg',
       background:'grey',
-      height:`${size}px`,
-      width:`${size}px`,
+      height:size,
+      width:size,
       display:'grid',
       justifyItems:'center',
       position:'relative',

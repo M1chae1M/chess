@@ -43,8 +43,8 @@ export class TemplateTimer extends Component{
         alignItems:'center',
         justifyContent:'center',
         justifyItems:'center',
-        height:`${size*7/16}px`,
-        width:`${size*6/8}px`,
+        height:`calc(${size} * 7 / 16)`,
+        width:`calc(${size} * 3 / 4)`,
       }
       return <div style={style}>{timeDisplayFormat(time)}</div>
     }}

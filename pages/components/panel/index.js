@@ -12,8 +12,8 @@ import VisibleControlPanel from './VisibleControlPanel';
 const {size}=CONFIG??''
 
 const buttonStyles=css`
-  font-size:${size/2}px;
-  display:grid;
+font-size:calc(${size} / 2);
+display:grid;
   transition:all 0.15s ease-in-out;
   &:hover{
     scale:120%;

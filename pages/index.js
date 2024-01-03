@@ -19,6 +19,7 @@ import {calculateAnimation} from '@/functions/calculateAnimation'
 import GameBoardContainer from './components/GameBoardContainer'
 import AppContainer from './components/AppContainer'
 import isChequered from '@/functions/isChequered'
+import Menu from './components/Menu'
 
 export const GameProvider=React.createContext()
 export const blackTimeRef=React.createRef()
@@ -53,6 +54,7 @@ export default class GameBoard extends Component{
     return(
       <AppContainer>
         <GameProvider.Provider value={{canAnimate,animateX,animateY,fromField,kingAttacked,whiteTure,boardGameState,whiteOnTop,turnBoard,gameHistory,show_or_close_history,whiteOnTop,blackTimeRef,whiteTimeRef,resetGame,actualMove,showHistory,getBoardFromHistory,isModalOpened,closeModalF,touch}}>
+          <Menu/>
           <GameBoardContainer>
             <ControlPanel SwitchRef={SwitchRef}/>
             <AllFields/>

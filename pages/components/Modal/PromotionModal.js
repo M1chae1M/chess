@@ -3,6 +3,8 @@ import figureIcons from "@/components/figureIcons";
 import Chose from "./Chose";
 import Background from "./Background";
 import {GameProvider} from "../..";
+import CONFIG from '@/config/config.json'
+const {fieldSize}=CONFIG??{}
 
 export default class PromotionModal extends Component{
   render(){
@@ -13,12 +15,14 @@ export default class PromotionModal extends Component{
         position:'absolute',
         border:'solid black 1px',
         transform:'translate(-50%,-50%)',
-        width:'60%',
-        height:'45%',
-        background:'grey',
+        height:'fit-content',
+        padding:'20px',
+        width:`calc(${fieldSize} * 9)`,
         boxShadow:'2px 2px black',
         display:'grid',
         alignContent:'center',
+        backgroundColor: 'rgba(128, 128, 128, 0.96)',
+        borderRadius:'3px',
       },
       menu:{
         display:'grid',

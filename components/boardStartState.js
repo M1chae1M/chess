@@ -172,7 +172,8 @@ export const boardStartState={
 //     // 5:'',
 //     5:new Bishop('white','H5',true,'Bishop'),
 //     6:'',
-//     7:new Pawn('black','H7',false,'Pawn'),
+//     // 7:new Pawn('black','H7',false,'Pawn'),
+//     7:new Pawn('white','H7',true,'Pawn'),
 //     8:new Rook('black','H8',false,'Rook'),
 //   },
 // }

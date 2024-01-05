@@ -3,27 +3,11 @@ import figureIcons from "@/components/figureIcons";
 import Chose from "./Chose";
 import Background from "./Background";
 import {GameProvider} from "../..";
-import CONFIG from '@/config/config.json'
-const {fieldSize}=CONFIG??{}
+import OnloadPromotionModal from "./OnloadPromotionModal";
 
 export default class PromotionModal extends Component{
   render(){
     const styles={
-      PromotionModal:{
-        top:'50%',
-        left:'50%',
-        position:'absolute',
-        border:'solid black 1px',
-        transform:'translate(-50%,-50%)',
-        height:'fit-content',
-        padding:'20px',
-        width:`calc(${fieldSize} * 9)`,
-        boxShadow:'2px 2px black',
-        display:'grid',
-        alignContent:'center',
-        backgroundColor: 'rgba(128, 128, 128, 0.96)',
-        borderRadius:'3px',
-      },
       menu:{
         display:'grid',
         gridAutoFlow:'column',
@@ -44,12 +28,12 @@ export default class PromotionModal extends Component{
         const figuresNames=['Knight','Bishop','Rook','Queen']
         return(
           <Background>
-            <div style={styles.PromotionModal}>
+            <OnloadPromotionModal>
               <div style={styles.label}>Change pawn in:</div>
               <div style={styles.menu}>
                 {figuresNames?.map(x=><Chose key={x} figure={figureCLR[x]} name={x}/>)}
               </div>
-            </div>
+            </OnloadPromotionModal>
           </Background>
         )
       }}

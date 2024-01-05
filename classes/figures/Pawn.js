@@ -34,7 +34,7 @@ export default class Pawn extends Figure{
     }[newFigure];
     return new FigureClass(this?.getColor?.(),`${destX}${destY}`,true,newFigure)
   }
-  canYouBeatInPassing(destination,whiteTure,movesWorking){
+  canYouBeatEnPassant(destination,whiteTure,movesWorking){
     const [acX,acY]=this.actualField
     const [fromX,fromY]=Game?.lastMove?.()?.fromField??''
 
@@ -43,11 +43,11 @@ export default class Pawn extends Figure{
     const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
     const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
 
-    const beatPassingCondition=(change)=>enemyX===newX(change) && Xo?.includes(newX(change)) && movesWorking.push(`${newX(change)}${newY}`)
+    const EnPassantCondition=(change)=>enemyX===newX(change) && Xo?.includes(newX(change)) && movesWorking.push(`${newX(change)}${newY}`)
 
     if(Yo?.includes(newY) && fromX===enemyX && Math.abs((enemyY-fromY))===2 && (!whiteTure?acY-Number(fromY)===2:acY-Number(fromY)===-2)){
-      beatPassingCondition(+1);
-      beatPassingCondition(-1);
+      EnPassantCondition(+1);
+      EnPassantCondition(-1);
     }
     return movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn'
   }
@@ -63,11 +63,11 @@ export default class Pawn extends Figure{
 
     if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove && Game?.isUpToDate?.()){
       const movesWorking=[]
-      const ifCanYouBeatInPassing=this.canYouBeatInPassing(destination,whiteTure,movesWorking)
+      const ifCanYouBeatEnPassant=this.canYouBeatEnPassant(destination,whiteTure,movesWorking)
       const didIncrement=boardStartState?.[destX]?.[destY]==='';
       this.swap(destX,destY);
 
-      if(ifCanYouBeatInPassing){
+      if(ifCanYouBeatEnPassant){
         const {clicked}=Game?.lastMove?.()
         const [lastX,lastY]=clicked
 
@@ -79,7 +79,7 @@ export default class Pawn extends Figure{
       if(Figure.isKingChequered(whiteTure).value){
         boardStartState[destX][destY]=copyOfOldFileds.to
         boardStartState[acX][acY]=copyOfOldFileds.from
-        if(ifCanYouBeatInPassing){
+        if(ifCanYouBeatEnPassant){
           const {clicked}=Game?.lastMove?.()
           const [lastX,lastY]=clicked
           boardStartState[lastX][lastY]=copyOfOldFileds.oldPawnField
@@ -112,9 +112,9 @@ export default class Pawn extends Figure{
     const canLongMove=sameX && boardStartState[destX][avrg]==='' && (whiteTure?Ychange<=2 && Ychange>0 && acY==='2':Ychange>=-2 && Ychange<0 && acY==='7');
     const canNormalBeat=XchangeCond && baseFigure?.getColor?.()!==this.color && baseFigure!=='' && Ychange===(whiteTure?1:-1)
     const movesWorking=[]
-    const ifCanYouBeatInPassing=this.canYouBeatInPassing({destX,destY},whiteTure,movesWorking)
+    const ifCanYouBeatEnPassant=this.canYouBeatEnPassant({destX,destY},whiteTure,movesWorking)
 
-    if(this.goodTure(whiteTure) && (ifCanYouBeatInPassing || canNormalBeat || (shortYchange || canLongMove))){
+    if(this.goodTure(whiteTure) && (ifCanYouBeatEnPassant || canNormalBeat || (shortYchange || canLongMove))){
       return {canMove:true,moves:movesWorking}
     }
     return {canMove:false,moves:movesWorking}

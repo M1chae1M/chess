@@ -1,7 +1,7 @@
 import Game from "@/classes/Game";
 
-export function touch(clicked){
-    const {fromField,boardGameState,whiteTure,firstTouch,kingAttacked}=this.state;
+export function touch(clicked:string[]){
+    const {fromField,boardGameState,whiteTure,firstTouch}=this.state;
     const [destX,destY]=clicked??[]
   
     const clickedField=boardGameState?.[destX]?.[destY];

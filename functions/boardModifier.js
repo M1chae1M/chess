@@ -7,6 +7,7 @@ import Knight from '@/classes/figures/Knight'
 import Rook from '@/classes/figures/Rook'
 
 const figureList={Pawn,Bishop,Queen,King,Knight,Rook}
+
 export function boardModifier(board){
     const {boardGameState}=this?.state??{};
     board && Game?.loop?.((x,y)=>{

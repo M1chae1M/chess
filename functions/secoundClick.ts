@@ -4,8 +4,8 @@ const {animationTime}=CONFIG
 
 export default function secoundClick(fromField:string,clicked:string){
     const {kingAttacked}=this.state
-    const [destX,destY]=Array.from(clicked)
-    const [acX,acY]=Array.from(fromField)
+    const [destX,destY]=clicked
+    const [acX,acY]=fromField
     const baseFigure=this.state.boardGameState?.[acX]?.[acY];
     const isPromotionField=(destY==='8' && this.state.whiteTure)||(destY==='1' && !this.state.whiteTure);
     const isPawn=baseFigure?.getName?.()==='Pawn';

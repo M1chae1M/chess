@@ -5,11 +5,12 @@ import Queen from '@/classes/figures/Queen'
 import King from '@/classes/figures/King'
 import Knight from '@/classes/figures/Knight'
 import Rook from '@/classes/figures/Rook'
+import boardInterface from "@/types/interface/boardInterface";
 
 const figureList={Pawn,Bishop,Queen,King,Knight,Rook}
 
-export function boardModifier(board){
-    const {boardGameState}=this?.state??{};
+export default function boardModifier(board:boardInterface):void{
+    const {boardGameState}=this.state??{};
     board && Game?.loop?.((x,y)=>{
         if(board?.[x]?.[y]===''){
             boardGameState[x][y]=board?.[x]?.[y];

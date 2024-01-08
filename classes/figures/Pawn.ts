@@ -2,22 +2,25 @@ import Figure from "../Figure";
 import {boardStartState} from "../../components/boardStartState";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
-import Queen from "./Queen.ts";
-import Knight from "./Knight.ts";
-import Bishop from "./Bishop.ts";
-import Rook from "./Rook.ts";
+import Queen from "./Queen";
+import Knight from "./Knight";
+import Bishop from "./Bishop";
+import Rook from "./Rook";
 import Game from "../Game";
 import _ from "lodash";
+import acXType from "@/types/type/acXType";
+import FigureUnionType from "@/types/type/FigureUnionType";
+import destinationInterface from "@/types/interface/destinationInterface";
 
 export default class Pawn extends Figure{
-  attacking(whiteTure,destX,destY){
+  attacking(whiteTure:boolean,destX:acXType,destY:number):{isKingAttacked:boolean,legalMoves:string[]}{
     const legalMoves=[];
     const isWhite=whiteTure && this.getColor()==='white'
 
     if(this.goodTure(whiteTure)){
       const numY=isWhite?Number(destY)+1:Number(destY)-1
       Array.from([-1,1])?.map(x=>{
-        const letter=String.fromCharCode(destX.charCodeAt()+x)
+        const letter=String.fromCharCode(destX.charCodeAt(0)+x)
         const isIncluded=Xo.includes(letter) && Yo.includes(numY)
   
         isIncluded && legalMoves.push(`${letter}${numY}`)
@@ -25,16 +28,23 @@ export default class Pawn extends Figure{
     }
     return {isKingAttacked:this.findKing(legalMoves,whiteTure),legalMoves}
   }
-  closeModal(destX,destY,newFigure){
+  // closeModal(destX:acXType,destY:string,newFigure:FigureUnionType):    // figura{
+  closeModal(destX:acXType,destY:string,newFigure:FigureUnionType){
     const FigureClass={
       Knight:Knight,
       Bishop:Bishop,
       Rook:Rook,
       Queen:Queen,
     }[newFigure];
+
+    console.log(
+      new FigureClass(this?.getColor?.(),`${destX}${destY}`,true,newFigure),
+      typeof new FigureClass(this?.getColor?.(),`${destX}${destY}`,true,newFigure)
+    )
+
     return new FigureClass(this?.getColor?.(),`${destX}${destY}`,true,newFigure)
   }
-  canYouBeatEnPassant(destination,whiteTure,movesWorking){
+  canYouBeatEnPassant(destination:destinationInterface,whiteTure:boolean,movesWorking:string[]):boolean{
     const [acX,acY]=this.actualField
     const [fromX,fromY]=Game?.lastMove?.()?.fromField??''
 
@@ -51,14 +61,18 @@ export default class Pawn extends Figure{
     }
     return movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn'
   }
-  move(destX,destY,whiteTure){
+  move(destX:acXType,destY:string,whiteTure:boolean):{
+    shortMove:any,
+    newWhiteTure:boolean
+  }{
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField
     const destination={destX,destY}
 
     const copyOfOldFileds={
       from:boardStartState[acX][acY]?.getInstance?.(),
-      to:boardStartState[destX][destY]?.getInstance?.()
+      to:boardStartState[destX][destY]?.getInstance?.(),
+      oldPawnField:null,
     }
 
     if(this.goodTure(whiteTure) && this.canMove(destX,destY,whiteTure)?.canMove && Game?.isUpToDate?.()){
@@ -100,12 +114,12 @@ export default class Pawn extends Figure{
       newWhiteTure:whiteTure
     }
   }
-  canMove(destX,destY,whiteTure){
+  canMove(destX:acXType,destY:string,whiteTure:boolean):{canMove:boolean,moves:string[]}{
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField;
     const baseFigure=boardStartState?.[destX]?.[destY];
-    const XchangeCond=Math.abs(acX.charCodeAt()-destX.charCodeAt())===1;
-    const Ychange=destY-acY;
+    const XchangeCond=Math.abs(acX.charCodeAt()-destX.charCodeAt(0))===1;
+    const Ychange=Number(destY)-acY;
     const avrg=(Number(acY)+Number(destY))/2;
     const sameX=acX===destX && baseFigure===''
     const shortYchange=sameX && (whiteTure?Ychange===1:Ychange===-1);
@@ -119,7 +133,7 @@ export default class Pawn extends Figure{
     }
     return {canMove:false,moves:movesWorking}
   }
-  returnDefMovesOnly(whiteTure){
+  returnDefMovesOnly(whiteTure:boolean):string[]{
     Game.clearBoardFromUndefined();
     const movesWorking=[]
     const [acX,acY]=this.actualField;

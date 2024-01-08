@@ -3,6 +3,7 @@ import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
 import {boardStartState} from "../../components/boardStartState";
 import acXType from "@/types/type/acXType";
+import destinationInterface from "@/types/interface/destinationInterface";
 
 export default class Knight extends Figure{
   // canMove(destX,destY,whiteTure){
@@ -56,7 +57,7 @@ export default class Knight extends Figure{
 
     return movesWorking
   }
-  legalKnightMove(destination:{destX:acXType, destY:string}):{can:boolean}{
+  legalKnightMove(destination:destinationInterface):{can:boolean}{
     const [acX,acY]=this.actualField;
     const {destX,destY}=destination
     const horisontalMoveCondition=Math.abs(acX.charCodeAt()-destX.charCodeAt(0));

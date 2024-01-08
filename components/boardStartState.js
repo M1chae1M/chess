@@ -1,4 +1,4 @@
-import Pawn from '../classes/figures/Pawn'
+import Pawn from '../classes/figures/Pawn.ts'
 import Queen from '../classes/figures/Queen.ts'
 import King from '../classes/figures/King.ts'
 import Bishop from '../classes/figures/Bishop.ts'

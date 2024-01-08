@@ -63,9 +63,6 @@ export default class King extends Figure{
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
         Game?.addToHistory?.(acX,acY,copyOfOldFileds,destX,destY);
-
-
-        console.log(          boardStartState        )
         return{
           shortMove:boardStartState,
           newWhiteTure:!whiteTure,

@@ -2,9 +2,11 @@ import Figure from "../Figure";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
 import {boardStartState} from "../../components/boardStartState";
+import acXType from "@/types/type/acXType";
 
 export default class Knight extends Figure{
-  canMove(destX,destY,whiteTure){
+  // canMove(destX,destY,whiteTure){
+  canMove(destX:acXType,destY:string,whiteTure:boolean):{canMove:boolean, moves:string[]}{
     const moves=[]
     const destination={destX,destY}
 
@@ -18,7 +20,7 @@ export default class Knight extends Figure{
       return {canMove:false,moves}
     }
   }
-  attacking(whiteTure,destX,destY){
+  attacking(whiteTure:boolean,destX:acXType,destY:number):{isKingAttacked:boolean,legalMoves:string[]}{
     const legalMoves=[]
     const [acX,acY]=this.actualField
     const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
@@ -28,7 +30,7 @@ export default class Knight extends Figure{
 
     return {isKingAttacked:this.findKing(legalMoves,whiteTure),legalMoves}
   }
-  tryField(x,y,movesWorking){
+  tryField(x:number,y:number,movesWorking:string[]):void{
     const [acX,acY]=this.actualField;
 
     const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
@@ -38,7 +40,7 @@ export default class Knight extends Figure{
 
     Xo.includes(Xxx) && Yo.includes(Yyy) && boardStartState?.[acX]?.[acY]?.canStand?.({destX:Xxx,destY:Yyy}) && movesWorking.push(`${Xxx}${Yyy}`);
   }
-  returnDefMovesOnly(){
+  returnDefMovesOnly():string[]{
     const movesWorking=[]
     this.tryField(1,2,movesWorking)
     this.tryField(1,-2,movesWorking)
@@ -54,11 +56,11 @@ export default class Knight extends Figure{
 
     return movesWorking
   }
-  legalKnightMove(destination){
+  legalKnightMove(destination:{destX:acXType, destY:string}):{can:boolean}{
     const [acX,acY]=this.actualField;
     const {destX,destY}=destination
-    const horisontalMoveCondition=Math.abs(acX.charCodeAt()-destX.charCodeAt());
-    const condition=(h,w)=>horisontalMoveCondition===h && Math.abs(destY-acY)===w
+    const horisontalMoveCondition=Math.abs(acX.charCodeAt()-destX.charCodeAt(0));
+    const condition=(h,w)=>horisontalMoveCondition===h && Math.abs(Number(destY)-acY)===w
     const moreVerticalMove=condition(1,2)
     const moreHorisontalMove=condition(2,1)
   

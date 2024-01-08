@@ -1,8 +1,8 @@
 import Pawn from '../classes/figures/Pawn'
 import Queen from '../classes/figures/Queen.ts'
-import King from '../classes/figures/King'
+import King from '../classes/figures/King.ts'
 import Bishop from '../classes/figures/Bishop.ts'
-import Knight from '../classes/figures/Knight'
+import Knight from '../classes/figures/Knight.ts'
 import Rook from '../classes/figures/Rook.ts'
 import _ from 'lodash'
 

@@ -3,7 +3,7 @@ import {boardStartState} from "../../components/boardStartState";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
 import Queen from "./Queen.ts";
-import Knight from "./Knight";
+import Knight from "./Knight.ts";
 import Bishop from "./Bishop.ts";
 import Rook from "./Rook.ts";
 import Game from "../Game";

@@ -3,14 +3,16 @@ import Yo from '@/config/Yo.json'
 import {boardStartState} from "../../components/boardStartState";
 import Xo from '@/config/Xo.json'
 import Game from "../Game";
+import acXType from "@/types/type/acXType";
+import boardInterface from "@/types/interface/boardInterface";
 
 export default class King extends Figure{
-  doesntAttacked=(f1,f2,whiteTure)=>{
+  doesntAttacked=(f1:acXType,f2:acXType,whiteTure:boolean):boolean=>{
     const acY=this.actualField[1]
     const attacked=Figure.allAttacked(whiteTure)
     return !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)
   }
-  castling(destX,destY,whiteTure){
+  castling(destX:acXType,destY:string,whiteTure:boolean):void{
     const [acX,acY]=this.actualField
 
     const isG=destX==='G'
@@ -18,7 +20,7 @@ export default class King extends Figure{
     const rook=boardStartState[rookPosition][destY]
     const destField=isG?'F':'D';
 
-    const horisontalMoveCondition=Math.abs(acX.charCodeAt()-destX.charCodeAt())
+    const horisontalMoveCondition=Math.abs(acX.charCodeAt()-destX.charCodeAt(0))
     const verticalMoveCondition=Math.abs(Number(acY)-Number(destY))
     const cond1=isG && this.doesntAttacked('F','G',whiteTure)
     const cond2=!isG && this.doesntAttacked('C','D',whiteTure)
@@ -29,7 +31,19 @@ export default class King extends Figure{
 
     horisontalMoveCondition===2 && verticalMoveCondition===0 && (cond1||cond2) && fieldOccupancy && rook?.swap?.(destField,acY);
   }
-  move(destX,destY,whiteTure){
+  move(destX:acXType,destY:string,whiteTure:boolean):{
+      // shortMove:boardStartState,
+      shortMove:any,
+      // shortMove:boardInterface,
+      // shortMove:{
+      //   A:{
+      //     1:Rook(),
+      //     2:'',
+      //   }
+      // }
+      newWhiteTure:boolean,
+      chequered:boolean,
+  }{
     const [acX,acY]=this.actualField
     const copyOfOldFileds={
       from:boardStartState[acX][acY]?.getInstance?.(),
@@ -49,6 +63,9 @@ export default class King extends Figure{
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
         Game?.addToHistory?.(acX,acY,copyOfOldFileds,destX,destY);
+
+
+        console.log(          boardStartState        )
         return{
           shortMove:boardStartState,
           newWhiteTure:!whiteTure,
@@ -62,13 +79,13 @@ export default class King extends Figure{
       chequered:Figure.isKingChequered(whiteTure).value,
     }
   }
-  canMove(destX,destY,whiteTure){
+  canMove(destX:acXType,destY:string,whiteTure:boolean):{canMove:boolean, moves:string[]}{
     const moves=[];
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField
     const destination={destX,destY}
 
-    const horisontalMoveCondition=Math.abs(acX.charCodeAt()-destX.charCodeAt())
+    const horisontalMoveCondition=Math.abs(acX.charCodeAt()-destX.charCodeAt(0))
     const verticalMoveCondition=Math.abs(Number(acY)-Number(destY))
 
     const isG=destX==='G'
@@ -109,11 +126,11 @@ export default class King extends Figure{
       return {canMove:false,moves}
     }
   }
-  attacking(whiteTure,destX,destY){
+  attacking(whiteTure:boolean,destX:acXType,destY:number):{isKingAttacked:boolean,legalMoves:string[],startField:string[]}{
     const [acX,acY]=this.actualField
     const legalMoves=[];
     const NumbY=Number(destY);
-    const letterCode=destX.charCodeAt();
+    const letterCode=destX.charCodeAt(0);
 
     for(let i=letterCode-1;i<=letterCode+1;i++){
       if(Xo.includes(String.fromCharCode(i))){
@@ -127,7 +144,7 @@ export default class King extends Figure{
 
     return {isKingAttacked:this.findKing(legalMoves,whiteTure),legalMoves,startField:[acX,acY]}
   }
-  returnDefMovesOnly(whiteTure){
+  returnDefMovesOnly(whiteTure:boolean):string[]{
     const movesWorking=[];
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField

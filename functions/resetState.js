@@ -1,4 +1,4 @@
-import {boardStartState} from '../components/boardStartState'
+import boardStartState from '../components/boardStartState'
 
 export const resetState={
   whiteTure:true,

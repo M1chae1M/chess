@@ -6,7 +6,7 @@ import Knight from '../classes/figures/Knight.ts'
 import Rook from '../classes/figures/Rook.ts'
 import _ from 'lodash'
 
-export const boardStartState={
+const boardStartState={
   A:{
     1:new Rook('white','A1',false,'Rook'),
     2:new Pawn('white','A2',false,'Pawn'),
@@ -89,7 +89,7 @@ export const boardStartState={
   },
 }
 
-// export const boardStartState={
+// const boardStartState={
 //   A:{
 //     1:new Rook('white','A1',false,'Rook'),
 //     2:new Pawn('white','A2',false,'Pawn'),
@@ -177,5 +177,7 @@ export const boardStartState={
 //     8:new Rook('black','H8',false,'Rook'),
 //   },
 // }
+
+export default boardStartState
 
 export const boardStartStateCopy=_.cloneDeep(boardStartState);

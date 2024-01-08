@@ -1,25 +1,31 @@
-import {boardStartState} from "../components/boardStartState";
+import boardStartState from "../components/boardStartState";
 import figureIcons from "../components/figureIcons";
 import _ from 'lodash';
 import Game from "./Game";
-import abstractFunctions from '@/config/abstractFunctions.json'
+import colorType from "@/types/type/colorType";
+import acXType from "@/types/type/acXType";
+import FigureUnionType from "@/types/type/FigureUnionType";
+import destinationInterface from "@/types/interface/destinationInterface";
 
-export default class Figure{
-  constructor(color,actualField,moved,name){
+export default abstract class Figure{
+  name:FigureUnionType;
+  color:colorType;
+  actualField:string;
+  moved:boolean;
+
+  abstract canMove(destX:acXType,destY:string,whiteTure:boolean):{canMove:boolean,moves:string[]};
+  abstract attacking(whiteTure:boolean,destX:acXType,destY:number):{isKingAttacked:boolean,legalMoves:string[]};
+  abstract returnDefMovesOnly(whiteTure:boolean):string[];
+
+  constructor(color:colorType,actualField:string,moved:boolean|null|undefined,name:FigureUnionType){
     this.color=color
     this.actualField=actualField
     this.moved=moved||false
     this.name=name
-
-    abstractFunctions?.map(x=>{
-      if(typeof this[x] !== 'function'){
-        throw new Error(`Abstract method "${x}" must be implemented!`)
-      }
-    })
   }
-  isKing=()=>this.name==='King'
-  static allAttacked=(whiteTure)=>this.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
-  static defStrategies(whiteTure){
+  isKing=():boolean=>this.name==='King'
+  static allAttacked=(whiteTure:boolean):string[]=>this.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
+  static defStrategies(whiteTure:boolean):{from:string,to:string}[]{
     const allDefStrategies=[]
     const attackedColor=whiteTure?'white':'black';
 
@@ -46,17 +52,16 @@ export default class Figure{
 
     return allDefStrategies
   }
-  static isThereKingColor(attackedColor,allAttacked){
-    const KingIsThere=allAttacked?.map(m=>{
+  static isThereKingColor=(attackedColor:colorType,allAttacked:string[]):boolean=>(
+    allAttacked?.map(m=>{
       const [x,y]=m
       const base=boardStartState[x][y]
       if(base?.getColor?.()===attackedColor && base?.isKing?.()){
         return true
       }
     }).includes(true)
-    return KingIsThere
-  }
-  static allFieldsAttackedBy(attackingColor,whiteTure){
+  )
+  static allFieldsAttackedBy(attackingColor:colorType,whiteTure:boolean):string[]{
     const allFieldsAttacked=[]
     Game?.loop?.((x,y)=>{
       boardStartState[x][y]?.getColor?.()===attackingColor && 
@@ -65,12 +70,12 @@ export default class Figure{
 
     return allFieldsAttacked.flat()
   }
-  goodTure(whiteTure){
+  goodTure(whiteTure:boolean):boolean{
     if((whiteTure && this.getColor()==='white') || (!whiteTure && this.getColor()==='black')){
       return true
     }
   }
-  swap(destX,destY){
+  swap(destX:acXType,destY:string):void{
     const [acX,acY]=this.actualField
 
     this.actualField=`${destX}${destY}`
@@ -78,7 +83,17 @@ export default class Figure{
     boardStartState[destX][destY]=boardStartState[acX][acY]
     boardStartState[acX][acY]=''
   }
-  move(destX,destY,whiteTure){
+  move(destX:acXType,destY:string,whiteTure:boolean):{
+    // shortMove:any,
+    // shortMove:any,
+    // shortMove:any,
+    // shortMove:any,
+    shortMove:any,
+    newWhiteTure:boolean, chequered:boolean}{
+
+
+    console.log(destX,destY)
+    
     Game.clearBoardFromUndefined()
     const [acX,acY]=this.actualField
     const copyOfOldFileds={
@@ -109,7 +124,7 @@ export default class Figure{
       chequered:Figure.isKingChequered(whiteTure).value,
     }
   }
-  static isKingChequered(whiteTure){
+  static isKingChequered(whiteTure:boolean):{value:boolean,isGameOver:boolean}{
     const attackedColor=whiteTure?'white':'black';
     const allAttacked=this.allAttacked(whiteTure);
     const value=Figure.isThereKingColor?.(attackedColor,allAttacked);
@@ -119,30 +134,21 @@ export default class Figure{
     isGameOver && alert('Game over!');
     return {value,isGameOver}
   }
-  findKing(fields,whiteTure){
-    const results=fields?.map(z=>{
-      const [x,y]=z
-      const acColor=whiteTure?'black':'white'
-      const base=boardStartState?.[x]?.[y]
-      return base?.getColor?.()===acColor && base?.isKing?.()
-    })
-    return results.includes(true)
-  }
-  canStand(destination){
+  findKing=(fields:string[],whiteTure:boolean):boolean=>fields?.map(z=>{
+    const [x,y]=z
+    const acColor=whiteTure?'black':'white'
+    const base=boardStartState?.[x]?.[y]
+    return base?.getColor?.()===acColor && base?.isKing?.()
+  }).includes(true)
+  canStand(destination:destinationInterface):boolean{
     const {destX,destY}=destination
     return boardStartState[destX][destY]===''||boardStartState[destX][destY]?.getColor?.()!==this.color
   }
-  setMoved(newState){
-    this.moved=newState
-  }
-  setActualField(newField){
-    this.actualField=newField
-  }
-  withoutJump=(destX,destY)=>boardStartState[destX][destY]===''
+  withoutJump=(destX,destY):boolean=>boardStartState[destX][destY]===''
   getFigure=()=>figureIcons?.[this?.color]?.[this?.name]
-  getName=()=>this.name
-  getColor=()=>this.color
-  getMoved=()=>this.moved
+  getName=():FigureUnionType=>this.name
+  getColor=():colorType=>this.color
+  getMoved=():boolean=>this.moved
   getInstance(){
     return _.cloneDeep(this);
   }

@@ -1,19 +1,21 @@
 import Figure from "../Figure";
 import Yo from '@/config/Yo.json'
-import {boardStartState} from "../../components/boardStartState";
+import boardStartState from "../../components/boardStartState";
 import Xo from '@/config/Xo.json'
 import colorType from "@/types/type/colorType";
 import acXType from "@/types/type/acXType";
+import horisontalType from "@/types/type/horisontalType";
+import verticalType from "@/types/type/verticalType";
 
 export default class Queen extends Figure{
-  crossMove=(leftOrRight,topOrBot,movesWorking,acX,acY)=>{
+  crossMove=(leftOrRight:horisontalType,topOrBot:verticalType,movesWorking:string[],acX:acXType,acY:string)=>{
     const isLeft=leftOrRight==='left'
     const isTop=topOrBot==='top'
-    let i=acX.charCodeAt()+(isLeft?-1:1);
+    let i=acX.charCodeAt(0)+(isLeft?-1:1);
     while((isLeft&&i>='A'.charCodeAt(0))||(!isLeft&&i<='H'.charCodeAt(0))){
       const againLetter=String.fromCharCode(i);
       const numY=Number(acY);
-      const acXcode=i-acX.charCodeAt();
+      const acXcode=i-acX.charCodeAt(0);
       const numPlus=numY+acXcode;
       const numMinus=numY-acXcode;
       const changedY=isLeft?(isTop?numMinus:numPlus):(isTop?numPlus:numMinus)
@@ -27,24 +29,24 @@ export default class Queen extends Figure{
       i+=leftOrRight==='left'?-1:1;
     }
   }
-  crossMoves(movesWorking,acX,acY){
+  crossMoves(movesWorking:string[],acX:acXType,acY:string):void{
     this.crossMove('left','top',movesWorking,acX,acY)
     this.crossMove('left','bot',movesWorking,acX,acY)
     this.crossMove('right','top',movesWorking,acX,acY)
     this.crossMove('right','bot',movesWorking,acX,acY)
   }
   // canMove(destX,destY,whiteTure){
-    canMove(destX:string,destY:string,whiteTure:boolean):({canMove:boolean,moves:string[]}){
+    canMove(destX:acXType,destY:string,whiteTure:boolean):({canMove:boolean,moves:string[]}){
     const [acX,acY]=this.actualField
     const movesWorking=[];
-    this.crossMoves(movesWorking,acX,acY)
+    this.crossMoves(movesWorking,acX as acXType,acY)
     // movesWorking.push(this.linearMoves(movesWorking,acX,acY).moves)
-    movesWorking.push(this.linearMoves(acX,acY,whiteTure).moves)
+    movesWorking.push(this.linearMoves(acX as acXType,acY,whiteTure).moves)
     
     return {canMove:movesWorking.flat().includes(`${destX}${destY}`) && this.canStand({destX,destY}), moves:movesWorking}
   }
   // crossAttack=(destX,destY,vectorY,vectorX,movesWorking)=>{
-  crossAttack=(destX:string,destY:number,vectorY:string,vectorX:string,movesWorking:string[]):void=>{
+  crossAttack=(destX:string,destY:number,vectorY:verticalType,vectorX:horisontalType,movesWorking:string[]):void=>{
     let i=vectorY==='top'?destY+1:destY-1;
     const limit=vectorY==='top'?9:0;
     const increment=vectorY==='top'?1:-1;
@@ -77,14 +79,14 @@ export default class Queen extends Figure{
     }
     return {canMove:false,moves:movesWorking}
   }
-  attacking(whiteTure,destX,destY){
+  attacking(whiteTure:boolean,destX:acXType,destY:number):{isKingAttacked:boolean, legalMoves:string[], startField:string[]}{
     const [acX,acY]=this.actualField
     const movesWorking=[];
     this.crossAttacks(movesWorking,destX,destY)
     this.linearAttacks(movesWorking,destX,destY,whiteTure)
     return {isKingAttacked:this.findKing(movesWorking,whiteTure),legalMoves:movesWorking,startField:[acX,acY]}
   }
-  horisontalConsts(vector:string,acX:acXType):{start:number,increment:number,limit:number}{
+  horisontalConsts(vector:horisontalType,acX:acXType):{start:number,increment:number,limit:number}{
     const isLeft=vector==='left'
     const Xcode=acX?.charCodeAt?.(0)
 
@@ -94,7 +96,7 @@ export default class Queen extends Figure{
     const limit=isLeft?'@'.charCodeAt(0):'I'.charCodeAt(0)
     return {start,increment,limit}
   }
-  horisontalHelper(vector,movesWorking,actualField,compareColors,acColor?:colorType){
+  horisontalHelper(vector:horisontalType,movesWorking,actualField,compareColors,acColor?:colorType){
     const [acX,acY]=actualField
     const {start,increment,limit}=this.horisontalConsts(vector,acX)
     let i=start;
@@ -111,7 +113,7 @@ export default class Queen extends Figure{
       i+=increment;
     }
   }
-  horisontalAttacks=(vector:'left'|'right',movesWorking,acX,acY,whiteTure)=>{
+  horisontalAttacks=(vector:horisontalType,movesWorking,acX,acY,whiteTure)=>{
     const {start,increment,limit}=this.horisontalConsts(vector,acX)
     let i=start;
     const colorCondition=boardStartState[acX][acY]?.goodTure?.(whiteTure)
@@ -127,7 +129,7 @@ export default class Queen extends Figure{
       i+=increment;
     }
   }
-  verticalConsts(vector,acY){
+  verticalConsts(vector:verticalType,acY){
     const isTop=vector==='top';
     const Ynum=Number(acY);
     const start=isTop?(Ynum+1):(Ynum-1)
@@ -136,7 +138,7 @@ export default class Queen extends Figure{
     const limit=isTop?9:0;
     return{isTop,Ynum,start,increment,limit}
   }
-  verticalHelper(vector,movesWorking,actualField,compareColors,acColor?:colorType){
+  verticalHelper(vector:verticalType,movesWorking,actualField,compareColors,acColor?:colorType){
     const [acX,acY]=actualField
     const {start,increment,limit}=this.verticalConsts(vector,acY)
     let i=start;
@@ -208,7 +210,7 @@ export default class Queen extends Figure{
 
     return movesWorking.flat()
   }
-  crossMoveForCrossMovesOnly=(leftOrRight,topOrBot,movesWorking,actualField)=>{
+  crossMoveForCrossMovesOnly=(leftOrRight:horisontalType,topOrBot:verticalType,movesWorking,actualField)=>{
     const acColor=this.getColor()
     const [acX,acY]=actualField
     const isLeft=leftOrRight==='left'

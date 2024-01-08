@@ -1,6 +1,6 @@
 import Figure from "../Figure";
 import Yo from '@/config/Yo.json'
-import {boardStartState} from "../../components/boardStartState";
+import boardStartState from "../../components/boardStartState";
 import Xo from '@/config/Xo.json'
 import Game from "../Game";
 import acXType from "@/types/type/acXType";
@@ -20,7 +20,7 @@ export default class King extends Figure{
     const rook=boardStartState[rookPosition][destY]
     const destField=isG?'F':'D';
 
-    const horisontalMoveCondition=Math.abs(acX.charCodeAt()-destX.charCodeAt(0))
+    const horisontalMoveCondition=Math.abs(acX.charCodeAt(0)-destX.charCodeAt(0))
     const verticalMoveCondition=Math.abs(Number(acY)-Number(destY))
     const cond1=isG && this.doesntAttacked('F','G',whiteTure)
     const cond2=!isG && this.doesntAttacked('C','D',whiteTure)
@@ -82,7 +82,7 @@ export default class King extends Figure{
     const [acX,acY]=this.actualField
     const destination={destX,destY}
 
-    const horisontalMoveCondition=Math.abs(acX.charCodeAt()-destX.charCodeAt(0))
+    const horisontalMoveCondition=Math.abs(acX.charCodeAt(0)-destX.charCodeAt(0))
     const verticalMoveCondition=Math.abs(Number(acY)-Number(destY))
 
     const isG=destX==='G'
@@ -102,11 +102,11 @@ export default class King extends Figure{
 
     for(let i=-1;i<=1;i++){
       for(let j=-1;j<=1;j++){
-        const newX=String.fromCharCode(acX.charCodeAt()+i);
+        const newX=String.fromCharCode(acX.charCodeAt(0)+i) as acXType;
         const newY=Number(acY)+j;
         const destField=`${newX}${newY}`;
         Xo.includes(newX) && Yo.includes(newY) &&
-        this?.canStand?.({destX:newX,destY:newY}) &&
+        this?.canStand?.({destX:newX,destY:`${newY}`}) &&
         !attacked.includes(destField) &&
         moves.push(destField);
       }
@@ -148,13 +148,13 @@ export default class King extends Figure{
 
     for(let i=-1;i<=1;i++){
       for(let j=-1;j<=1;j++){
-        const newX=String.fromCharCode(acX.charCodeAt()+i);
+        const newX=String.fromCharCode(acX.charCodeAt(0)+i);
         const newY=Number(acY)+j;
         const destField=`${newX}${newY}`;
         const attacked=!Figure.allAttacked(whiteTure).includes(destField);
 
         !boardStartState?.[newX]?.[newY]?.isKing?.() &&
-        Xo.includes(newX) && Yo.includes(newY) && this?.canStand?.({destX:newX,destY:newY}) && attacked && movesWorking.push(destField);
+        Xo.includes(newX) && Yo.includes(newY) && this?.canStand?.({destX:newX as acXType,destY:`${newY}`}) && attacked && movesWorking.push(destField);
       }
     }
     return movesWorking

@@ -10,7 +10,7 @@ export default class Rook extends Queen{
   attacking(whiteTure:boolean,destX:string,destY:number):{isKingAttacked:boolean,startField:string[],legalMoves:string[]}{
     const legalMoves=[];
     const [acX,acY]=this.actualField;
-    this.linearAttacks(legalMoves,acX,acY,whiteTure)
+    this.linearAttacks(legalMoves,acX as acXType,acY,whiteTure)
 
     return {isKingAttacked:this.findKing(legalMoves,whiteTure),startField:[acX,acY],legalMoves}
   }

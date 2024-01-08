@@ -1,5 +1,5 @@
 import Figure from "../Figure";
-import {boardStartState} from "../../components/boardStartState";
+import boardStartState from "../../components/boardStartState";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
 import Queen from "./Queen";
@@ -50,12 +50,12 @@ export default class Pawn extends Figure{
 
     const {destX,destY}=destination??{}
     const newY=Number(acY)+(whiteTure?1:-1)
-    const newX=(change)=>String.fromCharCode(acX.charCodeAt()+change)
+    const newX=(change)=>String.fromCharCode(acX.charCodeAt(0)+change)
     const [enemyX,enemyY]=Game?.lastMove?.()?.clicked??''
 
     const EnPassantCondition=(change)=>enemyX===newX(change) && Xo?.includes(newX(change)) && movesWorking.push(`${newX(change)}${newY}`)
 
-    if(Yo?.includes(newY) && fromX===enemyX && Math.abs((enemyY-fromY))===2 && (!whiteTure?acY-Number(fromY)===2:acY-Number(fromY)===-2)){
+    if(Yo?.includes(newY) && fromX===enemyX && Math.abs((enemyY-fromY))===2 && (!whiteTure?Number(acY)-Number(fromY)===2:Number(acY)-Number(fromY)===-2)){
       EnPassantCondition(+1);
       EnPassantCondition(-1);
     }
@@ -63,7 +63,8 @@ export default class Pawn extends Figure{
   }
   move(destX:acXType,destY:string,whiteTure:boolean):{
     shortMove:any,
-    newWhiteTure:boolean
+    newWhiteTure:boolean,
+    chequered:boolean,
   }{
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField
@@ -105,21 +106,27 @@ export default class Pawn extends Figure{
         Game?.addToHistory?.(acX,acY,copyOfOldFileds,destX,destY);
         return{
           shortMove:boardStartState,
-          newWhiteTure:!whiteTure
+          newWhiteTure:!whiteTure,
+
+          // czy to nie jest zbędne?
+          chequered:Figure.isKingChequered(whiteTure).value,
         }
       }
     }
     return{
       shortMove:boardStartState,
-      newWhiteTure:whiteTure
+      newWhiteTure:whiteTure,
+
+          // czy to nie jest zbędne?
+      chequered:Figure.isKingChequered(whiteTure).value,
     }
   }
   canMove(destX:acXType,destY:string,whiteTure:boolean):{canMove:boolean,moves:string[]}{
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField;
     const baseFigure=boardStartState?.[destX]?.[destY];
-    const XchangeCond=Math.abs(acX.charCodeAt()-destX.charCodeAt(0))===1;
-    const Ychange=Number(destY)-acY;
+    const XchangeCond=Math.abs(acX.charCodeAt(0)-destX.charCodeAt(0))===1;
+    const Ychange=Number(destY)-Number(acY);
     const avrg=(Number(acY)+Number(destY))/2;
     const sameX=acX===destX && baseFigure===''
     const shortYchange=sameX && (whiteTure?Ychange===1:Ychange===-1);
@@ -158,7 +165,7 @@ export default class Pawn extends Figure{
       const newY=Number(acY)+changeVector
       const beat=(vector)=>{
         const change=vector==='left'?-1:1;
-        const newX=String.fromCharCode(acX.charCodeAt()+change);
+        const newX=String.fromCharCode(acX.charCodeAt(0)+change);
 
         if(Xo.includes(newX) && base?.canStand?.({destX:newX,destY:newY})){
           boardStartState[newX][newY]?.getColor?.()===canBeatColor && movesWorking.push(`${newX}${newY}`);

@@ -1,10 +1,11 @@
 import Queen from "./Queen";
+import acXType from "@/types/type/acXType";
 
 export default class Bishop extends Queen{
-  canMove(destX:string,destY:string,whiteTure:boolean):({canMove:boolean,moves:string[]}){
+  canMove(destX:acXType,destY:string,whiteTure:boolean):({canMove:boolean,moves:string[]}){
     const [acX,acY]=this.actualField
     const moves=[];
-    this.crossMoves(moves,acX,acY)
+    this.crossMoves(moves,acX as acXType,acY)
     const canMove=moves.includes(`${destX}${destY}`) && this.canStand({destX,destY})
     return {canMove,moves}
   }

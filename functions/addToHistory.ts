@@ -1,5 +1,5 @@
 import _ from "lodash"
-import {boardStartState} from "@/components/boardStartState"
+import boardStartState from "@/components/boardStartState"
 import status_interface from "@/types/interface/status_interface"
 import copyOfOldFileds_interface from "@/types/interface/copyOfOldFileds_interface"
 import acXType from "@/types/type/acXType"

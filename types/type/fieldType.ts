@@ -1,8 +1,9 @@
 import FigureUnionType from "./FigureUnionType";
+import colorType from "./colorType";
 
 type fieldType={
     actualField: string[];
-    color: 'white'|"black";
+    color: colorType;
     moved: boolean;
     name: FigureUnionType
 }|''

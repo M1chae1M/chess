@@ -2,10 +2,10 @@ import Figure from "../Figure";
 import {boardStartState} from "../../components/boardStartState";
 import Yo from '@/config/Yo.json'
 import Xo from '@/config/Xo.json'
-import Queen from "./Queen";
+import Queen from "./Queen.ts";
 import Knight from "./Knight";
-import Bishop from "./Bishop";
-import Rook from "./Rook";
+import Bishop from "./Bishop.ts";
+import Rook from "./Rook.ts";
 import Game from "../Game";
 import _ from "lodash";
 

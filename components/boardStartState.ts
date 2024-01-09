@@ -1,183 +1,19 @@
-import Pawn from '../classes/figures/Pawn'
-import Queen from '../classes/figures/Queen'
-import King from '../classes/figures/King'
-import Bishop from '../classes/figures/Bishop'
-import Knight from '../classes/figures/Knight'
-import Rook from '../classes/figures/Rook'
 import _ from 'lodash'
+import start from "./different_boards/start";
+import castling from "./different_boards/castling";
+import castling_with_chequered_fields from "./different_boards/castling_with_chequered_fields";
+import promotion from "./different_boards/promotion";
+import en_passant from './different_boards/en_passant'
+import cheq from './different_boards/cheq'
 
-const boardStartState={
-  A:{
-    1:new Rook('white','A1',false,'Rook'),
-    2:new Pawn('white','A2',false,'Pawn'),
-    3:'',
-    4:'',
-    5:'',
-    6:'',
-    7:new Pawn('black','A7',false,'Pawn'),
-    8:new Rook('black','A8',false,'Rook'),
-  },
-  B:{
-    1:new Knight('white','B1',false,'Knight'),
-    2:new Pawn('white','B2',false,'Pawn'),
-    3:'',
-    4:'',
-    5:'',
-    6:'',
-    7:new Pawn('black','B7',false,'Pawn'),
-    8:new Knight('black','B8',false,'Knight'),
-  },
-  C:{
-    1:new Bishop('white','C1',false,'Bishop'),
-    2:new Pawn('white','C2',false,'Pawn'),
-    3:'',
-    4:'',
-    5:'',
-    6:'',
-    7:new Pawn('black','C7',false,'Pawn'),
-    8:new Bishop('black','C8',false,'Bishop'),
-  },
-  D:{
-    1:new Queen('white','D1',false,'Queen'),
-    2:new Pawn('white','D2',false,'Pawn'),
-    3:'',
-    4:'',
-    5:'',
-    6:'',
-    7:new Pawn('black','D7',false,'Pawn'),
-    8:new Queen('black','D8',false,'Queen'),
-  },
-  E:{
-    1:new King('white','E1',false,'King'),
-    2:new Pawn('white','E2',false,'Pawn'),
-    3:'',
-    4:'',
-    5:'',
-    6:'',
-    7:new Pawn('black','E7',false,'Pawn'),
-    8:new King('black','E8',false,'King'),
-  },
-  F:{
-    1:new Bishop('white','F1',false,'Bishop'),
-    2:new Pawn('white','F2',false,'Pawn'),
-    3:'',
-    4:'',
-    5:'',
-    6:'',
-    7:new Pawn('black','F7',false,'Pawn'),
-    8:new Bishop('black','F8',false,'Bishop'),
-  },
-  G:{
-    1:new Knight('white','G1',false,'Knight'),
-    2:new Pawn('white','G2',false,'Pawn'),
-    3:'',
-    4:'',
-    5:'',
-    6:'',
-    7:new Pawn('black','G7',false,'Pawn'),
-    8:new Knight('black','G8',false,'Knight'),
-  },
-  H:{
-    1:new Rook('white','H1',false,'Rook'),
-    2:new Pawn('white','H2',false,'Pawn'),
-    3:'',
-    4:'',
-    5:'',
-    6:'',
-    7:new Pawn('black','H7',false,'Pawn'),
-    8:new Rook('black','H8',false,'Rook'),
-  },
-}
+const test_boards={
+  start,
+  castling,
+  castling_with_chequered_fields,
+  promotion,
+  cheq,
+  en_passant,
+}['start']
 
-// const boardStartState={
-//   A:{
-//     1:new Rook('white','A1',false,'Rook'),
-//     2:new Pawn('white','A2',false,'Pawn'),
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:new Pawn('black','A7',false,'Pawn'),
-//     8:new Rook('black','A8',false,'Rook'),
-//   },
-//   B:{
-//     1:new Knight('white','B1',false,'Knight'),
-//     2:new Pawn('white','B2',false,'Pawn'),
-//     // 3:'',
-//     3:new Bishop('black','B3',true,'Bishop'),
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:new Pawn('black','B7',false,'Pawn'),
-//     8:new Knight('black','B8',false,'Knight'),
-//   },
-//   C:{
-//     1:new Bishop('white','C1',false,'Bishop'),
-//     2:new Pawn('white','C2',false,'Pawn'),
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:new Pawn('black','C7',false,'Pawn'),
-//     8:new Bishop('black','C8',false,'Bishop'),
-//   },
-//   D:{
-//     1:new Queen('white','D1',false,'Queen'),
-//     2:new Pawn('white','D2',false,'Pawn'),
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:new Pawn('black','D7',false,'Pawn'),
-//     8:new Queen('black','D8',false,'Queen'),
-//   },
-//   E:{
-//     1:new King('white','E1',false,'King'),
-//     2:new Pawn('white','E2',false,'Pawn'),
-//     3:'',
-//     4:'',
-//     5:'',
-//     // 5:new Bishop('black','E5',true,'Bishop'),
-//     6:'',
-//     7:new Pawn('black','E7',false,'Pawn'),
-//     8:new King('black','E8',false,'King'),
-//   },
-//   F:{
-//     1:new Bishop('white','F1',false,'Bishop'),
-//     2:new Pawn('white','F2',false,'Pawn'),
-//     3:'',
-//     3:new Rook('white','F3',true,'Rook'),
-//     4:new Queen('white','F4',true,'Queen'),
-//     // 4:'',
-//     5:'',
-//     6:'',
-//     7:new Pawn('black','F7',false,'Pawn'),
-//     8:new Bishop('black','F8',false,'Bishop'),
-//   },
-//   G:{
-//     1:new Knight('white','G1',false,'Knight'),
-//     2:new Pawn('white','G2',false,'Pawn'),
-//     3:'',
-//     4:'',
-//     5:'',
-//     6:'',
-//     7:new Pawn('black','G7',false,'Pawn'),
-//     8:new Knight('black','G8',false,'Knight'),
-//   },
-//   H:{
-//     1:new Rook('white','H1',false,'Rook'),
-//     2:new Pawn('white','H2',false,'Pawn'),
-//     3:'',
-//     4:'',
-//     // 5:'',
-//     5:new Bishop('white','H5',true,'Bishop'),
-//     6:'',
-//     // 7:new Pawn('black','H7',false,'Pawn'),
-//     7:new Pawn('white','H7',true,'Pawn'),
-//     8:new Rook('black','H8',false,'Rook'),
-//   },
-// }
-
-export default boardStartState
-
-export const boardStartStateCopy=_.cloneDeep(boardStartState);
+export default test_boards
+export const boardStartStateCopy=_.cloneDeep(test_boards);

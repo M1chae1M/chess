@@ -26,7 +26,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/figureIcons.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -5,6 +5,7 @@ import Xo from '@/config/Xo.json'
 import Game from "../Game";
 import acXType from "@/types/type/acXType";
 import boardInterface from "@/types/interface/boardInterface";
+import boardWithFigureInstanceInterface from "@/types/interface/boardWithFigureInstanceInterface";
 
 export default class King extends Figure{
   doesntAttacked=(f1:acXType,f2:acXType,whiteTure:boolean):boolean=>{
@@ -33,7 +34,8 @@ export default class King extends Figure{
   }
   move(destX:acXType,destY:string,whiteTure:boolean):{
       // shortMove:boardStartState,
-      shortMove:any,
+      // shortMove:any,
+      shortMove:boardWithFigureInstanceInterface,
       // shortMove:boardInterface,
       // shortMove:{
       //   A:{

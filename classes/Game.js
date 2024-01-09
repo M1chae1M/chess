@@ -1,5 +1,5 @@
 import Yo from '@/config/Yo.json'
-import boardStartState from '../components/boardStartState'
+import boardStartState from '../components/boardStartState.ts'
 import Xo from '@/config/Xo.json'
 import _ from "lodash"
 

@@ -1,9 +1,9 @@
-import Pawn from '../classes/figures/Pawn.ts'
-import Queen from '../classes/figures/Queen.ts'
-import King from '../classes/figures/King.ts'
-import Bishop from '../classes/figures/Bishop.ts'
-import Knight from '../classes/figures/Knight.ts'
-import Rook from '../classes/figures/Rook.ts'
+import Pawn from '../classes/figures/Pawn'
+import Queen from '../classes/figures/Queen'
+import King from '../classes/figures/King'
+import Bishop from '../classes/figures/Bishop'
+import Knight from '../classes/figures/Knight'
+import Rook from '../classes/figures/Rook'
 import _ from 'lodash'
 
 const boardStartState={

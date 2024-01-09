@@ -6,6 +6,7 @@ import colorType from "@/types/type/colorType";
 import acXType from "@/types/type/acXType";
 import FigureUnionType from "@/types/type/FigureUnionType";
 import destinationInterface from "@/types/interface/destinationInterface";
+import boardWithFigureInstanceInterface from "@/types/interface/boardWithFigureInstanceInterface";
 
 export default abstract class Figure{
   name:FigureUnionType;
@@ -83,17 +84,7 @@ export default abstract class Figure{
     boardStartState[destX][destY]=boardStartState[acX][acY]
     boardStartState[acX][acY]=''
   }
-  move(destX:acXType,destY:string,whiteTure:boolean):{
-    // shortMove:any,
-    // shortMove:any,
-    // shortMove:any,
-    // shortMove:any,
-    shortMove:any,
-    newWhiteTure:boolean, chequered:boolean}{
-
-
-    console.log(destX,destY)
-    
+  move(destX:acXType,destY:string,whiteTure:boolean):{shortMove:boardWithFigureInstanceInterface, newWhiteTure:boolean, chequered:boolean}{
     Game.clearBoardFromUndefined()
     const [acX,acY]=this.actualField
     const copyOfOldFileds={

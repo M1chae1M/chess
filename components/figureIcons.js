@@ -1,6 +1,6 @@
 import {TbChessBishopFilled,TbChessFilled,TbChessKingFilled,TbChessKnightFilled,TbChessQueenFilled,TbChessRookFilled,TbChessBishop,TbChessKing,TbChessKnight,TbChessQueen,TbChessRook,TbChess} from 'react-icons/tb'
 
-const figureIcons={
+export default {
     black:{
         Pawn:<TbChessFilled/>,
         Queen:<TbChessQueenFilled/>,
@@ -18,4 +18,3 @@ const figureIcons={
         Rook:<TbChessRook/>,
     }
 }
-export default figureIcons

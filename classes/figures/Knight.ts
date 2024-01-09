@@ -6,9 +6,8 @@ import acXType from "@/types/type/acXType";
 import destinationInterface from "@/types/interface/destinationInterface";
 
 export default class Knight extends Figure{
-  // canMove(destX,destY,whiteTure){
   canMove(destX:acXType,destY:string,whiteTure:boolean):{canMove:boolean, moves:string[]}{
-    const moves=[]
+    const moves:string[]=[]
     const destination={destX,destY}
 
     if(this.legalKnightMove(destination).can){
@@ -22,7 +21,7 @@ export default class Knight extends Figure{
     }
   }
   attacking(whiteTure:boolean,destX:acXType,destY:number):{isKingAttacked:boolean,legalMoves:string[]}{
-    const legalMoves=[]
+    const legalMoves:string[]=[]
     const [acX,acY]=this.actualField
     const newX=(change)=>String.fromCharCode(acX.charCodeAt(0)+change)
     const newY=(change)=>Number(acY)+change

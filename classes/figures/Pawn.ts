@@ -11,6 +11,7 @@ import _ from "lodash";
 import acXType from "@/types/type/acXType";
 import FigureUnionType from "@/types/type/FigureUnionType";
 import destinationInterface from "@/types/interface/destinationInterface";
+import boardWithFigureInstanceInterface from "@/types/interface/boardWithFigureInstanceInterface";
 
 export default class Pawn extends Figure{
   attacking(whiteTure:boolean,destX:acXType,destY:number):{isKingAttacked:boolean,legalMoves:string[]}{
@@ -28,19 +29,13 @@ export default class Pawn extends Figure{
     }
     return {isKingAttacked:this.findKing(legalMoves,whiteTure),legalMoves}
   }
-  // closeModal(destX:acXType,destY:string,newFigure:FigureUnionType):    // figura{
-  closeModal(destX:acXType,destY:string,newFigure:FigureUnionType){
+  closeModal(destX:acXType,destY:string,newFigure:FigureUnionType):Figure{
     const FigureClass={
       Knight:Knight,
       Bishop:Bishop,
       Rook:Rook,
       Queen:Queen,
     }[newFigure];
-
-    console.log(
-      new FigureClass(this?.getColor?.(),`${destX}${destY}`,true,newFigure),
-      typeof new FigureClass(this?.getColor?.(),`${destX}${destY}`,true,newFigure)
-    )
 
     return new FigureClass(this?.getColor?.(),`${destX}${destY}`,true,newFigure)
   }
@@ -61,11 +56,7 @@ export default class Pawn extends Figure{
     }
     return movesWorking?.includes(`${destX}${destY}`) && Game?.lastMove?.()?.figure==='Pawn'
   }
-  move(destX:acXType,destY:string,whiteTure:boolean):{
-    shortMove:any,
-    newWhiteTure:boolean,
-    chequered:boolean,
-  }{
+  move(destX:acXType,destY:string,whiteTure:boolean):{shortMove:boardWithFigureInstanceInterface, newWhiteTure:boolean, chequered:boolean}{
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField
     const destination={destX,destY}
@@ -107,8 +98,6 @@ export default class Pawn extends Figure{
         return{
           shortMove:boardStartState,
           newWhiteTure:!whiteTure,
-
-          // czy to nie jest zbędne?
           chequered:Figure.isKingChequered(whiteTure).value,
         }
       }
@@ -116,8 +105,6 @@ export default class Pawn extends Figure{
     return{
       shortMove:boardStartState,
       newWhiteTure:whiteTure,
-
-          // czy to nie jest zbędne?
       chequered:Figure.isKingChequered(whiteTure).value,
     }
   }

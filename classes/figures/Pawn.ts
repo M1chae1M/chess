@@ -50,7 +50,7 @@ export default class Pawn extends Figure{
 
     const EnPassantCondition=(change)=>enemyX===newX(change) && Xo?.includes(newX(change)) && movesWorking.push(`${newX(change)}${newY}`)
 
-    if(Yo?.includes(newY) && fromX===enemyX && Math.abs((enemyY-fromY))===2 && (!whiteTure?Number(acY)-Number(fromY)===2:Number(acY)-Number(fromY)===-2)){
+    if(Yo?.includes(newY) && fromX===enemyX && Math.abs((Number(enemyY)-Number(fromY)))===2 && (!whiteTure?Number(acY)-Number(fromY)===2:Number(acY)-Number(fromY)===-2)){
       EnPassantCondition(+1);
       EnPassantCondition(-1);
     }
@@ -94,7 +94,7 @@ export default class Pawn extends Figure{
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
 
-        Game?.addToHistory?.(acX,acY,copyOfOldFileds,destX,destY);
+        Game?.addToHistory?.(acX as acXType,acY,copyOfOldFileds,destX,destY);
         return{
           shortMove:boardStartState,
           newWhiteTure:!whiteTure,

@@ -35,17 +35,14 @@ export default class Queen extends Figure{
     this.crossMove('right','top',movesWorking,acX,acY)
     this.crossMove('right','bot',movesWorking,acX,acY)
   }
-  // canMove(destX,destY,whiteTure){
-    canMove(destX:acXType,destY:string,whiteTure:boolean):({canMove:boolean,moves:string[]}){
+  canMove(destX:acXType,destY:string,whiteTure:boolean):({canMove:boolean,moves:string[]}){
     const [acX,acY]=this.actualField
     const movesWorking=[];
     this.crossMoves(movesWorking,acX as acXType,acY)
-    // movesWorking.push(this.linearMoves(movesWorking,acX,acY).moves)
     movesWorking.push(this.linearMoves(acX as acXType,acY,whiteTure).moves)
     
     return {canMove:movesWorking.flat().includes(`${destX}${destY}`) && this.canStand({destX,destY}), moves:movesWorking}
   }
-  // crossAttack=(destX,destY,vectorY,vectorX,movesWorking)=>{
   crossAttack=(destX:string,destY:number,vectorY:verticalType,vectorX:horisontalType,movesWorking:string[]):void=>{
     let i=vectorY==='top'?destY+1:destY-1;
     const limit=vectorY==='top'?9:0;
@@ -66,9 +63,7 @@ export default class Queen extends Figure{
       i+=increment;
     }
   }
-  crossAttacks(
-    movesWorking   // tablica, ale czy ona jest niepusta czasem?
-    ,destX:string,destY:number){
+  crossAttacks(movesWorking:string[],destX:string,destY:number){
     this.crossAttack(destX,destY,'top','right',movesWorking)
     this.crossAttack(destX,destY,'top','left',movesWorking)
     this.crossAttack(destX,destY,'bot','right',movesWorking)
@@ -181,7 +176,6 @@ export default class Queen extends Figure{
       i+=increment;
     }
   }
-  // linearMoves(destX,destY,whiteTure){
   linearMoves(destX:acXType,destY:string,whiteTure:boolean):{canMove:boolean,moves:string[]}{
     const [acX,acY]=this.actualField
     const moves=[]
@@ -197,7 +191,6 @@ export default class Queen extends Figure{
     }
     return {canMove:false,moves}
   }
-  // linearAttacks(movesWorking,destX,destY,whiteTure){
   linearAttacks(movesWorking:string[],destX:acXType,destY:string|number,whiteTure:boolean):void{
     this.horisontalAttacks('left',movesWorking,destX,destY,whiteTure)
     this.horisontalAttacks('right',movesWorking,destX,destY,whiteTure)

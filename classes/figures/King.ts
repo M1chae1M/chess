@@ -4,7 +4,6 @@ import boardStartState from "../../components/boardStartState";
 import Xo from '@/config/Xo.json'
 import Game from "../Game";
 import acXType from "@/types/type/acXType";
-import boardInterface from "@/types/interface/boardInterface";
 import boardWithFigureInstanceInterface from "@/types/interface/boardWithFigureInstanceInterface";
 
 export default class King extends Figure{
@@ -32,20 +31,7 @@ export default class King extends Figure{
 
     horisontalMoveCondition===2 && verticalMoveCondition===0 && (cond1||cond2) && fieldOccupancy && rook?.swap?.(destField,acY);
   }
-  move(destX:acXType,destY:string,whiteTure:boolean):{
-      // shortMove:boardStartState,
-      // shortMove:any,
-      shortMove:boardWithFigureInstanceInterface,
-      // shortMove:boardInterface,
-      // shortMove:{
-      //   A:{
-      //     1:Rook(),
-      //     2:'',
-      //   }
-      // }
-      newWhiteTure:boolean,
-      chequered:boolean,
-  }{
+  move(destX:acXType,destY:string,whiteTure:boolean):{shortMove:boardWithFigureInstanceInterface,newWhiteTure:boolean,chequered:boolean}{
     const [acX,acY]=this.actualField
     const copyOfOldFileds={
       from:boardStartState[acX][acY]?.getInstance?.(),
@@ -64,7 +50,7 @@ export default class King extends Figure{
       }
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves()
-        Game?.addToHistory?.(acX,acY,copyOfOldFileds,destX,destY);
+        Game?.addToHistory?.(acX as acXType,acY,copyOfOldFileds,destX,destY);
         return{
           shortMove:boardStartState,
           newWhiteTure:!whiteTure,

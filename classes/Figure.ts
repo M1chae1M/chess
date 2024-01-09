@@ -101,7 +101,7 @@ export default abstract class Figure{
       }
       else{
         didIncrement?Game.incrementMoves():Game.resetMoves();
-        Game?.addToHistory?.(acX,acY,copyOfOldFileds,destX,destY);
+        Game?.addToHistory?.(acX as acXType,acY,copyOfOldFileds,destX,destY);
         return{
           shortMove:boardStartState,
           newWhiteTure:!whiteTure,

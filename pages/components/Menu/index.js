@@ -1,4 +1,3 @@
-import {Component} from 'react'
 import styled from 'styled-components'
 import ControlBTNs from '../panel/ControlBTNs'
 import CONFIG from '@/config/config.json'
@@ -15,12 +14,10 @@ const ROW=styled.div`
     }
 `
 
-export default class Menu extends Component{
-    render(){
-        return(
-            <ROW>
-                <ControlBTNs/>
-            </ROW>
-        )
-    }
-}
+const Menu=()=>(
+    <ROW>
+        <ControlBTNs/>
+    </ROW>
+)
+
+export default Menu

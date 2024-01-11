@@ -7,26 +7,27 @@ import acXType from "@/types/type/acXType";
 import FigureUnionType from "@/types/type/FigureUnionType";
 import destinationInterface from "@/types/interface/destinationInterface";
 import boardWithFigureInstanceInterface from "@/types/interface/boardWithFigureInstanceInterface";
+import fieldUnionType from "@/types/type/fieldUnionType";
 
 export default abstract class Figure{
   name:FigureUnionType;
   color:colorType;
-  actualField:string;
+  actualField:fieldUnionType;
   moved:boolean;
 
   abstract canMove(destX:acXType,destY:string,whiteTure:boolean):{canMove:boolean,moves:string[]};
   abstract attacking(whiteTure:boolean,destX:acXType,destY:number):{isKingAttacked:boolean,legalMoves:string[]};
   abstract returnDefMovesOnly(whiteTure:boolean):string[];
 
-  constructor(color:colorType,actualField:string,moved:boolean|null|undefined,name:FigureUnionType){
+  constructor(color:colorType,actualField:fieldUnionType,moved:boolean|null|undefined,name:FigureUnionType){
     this.color=color
     this.actualField=actualField
     this.moved=moved||false
     this.name=name
   }
   isKing=():boolean=>this.name==='King'
-  static allAttacked=(whiteTure:boolean):string[]=>this.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
-  static defStrategies(whiteTure:boolean):{from:string,to:string}[]{
+  static allAttacked=(whiteTure:boolean):fieldUnionType[]=>this.allFieldsAttackedBy(whiteTure?'black':'white',whiteTure)
+  static defStrategies(whiteTure:boolean):{from:fieldUnionType,to:fieldUnionType}[]{
     const allDefStrategies=[]
     const attackedColor=whiteTure?'white':'black';
 
@@ -53,7 +54,7 @@ export default abstract class Figure{
 
     return allDefStrategies
   }
-  static isThereKingColor=(attackedColor:colorType,allAttacked:string[]):boolean=>(
+  static isThereKingColor=(attackedColor:colorType,allAttacked:fieldUnionType[]):boolean=>(
     allAttacked?.map(m=>{
       const [x,y]=m
       const base=boardStartState[x][y]
@@ -62,7 +63,7 @@ export default abstract class Figure{
       }
     }).includes(true)
   )
-  static allFieldsAttackedBy(attackingColor:colorType,whiteTure:boolean):string[]{
+  static allFieldsAttackedBy(attackingColor:colorType,whiteTure:boolean):fieldUnionType[]{
     const allFieldsAttacked=[]
     Game?.loop?.((x,y)=>{
       boardStartState[x][y]?.getColor?.()===attackingColor && 
@@ -79,7 +80,8 @@ export default abstract class Figure{
   swap(destX:acXType,destY:string):void{
     const [acX,acY]=this.actualField
 
-    this.actualField=`${destX}${destY}`
+    this.actualField=`${destX}${destY}` as fieldUnionType
+    
     this.moved=true
     boardStartState[destX][destY]=boardStartState[acX][acY]
     boardStartState[acX][acY]=''

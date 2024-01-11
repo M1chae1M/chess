@@ -1,6 +1,7 @@
 import boardStartState from '../components/boardStartState'
+import resetStateInterface from '@/types/interface/resetStateInterface'
 
-export const resetState={
+const resetState:resetStateInterface={
   whiteTure:true,
   boardGameState:{...boardStartState},
   firstTouch:true,
@@ -15,3 +16,5 @@ export const resetState={
   animateY:0,
   actualMove:0,
 }
+
+export default resetState

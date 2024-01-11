@@ -5,12 +5,13 @@ import Xo from '@/config/Xo.json'
 import Game from "../Game";
 import acXType from "@/types/type/acXType";
 import boardWithFigureInstanceInterface from "@/types/interface/boardWithFigureInstanceInterface";
+import fieldUnionType from "@/types/type/fieldUnionType";
 
 export default class King extends Figure{
   doesntAttacked=(f1:acXType,f2:acXType,whiteTure:boolean):boolean=>{
     const acY=this.actualField[1]
     const attacked=Figure.allAttacked(whiteTure)
-    return !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)
+    return !attacked.includes(`${f1}${acY}` as fieldUnionType) && !attacked.includes(`${f2}${acY}` as fieldUnionType)
   }
   castling(destX:acXType,destY:string,whiteTure:boolean):void{
     const [acX,acY]=this.actualField
@@ -78,7 +79,7 @@ export default class King extends Figure{
     const rook=boardStartState[rookPosition][acY]
     const attacked=Figure.allAttacked(whiteTure)
     
-    const doesntAttacked=(f1,f2)=>!attacked.includes(`E${acY}`) && !attacked.includes(`${f1}${acY}`) && !attacked.includes(`${f2}${acY}`)
+    const doesntAttacked=(f1,f2)=>!attacked.includes(`E${acY}` as fieldUnionType) && !attacked.includes(`${f1}${acY}` as fieldUnionType) && !attacked.includes(`${f2}${acY}` as fieldUnionType)
 
     const cond1=isG && doesntAttacked('F','G');
     const cond2=!isG && doesntAttacked('C','D');
@@ -95,7 +96,7 @@ export default class King extends Figure{
         const destField=`${newX}${newY}`;
         Xo.includes(newX) && Yo.includes(newY) &&
         this?.canStand?.({destX:newX,destY:`${newY}`}) &&
-        !attacked.includes(destField) &&
+        !attacked.includes(destField as fieldUnionType) &&
         moves.push(destField);
       }
     }
@@ -139,7 +140,7 @@ export default class King extends Figure{
         const newX=String.fromCharCode(acX.charCodeAt(0)+i);
         const newY=Number(acY)+j;
         const destField=`${newX}${newY}`;
-        const attacked=!Figure.allAttacked(whiteTure).includes(destField);
+        const attacked=!Figure.allAttacked(whiteTure).includes(destField as fieldUnionType);
 
         !boardStartState?.[newX]?.[newY]?.isKing?.() &&
         Xo.includes(newX) && Yo.includes(newY) && this?.canStand?.({destX:newX as acXType,destY:`${newY}`}) && attacked && movesWorking.push(destField);

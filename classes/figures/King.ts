@@ -1,11 +1,12 @@
-import Figure from "../Figure";
+import Figure from '../Figure'
 import Yo from '@/config/Yo.json'
-import boardStartState from "../../components/boardStartState";
+import boardStartState from '../../components/boardStartState'
 import Xo from '@/config/Xo.json'
-import Game from "../Game";
-import acXType from "@/types/type/acXType";
-import boardWithFigureInstanceInterface from "@/types/interface/boardWithFigureInstanceInterface";
-import fieldUnionType from "@/types/type/fieldUnionType";
+import Game from '../Game'
+import acXType from '@/types/type/acXType'
+import fieldUnionType from '@/types/type/fieldUnionType'
+import move_function_results_interface from '@/types/interface/figure/move_function_results_interface'
+import canMove_function_results_interface from '@/types/interface/figure/canMove_function_results_interface'
 
 export default class King extends Figure{
   doesntAttacked=(f1:acXType,f2:acXType,whiteTure:boolean):boolean=>{
@@ -32,7 +33,7 @@ export default class King extends Figure{
 
     horisontalMoveCondition===2 && verticalMoveCondition===0 && (cond1||cond2) && fieldOccupancy && rook?.swap?.(destField,acY);
   }
-  move(destX:acXType,destY:string,whiteTure:boolean):{shortMove:boardWithFigureInstanceInterface,newWhiteTure:boolean,chequered:boolean}{
+  move(destX:acXType,destY:string,whiteTure:boolean):move_function_results_interface{
     const [acX,acY]=this.actualField
     const copyOfOldFileds={
       from:boardStartState[acX][acY]?.getInstance?.(),
@@ -65,7 +66,7 @@ export default class King extends Figure{
       chequered:Figure.isKingChequered(whiteTure).value,
     }
   }
-  canMove(destX:acXType,destY:string,whiteTure:boolean):{canMove:boolean, moves:string[]}{
+  canMove(destX:acXType,destY:string,whiteTure:boolean):canMove_function_results_interface{
     const moves=[];
     Game.clearBoardFromUndefined();
     const [acX,acY]=this.actualField

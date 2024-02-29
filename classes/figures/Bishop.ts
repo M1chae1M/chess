@@ -1,8 +1,9 @@
+import canMove_function_results_interface from "@/types/interface/figure/canMove_function_results_interface";
 import Queen from "./Queen";
 import acXType from "@/types/type/acXType";
 
 export default class Bishop extends Queen{
-  canMove(destX:acXType,destY:string,whiteTure:boolean):({canMove:boolean,moves:string[]}){
+  canMove(destX:acXType,destY:string,whiteTure:boolean):canMove_function_results_interface{
     const [acX,acY]=this.actualField
     const moves=[];
     this.crossMoves(moves,acX as acXType,acY)

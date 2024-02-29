@@ -6,6 +6,7 @@ import colorType from "@/types/type/colorType";
 import acXType from "@/types/type/acXType";
 import horisontalType from "@/types/type/horisontalType";
 import verticalType from "@/types/type/verticalType";
+import canMove_function_results_interface from "@/types/interface/figure/canMove_function_results_interface";
 
 export default class Queen extends Figure{
   crossMove=(leftOrRight:horisontalType,topOrBot:verticalType,movesWorking:string[],acX:acXType,acY:string)=>{
@@ -35,7 +36,7 @@ export default class Queen extends Figure{
     this.crossMove('right','top',movesWorking,acX,acY)
     this.crossMove('right','bot',movesWorking,acX,acY)
   }
-  canMove(destX:acXType,destY:string,whiteTure:boolean):({canMove:boolean,moves:string[]}){
+  canMove(destX:acXType,destY:string,whiteTure:boolean):canMove_function_results_interface{
     const [acX,acY]=this.actualField
     const movesWorking=[];
     this.crossMoves(movesWorking,acX as acXType,acY)

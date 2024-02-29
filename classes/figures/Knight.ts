@@ -4,9 +4,10 @@ import Xo from '@/config/Xo.json'
 import boardStartState from "../../components/boardStartState";
 import acXType from "@/types/type/acXType";
 import destinationInterface from "@/types/interface/destinationInterface";
+import canMove_function_results_interface from "@/types/interface/figure/canMove_function_results_interface";
 
 export default class Knight extends Figure{
-  canMove(destX:acXType,destY:string,whiteTure:boolean):{canMove:boolean, moves:string[]}{
+  canMove(destX:acXType,destY:string,whiteTure:boolean):canMove_function_results_interface{
     const moves:string[]=[]
     const destination={destX,destY}
 

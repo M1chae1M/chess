@@ -8,6 +8,8 @@ import FigureUnionType from "@/types/type/FigureUnionType";
 import destinationInterface from "@/types/interface/destinationInterface";
 import boardWithFigureInstanceInterface from "@/types/interface/boardWithFigureInstanceInterface";
 import fieldUnionType from "@/types/type/fieldUnionType";
+import move_function_results_interface from "@/types/interface/figure/move_function_results_interface";
+import canMove_function_results_interface from "@/types/interface/figure/canMove_function_results_interface";
 
 export default abstract class Figure{
   name:FigureUnionType;
@@ -15,7 +17,7 @@ export default abstract class Figure{
   actualField:fieldUnionType;
   moved:boolean;
 
-  abstract canMove(destX:acXType,destY:string,whiteTure:boolean):{canMove:boolean,moves:string[]};
+  abstract canMove(destX:acXType,destY:string,whiteTure:boolean):canMove_function_results_interface;
   abstract attacking(whiteTure:boolean,destX:acXType,destY:number):{isKingAttacked:boolean,legalMoves:string[]};
   abstract returnDefMovesOnly(whiteTure:boolean):string[];
 
@@ -86,7 +88,7 @@ export default abstract class Figure{
     boardStartState[destX][destY]=boardStartState[acX][acY]
     boardStartState[acX][acY]=''
   }
-  move(destX:acXType,destY:string,whiteTure:boolean):{shortMove:boardWithFigureInstanceInterface, newWhiteTure:boolean, chequered:boolean}{
+  move(destX:acXType,destY:string,whiteTure:boolean):move_function_results_interface{
     Game.clearBoardFromUndefined()
     const [acX,acY]=this.actualField
     const copyOfOldFileds={
